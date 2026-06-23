@@ -4,6 +4,11 @@ import path from 'node:path';
 const ROOT = process.cwd();
 const SITE_URL = 'https://siglep.lat';
 const WA_LINK = 'https://wa.me/527352169503';
+const LEGAL_CONSTANTS = {
+  salaryMinGeneral2026: 315.04,
+  salaryMinFrontier2026: 440.87,
+  uma2026: 117.31,
+};
 const SHELL_SCRIPT = '/shared/site-shell.js';
 const SHELL_INCLUDE = `<script defer src="${SHELL_SCRIPT}"></script>`;
 const SHELL_NAV_STYLE = `
@@ -509,13 +514,75 @@ function calcFieldMarkup(field) {
     `;
   }
 
+  const inputAttrs = field.type === 'date'
+    ? 'type="date"'
+    : `type="${field.type || 'number'}" inputmode="decimal" placeholder="${esc(field.placeholder || '')}" min="${field.min ?? 0}" step="${field.step || 'any'}"`;
+
   return `
     <div class="field">
       <label for="${field.id}">${esc(field.label)}</label>
-      <input id="${field.id}" type="${field.type || 'number'}" inputmode="decimal" placeholder="${esc(field.placeholder || '')}" min="0" step="any">
+      <input id="${field.id}" ${inputAttrs}>
       ${field.help ? `<p class="help">${esc(field.help)}</p>` : ''}
     </div>
   `;
+}
+
+function legalBasisForCalculator(cfg) {
+  if (cfg.legalBasis && cfg.legalBasis.length) {
+    return cfg.legalBasis;
+  }
+
+  if (cfg.categorySlug === 'laboral') {
+    return [
+      'Ley Federal del Trabajo: artículos 47, 48, 50, 66, 67, 68, 76, 80 y 87, según el tipo de cálculo.',
+      `Valores 2026 de referencia: salario mínimo general $${LEGAL_CONSTANTS.salaryMinGeneral2026.toFixed(2)}, frontera norte $${LEGAL_CONSTANTS.salaryMinFrontier2026.toFixed(2)} y UMA diaria $${LEGAL_CONSTANTS.uma2026.toFixed(2)}.`,
+    ];
+  }
+
+  if (cfg.categorySlug === 'seguridad-social') {
+    return [
+      'Ley del Seguro Social y Ley del ISSSTE, según la prestación consultada.',
+      `Valores 2026 de referencia: UMA diaria $${LEGAL_CONSTANTS.uma2026.toFixed(2)} y salario mínimo 2026 vigente según la zona aplicable.`,
+    ];
+  }
+
+  if (cfg.categorySlug === 'civil') {
+    return ['Código Civil y legislación procesal aplicable en la entidad federativa correspondiente.'];
+  }
+
+  if (cfg.categorySlug === 'familiar') {
+    return ['Código Civil o familiar aplicable en la entidad federativa correspondiente.'];
+  }
+
+  if (cfg.categorySlug === 'patrimonial') {
+    return ['Código Civil, legislación notarial y reglas sucesorias aplicables en la entidad federativa correspondiente.'];
+  }
+
+  return [];
+}
+
+function daysBetween(start, end) {
+  if (!start || !end) return 0;
+  const startDate = new Date(`${start}T00:00:00`);
+  const endDate = new Date(`${end}T00:00:00`);
+  const diff = endDate - startDate;
+  if (!Number.isFinite(diff) || diff <= 0) return 0;
+  return Math.floor(diff / 86400000);
+}
+
+function yearsBetween(start, end) {
+  return daysBetween(start, end) / 365;
+}
+
+function vacationDaysForYears(years) {
+  const fullYears = Math.max(0, Math.floor(years));
+  if (fullYears <= 0) return 0;
+  if (fullYears === 1) return 12;
+  if (fullYears === 2) return 14;
+  if (fullYears === 3) return 16;
+  if (fullYears === 4) return 18;
+  if (fullYears === 5) return 20;
+  return 20 + Math.ceil((fullYears - 5) / 5) * 2;
 }
 
 function faqMarkup(faq) {
@@ -550,6 +617,17 @@ function calculatorPage(cfg) {
   const faq = faqMarkup(cfg.faq);
   const related = relatedMarkup(cfg.related);
   const faqLead = cfg.faqLead || 'Respuestas rápidas para ubicar el escenario y decidir el siguiente paso.';
+  const legalBasis = legalBasisForCalculator(cfg);
+  const legalBasisMarkup = legalBasis.length
+    ? `
+      <div class="legal-basis">
+        <div class="legal-basis-kicker">Sustento legal 2026</div>
+        <ul>
+          ${legalBasis.map((item) => `<li>${esc(item)}</li>`).join('')}
+        </ul>
+      </div>
+    `
+    : '';
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
@@ -623,6 +701,12 @@ function calculatorPage(cfg) {
     .panel-head .kicker{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:700;color:var(--gold);}
     .panel-head h3{font-family:var(--font-display);font-size:1.6rem;line-height:1.1;color:inherit;margin-top:0.4rem;}
     .panel-head p{color:inherit;font-size:0.86rem;line-height:1.7;font-weight:300;opacity:0.86;margin-top:0.55rem;}
+    .panel.dark .panel-head p,
+    .panel.dark .help,
+    .panel.dark .note{
+      color:#E2E8F0;
+      opacity:0.96;
+    }
     .panel-body{padding:1.35rem;}
     .field{display:grid;gap:0.45rem;margin-bottom:1rem;}
     .field label{font-size:0.66rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);}
@@ -649,6 +733,37 @@ function calculatorPage(cfg) {
     .result-kicker{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:700;color:var(--gold);margin-bottom:0.6rem;}
     .result-amount{font-family:var(--font-display);font-size:clamp(2.2rem,5vw,3.6rem);line-height:1;color:var(--navy-deep);}
     .result-note{font-size:0.78rem;line-height:1.7;color:#4A5568;margin-top:0.8rem;}
+    .legal-basis{
+      margin-top:1rem;
+      padding-top:1rem;
+      border-top:1px solid rgba(197,160,89,0.16);
+    }
+    .legal-basis-kicker{
+      font-size:0.6rem;
+      letter-spacing:0.22em;
+      text-transform:uppercase;
+      font-weight:700;
+      color:var(--gold);
+      margin-bottom:0.55rem;
+    }
+    .legal-basis ul{
+      list-style:none;
+      display:grid;
+      gap:0.55rem;
+    }
+    .legal-basis li{
+      font-size:0.76rem;
+      line-height:1.65;
+      color:#4A5568;
+      padding-left:0.9rem;
+      position:relative;
+    }
+    .legal-basis li::before{
+      content:'•';
+      position:absolute;
+      left:0;
+      color:var(--gold);
+    }
     .breakdown{display:grid;gap:0.55rem;margin-top:1rem;}
     .breakdown-row{display:flex;justify-content:space-between;gap:1rem;font-size:0.84rem;color:#334155;border-top:1px solid rgba(197,160,89,0.12);padding-top:0.55rem;}
     .breakdown-row strong{color:var(--navy-deep);}
@@ -725,6 +840,7 @@ function calculatorPage(cfg) {
                   <div class="result-amount" id="resultAmount">$0 MXN</div>
                   <div class="breakdown" id="resultBreakdown"></div>
                   <p class="result-note">${esc(cfg.resultNote)}</p>
+                  ${legalBasisMarkup}
                 </div>
                 <div class="note">${esc(cfg.note)}</div>
               </div>
@@ -769,12 +885,19 @@ function calculatorPage(cfg) {
   <footer></footer>
   <script>
     window.__SIGLEP_CALC__ = ${fieldConfig};
+    window.__SIGLEP_CALC_META__ = ${JSON.stringify({ formulaKey: cfg.formulaKey || null })};
     const calcConfig = window.__SIGLEP_CALC__;
+    const calcMeta = window.__SIGLEP_CALC_META__ || {};
     const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
 
     function num(id) {
       const el = document.getElementById(id);
       return el && el.value !== '' ? Number(el.value) || 0 : 0;
+    }
+
+    function dateValue(id) {
+      const el = document.getElementById(id);
+      return el && el.value ? el.value : '';
     }
 
     function selectedMultiplier(field) {
@@ -786,26 +909,113 @@ function calculatorPage(cfg) {
       return field.multiplier ?? 1;
     }
 
+    function daysBetween(start, end) {
+      if (!start || !end) return 0;
+      const startDate = new Date(start + 'T00:00:00');
+      const endDate = new Date(end + 'T00:00:00');
+      const diff = endDate - startDate;
+      if (!Number.isFinite(diff) || diff <= 0) return 0;
+      return Math.floor(diff / 86400000);
+    }
+
+    function yearsBetween(start, end) {
+      return daysBetween(start, end) / 365;
+    }
+
+    function vacationDaysForYears(years) {
+      const fullYears = Math.max(0, Math.floor(years));
+      if (fullYears <= 0) return 0;
+      if (fullYears === 1) return 12;
+      if (fullYears === 2) return 14;
+      if (fullYears === 3) return 16;
+      if (fullYears === 4) return 18;
+      if (fullYears === 5) return 20;
+      return 20 + Math.ceil((fullYears - 5) / 5) * 2;
+    }
+
     function runCalc() {
       const breakdown = [];
       let total = ${cfg.baseAmount || 0};
-      calcConfig.forEach((field) => {
-        let contribution = 0;
-        if (field.type === 'select') {
-          const el = document.getElementById(field.id);
-          const label = el && el.options[el.selectedIndex] ? el.options[el.selectedIndex].textContent : field.label;
-          const factor = selectedMultiplier(field);
-          contribution = factor;
-          breakdown.push([label, money.format(Math.round(contribution))]);
-          total += contribution;
-          return;
-        }
 
-        const value = num(field.id);
-        contribution = value * (field.multiplier ?? 1);
-        breakdown.push([field.label, money.format(Math.round(contribution))]);
-        total += contribution;
-      });
+      if (calcMeta.formulaKey === 'labor-liquidation') {
+        const salary = num('salario_diario');
+        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
+        const vacationDays = vacationDaysForYears(years);
+        const termination = selectedMultiplier({ id: 'terminacion', multiplierMap: { injustificado: 22000, renuncia: 6500, mutuo: 12000 } });
+        const indemnizacion = salary * 90;
+        const seniority = salary * 20 * years;
+        const proporcional = salary * vacationDays * 0.25 * Math.max(0.25, Math.min(1, years / 5));
+        breakdown.push(['Indemnización base', money.format(Math.round(indemnizacion))]);
+        breakdown.push(['Antigüedad estimada', money.format(Math.round(seniority))]);
+        breakdown.push(['Vacaciones y prima', money.format(Math.round(proporcional))]);
+        breakdown.push(['Tipo de terminación', money.format(Math.round(termination))]);
+        total += indemnizacion + seniority + proporcional + termination;
+      } else if (calcMeta.formulaKey === 'labor-finiquito') {
+        const salary = num('salario_diario');
+        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
+        const days = daysBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
+        const vacationDays = vacationDaysForYears(years);
+        const aguinaldo = salary * 15 * (days / 365);
+        const vacaciones = salary * vacationDays * 0.25 * (days / 365);
+        const salariosPendientes = salary * Math.max(0, Math.min(15, days % 15));
+        breakdown.push(['Salarios pendientes', money.format(Math.round(salariosPendientes))]);
+        breakdown.push(['Aguinaldo proporcional', money.format(Math.round(aguinaldo))]);
+        breakdown.push(['Vacaciones proporcionales', money.format(Math.round(vacaciones))]);
+        total += salariosPendientes + aguinaldo + vacaciones;
+      } else if (calcMeta.formulaKey === 'labor-despido') {
+        const salary = num('salario_diario');
+        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
+        const vacationDays = vacationDaysForYears(years);
+        const termination = selectedMultiplier({ id: 'terminacion', multiplierMap: { sin_causa: 28000, verbal: 18000, escrita: 22000 } });
+        const indemnizacion = salary * 90;
+        const seniority = salary * 20 * years;
+        const proporcional = salary * vacationDays * 0.25;
+        breakdown.push(['Indemnización base', money.format(Math.round(indemnizacion))]);
+        breakdown.push(['Prima de antigüedad', money.format(Math.round(seniority))]);
+        breakdown.push(['Vacaciones y prima', money.format(Math.round(proporcional))]);
+        breakdown.push(['Tipo de terminación', money.format(Math.round(termination))]);
+        total += indemnizacion + seniority + proporcional + termination;
+      } else if (calcMeta.formulaKey === 'labor-hours') {
+        const tarifa = num('tarifa_hora');
+        const horas = num('horas_extras');
+        const semanas = num('semanas');
+        const factor = selectedMultiplier({ id: 'recargo', multiplierMap: { simple: 1.5, doble: 2, triple: 3 } });
+        const totalHoras = tarifa * horas * semanas * factor;
+        breakdown.push(['Tarifa base', money.format(Math.round(tarifa))]);
+        breakdown.push(['Horas extra', money.format(Math.round(horas))]);
+        breakdown.push(['Semanas trabajadas', money.format(Math.round(semanas))]);
+        breakdown.push(['Recargo aplicado', factor.toFixed(1) + 'x']);
+        total += totalHoras;
+      } else if (calcMeta.formulaKey === 'labor-aguinaldo') {
+        const salary = num('salario_diario');
+        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
+        const days = daysBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
+        const vacationDays = vacationDaysForYears(years);
+        const aguinaldo = salary * 15 * (days / 365);
+        const prima = salary * vacationDays * 0.25 * (days / 365);
+        breakdown.push(['Aguinaldo legal', money.format(Math.round(aguinaldo))]);
+        breakdown.push(['Prima vacacional', money.format(Math.round(prima))]);
+        total += aguinaldo + prima;
+      } else {
+        calcConfig.forEach((field) => {
+          let contribution = 0;
+          if (field.type === 'select') {
+            const el = document.getElementById(field.id);
+            const label = el && el.options[el.selectedIndex] ? el.options[el.selectedIndex].textContent : field.label;
+            const factor = selectedMultiplier(field);
+            contribution = factor;
+            breakdown.push([label, money.format(Math.round(contribution))]);
+            total += contribution;
+            return;
+          }
+
+          const value = num(field.id);
+          contribution = value * (field.multiplier ?? 1);
+          breakdown.push([field.label, money.format(Math.round(contribution))]);
+          total += contribution;
+        });
+      }
+
       document.getElementById('resultAmount').textContent = money.format(Math.max(0, Math.round(total)));
       document.getElementById('resultBreakdown').innerHTML = breakdown
         .map(([label, amount]) => '<div class="breakdown-row"><span>' + label + '</span><strong>' + amount + '</strong></div>')
@@ -1144,12 +1354,16 @@ const calculatorPages = [
     sectionLead: 'Introduce datos básicos para obtener una referencia. El resultado es orientativo y debe contrastarse con tu caso real.',
     formKicker: 'Datos base',
     formTitle: 'Cálculo orientativo',
-    formLead: 'Calculamos una referencia usando salario, antigüedad y el tipo de terminación.',
+    formLead: 'Usa salario diario y fechas reales; el sistema calcula la antigüedad y las proporciones automáticamente.',
     resultTitle: 'Monto estimado',
     resultLead: 'Usa esta referencia como punto de partida para tu negociación o revisión legal.',
     resultLabel: 'Estimación orientativa',
     resultNote: 'El cálculo es una aproximación. La cifra final depende de salario integrado, prestaciones y documentos firmados.',
     note: 'Si te despidieron o te pidieron firmar algo, la revisión legal sigue siendo el paso correcto.',
+    formulaKey: 'labor-liquidation',
+    legalBasis: [
+      'Ley Federal del Trabajo: artículos 48, 50, 76, 80 y 87.',
+    ],
     breadcrumb: [
       { name: 'Inicio', href: '/' },
       { name: 'Calculadoras', href: '/calculadoras/' },
@@ -1157,9 +1371,9 @@ const calculatorPages = [
       { name: 'Liquidación laboral', href: '/calculadoras/laboral/liquidacion-laboral/' },
     ],
     fields: [
-      { id: 'salario_diario', label: 'Salario diario', type: 'number', placeholder: 'Ej. 450', multiplier: 90 },
-      { id: 'anios_servicio', label: 'Años de servicio', type: 'number', placeholder: 'Ej. 5', multiplier: 1500 },
-      { id: 'prestaciones', label: 'Prestaciones pendientes', type: 'number', placeholder: 'Ej. 8500', multiplier: 1 },
+      { id: 'salario_diario', label: 'Salario diario', type: 'number', placeholder: 'Ej. 450', help: 'Monto base diario percibido por la persona trabajadora.' },
+      { id: 'fecha_ingreso', label: 'Fecha de ingreso', type: 'date', help: 'Se usa para calcular antigüedad real.' },
+      { id: 'fecha_terminacion', label: 'Fecha de terminación', type: 'date', help: 'La calculadora toma la fecha de salida o despido.' },
       { id: 'terminacion', label: 'Tipo de terminación', type: 'select', multiplierMap: { injustificado: 22000, renuncia: 6500, mutuo: 12000 }, options: [
         { value: 'injustificado', label: 'Despido injustificado' },
         { value: 'renuncia', label: 'Renuncia voluntaria' },
@@ -1188,12 +1402,16 @@ const calculatorPages = [
     sectionLead: 'El finiquito no es una cortesía: integra pagos proporcionales y conceptos pendientes.',
     formKicker: 'Escenario',
     formTitle: 'Estimación de finiquito',
-    formLead: 'El cálculo incorpora salario, días trabajados y prestaciones proporcionales.',
+    formLead: 'Introduce salario diario y fechas reales; los proporcionales se calculan automáticamente.',
     resultTitle: 'Monto de referencia',
     resultLead: 'Compara esta referencia con lo que te ofrezcan.',
     resultLabel: 'Finiquito orientativo',
     resultNote: 'Si hubo descuentos, adeudos o conceptos omitidos, la cifra real puede variar.',
     note: 'Un finiquito mal calculado suele ocultar conceptos proporcionales omitidos.',
+    formulaKey: 'labor-finiquito',
+    legalBasis: [
+      'Ley Federal del Trabajo: artículos 76, 80 y 87.',
+    ],
     breadcrumb: [
       { name: 'Inicio', href: '/' },
       { name: 'Calculadoras', href: '/calculadoras/' },
@@ -1201,10 +1419,9 @@ const calculatorPages = [
       { name: 'Finiquito', href: '/calculadoras/laboral/finiquito/' },
     ],
     fields: [
-      { id: 'salario_semanal', label: 'Salario semanal', type: 'number', placeholder: 'Ej. 3000', multiplier: 4 },
-      { id: 'dias_trabajados', label: 'Días trabajados este mes', type: 'number', placeholder: 'Ej. 12', multiplier: 180 },
-      { id: 'aguinaldo', label: 'Aguinaldo proporcional', type: 'number', placeholder: 'Ej. 1200', multiplier: 1 },
-      { id: 'vacaciones', label: 'Vacaciones proporcionales', type: 'number', placeholder: 'Ej. 1500', multiplier: 1 },
+      { id: 'salario_diario', label: 'Salario diario', type: 'number', placeholder: 'Ej. 300', help: 'Usa el salario base diario para calcular el finiquito.' },
+      { id: 'fecha_ingreso', label: 'Fecha de ingreso', type: 'date', help: 'Sirve para obtener antigüedad y proporciones.' },
+      { id: 'fecha_terminacion', label: 'Fecha de terminación', type: 'date', help: 'Se usa para cerrar el periodo trabajado.' },
     ],
     faq: [
       { q: '¿Finiquito y liquidación son lo mismo?', a: 'No. El finiquito cubre prestaciones pendientes; la liquidación incluye indemnización cuando procede.' },
@@ -1228,12 +1445,16 @@ const calculatorPages = [
     sectionLead: 'La liquidación por despido puede cambiar de forma importante según salario, antigüedad y prestaciones.',
     formKicker: 'Variables',
     formTitle: 'Cálculo orientativo de despido',
-    formLead: 'Usa esta calculadora como control básico antes de aceptar una oferta.',
+    formLead: 'Usa salario diario y fechas reales; el sistema estima antigüedad y conceptos legales.',
     resultTitle: 'Indemnización estimada',
     resultLead: 'Compárala con la propuesta de tu empleador.',
     resultLabel: 'Indemnización orientativa',
     resultNote: 'El salario integrado, bonos y prestaciones pueden elevar el resultado real.',
     note: 'Si hubo presión para firmar, la revisión legal debe ser inmediata.',
+    formulaKey: 'labor-despido',
+    legalBasis: [
+      'Ley Federal del Trabajo: artículos 47, 48, 50, 76 y 87.',
+    ],
     breadcrumb: [
       { name: 'Inicio', href: '/' },
       { name: 'Calculadoras', href: '/calculadoras/' },
@@ -1241,9 +1462,9 @@ const calculatorPages = [
       { name: 'Despido injustificado', href: '/calculadoras/laboral/despido-injustificado/' },
     ],
     fields: [
-      { id: 'salario_diario', label: 'Salario diario', type: 'number', placeholder: 'Ej. 520', multiplier: 95 },
-      { id: 'anios_servicio', label: 'Años de servicio', type: 'number', placeholder: 'Ej. 6', multiplier: 1700 },
-      { id: 'integrado', label: 'Factor de salario integrado', type: 'number', placeholder: 'Ej. 1.15', multiplier: 12000 },
+      { id: 'salario_diario', label: 'Salario diario', type: 'number', placeholder: 'Ej. 520', help: 'Base diaria usada para estimar la indemnización.' },
+      { id: 'fecha_ingreso', label: 'Fecha de ingreso', type: 'date', help: 'Define la antigüedad real.' },
+      { id: 'fecha_terminacion', label: 'Fecha de terminación', type: 'date', help: 'Se usa como cierre del vínculo laboral.' },
       { id: 'terminacion', label: 'Tipo de terminación', type: 'select', multiplierMap: { verbal: 18000, escrita: 22000, sin_causa: 28000 }, options: [
         { value: 'sin_causa', label: 'Sin causa justificada' },
         { value: 'verbal', label: 'Despido verbal' },
@@ -1272,12 +1493,16 @@ const calculatorPages = [
     sectionLead: 'Acumula lo que trabajaste de más y compara el resultado con lo que realmente te pagaron.',
     formKicker: 'Horas',
     formTitle: 'Cálculo orientativo',
-    formLead: 'El resultado combina tarifa por hora, recargo y semanas trabajadas.',
+    formLead: 'Introduce la tarifa base y las horas acumuladas; el recargo se aplica dentro del cálculo.',
     resultTitle: 'Pago pendiente estimado',
     resultLead: 'El cálculo es orientativo y sirve como registro inicial.',
     resultLabel: 'Horas extra estimadas',
     resultNote: 'Si hubo cambios de jornada o salario, el monto real puede subir.',
     note: 'Conviene documentar horarios, mensajes y testigos desde el inicio.',
+    formulaKey: 'labor-hours',
+    legalBasis: [
+      'Ley Federal del Trabajo: artículos 66, 67 y 68.',
+    ],
     breadcrumb: [
       { name: 'Inicio', href: '/' },
       { name: 'Calculadoras', href: '/calculadoras/' },
@@ -1285,9 +1510,9 @@ const calculatorPages = [
       { name: 'Horas extras', href: '/calculadoras/laboral/horas-extras/' },
     ],
     fields: [
-      { id: 'tarifa_hora', label: 'Tarifa por hora', type: 'number', placeholder: 'Ej. 80', multiplier: 1 },
-      { id: 'horas_extras', label: 'Horas extra acumuladas', type: 'number', placeholder: 'Ej. 24', multiplier: 120 },
-      { id: 'semanas', label: 'Semanas trabajadas', type: 'number', placeholder: 'Ej. 8', multiplier: 35 },
+      { id: 'tarifa_hora', label: 'Tarifa por hora', type: 'number', placeholder: 'Ej. 80', help: 'Tarifa ordinaria por hora.' },
+      { id: 'horas_extras', label: 'Horas extra acumuladas', type: 'number', placeholder: 'Ej. 24', help: 'Total de horas adicionales realmente trabajadas.' },
+      { id: 'semanas', label: 'Semanas trabajadas', type: 'number', placeholder: 'Ej. 8', help: 'Número de semanas cubiertas por el reclamo.' },
       { id: 'recargo', label: 'Recargo aplicable', type: 'select', multiplierMap: { simple: 1500, doble: 3500, triple: 5500 }, options: [
         { value: 'simple', label: 'Recargo simple' },
         { value: 'doble', label: 'Recargo doble' },
@@ -1316,12 +1541,16 @@ const calculatorPages = [
     sectionLead: 'Una salida laboral también deja prestaciones pendientes; aquí dimensionas ese proporcional.',
     formKicker: 'Prestaciones',
     formTitle: 'Cálculo orientativo',
-    formLead: 'Usa días trabajados y salario para estimar el proporcional.',
+    formLead: 'Usa salario diario y fechas reales; la calculadora estima aguinaldo y prima automáticamente.',
     resultTitle: 'Total estimado de prestaciones',
     resultLead: 'Suma de aguinaldo y prima vacacional.',
     resultLabel: 'Prestaciones proporcionales',
     resultNote: 'Si hay bonos, comisiones o salario variable, el cálculo cambia.',
     note: 'El objetivo es detectar si la oferta omite prestaciones proporcionales.',
+    formulaKey: 'labor-aguinaldo',
+    legalBasis: [
+      'Ley Federal del Trabajo: artículos 76, 80 y 87.',
+    ],
     breadcrumb: [
       { name: 'Inicio', href: '/' },
       { name: 'Calculadoras', href: '/calculadoras/' },
@@ -1329,14 +1558,9 @@ const calculatorPages = [
       { name: 'Aguinaldo y prima vacacional', href: '/calculadoras/laboral/aguinaldo-prima-vacacional/' },
     ],
     fields: [
-      { id: 'salario_diario', label: 'Salario diario', type: 'number', placeholder: 'Ej. 460', multiplier: 15 },
-      { id: 'dias_trabajados', label: 'Días trabajados', type: 'number', placeholder: 'Ej. 180', multiplier: 12 },
-      { id: 'dias_aguinaldo', label: 'Días de aguinaldo que maneja tu empresa', type: 'number', placeholder: 'Ej. 15', multiplier: 18 },
-      { id: 'prima', label: 'Prima vacacional', type: 'select', multiplierMap: { once: 1800, fifteen: 2300, twentyfive: 3100 }, options: [
-        { value: 'once', label: '11% de prima' },
-        { value: 'fifteen', label: '15% de prima' },
-        { value: 'twentyfive', label: '25% de prima' },
-      ] },
+      { id: 'salario_diario', label: 'Salario diario', type: 'number', placeholder: 'Ej. 460', help: 'Base diaria para calcular aguinaldo y prima vacacional.' },
+      { id: 'fecha_ingreso', label: 'Fecha de ingreso', type: 'date', help: 'Sirve para obtener la antigüedad real.' },
+      { id: 'fecha_terminacion', label: 'Fecha de terminación', type: 'date', help: 'Se usa como corte del periodo trabajado.' },
     ],
     faq: [
       { q: '¿Aguinaldo y prima se pagan aunque renuncie?', a: 'Sí, de forma proporcional a lo trabajado durante el año.' },

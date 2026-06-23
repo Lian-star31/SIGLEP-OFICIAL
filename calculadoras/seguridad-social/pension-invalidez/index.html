@@ -52,6 +52,12 @@
     .panel-head .kicker{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:700;color:var(--gold);}
     .panel-head h3{font-family:var(--font-display);font-size:1.6rem;line-height:1.1;color:inherit;margin-top:0.4rem;}
     .panel-head p{color:inherit;font-size:0.86rem;line-height:1.7;font-weight:300;opacity:0.86;margin-top:0.55rem;}
+    .panel.dark .panel-head p,
+    .panel.dark .help,
+    .panel.dark .note{
+      color:#E2E8F0;
+      opacity:0.96;
+    }
     .panel-body{padding:1.35rem;}
     .field{display:grid;gap:0.45rem;margin-bottom:1rem;}
     .field label{font-size:0.66rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);}
@@ -78,6 +84,37 @@
     .result-kicker{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:700;color:var(--gold);margin-bottom:0.6rem;}
     .result-amount{font-family:var(--font-display);font-size:clamp(2.2rem,5vw,3.6rem);line-height:1;color:var(--navy-deep);}
     .result-note{font-size:0.78rem;line-height:1.7;color:#4A5568;margin-top:0.8rem;}
+    .legal-basis{
+      margin-top:1rem;
+      padding-top:1rem;
+      border-top:1px solid rgba(197,160,89,0.16);
+    }
+    .legal-basis-kicker{
+      font-size:0.6rem;
+      letter-spacing:0.22em;
+      text-transform:uppercase;
+      font-weight:700;
+      color:var(--gold);
+      margin-bottom:0.55rem;
+    }
+    .legal-basis ul{
+      list-style:none;
+      display:grid;
+      gap:0.55rem;
+    }
+    .legal-basis li{
+      font-size:0.76rem;
+      line-height:1.65;
+      color:#4A5568;
+      padding-left:0.9rem;
+      position:relative;
+    }
+    .legal-basis li::before{
+      content:'•';
+      position:absolute;
+      left:0;
+      color:var(--gold);
+    }
     .breakdown{display:grid;gap:0.55rem;margin-top:1rem;}
     .breakdown-row{display:flex;justify-content:space-between;gap:1rem;font-size:0.84rem;color:#334155;border-top:1px solid rgba(197,160,89,0.12);padding-top:0.55rem;}
     .breakdown-row strong{color:var(--navy-deep);}
@@ -489,6 +526,14 @@
                   <div class="result-amount" id="resultAmount">$0 MXN</div>
                   <div class="breakdown" id="resultBreakdown"></div>
                   <p class="result-note">La evaluación real depende de dictámenes médicos y requisitos del instituto.</p>
+                  
+      <div class="legal-basis">
+        <div class="legal-basis-kicker">Sustento legal 2026</div>
+        <ul>
+          <li>Ley del Seguro Social y Ley del ISSSTE, según la prestación consultada.</li><li>Valores 2026 de referencia: UMA diaria $117.31 y salario mínimo 2026 vigente según la zona aplicable.</li>
+        </ul>
+      </div>
+    
                 </div>
                 <div class="note">Conserva dictámenes, certificados y resoluciones médicas.</div>
               </div>
@@ -611,12 +656,19 @@
     ]
   }
 ];
+    window.__SIGLEP_CALC_META__ = {"formulaKey":null};
     const calcConfig = window.__SIGLEP_CALC__;
+    const calcMeta = window.__SIGLEP_CALC_META__ || {};
     const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
 
     function num(id) {
       const el = document.getElementById(id);
       return el && el.value !== '' ? Number(el.value) || 0 : 0;
+    }
+
+    function dateValue(id) {
+      const el = document.getElementById(id);
+      return el && el.value ? el.value : '';
     }
 
     function selectedMultiplier(field) {
@@ -628,26 +680,113 @@
       return field.multiplier ?? 1;
     }
 
+    function daysBetween(start, end) {
+      if (!start || !end) return 0;
+      const startDate = new Date(start + 'T00:00:00');
+      const endDate = new Date(end + 'T00:00:00');
+      const diff = endDate - startDate;
+      if (!Number.isFinite(diff) || diff <= 0) return 0;
+      return Math.floor(diff / 86400000);
+    }
+
+    function yearsBetween(start, end) {
+      return daysBetween(start, end) / 365;
+    }
+
+    function vacationDaysForYears(years) {
+      const fullYears = Math.max(0, Math.floor(years));
+      if (fullYears <= 0) return 0;
+      if (fullYears === 1) return 12;
+      if (fullYears === 2) return 14;
+      if (fullYears === 3) return 16;
+      if (fullYears === 4) return 18;
+      if (fullYears === 5) return 20;
+      return 20 + Math.ceil((fullYears - 5) / 5) * 2;
+    }
+
     function runCalc() {
       const breakdown = [];
       let total = 0;
-      calcConfig.forEach((field) => {
-        let contribution = 0;
-        if (field.type === 'select') {
-          const el = document.getElementById(field.id);
-          const label = el && el.options[el.selectedIndex] ? el.options[el.selectedIndex].textContent : field.label;
-          const factor = selectedMultiplier(field);
-          contribution = factor;
-          breakdown.push([label, money.format(Math.round(contribution))]);
-          total += contribution;
-          return;
-        }
 
-        const value = num(field.id);
-        contribution = value * (field.multiplier ?? 1);
-        breakdown.push([field.label, money.format(Math.round(contribution))]);
-        total += contribution;
-      });
+      if (calcMeta.formulaKey === 'labor-liquidation') {
+        const salary = num('salario_diario');
+        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
+        const vacationDays = vacationDaysForYears(years);
+        const termination = selectedMultiplier({ id: 'terminacion', multiplierMap: { injustificado: 22000, renuncia: 6500, mutuo: 12000 } });
+        const indemnizacion = salary * 90;
+        const seniority = salary * 20 * years;
+        const proporcional = salary * vacationDays * 0.25 * Math.max(0.25, Math.min(1, years / 5));
+        breakdown.push(['Indemnización base', money.format(Math.round(indemnizacion))]);
+        breakdown.push(['Antigüedad estimada', money.format(Math.round(seniority))]);
+        breakdown.push(['Vacaciones y prima', money.format(Math.round(proporcional))]);
+        breakdown.push(['Tipo de terminación', money.format(Math.round(termination))]);
+        total += indemnizacion + seniority + proporcional + termination;
+      } else if (calcMeta.formulaKey === 'labor-finiquito') {
+        const salary = num('salario_diario');
+        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
+        const days = daysBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
+        const vacationDays = vacationDaysForYears(years);
+        const aguinaldo = salary * 15 * (days / 365);
+        const vacaciones = salary * vacationDays * 0.25 * (days / 365);
+        const salariosPendientes = salary * Math.max(0, Math.min(15, days % 15));
+        breakdown.push(['Salarios pendientes', money.format(Math.round(salariosPendientes))]);
+        breakdown.push(['Aguinaldo proporcional', money.format(Math.round(aguinaldo))]);
+        breakdown.push(['Vacaciones proporcionales', money.format(Math.round(vacaciones))]);
+        total += salariosPendientes + aguinaldo + vacaciones;
+      } else if (calcMeta.formulaKey === 'labor-despido') {
+        const salary = num('salario_diario');
+        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
+        const vacationDays = vacationDaysForYears(years);
+        const termination = selectedMultiplier({ id: 'terminacion', multiplierMap: { sin_causa: 28000, verbal: 18000, escrita: 22000 } });
+        const indemnizacion = salary * 90;
+        const seniority = salary * 20 * years;
+        const proporcional = salary * vacationDays * 0.25;
+        breakdown.push(['Indemnización base', money.format(Math.round(indemnizacion))]);
+        breakdown.push(['Prima de antigüedad', money.format(Math.round(seniority))]);
+        breakdown.push(['Vacaciones y prima', money.format(Math.round(proporcional))]);
+        breakdown.push(['Tipo de terminación', money.format(Math.round(termination))]);
+        total += indemnizacion + seniority + proporcional + termination;
+      } else if (calcMeta.formulaKey === 'labor-hours') {
+        const tarifa = num('tarifa_hora');
+        const horas = num('horas_extras');
+        const semanas = num('semanas');
+        const factor = selectedMultiplier({ id: 'recargo', multiplierMap: { simple: 1.5, doble: 2, triple: 3 } });
+        const totalHoras = tarifa * horas * semanas * factor;
+        breakdown.push(['Tarifa base', money.format(Math.round(tarifa))]);
+        breakdown.push(['Horas extra', money.format(Math.round(horas))]);
+        breakdown.push(['Semanas trabajadas', money.format(Math.round(semanas))]);
+        breakdown.push(['Recargo aplicado', factor.toFixed(1) + 'x']);
+        total += totalHoras;
+      } else if (calcMeta.formulaKey === 'labor-aguinaldo') {
+        const salary = num('salario_diario');
+        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
+        const days = daysBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
+        const vacationDays = vacationDaysForYears(years);
+        const aguinaldo = salary * 15 * (days / 365);
+        const prima = salary * vacationDays * 0.25 * (days / 365);
+        breakdown.push(['Aguinaldo legal', money.format(Math.round(aguinaldo))]);
+        breakdown.push(['Prima vacacional', money.format(Math.round(prima))]);
+        total += aguinaldo + prima;
+      } else {
+        calcConfig.forEach((field) => {
+          let contribution = 0;
+          if (field.type === 'select') {
+            const el = document.getElementById(field.id);
+            const label = el && el.options[el.selectedIndex] ? el.options[el.selectedIndex].textContent : field.label;
+            const factor = selectedMultiplier(field);
+            contribution = factor;
+            breakdown.push([label, money.format(Math.round(contribution))]);
+            total += contribution;
+            return;
+          }
+
+          const value = num(field.id);
+          contribution = value * (field.multiplier ?? 1);
+          breakdown.push([field.label, money.format(Math.round(contribution))]);
+          total += contribution;
+        });
+      }
+
       document.getElementById('resultAmount').textContent = money.format(Math.max(0, Math.round(total)));
       document.getElementById('resultBreakdown').innerHTML = breakdown
         .map(([label, amount]) => '<div class="breakdown-row"><span>' + label + '</span><strong>' + amount + '</strong></div>')

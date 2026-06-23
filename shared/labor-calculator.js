@@ -296,7 +296,7 @@
     const rows = [
       { label: getSalaryLabel(), value: currency.format((readValue('modo_salario') || 'mensual') === 'diario' ? dailySalary : dailySalary * 30) },
       { label: 'Salario diario calculado', value: currency.format(dailySalary) },
-      { label: 'Antiguedad exacta', value: serviceDays + ' dias (' + decimals.format(serviceYears) + ' anos)' },
+      { label: 'Antiguedad exacta', value: serviceDays + ' dias (' + decimals.format(serviceYears) + ' años)' },
       { label: 'Aguinaldo proporcional (15 dias minimos)', value: currency.format(aguinaldoPay) },
       { label: 'Vacaciones proporcionales (' + decimals.format(vacationDays) + ' dias)', value: currency.format(vacationPay) },
       { label: 'Prima vacacional 25%', value: currency.format(vacationPremium) },

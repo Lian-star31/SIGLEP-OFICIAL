@@ -524,6 +524,7 @@
       return;
     }
 
+    const serviceYears = serviceDays / 365.2425;
     const workedDaysThisYear = getDaysWorkedInCalendarYear(start, end);
     const aguinaldoDays = 15 * (workedDaysThisYear / daysInYear(end.getFullYear()));
     const cycle = getCurrentServiceCycle(start, end);

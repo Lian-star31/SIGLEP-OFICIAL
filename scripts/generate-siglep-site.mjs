@@ -623,11 +623,45 @@ function relatedMarkup(items) {
     .join('');
 }
 
+function redirectPage(cfg) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: cfg.title,
+    url: `${SITE_URL}${cfg.url}`,
+    description: cfg.description || '',
+  };
+
+  return `<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${esc(cfg.title)}</title>
+  <meta name="description" content="${esc(cfg.description || '')}">
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="${SITE_URL}${cfg.redirectTo}">
+  <meta http-equiv="refresh" content="0; url=${cfg.redirectTo}">
+  <meta property="og:title" content="${esc(cfg.title)}">
+  <meta property="og:description" content="${esc(cfg.description || '')}">
+  <meta property="og:url" content="${SITE_URL}${cfg.url}">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <script type="application/ld+json">${JSON.stringify(schema)}</script>
+  <script>
+    window.location.replace(${JSON.stringify(cfg.redirectTo)});
+  </script>
+</head>
+<body>
+  <p>Redirigiendo a <a href="${cfg.redirectTo}">${esc(cfg.redirectTo)}</a>...</p>
+</body>
+</html>`;
+}
+
 function calculatorPage(cfg) {
   const isLaborCalculator = cfg.categorySlug === 'laboral' && String(cfg.formulaKey || '').startsWith('labor-');
   const fields = cfg.fields.map((field) => calcFieldMarkup(field, cfg)).join('\n');
   const faq = faqMarkup(cfg.faq);
-  const related = relatedMarkup(cfg.related);
   const faqLead = cfg.faqLead || 'Respuestas rápidas para ubicar el escenario y decidir el siguiente paso.';
   const legalBasis = legalBasisForCalculator(cfg);
   const legalBasisMarkup = isLaborCalculator
@@ -944,13 +978,6 @@ function calculatorPage(cfg) {
     .faq-item summary{cursor:pointer;list-style:none;padding:1rem 1.1rem;font-weight:600;color:var(--navy-deep);}
     .faq-item summary::-webkit-details-marker{display:none;}
     .faq-item p{padding:0 1.1rem 1.1rem;color:#4A5568;font-size:0.86rem;line-height:1.75;}
-    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem;margin-top:2rem;}
-    .card-link{display:block;padding:1.15rem;border-radius:14px;border:1px solid rgba(197,160,89,0.16);background:var(--white);text-decoration:none;color:inherit;transition:transform .2s ease,background .2s ease,border-color .2s ease;}
-    .card-link:hover{transform:translateY(-2px);background:#0F2240;border-color:rgba(197,160,89,0.35);}
-    .card-link:hover h3,.card-link:hover p{color:#fff;}
-    .card-link h3{font-family:var(--font-display);font-size:1.25rem;color:var(--navy-deep);margin:0.2rem 0 0.4rem;}
-    .card-link p{font-size:0.82rem;line-height:1.7;color:#4A5568;}
-    .card-kicker{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:var(--gold);}
     .cta-band{padding:4rem 1.25rem;background:linear-gradient(135deg,#0a1628 0%,#0f2240 55%,#0a1628 100%);border-top:1px solid rgba(197,160,89,0.15);border-bottom:1px solid rgba(197,160,89,0.15);text-align:center;}
     .cta-band h2{color:var(--white);}
     .cta-band p{margin:0 auto 1.8rem;color:rgba(255,255,255,0.62);max-width:760px;}
@@ -1028,16 +1055,6 @@ function calculatorPage(cfg) {
         <p class="lead">${esc(faqLead)}</p>
         <div class="faq-grid">
           ${faq}
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-inner">
-        <h2>Otras calculadoras de <em>${esc(cfg.categoryName)}</em></h2>
-        <p class="lead">Mantén una visión completa del asunto legal y revisa otras calculadoras relacionadas de la misma área.</p>
-        <div class="cards">
-          ${related}
         </div>
       </div>
     </section>
@@ -2326,6 +2343,7 @@ const calculatorCategoryPages = [
   {
     title: 'Calculadoras Laborales | SIGLEP',
     url: '/calculadoras/laboral/',
+    redirectTo: '/calculadoras/laboral/liquidacion-laboral/',
     eyebrow: 'Categoría Laboral',
     heroTitle: 'Calculadoras laborales <em>para revisar tus números.</em>',
     heroLead: 'Agrupamos liquidación, finiquito, despido, horas extras y prestaciones proporcionales en una sola ruta de calculadoras.',
@@ -2354,6 +2372,7 @@ const calculatorCategoryPages = [
   {
     title: 'Calculadoras Familiares | SIGLEP',
     url: '/calculadoras/familiar/',
+    redirectTo: '/calculadoras/familiar/pension-alimenticia/',
     eyebrow: 'Categoría Familiar',
     heroTitle: 'Calculadoras familiares <em>con enfoque práctico.</em>',
     heroLead: 'Pensión alimenticia, divorcio, custodia, régimen matrimonial y sociedad conyugal agrupados para revisar escenarios familiares con orden.',
@@ -2382,6 +2401,7 @@ const calculatorCategoryPages = [
   {
     title: 'Calculadoras Civiles | SIGLEP',
     url: '/calculadoras/civil/',
+    redirectTo: '/calculadoras/civil/dano-moral/',
     eyebrow: 'Categoría Civil',
     heroTitle: 'Calculadoras civiles <em>para cuantificar el daño.</em>',
     heroLead: 'Daño moral, daños y perjuicios, responsabilidad civil e intereses moratorios en un solo bloque de navegación.',
@@ -2410,6 +2430,7 @@ const calculatorCategoryPages = [
   {
     title: 'Calculadoras Patrimoniales | SIGLEP',
     url: '/calculadoras/patrimonial/',
+    redirectTo: '/calculadoras/patrimonial/herencia-sucesion/',
     eyebrow: 'Categoría Patrimonial',
     heroTitle: 'Calculadoras patrimoniales <em>para ordenar herencias.</em>',
     heroLead: 'Herencia y sucesión en una sola ruta para revisar un escenario patrimonial con más claridad y continuidad.',
@@ -2438,6 +2459,7 @@ const calculatorCategoryPages = [
   {
     title: 'Calculadoras de Seguridad Social | SIGLEP',
     url: '/calculadoras/seguridad-social/',
+    redirectTo: '/calculadoras/seguridad-social/pension-imss/',
     eyebrow: 'Categoría Seguridad Social',
     heroTitle: 'Calculadoras de seguridad social <em>para planear el retiro.</em>',
     heroLead: 'IMSS, Modalidad 40, ISSSTE, invalidez y viudez agrupados para revisar el expediente con anticipación.',
@@ -2534,7 +2556,7 @@ function writeCategoryPages() {
 
 function writeCalculatorCategoryPages() {
   calculatorCategoryPages.forEach((page) => {
-    writeFile(path.join(ROOT, page.url, 'index.html'), categoryPage(page));
+    writeFile(path.join(ROOT, page.url, 'index.html'), redirectPage(page));
   });
 }
 

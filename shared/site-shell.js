@@ -109,8 +109,18 @@
         position: relative;
       }
       .siglep-shell-services {
-        padding-bottom: 20px;
-        margin-bottom: -20px;
+        padding-bottom: 28px;
+        margin-bottom: -28px;
+        position: relative;
+      }
+      .siglep-shell-services::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 28px;
+        background: transparent;
       }
       .siglep-shell-links a,
       .siglep-shell-links button {
@@ -148,7 +158,7 @@
       }
       .siglep-shell-dropdown {
         position: absolute;
-        top: calc(100% - 14px);
+        top: calc(100% - 20px);
         left: 0;
         min-width: 260px;
         padding: 0.75rem;
@@ -163,10 +173,10 @@
       .siglep-shell-dropdown::before {
         content: '';
         position: absolute;
-        top: -20px;
-        left: -8px;
-        right: -8px;
-        height: 20px;
+        top: -28px;
+        left: -10px;
+        right: -10px;
+        height: 28px;
       }
       .siglep-shell-services:hover .siglep-shell-dropdown,
       .siglep-shell-services:focus-within .siglep-shell-dropdown {
@@ -529,6 +539,7 @@
     if (!item) return;
 
     const button = item.querySelector('button[data-nav="services"]');
+    const dropdown = item.querySelector('.siglep-shell-dropdown');
     let closeTimer = null;
 
     const setOpen = (open) => {
@@ -546,7 +557,7 @@
 
     const scheduleClose = () => {
       if (closeTimer) clearTimeout(closeTimer);
-      closeTimer = setTimeout(() => setOpen(false), 360);
+      closeTimer = setTimeout(() => setOpen(false), 500);
     };
 
     item.addEventListener('pointerenter', open);
@@ -555,6 +566,10 @@
     item.addEventListener('focusout', (event) => {
       if (!item.contains(event.relatedTarget)) scheduleClose();
     });
+    if (dropdown) {
+      dropdown.addEventListener('pointerenter', open);
+      dropdown.addEventListener('pointerleave', scheduleClose);
+    }
 
     if (button) {
       button.addEventListener('click', (event) => {

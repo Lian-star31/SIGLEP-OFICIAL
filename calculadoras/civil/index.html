@@ -5,20 +5,105 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculadoras Civiles | SIGLEP</title>
   <meta name="description" content="Calculadoras civiles SIGLEP para daño moral, daños y perjuicios, responsabilidad civil e intereses moratorios.">
-  <meta name="robots" content="noindex, follow">
-  <link rel="canonical" href="https://siglep.lat/calculadoras/civil/dano-moral/">
-  <meta http-equiv="refresh" content="0; url=/calculadoras/civil/dano-moral/">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://siglep.lat/calculadoras/civil/">
   <meta property="og:title" content="Calculadoras Civiles | SIGLEP">
   <meta property="og:description" content="Calculadoras civiles SIGLEP para daño moral, daños y perjuicios, responsabilidad civil e intereses moratorios.">
   <meta property="og:url" content="https://siglep.lat/calculadoras/civil/">
   <meta property="og:type" content="website">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:#1A365D;--navy-deep:#0F2240;--gold:#C5A059;--gold-light:#D4B878;--red:#C0392B;--red-dark:#96281B;
+      --black:#080C14;--white:#FAFAF8;--gray-light:#F0EEE8;--text-body:#2D3748;--font-display:'Cormorant Garamond',serif;--font-body:'Montserrat',sans-serif;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--font-body);background:var(--white);color:var(--text-body);overflow-x:hidden;}
+    .hero{min-height:52vh;padding:8rem 1.25rem 4rem;background:linear-gradient(145deg,#050810 0%,#0A1628 40%,#0F2240 70%,#111B30 100%);position:relative;overflow:hidden;}
+    .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 55% at 75% 45%,rgba(197,160,89,0.07) 0%,transparent 65%);pointer-events:none;}
+    .hero-inner,.section-inner{max-width:1180px;margin:0 auto;position:relative;z-index:1;}
+    .breadcrumb{font-size:0.68rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.42);margin-bottom:1.1rem;display:flex;align-items:center;gap:0.5rem;}
+    .breadcrumb a{color:var(--gold);text-decoration:none;}
+    .breadcrumb a:hover{text-decoration:underline;}
+    .eyebrow{font-size:0.66rem;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:flex;align-items:center;gap:0.7rem;}
+    .eyebrow::before{content:'';width:34px;height:1px;background:var(--gold);display:block;}
+    h1{font-family:var(--font-display);font-size:clamp(2.2rem,5vw,4rem);line-height:1.05;color:var(--white);margin-bottom:1rem;}
+    h1 em{font-style:italic;color:var(--gold);}
+    .lead{max-width:760px;font-size:1rem;line-height:1.85;color:rgba(255,255,255,0.68);font-weight:300;margin-bottom:2rem;}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:0.95rem 1.35rem;border-radius:2px;text-decoration:none;font-size:0.78rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;transition:transform .2s ease,background .2s ease,color .2s ease;border:1px solid transparent;}
+    .btn-primary{background:var(--red);color:#fff;box-shadow:0 4px 18px rgba(192,57,43,0.35);}
+    .btn-primary:hover{background:var(--red-dark);transform:translateY(-2px);}
+    .btn-secondary{background:transparent;border-color:rgba(197,160,89,0.5);color:var(--gold);}
+    .btn-secondary:hover{background:var(--gold);color:var(--navy-deep);transform:translateY(-2px);}
+    .section{padding:5rem 1.25rem;}
+    .section h2{font-family:var(--font-display);font-size:clamp(1.9rem,4vw,3rem);line-height:1.1;color:var(--navy-deep);margin-bottom:0.9rem;}
+    .section p.lead{color:#4A5568;max-width:800px;margin-bottom:0;}
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem;margin-top:2rem;}
+    .card-link{display:block;padding:1.15rem;border-radius:14px;border:1px solid rgba(197,160,89,0.16);background:var(--white);text-decoration:none;color:inherit;transition:transform .2s ease,background .2s ease,border-color .2s ease;}
+    .card-link:hover{transform:translateY(-2px);background:#0F2240;border-color:rgba(197,160,89,0.35);}
+    .card-link:hover h3,.card-link:hover p{color:#fff;}
+    .card-link h3{font-family:var(--font-display);font-size:1.25rem;color:var(--navy-deep);margin:0.2rem 0 0.4rem;}
+    .card-link p{font-size:0.82rem;line-height:1.7;color:#4A5568;}
+    .card-kicker{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:var(--gold);}
+    @media (max-width: 900px){.hero{padding-top:7.6rem}}
+  </style>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Calculadoras Civiles | SIGLEP","url":"https://siglep.lat/calculadoras/civil/","description":"Calculadoras civiles SIGLEP para daño moral, daños y perjuicios, responsabilidad civil e intereses moratorios."}</script>
-  <script>
-    window.location.replace("/calculadoras/civil/dano-moral/");
-  </script>
+  <script defer src="/shared/site-shell.js"></script>
 </head>
 <body>
-  <p>Redirigiendo a <a href="/calculadoras/civil/dano-moral/">/calculadoras/civil/dano-moral/</a>...</p>
+  <nav class="siglep-shell-nav" id="navbar"></nav>
+
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="breadcrumb">
+          <a href="/calculadoras/">Calculadoras</a>
+          <span>›</span>
+          <span>Civil</span>
+        </div>
+        <div class="eyebrow">Área Civil</div>
+        <h1>CALCULADORAS <em>CIVILES</em></h1>
+        <p class="lead">Herramientas orientativas para estimar daño moral, daños y perjuicios, responsabilidad civil e intereses moratorios conforme al Código Civil Federal.</p>
+        <div style="display:flex;gap:0.9rem;flex-wrap:wrap;">
+          <a class="btn btn-primary" href="https://wa.me/527352169503">Consulta Gratuita por WhatsApp</a>
+          <a class="btn btn-secondary" href="/calculadoras/">Ver todas las áreas</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-inner">
+        <h2>Selecciona una calculadora</h2>
+        <p class="lead">Elige la calculadora que corresponda a tu situación civil.</p>
+        <div class="cards">
+          <a class="card-link" href="/calculadoras/civil/dano-moral/">
+            <div class="card-kicker">Civil</div>
+            <h3>Daño Moral</h3>
+            <p>Estimación orientativa del daño moral con enfoque en gravedad y nivel de exposición pública.</p>
+          </a>
+          <a class="card-link" href="/calculadoras/civil/danos-perjuicios/">
+            <div class="card-kicker">Civil</div>
+            <h3>Daños y Perjuicios</h3>
+            <p>Revisión de pérdidas directas e indirectas para dimensionar la reparación del daño patrimonial.</p>
+          </a>
+          <a class="card-link" href="/calculadoras/civil/responsabilidad-civil/">
+            <div class="card-kicker">Civil</div>
+            <h3>Responsabilidad Civil</h3>
+            <p>Dimensionamiento del daño y cobertura aplicable en casos de responsabilidad civil objetiva o subjetiva.</p>
+          </a>
+          <a class="card-link" href="/calculadoras/civil/intereses-moratorios/">
+            <div class="card-kicker">Civil</div>
+            <h3>Intereses Moratorios</h3>
+            <p>Cálculo de intereses sobre capital adeudado con base en plazo y tasa pactada o legal.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer></footer>
 </body>
 </html>

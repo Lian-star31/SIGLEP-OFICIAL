@@ -603,6 +603,19 @@ function calculatorPage(cfg) {
     .field{display:grid;gap:0.45rem;margin-bottom:1rem;}
     .field label{font-size:0.66rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);}
     .field input,.field select{width:100%;padding:0.92rem 0.95rem;border-radius:10px;border:1px solid rgba(197,160,89,0.22);background:rgba(255,255,255,0.08);color:inherit;font-family:var(--font-body);font-size:0.92rem;outline:none;}
+    .panel.dark .field input,
+    .panel.dark .field select{
+      color:var(--white);
+      -webkit-text-fill-color:var(--white);
+      caret-color:var(--gold);
+      background:rgba(255,255,255,0.06);
+    }
+    .panel.dark .field input::placeholder{
+      color:rgba(250,250,248,0.55);
+    }
+    .panel.dark .field select option{
+      color:var(--navy-deep);
+    }
     .field select{appearance:none;}
     .help{font-size:0.72rem;line-height:1.55;color:#718096;}
     .calc-button{width:100%;margin-top:0.4rem;padding:0.95rem 1rem;border:0;border-radius:10px;background:var(--red);color:#fff;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:transform .2s ease,background .2s ease;}
@@ -2140,12 +2153,12 @@ const hubConfig = {
   url: '/calculadoras/',
   description: 'Hub de calculadoras legales SIGLEP para Laboral, Familiar, Civil, Patrimonial y Seguridad Social.',
   eyebrow: '',
-  heroTitle: 'CALCULADORAS LEGALES',
+  heroTitle: 'CALCULADORAS <em>LEGALES</em>',
   heroLead: '',
-  primaryHref: '/calculadoras/laboral/',
-  primaryLabel: '',
-  secondaryHref: '/calculadoras/seguridad-social/',
-  secondaryLabel: '',
+  primaryHref: WA_LINK,
+  primaryLabel: 'Consulta Gratuita por WhatsApp',
+  secondaryHref: CONSULTATION_URL,
+  secondaryLabel: 'Agendar Consulta',
   sectionTitle: 'Áreas disponibles',
   sectionLead: 'Seleccione el área jurídica que corresponda a su asunto.',
   ctaBandTitle: '',

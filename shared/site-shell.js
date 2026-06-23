@@ -109,8 +109,8 @@
         position: relative;
       }
       .siglep-shell-services {
-        padding-bottom: 12px;
-        margin-bottom: -12px;
+        padding-bottom: 20px;
+        margin-bottom: -20px;
       }
       .siglep-shell-links a,
       .siglep-shell-links button {
@@ -148,7 +148,7 @@
       }
       .siglep-shell-dropdown {
         position: absolute;
-        top: calc(100% - 1px);
+        top: calc(100% - 14px);
         left: 0;
         min-width: 260px;
         padding: 0.75rem;
@@ -158,14 +158,15 @@
         box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
         display: none;
         pointer-events: auto;
+        z-index: 5;
       }
       .siglep-shell-dropdown::before {
         content: '';
         position: absolute;
-        top: -12px;
-        left: 0;
-        right: 0;
-        height: 12px;
+        top: -20px;
+        left: -8px;
+        right: -8px;
+        height: 20px;
       }
       .siglep-shell-services:hover .siglep-shell-dropdown,
       .siglep-shell-services:focus-within .siglep-shell-dropdown {
@@ -545,7 +546,7 @@
 
     const scheduleClose = () => {
       if (closeTimer) clearTimeout(closeTimer);
-      closeTimer = setTimeout(() => setOpen(false), 140);
+      closeTimer = setTimeout(() => setOpen(false), 360);
     };
 
     item.addEventListener('pointerenter', open);

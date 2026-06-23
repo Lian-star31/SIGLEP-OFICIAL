@@ -18,6 +18,8 @@
     salaryMinGeneral: 315.04,
     salaryMinFrontier: 440.87,
     umaDaily: 117.31,
+    umaMonthly: 3566.22,
+    umaAnnual: 42794.64,
     isrWeeklyTable: [
       { lower: 0.01, upper: 194.46, fixed: 0, rate: 0.0192 },
       { lower: 194.47, upper: 1650.67, fixed: 3.71, rate: 0.064 },
@@ -218,8 +220,16 @@
     return mode === 'diario' ? salary : salary / 30;
   }
 
+  function getSalaryMode() {
+    return readValue('modo_salario') || 'mensual';
+  }
+
+  function getCapturedSalaryAmount() {
+    return getSalaryMode() === 'diario' ? getDailySalary() : getDailySalary() * 30;
+  }
+
   function getSalaryLabel() {
-    const mode = readValue('modo_salario') || 'mensual';
+    const mode = getSalaryMode();
     return mode === 'diario' ? 'Salario diario de referencia' : 'Salario mensual de referencia';
   }
 
@@ -231,6 +241,10 @@
     return readValue('zona_salario_minimo') === 'frontera'
       ? LABOR_2026.salaryMinFrontier
       : LABOR_2026.salaryMinGeneral;
+  }
+
+  function getMinimumSalaryZoneLabel() {
+    return readValue('zona_salario_minimo') === 'frontera' ? 'frontera norte' : 'resto del pais';
   }
 
   function installDateMask(field) {
@@ -324,17 +338,48 @@
     renderEmpty();
   }
 
-  function buildTerminationLegalBasis(type) {
+  function buildSeparationLegalBasis(type, details) {
+    const items = [
+      'LFT: articulos 76, 80 y 87 para vacaciones, prima vacacional y aguinaldo proporcionales.',
+      'CONASAMI 2026: salario minimo general $315.04 y frontera norte $440.87 diarios.',
+      'DOF / INEGI 2026: UMA diaria $117.31, mensual $3,566.22 y anual $42,794.64.',
+    ];
+
     if (type === 'injustificado') {
-      return [
-        'LFT: articulos 48 y 50 para indemnizacion constitucional.',
-        'LFT: articulo 162 para prima de antiguedad topada a dos salarios minimos 2026.',
-        'LFT: articulos 76, 80 y 87 para vacaciones, prima vacacional y aguinaldo proporcionales.',
-      ];
+      items.unshift('LFT: articulos 48 y 50 para indemnizacion constitucional de 3 meses.');
+      items.splice(1, 0, 'LFT: articulo 162 para prima de antiguedad de 12 dias por ano con tope de 2 salarios minimos.');
+      items.push(
+        'Prima de antiguedad 2026: salario diario aplicado ' +
+          currency.format(details.cappedDaily) +
+          ' (' +
+          getMinimumSalaryZoneLabel() +
+          ', tope legal ' +
+          currency.format(details.zoneCap) +
+          ').'
+      );
     }
 
+    return items;
+  }
+
+  function buildHoursLegalBasis(details) {
     return [
-      'LFT: articulos 76, 80 y 87 para vacaciones, prima vacacional y aguinaldo proporcionales.',
+      'LFT: articulo 66 para limite extraordinario de jornada.',
+      'LFT: articulo 67 para pago doble dentro del maximo legal.',
+      'LFT: articulo 68 para pago triple por excedente de nueve horas semanales.',
+      'DOF / INEGI 2026: UMA diaria $117.31; exencion referencial de horas extra limitada a 5 UMA = ' + currency.format(LABOR_2026.umaDaily * 5) + '.',
+      'SAT Anexo 8 RMF 2026: tarifa semanal del articulo 96 LISR usada para estimar ISR incremental sobre la parte gravada.',
+      'Salario base semanal estimado ' + currency.format(details.baseWeeklySalary) + ' + parte gravada ' + currency.format(details.taxableEstimate) + '.',
+    ];
+  }
+
+  function buildAguinaldoLegalBasis(details) {
+    return [
+      'LFT: articulo 87 para aguinaldo minimo de 15 dias y su parte proporcional.',
+      'LFT: articulos 76 y 80 para vacaciones del ciclo vigente y prima vacacional de 25%.',
+      'Antiguedad exacta considerada: ' + details.serviceDays + ' dias (' + decimals.format(details.serviceYears) + ' anos).',
+      'CONASAMI 2026: salario minimo general $315.04 y frontera norte $440.87 diarios.',
+      'DOF / INEGI 2026: UMA diaria $117.31, mensual $3,566.22 y anual $42,794.64.',
     ];
   }
 
@@ -369,7 +414,7 @@
     const aguinaldoPay = dailySalary * aguinaldoDays;
 
     const rows = [
-      { label: getSalaryLabel(), value: currency.format((readValue('modo_salario') || 'mensual') === 'diario' ? dailySalary : dailySalary * 30) },
+      { label: getSalaryLabel(), value: currency.format(getCapturedSalaryAmount()) },
       { label: 'Salario diario calculado', value: currency.format(dailySalary) },
       { label: 'Antiguedad exacta', value: serviceDays + ' dias (' + decimals.format(serviceYears) + ' años)' },
       { label: 'Aguinaldo proporcional (15 dias minimos)', value: currency.format(aguinaldoPay) },
@@ -379,6 +424,10 @@
 
     let total = aguinaldoPay + vacationPay + vacationPremium;
     let note = 'La cifra es una referencia bruta con base en salario y fechas capturadas.';
+    let legalBasis = buildSeparationLegalBasis(terminationType, {
+      cappedDaily: dailySalary,
+      zoneCap: getMinimumSalaryZone() * 2,
+    });
 
     if (terminationType === 'injustificado') {
       const constitutionalIndemnity = dailySalary * 90;
@@ -387,12 +436,17 @@
       const seniorityBonus = cappedDaily * seniorityDays;
 
       rows.push({ label: 'Indemnizacion constitucional (3 meses)', value: currency.format(constitutionalIndemnity) });
+      rows.push({ label: 'Salario diario para prima de antiguedad', value: currency.format(cappedDaily) });
       rows.push({ label: 'Prima de antiguedad (' + decimals.format(seniorityDays) + ' dias)', value: currency.format(seniorityBonus) });
       total += constitutionalIndemnity + seniorityBonus;
       note = 'La cifra es una referencia bruta. El tratamiento fiscal del despido puede variar segun el caso concreto.';
+      legalBasis = buildSeparationLegalBasis(terminationType, {
+        cappedDaily: cappedDaily,
+        zoneCap: getMinimumSalaryZone() * 2,
+      });
     }
 
-    setResult(total, rows, buildTerminationLegalBasis(terminationType), note);
+    setResult(total, rows, legalBasis, note);
   }
 
   function calculateExtraHours() {
@@ -434,7 +488,7 @@
     setResult(
       grossTotal,
       [
-        { label: getSalaryLabel(), value: currency.format((readValue('modo_salario') || 'mensual') === 'diario' ? dailySalary : dailySalary * 30) },
+        { label: getSalaryLabel(), value: currency.format(getCapturedSalaryAmount()) },
         { label: 'Valor de la hora ordinaria', value: currency.format(hourlyRate) },
         { label: 'Primeras 9 horas dobles', value: currency.format(doublePay) },
         { label: 'Horas excedentes triples', value: currency.format(triplePay) },
@@ -442,11 +496,10 @@
         { label: 'ISR semanal estimado 2026', value: currency.format(estimatedIsr) },
         { label: 'Pago neto estimado', value: currency.format(netEstimate) },
       ],
-      [
-        'LFT: articulo 66 para limite extraordinario de jornada.',
-        'LFT: articulo 67 para pago doble dentro del maximo legal.',
-        'LFT: articulo 68 para pago triple por excedente de nueve horas semanales.',
-      ],
+      buildHoursLegalBasis({
+        baseWeeklySalary: baseWeeklySalary,
+        taxableEstimate: taxableEstimate,
+      }),
       'La retencion de ISR es referencial y se muestra por separado; el monto principal refleja la prestacion bruta.'
     );
   }
@@ -482,15 +535,17 @@
     setResult(
       aguinaldoPay + vacationPay + vacationPremium,
       [
-        { label: getSalaryLabel(), value: currency.format((readValue('modo_salario') || 'mensual') === 'diario' ? dailySalary : dailySalary * 30) },
+        { label: getSalaryLabel(), value: currency.format(getCapturedSalaryAmount()) },
         { label: 'Salario diario calculado', value: currency.format(dailySalary) },
+        { label: 'Antiguedad exacta', value: serviceDays + ' dias (' + decimals.format(serviceYears) + ' años)' },
         { label: 'Aguinaldo proporcional', value: currency.format(aguinaldoPay) },
         { label: 'Vacaciones proporcionales (' + decimals.format(vacationDays) + ' dias)', value: currency.format(vacationPay) },
         { label: 'Prima vacacional 25%', value: currency.format(vacationPremium) },
       ],
-      [
-        'LFT: articulos 76, 80 y 87 para vacaciones, prima vacacional y aguinaldo proporcionales.',
-      ],
+      buildAguinaldoLegalBasis({
+        serviceDays: serviceDays,
+        serviceYears: serviceYears,
+      }),
       'La cifra es una referencia bruta con base en dias trabajados dentro del ano y del ciclo vacacional vigente.'
     );
   }

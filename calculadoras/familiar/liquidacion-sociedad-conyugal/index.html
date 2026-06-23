@@ -523,7 +523,10 @@
       <div class="legal-basis">
         <div class="legal-basis-kicker">Sustento legal 2026</div>
         <ul>
-          <li>Código Civil o familiar aplicable en la entidad federativa correspondiente.</li>
+          <li>Art. 183-193 CCF: inventario y avalúo de bienes comunes; liquidación 50/50.</li>
+          <li>Art. 188 CCF: deudas sociales se deducen del haber antes de repartir.</li>
+          <li>Reparto negociado puede variar; reparto judicial aplica 50/50 por defecto.</li>
+          <li>Honorarios notariales orientativos: ~2.5% del valor de bienes (mín. $10,000).</li>
         </ul>
       </div>
     
@@ -575,184 +578,42 @@
   </main>
   <footer></footer>
   <script>
-    window.__SIGLEP_CALC__ = [
-  {
-    "id": "bienes",
-    "label": "Valor de bienes a repartir",
-    "type": "number",
-    "placeholder": "Ej. 900000",
-    "multiplier": 0.025
-  },
-  {
-    "id": "deudas",
-    "label": "Deudas asociadas",
-    "type": "number",
-    "placeholder": "Ej. 160000",
-    "multiplier": 0.04
-  },
-  {
-    "id": "reparto",
-    "label": "Tipo de reparto",
-    "type": "select",
-    "multiplierMap": {
-      "igualitario": 9000,
-      "negociado": 6500,
-      "litigioso": 17000
-    },
-    "options": [
-      {
-        "value": "igualitario",
-        "label": "Igualitario"
-      },
-      {
-        "value": "negociado",
-        "label": "Negociado"
-      },
-      {
-        "value": "litigioso",
-        "label": "Litigioso"
-      }
-    ]
-  }
-];
-    window.__SIGLEP_CALC_META__ = {"formulaKey":null};
-    const calcConfig = window.__SIGLEP_CALC__;
-    const calcMeta = window.__SIGLEP_CALC_META__ || {};
+    /* ── LIQUIDACIÓN SOCIEDAD CONYUGAL ── Art. 183-193 CCF ── */
     const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
 
-    function num(id) {
-      const el = document.getElementById(id);
-      return el && el.value !== '' ? Number(el.value) || 0 : 0;
-    }
-
-    function dateValue(id) {
-      const el = document.getElementById(id);
-      return el && el.value ? el.value : '';
-    }
-
-    function selectedMultiplier(field) {
-      const el = document.getElementById(field.id);
-      const value = el ? el.value : '';
-      if (field.multiplierMap && Object.prototype.hasOwnProperty.call(field.multiplierMap, value)) {
-        return field.multiplierMap[value];
-      }
-      return field.multiplier ?? 1;
-    }
-
-    function daysBetween(start, end) {
-      if (!start || !end) return 0;
-      const startDate = new Date(start + 'T00:00:00');
-      const endDate = new Date(end + 'T00:00:00');
-      const diff = endDate - startDate;
-      if (!Number.isFinite(diff) || diff <= 0) return 0;
-      return Math.floor(diff / 86400000);
-    }
-
-    function yearsBetween(start, end) {
-      return daysBetween(start, end) / 365;
-    }
-
-    function vacationDaysForYears(years) {
-      const fullYears = Math.max(0, Math.floor(years));
-      if (fullYears <= 0) return 0;
-      if (fullYears === 1) return 12;
-      if (fullYears === 2) return 14;
-      if (fullYears === 3) return 16;
-      if (fullYears === 4) return 18;
-      if (fullYears === 5) return 20;
-      return 20 + Math.ceil((fullYears - 5) / 5) * 2;
-    }
-
     function runCalc() {
-      const breakdown = [];
-      let total = 0;
+      const bienes  = parseFloat(document.getElementById('bienes').value) || 0;
+      const deudas  = parseFloat(document.getElementById('deudas').value) || 0;
+      const reparto = document.getElementById('reparto').value;
 
-      if (calcMeta.formulaKey === 'labor-liquidation') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const termination = selectedMultiplier({ id: 'terminacion', multiplierMap: { injustificado: 22000, renuncia: 6500, mutuo: 12000 } });
-        const indemnizacion = salary * 90;
-        const seniority = salary * 20 * years;
-        const proporcional = salary * vacationDays * 0.25 * Math.max(0.25, Math.min(1, years / 5));
-        breakdown.push(['Indemnización base', money.format(Math.round(indemnizacion))]);
-        breakdown.push(['Antigüedad estimada', money.format(Math.round(seniority))]);
-        breakdown.push(['Vacaciones y prima', money.format(Math.round(proporcional))]);
-        breakdown.push(['Tipo de terminación', money.format(Math.round(termination))]);
-        total += indemnizacion + seniority + proporcional + termination;
-      } else if (calcMeta.formulaKey === 'labor-finiquito') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const days = daysBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const aguinaldo = salary * 15 * (days / 365);
-        const vacaciones = salary * vacationDays * 0.25 * (days / 365);
-        const salariosPendientes = salary * Math.max(0, Math.min(15, days % 15));
-        breakdown.push(['Salarios pendientes', money.format(Math.round(salariosPendientes))]);
-        breakdown.push(['Aguinaldo proporcional', money.format(Math.round(aguinaldo))]);
-        breakdown.push(['Vacaciones proporcionales', money.format(Math.round(vacaciones))]);
-        total += salariosPendientes + aguinaldo + vacaciones;
-      } else if (calcMeta.formulaKey === 'labor-despido') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const termination = selectedMultiplier({ id: 'terminacion', multiplierMap: { sin_causa: 28000, verbal: 18000, escrita: 22000 } });
-        const indemnizacion = salary * 90;
-        const seniority = salary * 20 * years;
-        const proporcional = salary * vacationDays * 0.25;
-        breakdown.push(['Indemnización base', money.format(Math.round(indemnizacion))]);
-        breakdown.push(['Prima de antigüedad', money.format(Math.round(seniority))]);
-        breakdown.push(['Vacaciones y prima', money.format(Math.round(proporcional))]);
-        breakdown.push(['Tipo de terminación', money.format(Math.round(termination))]);
-        total += indemnizacion + seniority + proporcional + termination;
-      } else if (calcMeta.formulaKey === 'labor-hours') {
-        const tarifa = num('tarifa_hora');
-        const horas = num('horas_extras');
-        const semanas = num('semanas');
-        const factor = selectedMultiplier({ id: 'recargo', multiplierMap: { simple: 1.5, doble: 2, triple: 3 } });
-        const totalHoras = tarifa * horas * semanas * factor;
-        breakdown.push(['Tarifa base', money.format(Math.round(tarifa))]);
-        breakdown.push(['Horas extra', money.format(Math.round(horas))]);
-        breakdown.push(['Semanas trabajadas', money.format(Math.round(semanas))]);
-        breakdown.push(['Recargo aplicado', factor.toFixed(1) + 'x']);
-        total += totalHoras;
-      } else if (calcMeta.formulaKey === 'labor-aguinaldo') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const days = daysBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const aguinaldo = salary * 15 * (days / 365);
-        const prima = salary * vacationDays * 0.25 * (days / 365);
-        breakdown.push(['Aguinaldo legal', money.format(Math.round(aguinaldo))]);
-        breakdown.push(['Prima vacacional', money.format(Math.round(prima))]);
-        total += aguinaldo + prima;
-      } else {
-        calcConfig.forEach((field) => {
-          let contribution = 0;
-          if (field.type === 'select') {
-            const el = document.getElementById(field.id);
-            const label = el && el.options[el.selectedIndex] ? el.options[el.selectedIndex].textContent : field.label;
-            const factor = selectedMultiplier(field);
-            contribution = factor;
-            breakdown.push([label, money.format(Math.round(contribution))]);
-            total += contribution;
-            return;
-          }
+      // Art. 183-193 CCF: inventario → activo − pasivo = haber social
+      const masaActiva  = bienes;
+      const masaPasiva  = deudas;
+      const haberSocial = Math.max(masaActiva - masaPasiva, 0);
 
-          const value = num(field.id);
-          contribution = value * (field.multiplier ?? 1);
-          breakdown.push([field.label, money.format(Math.round(contribution))]);
-          total += contribution;
-        });
-      }
+      // Porcentaje por cónyuge según tipo de reparto
+      const pctMap = { igualitario: 0.50, negociado: 0.45, litigioso: 0.50 };
+      const pct = pctMap[reparto] || 0.50;
+      const partePorConyuge = haberSocial * pct;
 
-      document.getElementById('resultAmount').textContent = money.format(Math.max(0, Math.round(total)));
-      document.getElementById('resultBreakdown').innerHTML = breakdown
-        .map(([label, amount]) => '<div class="breakdown-row"><span>' + label + '</span><strong>' + amount + '</strong></div>')
+      // Costo notarial/judicial orientativo (~2.5% del activo, mín $10,000)
+      const costoLiquidacion = Math.max(bienes * 0.025, 10000);
+
+      document.getElementById('resultAmount').textContent = money.format(Math.round(partePorConyuge));
+      const rows = [
+        ['Activo social (bienes comunes)', money.format(Math.round(masaActiva))],
+        ['Pasivo social (deudas comunes, Art. 188)', money.format(Math.round(masaPasiva))],
+        ['Haber social neto', money.format(Math.round(haberSocial))],
+        ['Parte por cónyuge (' + Math.round(pct * 100) + '%)', money.format(Math.round(partePorConyuge))],
+        ['Costo notarial/judicial estimado', money.format(Math.round(costoLiquidacion))],
+      ];
+      document.getElementById('resultBreakdown').innerHTML = rows
+        .map(([l, v]) => '<div class="breakdown-row"><span>' + l + '</span><strong>' + v + '</strong></div>')
         .join('');
     }
 
     document.getElementById('calcButton').addEventListener('click', runCalc);
+    document.querySelectorAll('#calc-form input, #calc-form select').forEach(el => el.addEventListener('input', runCalc));
     runCalc();
   </script>
 </body>

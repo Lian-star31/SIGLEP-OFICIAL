@@ -479,29 +479,27 @@
             </div>
             <div class="panel-body">
               <form id="calc-form" onsubmit="return false;">
-                
-    <div class="field">
-      <label for="bienes">Valor aproximado de bienes comunes</label>
-      <input id="bienes" type="number" inputmode="decimal" placeholder="Ej. 500000" min="0" step="any">
-      
-    </div>
-  
-
-    <div class="field">
-      <label for="hijos">Número de hijos</label>
-      <input id="hijos" type="number" inputmode="decimal" placeholder="Ej. 2" min="0" step="any">
-      
-    </div>
-  
-
-      <div class="field">
-        <label for="acuerdo">Nivel de acuerdo</label>
-        <select id="acuerdo">
-          <option value="mutuo">Mutuo acuerdo</option><option value="parcial">Acuerdo parcial</option><option value="contencioso">Contencioso</option>
-        </select>
-        
-      </div>
-    
+                <div class="field">
+                  <label for="bienes">Valor de bienes comunes (MXN)</label>
+                  <input id="bienes" type="number" inputmode="decimal" placeholder="Ej. 500000" min="0" step="any" oninput="runCalc()">
+                  <span class="help">Inmuebles, vehículos, cuentas, etc. adquiridos durante el matrimonio.</span>
+                </div>
+                <div class="field">
+                  <label for="deudas">Deudas comunes (MXN)</label>
+                  <input id="deudas" type="number" inputmode="decimal" placeholder="Ej. 80000" min="0" step="any" oninput="runCalc()">
+                </div>
+                <div class="field">
+                  <label for="hijos">Número de hijos menores de edad</label>
+                  <input id="hijos" type="number" inputmode="decimal" placeholder="Ej. 2" min="0" max="10" step="1" oninput="runCalc()">
+                </div>
+                <div class="field">
+                  <label for="acuerdo">Tipo de divorcio</label>
+                  <select id="acuerdo" onchange="runCalc()">
+                    <option value="mutuo">Mutuo acuerdo (Art. 266 CCF)</option>
+                    <option value="parcial">Acuerdo parcial</option>
+                    <option value="contencioso">Contencioso (juicio)</option>
+                  </select>
+                </div>
                 <button class="calc-button" type="button" id="calcButton">Calcular estimación</button>
               </form>
             </div>
@@ -523,7 +521,9 @@
       <div class="legal-basis">
         <div class="legal-basis-kicker">Sustento legal 2026</div>
         <ul>
-          <li>Código Civil o familiar aplicable en la entidad federativa correspondiente.</li>
+          <li>Art. 266-289 CCF: divorcio incausado; liquidación de la sociedad conyugal.</li>
+          <li>Art. 288 CCF: pensión compensatoria si hay disparidad de ingresos.</li>
+          <li>Costo orientativo: mutuo 3%, parcial 5.5%, contencioso 9% del valor de bienes.</li>
         </ul>
       </div>
     
@@ -575,180 +575,46 @@
   </main>
   <footer></footer>
   <script>
-    window.__SIGLEP_CALC__ = [
-  {
-    "id": "bienes",
-    "label": "Valor aproximado de bienes comunes",
-    "type": "number",
-    "placeholder": "Ej. 500000",
-    "multiplier": 0.03
-  },
-  {
-    "id": "hijos",
-    "label": "Número de hijos",
-    "type": "number",
-    "placeholder": "Ej. 2",
-    "multiplier": 4200
-  },
-  {
-    "id": "acuerdo",
-    "label": "Nivel de acuerdo",
-    "type": "select",
-    "multiplierMap": {
-      "mutuo": 4500,
-      "parcial": 9000,
-      "contencioso": 16000
-    },
-    "options": [
-      {
-        "value": "mutuo",
-        "label": "Mutuo acuerdo"
-      },
-      {
-        "value": "parcial",
-        "label": "Acuerdo parcial"
-      },
-      {
-        "value": "contencioso",
-        "label": "Contencioso"
-      }
-    ]
-  }
-];
-    window.__SIGLEP_CALC_META__ = {"formulaKey":null};
-    const calcConfig = window.__SIGLEP_CALC__;
-    const calcMeta = window.__SIGLEP_CALC_META__ || {};
+    /* ── DIVORCIO ── Art. 266-289 CCF ── Liquidación sociedad conyugal ── */
+    const FACTOR_NETO = 0.82;
+    const INGRESO_REF = 22000; // ingreso de referencia 2026 si no se captura
     const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
 
-    function num(id) {
-      const el = document.getElementById(id);
-      return el && el.value !== '' ? Number(el.value) || 0 : 0;
-    }
-
-    function dateValue(id) {
-      const el = document.getElementById(id);
-      return el && el.value ? el.value : '';
-    }
-
-    function selectedMultiplier(field) {
-      const el = document.getElementById(field.id);
-      const value = el ? el.value : '';
-      if (field.multiplierMap && Object.prototype.hasOwnProperty.call(field.multiplierMap, value)) {
-        return field.multiplierMap[value];
-      }
-      return field.multiplier ?? 1;
-    }
-
-    function daysBetween(start, end) {
-      if (!start || !end) return 0;
-      const startDate = new Date(start + 'T00:00:00');
-      const endDate = new Date(end + 'T00:00:00');
-      const diff = endDate - startDate;
-      if (!Number.isFinite(diff) || diff <= 0) return 0;
-      return Math.floor(diff / 86400000);
-    }
-
-    function yearsBetween(start, end) {
-      return daysBetween(start, end) / 365;
-    }
-
-    function vacationDaysForYears(years) {
-      const fullYears = Math.max(0, Math.floor(years));
-      if (fullYears <= 0) return 0;
-      if (fullYears === 1) return 12;
-      if (fullYears === 2) return 14;
-      if (fullYears === 3) return 16;
-      if (fullYears === 4) return 18;
-      if (fullYears === 5) return 20;
-      return 20 + Math.ceil((fullYears - 5) / 5) * 2;
+    function pctPorHijos(n) {
+      if (n <= 0) return 0;
+      if (n === 1) return 0.20;
+      if (n === 2) return 0.30;
+      if (n === 3) return 0.40;
+      return 0.50;
     }
 
     function runCalc() {
-      const breakdown = [];
-      let total = 0;
+      const bienes  = parseFloat(document.getElementById('bienes').value) || 0;
+      const deudas  = parseFloat(document.getElementById('deudas').value) || 0;
+      const hijos   = Math.max(0, parseInt(document.getElementById('hijos').value) || 0);
+      const acuerdo = document.getElementById('acuerdo').value;
 
-      if (calcMeta.formulaKey === 'labor-liquidation') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const termination = selectedMultiplier({ id: 'terminacion', multiplierMap: { injustificado: 22000, renuncia: 6500, mutuo: 12000 } });
-        const indemnizacion = salary * 90;
-        const seniority = salary * 20 * years;
-        const proporcional = salary * vacationDays * 0.25 * Math.max(0.25, Math.min(1, years / 5));
-        breakdown.push(['Indemnización base', money.format(Math.round(indemnizacion))]);
-        breakdown.push(['Antigüedad estimada', money.format(Math.round(seniority))]);
-        breakdown.push(['Vacaciones y prima', money.format(Math.round(proporcional))]);
-        breakdown.push(['Tipo de terminación', money.format(Math.round(termination))]);
-        total += indemnizacion + seniority + proporcional + termination;
-      } else if (calcMeta.formulaKey === 'labor-finiquito') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const days = daysBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const aguinaldo = salary * 15 * (days / 365);
-        const vacaciones = salary * vacationDays * 0.25 * (days / 365);
-        const salariosPendientes = salary * Math.max(0, Math.min(15, days % 15));
-        breakdown.push(['Salarios pendientes', money.format(Math.round(salariosPendientes))]);
-        breakdown.push(['Aguinaldo proporcional', money.format(Math.round(aguinaldo))]);
-        breakdown.push(['Vacaciones proporcionales', money.format(Math.round(vacaciones))]);
-        total += salariosPendientes + aguinaldo + vacaciones;
-      } else if (calcMeta.formulaKey === 'labor-despido') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const termination = selectedMultiplier({ id: 'terminacion', multiplierMap: { sin_causa: 28000, verbal: 18000, escrita: 22000 } });
-        const indemnizacion = salary * 90;
-        const seniority = salary * 20 * years;
-        const proporcional = salary * vacationDays * 0.25;
-        breakdown.push(['Indemnización base', money.format(Math.round(indemnizacion))]);
-        breakdown.push(['Prima de antigüedad', money.format(Math.round(seniority))]);
-        breakdown.push(['Vacaciones y prima', money.format(Math.round(proporcional))]);
-        breakdown.push(['Tipo de terminación', money.format(Math.round(termination))]);
-        total += indemnizacion + seniority + proporcional + termination;
-      } else if (calcMeta.formulaKey === 'labor-hours') {
-        const tarifa = num('tarifa_hora');
-        const horas = num('horas_extras');
-        const semanas = num('semanas');
-        const factor = selectedMultiplier({ id: 'recargo', multiplierMap: { simple: 1.5, doble: 2, triple: 3 } });
-        const totalHoras = tarifa * horas * semanas * factor;
-        breakdown.push(['Tarifa base', money.format(Math.round(tarifa))]);
-        breakdown.push(['Horas extra', money.format(Math.round(horas))]);
-        breakdown.push(['Semanas trabajadas', money.format(Math.round(semanas))]);
-        breakdown.push(['Recargo aplicado', factor.toFixed(1) + 'x']);
-        total += totalHoras;
-      } else if (calcMeta.formulaKey === 'labor-aguinaldo') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const days = daysBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const aguinaldo = salary * 15 * (days / 365);
-        const prima = salary * vacationDays * 0.25 * (days / 365);
-        breakdown.push(['Aguinaldo legal', money.format(Math.round(aguinaldo))]);
-        breakdown.push(['Prima vacacional', money.format(Math.round(prima))]);
-        total += aguinaldo + prima;
-      } else {
-        calcConfig.forEach((field) => {
-          let contribution = 0;
-          if (field.type === 'select') {
-            const el = document.getElementById(field.id);
-            const label = el && el.options[el.selectedIndex] ? el.options[el.selectedIndex].textContent : field.label;
-            const factor = selectedMultiplier(field);
-            contribution = factor;
-            breakdown.push([label, money.format(Math.round(contribution))]);
-            total += contribution;
-            return;
-          }
+      // Art. 266-289 CCF: liquidación de la sociedad conyugal al 50/50
+      const haberSocial     = Math.max(bienes - deudas, 0);
+      const partePorConyuge = haberSocial / 2;
 
-          const value = num(field.id);
-          contribution = value * (field.multiplier ?? 1);
-          breakdown.push([field.label, money.format(Math.round(contribution))]);
-          total += contribution;
-        });
-      }
+      // Pensión orientativa mensual (Art. 308-311 CCF, ingreso de referencia)
+      const pensionMensual = INGRESO_REF * FACTOR_NETO * pctPorHijos(hijos);
 
-      document.getElementById('resultAmount').textContent = money.format(Math.max(0, Math.round(total)));
-      document.getElementById('resultBreakdown').innerHTML = breakdown
-        .map(([label, amount]) => '<div class="breakdown-row"><span>' + label + '</span><strong>' + amount + '</strong></div>')
+      // Costo del proceso (honorarios + gastos judiciales orientativos)
+      const pctCostoMap = { mutuo: 0.030, parcial: 0.055, contencioso: 0.090 };
+      const minimoMap   = { mutuo: 18000, parcial: 35000, contencioso: 70000 };
+      const costo = Math.max(bienes * (pctCostoMap[acuerdo] || 0.03), minimoMap[acuerdo] || 18000);
+
+      document.getElementById('resultAmount').textContent = money.format(Math.round(partePorConyuge));
+      const rows = [
+        ['Activo neto común (bienes − deudas)', money.format(Math.round(haberSocial))],
+        ['Parte por cónyuge (50% Art. 194)', money.format(Math.round(partePorConyuge))],
+        ['Pensión est. mensual por hijos', hijos > 0 ? money.format(Math.round(pensionMensual)) : '—'],
+        ['Costo proceso estimado', money.format(Math.round(costo))],
+      ];
+      document.getElementById('resultBreakdown').innerHTML = rows
+        .map(([l, v]) => '<div class="breakdown-row"><span>' + l + '</span><strong>' + v + '</strong></div>')
         .join('');
     }
 

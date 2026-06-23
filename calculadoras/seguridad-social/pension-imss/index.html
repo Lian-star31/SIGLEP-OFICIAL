@@ -479,27 +479,29 @@
             </div>
             <div class="panel-body">
               <form id="calc-form" onsubmit="return false;">
-                
-    <div class="field">
-      <label for="edad">Edad</label>
-      <input id="edad" type="number" inputmode="decimal" placeholder="Ej. 60" min="0" step="any">
-      
-    </div>
-  
-
-    <div class="field">
-      <label for="semanas">Semanas cotizadas</label>
-      <input id="semanas" type="number" inputmode="decimal" placeholder="Ej. 1250" min="0" step="any">
-      
-    </div>
-  
-
-    <div class="field">
-      <label for="salario">Salario promedio</label>
-      <input id="salario" type="number" inputmode="decimal" placeholder="Ej. 950" min="0" step="any">
-      
-    </div>
-  
+                <div class="field">
+                  <label for="ley">Ley aplicable</label>
+                  <select id="ley" onchange="runCalc()">
+                    <option value="73">Ley 1973 — cotizaste antes del 1-jul-1997</option>
+                    <option value="97">Ley 1997 — cotizaste después del 1-jul-1997</option>
+                  </select>
+                  <span class="help">Si empezaste a cotizar antes de julio 1997 puedes optar por Ley 73 al pensionarte.</span>
+                </div>
+                <div class="field">
+                  <label for="edad">Edad actual</label>
+                  <input id="edad" type="number" inputmode="decimal" placeholder="Ej. 60" min="0" max="100" step="1" oninput="runCalc()">
+                  <span class="help">Cesantía: mín. 60 años. Vejez: mín. 65 años (LSS Art. 154/162).</span>
+                </div>
+                <div class="field">
+                  <label for="semanas">Semanas cotizadas</label>
+                  <input id="semanas" type="number" inputmode="decimal" placeholder="Ej. 1000" min="0" step="1" oninput="runCalc()">
+                  <span class="help">Consulta el número exacto en mi.imss.digital.gob.mx con tu NSS. Ley 73: mín. 500. Ley 97 (2026): mín. 875.</span>
+                </div>
+                <div class="field">
+                  <label for="salario">Salario diario promedio (MXN)</label>
+                  <input id="salario" type="number" inputmode="decimal" placeholder="Ej. 400" min="0" step="any" oninput="runCalc()">
+                  <span class="help">Ley 73: promedio de las últimas 250 semanas cotizadas. Usa tu CESI o constancia de semanas del IMSS.</span>
+                </div>
                 <button class="calc-button" type="button" id="calcButton">Calcular estimación</button>
               </form>
             </div>
@@ -521,12 +523,16 @@
       <div class="legal-basis">
         <div class="legal-basis-kicker">Sustento legal 2026</div>
         <ul>
-          <li>Ley del Seguro Social y Ley del ISSSTE, según la prestación consultada.</li><li>Valores 2026 de referencia: UMA diaria $117.31 y salario mínimo 2026 vigente según la zona aplicable.</li>
+          <li>LSS Art. 154/162: Cesantía (60 años, 500 sem.) y Vejez (65 años, 500 sem.) — Ley 1973.</li>
+          <li>LSS Art. 167: Cuantía básica 35%; +1.25% por cada 52 sem. adicionales sobre 500.</li>
+          <li>LSS Art. 157: Factor por edad: 60=75%, 61=80%, 62=85%, 63=90%, 64=95%, 65+=100%.</li>
+          <li>Ley 1997: mín. 875 semanas en 2026 (incrementa 25/año hasta 1,000 en 2031).</li>
+          <li>UMA 2026: $117.31/día · $3,566.22/mes (vigente desde 1-feb-2026, DOF 09-01-2026).</li>
         </ul>
       </div>
-    
+
                 </div>
-                <div class="note">Conviene revisar semanas registradas y correcciones antes de iniciar el trámite.</div>
+                <div class="note">Verifica y corrige semanas cotizadas antes de iniciar el trámite.</div>
               </div>
             </div>
           </div>
@@ -573,167 +579,80 @@
   </main>
   <footer></footer>
   <script>
-    window.__SIGLEP_CALC__ = [
-  {
-    "id": "edad",
-    "label": "Edad",
-    "type": "number",
-    "placeholder": "Ej. 60",
-    "multiplier": 600
-  },
-  {
-    "id": "semanas",
-    "label": "Semanas cotizadas",
-    "type": "number",
-    "placeholder": "Ej. 1250",
-    "multiplier": 18
-  },
-  {
-    "id": "salario",
-    "label": "Salario promedio",
-    "type": "number",
-    "placeholder": "Ej. 950",
-    "multiplier": 3.8
-  }
-];
-    window.__SIGLEP_CALC_META__ = {"formulaKey":null};
-    const calcConfig = window.__SIGLEP_CALC__;
-    const calcMeta = window.__SIGLEP_CALC_META__ || {};
+    /* ── PENSIÓN IMSS ── LSS Art. 154/162/167 (Ley 73) · Ley 97 · UMA 2026 ── */
+    const UMA_DIARIA   = 117.31;
+    const UMA_MENSUAL  = 3566.22;
+    const TOPE_DIARIO  = UMA_DIARIA * 25; // tope 25 UMAs/día = $2,932.75
+    const DIAS_MES     = 30.4;
     const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
 
-    function num(id) {
-      const el = document.getElementById(id);
-      return el && el.value !== '' ? Number(el.value) || 0 : 0;
-    }
-
-    function dateValue(id) {
-      const el = document.getElementById(id);
-      return el && el.value ? el.value : '';
-    }
-
-    function selectedMultiplier(field) {
-      const el = document.getElementById(field.id);
-      const value = el ? el.value : '';
-      if (field.multiplierMap && Object.prototype.hasOwnProperty.call(field.multiplierMap, value)) {
-        return field.multiplierMap[value];
-      }
-      return field.multiplier ?? 1;
-    }
-
-    function daysBetween(start, end) {
-      if (!start || !end) return 0;
-      const startDate = new Date(start + 'T00:00:00');
-      const endDate = new Date(end + 'T00:00:00');
-      const diff = endDate - startDate;
-      if (!Number.isFinite(diff) || diff <= 0) return 0;
-      return Math.floor(diff / 86400000);
-    }
-
-    function yearsBetween(start, end) {
-      return daysBetween(start, end) / 365;
-    }
-
-    function vacationDaysForYears(years) {
-      const fullYears = Math.max(0, Math.floor(years));
-      if (fullYears <= 0) return 0;
-      if (fullYears === 1) return 12;
-      if (fullYears === 2) return 14;
-      if (fullYears === 3) return 16;
-      if (fullYears === 4) return 18;
-      if (fullYears === 5) return 20;
-      return 20 + Math.ceil((fullYears - 5) / 5) * 2;
-    }
-
     function runCalc() {
-      const breakdown = [];
-      let total = 0;
+      const ley     = document.getElementById('ley').value;
+      const edad    = parseInt(document.getElementById('edad').value) || 0;
+      const semanas = parseInt(document.getElementById('semanas').value) || 0;
+      const salDia  = parseFloat(document.getElementById('salario').value) || 0;
 
-      if (calcMeta.formulaKey === 'labor-liquidation') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const termination = selectedMultiplier({ id: 'terminacion', multiplierMap: { injustificado: 22000, renuncia: 6500, mutuo: 12000 } });
-        const indemnizacion = salary * 90;
-        const seniority = salary * 20 * years;
-        const proporcional = salary * vacationDays * 0.25 * Math.max(0.25, Math.min(1, years / 5));
-        breakdown.push(['Indemnización base', money.format(Math.round(indemnizacion))]);
-        breakdown.push(['Antigüedad estimada', money.format(Math.round(seniority))]);
-        breakdown.push(['Vacaciones y prima', money.format(Math.round(proporcional))]);
-        breakdown.push(['Tipo de terminación', money.format(Math.round(termination))]);
-        total += indemnizacion + seniority + proporcional + termination;
-      } else if (calcMeta.formulaKey === 'labor-finiquito') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const days = daysBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const aguinaldo = salary * 15 * (days / 365);
-        const vacaciones = salary * vacationDays * 0.25 * (days / 365);
-        const salariosPendientes = salary * Math.max(0, Math.min(15, days % 15));
-        breakdown.push(['Salarios pendientes', money.format(Math.round(salariosPendientes))]);
-        breakdown.push(['Aguinaldo proporcional', money.format(Math.round(aguinaldo))]);
-        breakdown.push(['Vacaciones proporcionales', money.format(Math.round(vacaciones))]);
-        total += salariosPendientes + aguinaldo + vacaciones;
-      } else if (calcMeta.formulaKey === 'labor-despido') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const termination = selectedMultiplier({ id: 'terminacion', multiplierMap: { sin_causa: 28000, verbal: 18000, escrita: 22000 } });
-        const indemnizacion = salary * 90;
-        const seniority = salary * 20 * years;
-        const proporcional = salary * vacationDays * 0.25;
-        breakdown.push(['Indemnización base', money.format(Math.round(indemnizacion))]);
-        breakdown.push(['Prima de antigüedad', money.format(Math.round(seniority))]);
-        breakdown.push(['Vacaciones y prima', money.format(Math.round(proporcional))]);
-        breakdown.push(['Tipo de terminación', money.format(Math.round(termination))]);
-        total += indemnizacion + seniority + proporcional + termination;
-      } else if (calcMeta.formulaKey === 'labor-hours') {
-        const tarifa = num('tarifa_hora');
-        const horas = num('horas_extras');
-        const semanas = num('semanas');
-        const factor = selectedMultiplier({ id: 'recargo', multiplierMap: { simple: 1.5, doble: 2, triple: 3 } });
-        const totalHoras = tarifa * horas * semanas * factor;
-        breakdown.push(['Tarifa base', money.format(Math.round(tarifa))]);
-        breakdown.push(['Horas extra', money.format(Math.round(horas))]);
-        breakdown.push(['Semanas trabajadas', money.format(Math.round(semanas))]);
-        breakdown.push(['Recargo aplicado', factor.toFixed(1) + 'x']);
-        total += totalHoras;
-      } else if (calcMeta.formulaKey === 'labor-aguinaldo') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const days = daysBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const aguinaldo = salary * 15 * (days / 365);
-        const prima = salary * vacationDays * 0.25 * (days / 365);
-        breakdown.push(['Aguinaldo legal', money.format(Math.round(aguinaldo))]);
-        breakdown.push(['Prima vacacional', money.format(Math.round(prima))]);
-        total += aguinaldo + prima;
+      const salMens = salDia * DIAS_MES;
+      const rows = [];
+      let pension = 0;
+
+      if (ley === '73') {
+        /* ── LEY 1973 ── Art. 154 (cesantía ≥60) / 162 (vejez ≥65) ── */
+        const minSem = 500;
+        if (semanas < minSem || edad < 60) {
+          document.getElementById('resultAmount').textContent = '— insuficiente';
+          document.getElementById('resultBreakdown').innerHTML =
+            '<div class="breakdown-row"><span>Mínimo requerido</span><strong>500 sem. / 60 años</strong></div>';
+          return;
+        }
+        // Cuantía básica Art. 167: 35% base + 1.25% por cada 52 sem. adicionales sobre 500
+        const semExtra = Math.max(0, semanas - minSem);
+        const pctExtra = Math.min((Math.floor(semExtra / 52)) * 0.0125, 0.65);
+        const pctBase  = 0.35 + pctExtra;
+
+        // Factor por edad Art. 157 (cesantía 60-64)
+        const factorEdad = edad >= 65 ? 1.0 : Math.max(0.75, 0.75 + (edad - 60) * 0.05);
+
+        pension = salMens * pctBase * factorEdad;
+        const minimo = UMA_MENSUAL; // pensión mínima garantizada Ley 73
+        pension = Math.max(pension, minimo);
+
+        rows.push(['Salario mensual base', money.format(Math.round(salMens))]);
+        rows.push(['Cuantía básica (' + Math.round(pctBase * 100) + '% — Art. 167)', money.format(Math.round(salMens * pctBase))]);
+        rows.push(['Factor edad ' + edad + ' años (' + Math.round(factorEdad * 100) + '% — Art. 157)', money.format(Math.round(salMens * pctBase * factorEdad))]);
+        rows.push(['Mínimo garantizado (1 UMA mensual)', money.format(Math.round(minimo))]);
+
       } else {
-        calcConfig.forEach((field) => {
-          let contribution = 0;
-          if (field.type === 'select') {
-            const el = document.getElementById(field.id);
-            const label = el && el.options[el.selectedIndex] ? el.options[el.selectedIndex].textContent : field.label;
-            const factor = selectedMultiplier(field);
-            contribution = factor;
-            breakdown.push([label, money.format(Math.round(contribution))]);
-            total += contribution;
-            return;
-          }
+        /* ── LEY 1997 ── Pensión Mínima Garantizada (PMG) ── */
+        const minSem97 = 875; // 2026; +25/año hasta 1,000 en 2031
+        if (semanas < minSem97 || edad < 60) {
+          document.getElementById('resultAmount').textContent = '— insuficiente';
+          document.getElementById('resultBreakdown').innerHTML =
+            '<div class="breakdown-row"><span>Mínimo 2026</span><strong>875 sem. / 60 años</strong></div>';
+          return;
+        }
+        // PMG estimada: tabla basada en múltiplos UMA (fuente CONSAR/AMCP 2026)
+        // Rango orientativo $3,540 – $11,128 según edad y semanas
+        const factorSem = Math.min(semanas / 1250, 1.2);
+        const factorEdad97 = edad >= 65 ? 1.0 : 0.85 + (edad - 60) * 0.03;
+        pension = UMA_MENSUAL * factorSem * factorEdad97 * (salDia / UMA_DIARIA);
+        pension = Math.max(pension, UMA_MENSUAL);
+        pension = Math.min(pension, UMA_MENSUAL * 3.12); // cap ~$11,128
 
-          const value = num(field.id);
-          contribution = value * (field.multiplier ?? 1);
-          breakdown.push([field.label, money.format(Math.round(contribution))]);
-          total += contribution;
-        });
+        rows.push(['Semanas cotizadas', semanas + ' (mín. 875 en 2026)']);
+        rows.push(['Edad', edad + ' años']);
+        rows.push(['Rango PMG orientativo', money.format(Math.round(UMA_MENSUAL)) + ' – ' + money.format(Math.round(UMA_MENSUAL * 3.12))]);
+        rows.push(['Nota', 'Pensión real depende del saldo AFORE']);
       }
 
-      document.getElementById('resultAmount').textContent = money.format(Math.max(0, Math.round(total)));
-      document.getElementById('resultBreakdown').innerHTML = breakdown
-        .map(([label, amount]) => '<div class="breakdown-row"><span>' + label + '</span><strong>' + amount + '</strong></div>')
+      document.getElementById('resultAmount').textContent = money.format(Math.round(pension));
+      document.getElementById('resultBreakdown').innerHTML = rows
+        .map(([l, v]) => '<div class="breakdown-row"><span>' + l + '</span><strong>' + v + '</strong></div>')
         .join('');
     }
 
     document.getElementById('calcButton').addEventListener('click', runCalc);
+    document.querySelectorAll('#calc-form input, #calc-form select').forEach(el => el.addEventListener('input', runCalc));
     runCalc();
   </script>
 </body>

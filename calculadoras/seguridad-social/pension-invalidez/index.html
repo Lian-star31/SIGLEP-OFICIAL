@@ -479,29 +479,24 @@
             </div>
             <div class="panel-body">
               <form id="calc-form" onsubmit="return false;">
-                
-    <div class="field">
-      <label for="salario">Salario promedio</label>
-      <input id="salario" type="number" inputmode="decimal" placeholder="Ej. 12000" min="0" step="any">
-      
-    </div>
-  
-
-    <div class="field">
-      <label for="semanas">Semanas cotizadas</label>
-      <input id="semanas" type="number" inputmode="decimal" placeholder="Ej. 900" min="0" step="any">
-      
-    </div>
-  
-
-      <div class="field">
-        <label for="grado">Grado de invalidez</label>
-        <select id="grado">
-          <option value="parcial">Parcial</option><option value="total">Total</option><option value="temporal">Temporal</option>
-        </select>
-        
-      </div>
-    
+                <div class="field">
+                  <label for="salario">Salario mensual promedio (MXN)</label>
+                  <input id="salario" type="number" inputmode="decimal" placeholder="Ej. 12000" min="0" step="any" oninput="runCalc()">
+                  <span class="help">Promedio de tu SBC de las últimas 500 semanas cotizadas o el tiempo cotizado si es menor. Consulta tus CESI del IMSS.</span>
+                </div>
+                <div class="field">
+                  <label for="semanas">Semanas cotizadas</label>
+                  <input id="semanas" type="number" inputmode="decimal" placeholder="Ej. 900" min="0" step="1" oninput="runCalc()">
+                  <span class="help">Mín. 250 semanas (Art. 119 LSS). Excepción: 150 semanas si el grado de invalidez es ≥75%. Verifica en mi.imss.digital.gob.mx.</span>
+                </div>
+                <div class="field">
+                  <label for="grado">Grado de invalidez (dictamen médico)</label>
+                  <select id="grado" onchange="runCalc()">
+                    <option value="parcial">Parcial (25–74%) — dictamen médico requerido</option>
+                    <option value="total">Total (≥75%) — mín. 150 semanas</option>
+                    <option value="temporal">Temporal — mientras dure la incapacidad</option>
+                  </select>
+                </div>
                 <button class="calc-button" type="button" id="calcButton">Calcular estimación</button>
               </form>
             </div>
@@ -523,12 +518,16 @@
       <div class="legal-basis">
         <div class="legal-basis-kicker">Sustento legal 2026</div>
         <ul>
-          <li>Ley del Seguro Social y Ley del ISSSTE, según la prestación consultada.</li><li>Valores 2026 de referencia: UMA diaria $117.31 y salario mínimo 2026 vigente según la zona aplicable.</li>
+          <li>LSS Art. 119: mín. 250 semanas cotizadas; o 150 si grado ≥75% de invalidez.</li>
+          <li>LSS Art. 141: cuantía básica = 35% del SBC + 1.25% por cada 52 sem. sobre 500.</li>
+          <li>LSS Art. 165-168: asignaciones familiares — cónyuge +15%, cada hijo +10%.</li>
+          <li>Grado parcial (25–74%): pensión proporcional al grado certificado por el IMSS.</li>
+          <li>UMA mensual 2026: $3,566.22 — pensión mínima garantizada orientativa.</li>
         </ul>
       </div>
-    
+
                 </div>
-                <div class="note">Conserva dictámenes, certificados y resoluciones médicas.</div>
+                <div class="note">Conserva dictámenes, certificados y resoluciones médicas del IMSS.</div>
               </div>
             </div>
           </div>
@@ -575,184 +574,55 @@
   </main>
   <footer></footer>
   <script>
-    window.__SIGLEP_CALC__ = [
-  {
-    "id": "salario",
-    "label": "Salario promedio",
-    "type": "number",
-    "placeholder": "Ej. 12000",
-    "multiplier": 0.22
-  },
-  {
-    "id": "semanas",
-    "label": "Semanas cotizadas",
-    "type": "number",
-    "placeholder": "Ej. 900",
-    "multiplier": 15
-  },
-  {
-    "id": "grado",
-    "label": "Grado de invalidez",
-    "type": "select",
-    "multiplierMap": {
-      "parcial": 6000,
-      "total": 14000,
-      "temporal": 9000
-    },
-    "options": [
-      {
-        "value": "parcial",
-        "label": "Parcial"
-      },
-      {
-        "value": "total",
-        "label": "Total"
-      },
-      {
-        "value": "temporal",
-        "label": "Temporal"
-      }
-    ]
-  }
-];
-    window.__SIGLEP_CALC_META__ = {"formulaKey":null};
-    const calcConfig = window.__SIGLEP_CALC__;
-    const calcMeta = window.__SIGLEP_CALC_META__ || {};
+    /* ── PENSIÓN POR INVALIDEZ ── LSS Art. 119/141/165-168 · UMA 2026 ── */
+    const UMA_MENSUAL = 3566.22;
     const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
 
-    function num(id) {
-      const el = document.getElementById(id);
-      return el && el.value !== '' ? Number(el.value) || 0 : 0;
-    }
-
-    function dateValue(id) {
-      const el = document.getElementById(id);
-      return el && el.value ? el.value : '';
-    }
-
-    function selectedMultiplier(field) {
-      const el = document.getElementById(field.id);
-      const value = el ? el.value : '';
-      if (field.multiplierMap && Object.prototype.hasOwnProperty.call(field.multiplierMap, value)) {
-        return field.multiplierMap[value];
-      }
-      return field.multiplier ?? 1;
-    }
-
-    function daysBetween(start, end) {
-      if (!start || !end) return 0;
-      const startDate = new Date(start + 'T00:00:00');
-      const endDate = new Date(end + 'T00:00:00');
-      const diff = endDate - startDate;
-      if (!Number.isFinite(diff) || diff <= 0) return 0;
-      return Math.floor(diff / 86400000);
-    }
-
-    function yearsBetween(start, end) {
-      return daysBetween(start, end) / 365;
-    }
-
-    function vacationDaysForYears(years) {
-      const fullYears = Math.max(0, Math.floor(years));
-      if (fullYears <= 0) return 0;
-      if (fullYears === 1) return 12;
-      if (fullYears === 2) return 14;
-      if (fullYears === 3) return 16;
-      if (fullYears === 4) return 18;
-      if (fullYears === 5) return 20;
-      return 20 + Math.ceil((fullYears - 5) / 5) * 2;
-    }
-
     function runCalc() {
-      const breakdown = [];
-      let total = 0;
+      const salario = parseFloat(document.getElementById('salario').value) || 0;
+      const semanas = parseInt(document.getElementById('semanas').value) || 0;
+      const grado   = document.getElementById('grado').value;
 
-      if (calcMeta.formulaKey === 'labor-liquidation') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const termination = selectedMultiplier({ id: 'terminacion', multiplierMap: { injustificado: 22000, renuncia: 6500, mutuo: 12000 } });
-        const indemnizacion = salary * 90;
-        const seniority = salary * 20 * years;
-        const proporcional = salary * vacationDays * 0.25 * Math.max(0.25, Math.min(1, years / 5));
-        breakdown.push(['Indemnización base', money.format(Math.round(indemnizacion))]);
-        breakdown.push(['Antigüedad estimada', money.format(Math.round(seniority))]);
-        breakdown.push(['Vacaciones y prima', money.format(Math.round(proporcional))]);
-        breakdown.push(['Tipo de terminación', money.format(Math.round(termination))]);
-        total += indemnizacion + seniority + proporcional + termination;
-      } else if (calcMeta.formulaKey === 'labor-finiquito') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const days = daysBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const aguinaldo = salary * 15 * (days / 365);
-        const vacaciones = salary * vacationDays * 0.25 * (days / 365);
-        const salariosPendientes = salary * Math.max(0, Math.min(15, days % 15));
-        breakdown.push(['Salarios pendientes', money.format(Math.round(salariosPendientes))]);
-        breakdown.push(['Aguinaldo proporcional', money.format(Math.round(aguinaldo))]);
-        breakdown.push(['Vacaciones proporcionales', money.format(Math.round(vacaciones))]);
-        total += salariosPendientes + aguinaldo + vacaciones;
-      } else if (calcMeta.formulaKey === 'labor-despido') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const termination = selectedMultiplier({ id: 'terminacion', multiplierMap: { sin_causa: 28000, verbal: 18000, escrita: 22000 } });
-        const indemnizacion = salary * 90;
-        const seniority = salary * 20 * years;
-        const proporcional = salary * vacationDays * 0.25;
-        breakdown.push(['Indemnización base', money.format(Math.round(indemnizacion))]);
-        breakdown.push(['Prima de antigüedad', money.format(Math.round(seniority))]);
-        breakdown.push(['Vacaciones y prima', money.format(Math.round(proporcional))]);
-        breakdown.push(['Tipo de terminación', money.format(Math.round(termination))]);
-        total += indemnizacion + seniority + proporcional + termination;
-      } else if (calcMeta.formulaKey === 'labor-hours') {
-        const tarifa = num('tarifa_hora');
-        const horas = num('horas_extras');
-        const semanas = num('semanas');
-        const factor = selectedMultiplier({ id: 'recargo', multiplierMap: { simple: 1.5, doble: 2, triple: 3 } });
-        const totalHoras = tarifa * horas * semanas * factor;
-        breakdown.push(['Tarifa base', money.format(Math.round(tarifa))]);
-        breakdown.push(['Horas extra', money.format(Math.round(horas))]);
-        breakdown.push(['Semanas trabajadas', money.format(Math.round(semanas))]);
-        breakdown.push(['Recargo aplicado', factor.toFixed(1) + 'x']);
-        total += totalHoras;
-      } else if (calcMeta.formulaKey === 'labor-aguinaldo') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const days = daysBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const aguinaldo = salary * 15 * (days / 365);
-        const prima = salary * vacationDays * 0.25 * (days / 365);
-        breakdown.push(['Aguinaldo legal', money.format(Math.round(aguinaldo))]);
-        breakdown.push(['Prima vacacional', money.format(Math.round(prima))]);
-        total += aguinaldo + prima;
-      } else {
-        calcConfig.forEach((field) => {
-          let contribution = 0;
-          if (field.type === 'select') {
-            const el = document.getElementById(field.id);
-            const label = el && el.options[el.selectedIndex] ? el.options[el.selectedIndex].textContent : field.label;
-            const factor = selectedMultiplier(field);
-            contribution = factor;
-            breakdown.push([label, money.format(Math.round(contribution))]);
-            total += contribution;
-            return;
-          }
-
-          const value = num(field.id);
-          contribution = value * (field.multiplier ?? 1);
-          breakdown.push([field.label, money.format(Math.round(contribution))]);
-          total += contribution;
-        });
+      // Requisito mínimo semanas (Art. 119 LSS)
+      const minSem = grado === 'total' ? 150 : 250;
+      if (semanas < minSem) {
+        document.getElementById('resultAmount').textContent = '— insuficiente';
+        document.getElementById('resultBreakdown').innerHTML =
+          '<div class="breakdown-row"><span>Mínimo requerido</span><strong>' + minSem + ' semanas (Art. 119 LSS)</strong></div>';
+        return;
       }
 
-      document.getElementById('resultAmount').textContent = money.format(Math.max(0, Math.round(total)));
-      document.getElementById('resultBreakdown').innerHTML = breakdown
-        .map(([label, amount]) => '<div class="breakdown-row"><span>' + label + '</span><strong>' + amount + '</strong></div>')
+      // Cuantía básica Art. 141: 35% base + 1.25% por cada 52 sem. sobre 500
+      const semExtra = Math.max(0, semanas - 500);
+      const pctExtra = Math.min(Math.floor(semExtra / 52) * 0.0125, 0.65);
+      const pctBase  = 0.35 + pctExtra;
+      const pensionBase = salario * pctBase;
+
+      // Factor grado invalidez
+      const factorGrado = { parcial: 0.60, total: 1.0, temporal: 0.50 }[grado] || 1.0;
+      const pensionGrado = pensionBase * factorGrado;
+
+      // Asignación familiar cónyuge: +15% (Art. 165 LSS) — orientativo
+      const asigConyugue = pensionGrado * 0.15;
+      const pensionTotal = pensionGrado + asigConyugue;
+
+      const pension = Math.max(pensionTotal, UMA_MENSUAL);
+
+      document.getElementById('resultAmount').textContent = money.format(Math.round(pension));
+      const rows = [
+        ['Salario mensual base', money.format(Math.round(salario))],
+        ['Cuantía básica (' + Math.round(pctBase * 100) + '% — Art. 141)', money.format(Math.round(pensionBase))],
+        ['Factor grado ' + grado + ' (' + Math.round(factorGrado * 100) + '%)', money.format(Math.round(pensionGrado))],
+        ['Asignación cónyuge (+15% — Art. 165)', money.format(Math.round(asigConyugue))],
+        ['Mínimo garantizado (1 UMA mensual)', money.format(Math.round(UMA_MENSUAL))],
+      ];
+      document.getElementById('resultBreakdown').innerHTML = rows
+        .map(([l, v]) => '<div class="breakdown-row"><span>' + l + '</span><strong>' + v + '</strong></div>')
         .join('');
     }
 
     document.getElementById('calcButton').addEventListener('click', runCalc);
+    document.querySelectorAll('#calc-form input, #calc-form select').forEach(el => el.addEventListener('input', runCalc));
     runCalc();
   </script>
 </body>

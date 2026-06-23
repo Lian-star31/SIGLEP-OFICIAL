@@ -479,27 +479,28 @@
             </div>
             <div class="panel-body">
               <form id="calc-form" onsubmit="return false;">
-                
-    <div class="field">
-      <label for="edad">Edad</label>
-      <input id="edad" type="number" inputmode="decimal" placeholder="Ej. 58" min="0" step="any">
-      
-    </div>
-  
-
-    <div class="field">
-      <label for="anios">Años de servicio</label>
-      <input id="anios" type="number" inputmode="decimal" placeholder="Ej. 25" min="0" step="any">
-      
-    </div>
-  
-
-    <div class="field">
-      <label for="salario">Salario base</label>
-      <input id="salario" type="number" inputmode="decimal" placeholder="Ej. 14000" min="0" step="any">
-      
-    </div>
-  
+                <div class="field">
+                  <label for="sexo">Sexo (para requisito de años)</label>
+                  <select id="sexo" onchange="runCalc()">
+                    <option value="m">Hombre — 30 años requeridos</option>
+                    <option value="f">Mujer — 28 años requeridos</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="edad">Edad actual</label>
+                  <input id="edad" type="number" inputmode="decimal" placeholder="Ej. 55" min="0" max="100" step="1" oninput="runCalc()">
+                  <span class="help">Retiro por edad y servicio: mín. 55 años H / 53 años M con ≥15 años (Art. 67 LISSSTE).</span>
+                </div>
+                <div class="field">
+                  <label for="anios">Años de servicio</label>
+                  <input id="anios" type="number" inputmode="decimal" placeholder="Ej. 25" min="0" max="50" step="1" oninput="runCalc()">
+                  <span class="help">Verifica en tu expediente laboral y constancia de semanas del ISSSTE (SINAVID). Mín. 15 años para pensión por edad y servicio.</span>
+                </div>
+                <div class="field">
+                  <label for="salario">Sueldo básico mensual (MXN)</label>
+                  <input id="salario" type="number" inputmode="decimal" placeholder="Ej. 14000" min="0" step="any" oninput="runCalc()">
+                  <span class="help">Sueldo tabular del último año anterior a la baja, comprobable en nómina oficial o talón de pago.</span>
+                </div>
                 <button class="calc-button" type="button" id="calcButton">Calcular estimación</button>
               </form>
             </div>
@@ -521,12 +522,15 @@
       <div class="legal-basis">
         <div class="legal-basis-kicker">Sustento legal 2026</div>
         <ul>
-          <li>Ley del Seguro Social y Ley del ISSSTE, según la prestación consultada.</li><li>Valores 2026 de referencia: UMA diaria $117.31 y salario mínimo 2026 vigente según la zona aplicable.</li>
+          <li>Art. 67 LISSSTE: Pensión por jubilación — 30 años H / 28 años M → 100% sueldo básico.</li>
+          <li>Art. 67 LISSSTE: Retiro por edad y servicio — 55/53 años + ≥15 años → 50% base + progresivo.</li>
+          <li>Art. Décimo Transitorio LISSSTE 2007: cálculo bajo régimen anterior para trabajadores activos antes de 2007.</li>
+          <li>UMA mensual 2026: $3,566.22 — referencia para pensión mínima garantizada.</li>
         </ul>
       </div>
-    
+
                 </div>
-                <div class="note">Conviene revisar documentos de nombramiento, nóminas y expediente laboral.</div>
+                <div class="note">Verifica nombramiento, nóminas y expediente en SINAVID antes del trámite.</div>
               </div>
             </div>
           </div>
@@ -573,167 +577,57 @@
   </main>
   <footer></footer>
   <script>
-    window.__SIGLEP_CALC__ = [
-  {
-    "id": "edad",
-    "label": "Edad",
-    "type": "number",
-    "placeholder": "Ej. 58",
-    "multiplier": 550
-  },
-  {
-    "id": "anios",
-    "label": "Años de servicio",
-    "type": "number",
-    "placeholder": "Ej. 25",
-    "multiplier": 680
-  },
-  {
-    "id": "salario",
-    "label": "Salario base",
-    "type": "number",
-    "placeholder": "Ej. 14000",
-    "multiplier": 0.18
-  }
-];
-    window.__SIGLEP_CALC_META__ = {"formulaKey":null};
-    const calcConfig = window.__SIGLEP_CALC__;
-    const calcMeta = window.__SIGLEP_CALC_META__ || {};
+    /* ── PENSIÓN ISSSTE ── Art. 67 LISSSTE · Décimo Transitorio · UMA 2026 ── */
+    const UMA_MENSUAL = 3566.22;
     const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
 
-    function num(id) {
-      const el = document.getElementById(id);
-      return el && el.value !== '' ? Number(el.value) || 0 : 0;
-    }
-
-    function dateValue(id) {
-      const el = document.getElementById(id);
-      return el && el.value ? el.value : '';
-    }
-
-    function selectedMultiplier(field) {
-      const el = document.getElementById(field.id);
-      const value = el ? el.value : '';
-      if (field.multiplierMap && Object.prototype.hasOwnProperty.call(field.multiplierMap, value)) {
-        return field.multiplierMap[value];
-      }
-      return field.multiplier ?? 1;
-    }
-
-    function daysBetween(start, end) {
-      if (!start || !end) return 0;
-      const startDate = new Date(start + 'T00:00:00');
-      const endDate = new Date(end + 'T00:00:00');
-      const diff = endDate - startDate;
-      if (!Number.isFinite(diff) || diff <= 0) return 0;
-      return Math.floor(diff / 86400000);
-    }
-
-    function yearsBetween(start, end) {
-      return daysBetween(start, end) / 365;
-    }
-
-    function vacationDaysForYears(years) {
-      const fullYears = Math.max(0, Math.floor(years));
-      if (fullYears <= 0) return 0;
-      if (fullYears === 1) return 12;
-      if (fullYears === 2) return 14;
-      if (fullYears === 3) return 16;
-      if (fullYears === 4) return 18;
-      if (fullYears === 5) return 20;
-      return 20 + Math.ceil((fullYears - 5) / 5) * 2;
-    }
-
     function runCalc() {
-      const breakdown = [];
-      let total = 0;
+      const sexo   = document.getElementById('sexo').value;
+      const edad   = parseInt(document.getElementById('edad').value) || 0;
+      const anios  = parseInt(document.getElementById('anios').value) || 0;
+      const salario = parseFloat(document.getElementById('salario').value) || 0;
 
-      if (calcMeta.formulaKey === 'labor-liquidation') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const termination = selectedMultiplier({ id: 'terminacion', multiplierMap: { injustificado: 22000, renuncia: 6500, mutuo: 12000 } });
-        const indemnizacion = salary * 90;
-        const seniority = salary * 20 * years;
-        const proporcional = salary * vacationDays * 0.25 * Math.max(0.25, Math.min(1, years / 5));
-        breakdown.push(['Indemnización base', money.format(Math.round(indemnizacion))]);
-        breakdown.push(['Antigüedad estimada', money.format(Math.round(seniority))]);
-        breakdown.push(['Vacaciones y prima', money.format(Math.round(proporcional))]);
-        breakdown.push(['Tipo de terminación', money.format(Math.round(termination))]);
-        total += indemnizacion + seniority + proporcional + termination;
-      } else if (calcMeta.formulaKey === 'labor-finiquito') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const days = daysBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const aguinaldo = salary * 15 * (days / 365);
-        const vacaciones = salary * vacationDays * 0.25 * (days / 365);
-        const salariosPendientes = salary * Math.max(0, Math.min(15, days % 15));
-        breakdown.push(['Salarios pendientes', money.format(Math.round(salariosPendientes))]);
-        breakdown.push(['Aguinaldo proporcional', money.format(Math.round(aguinaldo))]);
-        breakdown.push(['Vacaciones proporcionales', money.format(Math.round(vacaciones))]);
-        total += salariosPendientes + aguinaldo + vacaciones;
-      } else if (calcMeta.formulaKey === 'labor-despido') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const termination = selectedMultiplier({ id: 'terminacion', multiplierMap: { sin_causa: 28000, verbal: 18000, escrita: 22000 } });
-        const indemnizacion = salary * 90;
-        const seniority = salary * 20 * years;
-        const proporcional = salary * vacationDays * 0.25;
-        breakdown.push(['Indemnización base', money.format(Math.round(indemnizacion))]);
-        breakdown.push(['Prima de antigüedad', money.format(Math.round(seniority))]);
-        breakdown.push(['Vacaciones y prima', money.format(Math.round(proporcional))]);
-        breakdown.push(['Tipo de terminación', money.format(Math.round(termination))]);
-        total += indemnizacion + seniority + proporcional + termination;
-      } else if (calcMeta.formulaKey === 'labor-hours') {
-        const tarifa = num('tarifa_hora');
-        const horas = num('horas_extras');
-        const semanas = num('semanas');
-        const factor = selectedMultiplier({ id: 'recargo', multiplierMap: { simple: 1.5, doble: 2, triple: 3 } });
-        const totalHoras = tarifa * horas * semanas * factor;
-        breakdown.push(['Tarifa base', money.format(Math.round(tarifa))]);
-        breakdown.push(['Horas extra', money.format(Math.round(horas))]);
-        breakdown.push(['Semanas trabajadas', money.format(Math.round(semanas))]);
-        breakdown.push(['Recargo aplicado', factor.toFixed(1) + 'x']);
-        total += totalHoras;
-      } else if (calcMeta.formulaKey === 'labor-aguinaldo') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const days = daysBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const aguinaldo = salary * 15 * (days / 365);
-        const prima = salary * vacationDays * 0.25 * (days / 365);
-        breakdown.push(['Aguinaldo legal', money.format(Math.round(aguinaldo))]);
-        breakdown.push(['Prima vacacional', money.format(Math.round(prima))]);
-        total += aguinaldo + prima;
+      // Requisitos Art. 67 LISSSTE (Décimo Transitorio)
+      const aniosJubilacion = sexo === 'f' ? 28 : 30; // jubilación plena
+      const edadRetiro      = sexo === 'f' ? 53 : 55;  // retiro por edad y servicio
+      const rows = [];
+      let pension = 0;
+
+      if (anios >= aniosJubilacion) {
+        // Pensión por jubilación: 100% sueldo básico (Art. 67 fr. I LISSSTE)
+        pension = salario;
+        rows.push(['Tipo', 'Jubilación (' + anios + ' años → 100%)']);
+        rows.push(['Sueldo básico mensual', money.format(Math.round(salario))]);
+        rows.push(['Pensión ordinaria', money.format(Math.round(pension))]);
+
+      } else if (anios >= 15 && edad >= edadRetiro) {
+        // Retiro por edad y servicio: 50% base + 1.25% por año adicional sobre 15
+        const pct = 0.50 + Math.max(0, anios - 15) * 0.0125;
+        pension = salario * Math.min(pct, 1.0);
+        rows.push(['Tipo', 'Retiro por edad y servicio (' + anios + ' años)']);
+        rows.push(['Porcentaje aplicado', (Math.min(pct, 1.0) * 100).toFixed(2) + '%']);
+        rows.push(['Sueldo básico mensual', money.format(Math.round(salario))]);
+        rows.push(['Pensión estimada', money.format(Math.round(pension))]);
+
       } else {
-        calcConfig.forEach((field) => {
-          let contribution = 0;
-          if (field.type === 'select') {
-            const el = document.getElementById(field.id);
-            const label = el && el.options[el.selectedIndex] ? el.options[el.selectedIndex].textContent : field.label;
-            const factor = selectedMultiplier(field);
-            contribution = factor;
-            breakdown.push([label, money.format(Math.round(contribution))]);
-            total += contribution;
-            return;
-          }
-
-          const value = num(field.id);
-          contribution = value * (field.multiplier ?? 1);
-          breakdown.push([field.label, money.format(Math.round(contribution))]);
-          total += contribution;
-        });
+        document.getElementById('resultAmount').textContent = '— no cumple requisitos';
+        document.getElementById('resultBreakdown').innerHTML =
+          '<div class="breakdown-row"><span>Jubilación</span><strong>' + aniosJubilacion + ' años requeridos</strong></div>' +
+          '<div class="breakdown-row"><span>Retiro por edad</span><strong>' + edadRetiro + ' años + 15 años servicio</strong></div>';
+        return;
       }
 
-      document.getElementById('resultAmount').textContent = money.format(Math.max(0, Math.round(total)));
-      document.getElementById('resultBreakdown').innerHTML = breakdown
-        .map(([label, amount]) => '<div class="breakdown-row"><span>' + label + '</span><strong>' + amount + '</strong></div>')
+      pension = Math.max(pension, UMA_MENSUAL);
+      rows.push(['Mínimo garantizado (1 UMA mensual)', money.format(Math.round(UMA_MENSUAL))]);
+
+      document.getElementById('resultAmount').textContent = money.format(Math.round(pension));
+      document.getElementById('resultBreakdown').innerHTML = rows
+        .map(([l, v]) => '<div class="breakdown-row"><span>' + l + '</span><strong>' + v + '</strong></div>')
         .join('');
     }
 
     document.getElementById('calcButton').addEventListener('click', runCalc);
+    document.querySelectorAll('#calc-form input, #calc-form select').forEach(el => el.addEventListener('input', runCalc));
     runCalc();
   </script>
 </body>

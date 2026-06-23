@@ -479,27 +479,21 @@
             </div>
             <div class="panel-body">
               <form id="calc-form" onsubmit="return false;">
-                
-    <div class="field">
-      <label for="semanas">Semanas cotizadas</label>
-      <input id="semanas" type="number" inputmode="decimal" placeholder="Ej. 1100" min="0" step="any">
-      
-    </div>
-  
-
-    <div class="field">
-      <label for="salario_objetivo">Salario objetivo</label>
-      <input id="salario_objetivo" type="number" inputmode="decimal" placeholder="Ej. 1000" min="0" step="any">
-      
-    </div>
-  
-
-    <div class="field">
-      <label for="periodo">Periodo en meses</label>
-      <input id="periodo" type="number" inputmode="decimal" placeholder="Ej. 60" min="0" step="any">
-      
-    </div>
-  
+                <div class="field">
+                  <label for="semanas">Semanas cotizadas actuales</label>
+                  <input id="semanas" type="number" inputmode="decimal" placeholder="Ej. 800" min="52" step="1" oninput="runCalc()">
+                  <span class="help">Mínimo 52 semanas previas para ingresar a Modalidad 40 (Art. 218 LSS). Consúltalas en mi.imss.digital.gob.mx.</span>
+                </div>
+                <div class="field">
+                  <label for="salario_objetivo">Salario diario objetivo (MXN)</label>
+                  <input id="salario_objetivo" type="number" inputmode="decimal" placeholder="Ej. 600" min="0" step="any" oninput="runCalc()">
+                  <span class="help">Debe ser ≥ tu último SBC registrado. Tope máximo 2026: $2,932.75/día (25 × UMA $117.31). No puedes reducirlo una vez registrado.</span>
+                </div>
+                <div class="field">
+                  <label for="periodo">Meses a cotizar en Modalidad 40</label>
+                  <input id="periodo" type="number" inputmode="decimal" placeholder="Ej. 60" min="1" step="1" oninput="runCalc()">
+                  <span class="help">Cada mes suma ≈4.34 semanas cotizadas adicionales al historial.</span>
+                </div>
                 <button class="calc-button" type="button" id="calcButton">Calcular estimación</button>
               </form>
             </div>
@@ -521,12 +515,16 @@
       <div class="legal-basis">
         <div class="legal-basis-kicker">Sustento legal 2026</div>
         <ul>
-          <li>Ley del Seguro Social y Ley del ISSSTE, según la prestación consultada.</li><li>Valores 2026 de referencia: UMA diaria $117.31 y salario mínimo 2026 vigente según la zona aplicable.</li>
+          <li>LSS Art. 218-220: Continuación Voluntaria al Régimen Obligatorio (Modalidad 40).</li>
+          <li>Tasa 2026: 14.438% del SBC elegido (incrementa hasta 18.8% en 2030).</li>
+          <li>Tope máximo SBC: 25 UMAs/día = $2,932.75 (UMA 2026: $117.31/día).</li>
+          <li>Mínimo 52 semanas cotizadas previas para inscribirse (Art. 218 LSS).</li>
+          <li>Cubre solo ramos IV (Invalidez y Vida) y RCV (Retiro, Cesantía, Vejez).</li>
         </ul>
       </div>
-    
+
                 </div>
-                <div class="note">Antes de pagar, conviene revisar el historial de semanas y el objetivo de pensión.</div>
+                <div class="note">Revisa historial de semanas y objetivo de pensión antes de pagar.</div>
               </div>
             </div>
           </div>
@@ -573,167 +571,46 @@
   </main>
   <footer></footer>
   <script>
-    window.__SIGLEP_CALC__ = [
-  {
-    "id": "semanas",
-    "label": "Semanas cotizadas",
-    "type": "number",
-    "placeholder": "Ej. 1100",
-    "multiplier": 14
-  },
-  {
-    "id": "salario_objetivo",
-    "label": "Salario objetivo",
-    "type": "number",
-    "placeholder": "Ej. 1000",
-    "multiplier": 4.5
-  },
-  {
-    "id": "periodo",
-    "label": "Periodo en meses",
-    "type": "number",
-    "placeholder": "Ej. 60",
-    "multiplier": 220
-  }
-];
-    window.__SIGLEP_CALC_META__ = {"formulaKey":null};
-    const calcConfig = window.__SIGLEP_CALC__;
-    const calcMeta = window.__SIGLEP_CALC_META__ || {};
+    /* ── MODALIDAD 40 ── LSS Art. 218-220 ── Tasa 14.438% · UMA 2026 ── */
+    const UMA_DIARIA  = 117.31;
+    const TASA_M40    = 0.14438;  // 2026; sube hasta 18.8% en 2030
+    const TOPE_DIARIO = UMA_DIARIA * 25; // $2,932.75/día
+    const DIAS_MES    = 30.4;
     const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
 
-    function num(id) {
-      const el = document.getElementById(id);
-      return el && el.value !== '' ? Number(el.value) || 0 : 0;
-    }
-
-    function dateValue(id) {
-      const el = document.getElementById(id);
-      return el && el.value ? el.value : '';
-    }
-
-    function selectedMultiplier(field) {
-      const el = document.getElementById(field.id);
-      const value = el ? el.value : '';
-      if (field.multiplierMap && Object.prototype.hasOwnProperty.call(field.multiplierMap, value)) {
-        return field.multiplierMap[value];
-      }
-      return field.multiplier ?? 1;
-    }
-
-    function daysBetween(start, end) {
-      if (!start || !end) return 0;
-      const startDate = new Date(start + 'T00:00:00');
-      const endDate = new Date(end + 'T00:00:00');
-      const diff = endDate - startDate;
-      if (!Number.isFinite(diff) || diff <= 0) return 0;
-      return Math.floor(diff / 86400000);
-    }
-
-    function yearsBetween(start, end) {
-      return daysBetween(start, end) / 365;
-    }
-
-    function vacationDaysForYears(years) {
-      const fullYears = Math.max(0, Math.floor(years));
-      if (fullYears <= 0) return 0;
-      if (fullYears === 1) return 12;
-      if (fullYears === 2) return 14;
-      if (fullYears === 3) return 16;
-      if (fullYears === 4) return 18;
-      if (fullYears === 5) return 20;
-      return 20 + Math.ceil((fullYears - 5) / 5) * 2;
-    }
-
     function runCalc() {
-      const breakdown = [];
-      let total = 0;
+      const semanas      = parseInt(document.getElementById('semanas').value) || 0;
+      const salObjetivo  = Math.min(parseFloat(document.getElementById('salario_objetivo').value) || 0, TOPE_DIARIO);
+      const periodo      = parseInt(document.getElementById('periodo').value) || 0;
 
-      if (calcMeta.formulaKey === 'labor-liquidation') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const termination = selectedMultiplier({ id: 'terminacion', multiplierMap: { injustificado: 22000, renuncia: 6500, mutuo: 12000 } });
-        const indemnizacion = salary * 90;
-        const seniority = salary * 20 * years;
-        const proporcional = salary * vacationDays * 0.25 * Math.max(0.25, Math.min(1, years / 5));
-        breakdown.push(['Indemnización base', money.format(Math.round(indemnizacion))]);
-        breakdown.push(['Antigüedad estimada', money.format(Math.round(seniority))]);
-        breakdown.push(['Vacaciones y prima', money.format(Math.round(proporcional))]);
-        breakdown.push(['Tipo de terminación', money.format(Math.round(termination))]);
-        total += indemnizacion + seniority + proporcional + termination;
-      } else if (calcMeta.formulaKey === 'labor-finiquito') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const days = daysBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const aguinaldo = salary * 15 * (days / 365);
-        const vacaciones = salary * vacationDays * 0.25 * (days / 365);
-        const salariosPendientes = salary * Math.max(0, Math.min(15, days % 15));
-        breakdown.push(['Salarios pendientes', money.format(Math.round(salariosPendientes))]);
-        breakdown.push(['Aguinaldo proporcional', money.format(Math.round(aguinaldo))]);
-        breakdown.push(['Vacaciones proporcionales', money.format(Math.round(vacaciones))]);
-        total += salariosPendientes + aguinaldo + vacaciones;
-      } else if (calcMeta.formulaKey === 'labor-despido') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const termination = selectedMultiplier({ id: 'terminacion', multiplierMap: { sin_causa: 28000, verbal: 18000, escrita: 22000 } });
-        const indemnizacion = salary * 90;
-        const seniority = salary * 20 * years;
-        const proporcional = salary * vacationDays * 0.25;
-        breakdown.push(['Indemnización base', money.format(Math.round(indemnizacion))]);
-        breakdown.push(['Prima de antigüedad', money.format(Math.round(seniority))]);
-        breakdown.push(['Vacaciones y prima', money.format(Math.round(proporcional))]);
-        breakdown.push(['Tipo de terminación', money.format(Math.round(termination))]);
-        total += indemnizacion + seniority + proporcional + termination;
-      } else if (calcMeta.formulaKey === 'labor-hours') {
-        const tarifa = num('tarifa_hora');
-        const horas = num('horas_extras');
-        const semanas = num('semanas');
-        const factor = selectedMultiplier({ id: 'recargo', multiplierMap: { simple: 1.5, doble: 2, triple: 3 } });
-        const totalHoras = tarifa * horas * semanas * factor;
-        breakdown.push(['Tarifa base', money.format(Math.round(tarifa))]);
-        breakdown.push(['Horas extra', money.format(Math.round(horas))]);
-        breakdown.push(['Semanas trabajadas', money.format(Math.round(semanas))]);
-        breakdown.push(['Recargo aplicado', factor.toFixed(1) + 'x']);
-        total += totalHoras;
-      } else if (calcMeta.formulaKey === 'labor-aguinaldo') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const days = daysBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const aguinaldo = salary * 15 * (days / 365);
-        const prima = salary * vacationDays * 0.25 * (days / 365);
-        breakdown.push(['Aguinaldo legal', money.format(Math.round(aguinaldo))]);
-        breakdown.push(['Prima vacacional', money.format(Math.round(prima))]);
-        total += aguinaldo + prima;
-      } else {
-        calcConfig.forEach((field) => {
-          let contribution = 0;
-          if (field.type === 'select') {
-            const el = document.getElementById(field.id);
-            const label = el && el.options[el.selectedIndex] ? el.options[el.selectedIndex].textContent : field.label;
-            const factor = selectedMultiplier(field);
-            contribution = factor;
-            breakdown.push([label, money.format(Math.round(contribution))]);
-            total += contribution;
-            return;
-          }
+      // Cuota mensual = SBC_diario × días_mes × tasa
+      const cuotaMensual = salObjetivo * DIAS_MES * TASA_M40;
+      const totalPagar   = cuotaMensual * periodo;
+      const semanasGanadas = periodo * (DIAS_MES / 7);
+      const semanasFinales = semanas + semanasGanadas;
 
-          const value = num(field.id);
-          contribution = value * (field.multiplier ?? 1);
-          breakdown.push([field.label, money.format(Math.round(contribution))]);
-          total += contribution;
-        });
-      }
+      // Pensión orientativa resultante (usando fórmula Ley 73 simplificada)
+      const semExtra = Math.max(0, semanasFinales - 500);
+      const pctExtra = Math.min(Math.floor(semExtra / 52) * 0.0125, 0.65);
+      const pctPension = 0.35 + pctExtra;
+      const pensionMensualEst = salObjetivo * DIAS_MES * pctPension * 1.0; // edad 65+
 
-      document.getElementById('resultAmount').textContent = money.format(Math.max(0, Math.round(total)));
-      document.getElementById('resultBreakdown').innerHTML = breakdown
-        .map(([label, amount]) => '<div class="breakdown-row"><span>' + label + '</span><strong>' + amount + '</strong></div>')
+      document.getElementById('resultAmount').textContent = money.format(Math.round(totalPagar));
+      const rows = [
+        ['SBC diario elegido', money.format(Math.round(salObjetivo)) + '/día'],
+        ['Tope máximo 2026 (25 UMAs)', money.format(Math.round(TOPE_DIARIO)) + '/día'],
+        ['Cuota mensual (14.438%)', money.format(Math.round(cuotaMensual))],
+        ['Total a pagar (' + periodo + ' meses)', money.format(Math.round(totalPagar))],
+        ['Semanas ganadas', Math.round(semanasGanadas) + ' → total ' + Math.round(semanasFinales)],
+        ['Pensión estimada Ley 73 (' + Math.round(pctPension * 100) + '%)', money.format(Math.round(pensionMensualEst)) + '/mes'],
+      ];
+      document.getElementById('resultBreakdown').innerHTML = rows
+        .map(([l, v]) => '<div class="breakdown-row"><span>' + l + '</span><strong>' + v + '</strong></div>')
         .join('');
     }
 
     document.getElementById('calcButton').addEventListener('click', runCalc);
+    document.querySelectorAll('#calc-form input, #calc-form select').forEach(el => el.addEventListener('input', runCalc));
     runCalc();
   </script>
 </body>

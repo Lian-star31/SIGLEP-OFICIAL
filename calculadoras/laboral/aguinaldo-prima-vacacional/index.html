@@ -498,21 +498,21 @@
 
     <div class="field">
       <label for="salario_base">Salario capturado (mensual o diario)</label>
-      <input id="salario_base" type="number" inputmode="decimal" placeholder="Ej. 13800 o 460" min="0" step="any" autocomplete="off">
+      <input id="salario_base" type="text" inputmode="decimal" placeholder="Ej. 13800 o 460" autocomplete="off" data-money-input="true">
       <p class="help">El sistema obtiene el salario diario de referencia para calcular prestaciones proporcionales.</p>
     </div>
   
 
     <div class="field">
       <label for="fecha_ingreso">Fecha de ingreso (DD/MM/AAAA)</label>
-      <input id="fecha_ingreso" type="text" inputmode="numeric" placeholder="DD/MM/AAAA" autocomplete="off" data-date-input="true">
+      <input id="fecha_ingreso" type="text" inputmode="numeric" maxlength="10" placeholder="DD/MM/AAAA" autocomplete="off" data-date-input="true">
       <p class="help">Sirve para ubicar la antiguedad real y el ciclo vacacional vigente.</p>
     </div>
   
 
     <div class="field">
       <label for="fecha_terminacion">Fecha de terminacion (DD/MM/AAAA)</label>
-      <input id="fecha_terminacion" type="text" inputmode="numeric" placeholder="DD/MM/AAAA" autocomplete="off" data-date-input="true">
+      <input id="fecha_terminacion" type="text" inputmode="numeric" maxlength="10" placeholder="DD/MM/AAAA" autocomplete="off" data-date-input="true">
       <p class="help">Se usa como corte del periodo trabajado para calcular aguinaldo, vacaciones y prima.</p>
     </div>
   

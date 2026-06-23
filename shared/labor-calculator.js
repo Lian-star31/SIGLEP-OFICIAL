@@ -62,14 +62,46 @@
     return field ? String(field.value || '').trim() : '';
   }
 
+  function normalizeMoneyValue(value) {
+    const raw = String(value || '').trim();
+    if (!raw) return '';
+    const negative = raw.startsWith('-') ? '-' : '';
+    let normalized = raw.replace(/-/g, '').replace(/,/g, '').replace(/[^\d.]/g, '');
+    if (!normalized) return '';
+    const parts = normalized.split('.');
+    if (parts.length > 2) {
+      normalized = parts.shift() + '.' + parts.join('');
+    }
+    return negative + normalized;
+  }
+
+  function parseMoneyValue(value) {
+    const normalized = normalizeMoneyValue(value);
+    if (!normalized || normalized === '-' || normalized === '.' || normalized === '-.') return null;
+    const parsed = Number(normalized);
+    return Number.isFinite(parsed) ? parsed : null;
+  }
+
+  function formatMoneyValue(value) {
+    const parsed = parseMoneyValue(value);
+    return parsed === null ? '' : currency.format(parsed);
+  }
+
   function readNumber(id) {
-    const raw = readValue(id)
-      .replace(/\s+/g, '')
-      .replace(/\.(?=.*\.)/g, '')
-      .replace(',', '.');
-    if (!raw) return 0;
-    const value = Number(raw);
-    return Number.isFinite(value) ? value : 0;
+    const parsed = parseMoneyValue(readValue(id));
+    return parsed === null ? 0 : parsed;
+  }
+
+  function normalizeDateValue(value) {
+    return String(value || '').replace(/\D/g, '').slice(0, 8);
+  }
+
+  function formatDateValue(value) {
+    const digits = normalizeDateValue(value);
+    if (!digits) return '';
+    if (digits.length <= 2) return digits;
+    if (digits.length <= 4) return digits.slice(0, 2) + '/' + digits.slice(2);
+    return digits.slice(0, 2) + '/' + digits.slice(2, 4) + '/' + digits.slice(4);
   }
 
   function startOfDay(date) {
@@ -91,6 +123,11 @@
     let month;
     let year;
 
+    if (/^\d{8}$/.test(normalized)) {
+      day = Number(normalized.slice(0, 2));
+      month = Number(normalized.slice(2, 4));
+      year = Number(normalized.slice(4));
+    } else
     if (/^\d{4}-\d{2}-\d{2}$/.test(normalized)) {
       const parts = normalized.split('-').map(Number);
       year = parts[0];
@@ -194,6 +231,44 @@
     return readValue('zona_salario_minimo') === 'frontera'
       ? LABOR_2026.salaryMinFrontier
       : LABOR_2026.salaryMinGeneral;
+  }
+
+  function installDateMask(field) {
+    const syncValue = () => {
+      const formatted = formatDateValue(field.value);
+      if (field.value !== formatted) {
+        field.value = formatted;
+      }
+    };
+
+    field.setAttribute('maxlength', '10');
+    field.addEventListener('input', syncValue);
+    field.addEventListener('blur', syncValue);
+  }
+
+  function installMoneyMask(field) {
+    const formatValue = () => {
+      const formatted = formatMoneyValue(field.value);
+      field.value = formatted;
+    };
+
+    const sanitizeOnInput = () => {
+      const sanitized = normalizeMoneyValue(field.value);
+      if (field.value !== sanitized) {
+        field.value = sanitized;
+      }
+    };
+
+    const normalizeOnFocus = () => {
+      const parsed = parseMoneyValue(field.value);
+      field.value = parsed === null ? '' : String(parsed);
+    };
+
+    field.addEventListener('focus', normalizeOnFocus);
+    field.addEventListener('input', sanitizeOnInput);
+    field.addEventListener('blur', formatValue);
+    field.addEventListener('focusout', formatValue);
+    field.addEventListener('change', formatValue);
   }
 
   function renderRows(rows) {
@@ -419,6 +494,9 @@
       'La cifra es una referencia bruta con base en dias trabajados dentro del ano y del ciclo vacacional vigente.'
     );
   }
+
+  Array.prototype.forEach.call(form.querySelectorAll('[data-date-input="true"]'), installDateMask);
+  Array.prototype.forEach.call(form.querySelectorAll('[data-money-input="true"]'), installMoneyMask);
 
   function runCalculation() {
     if (formulaKey === 'labor-hours') {

@@ -501,6 +501,11 @@ function esc(value) {
     .replace(/'/g, '&#39;');
 }
 
+function isLaborMoneyField(field, isLaborCalculator) {
+  if (!isLaborCalculator || field.type !== 'number') return false;
+  return /(salario|tarifa|monto|importe|cantidad|sueldo)/i.test(`${field.id} ${field.label}`);
+}
+
 function calcFieldMarkup(field, cfg = {}) {
   const isLaborCalculator = cfg.categorySlug === 'laboral' && String(cfg.formulaKey || '').startsWith('labor-');
   if (field.type === 'select') {
@@ -515,10 +520,13 @@ function calcFieldMarkup(field, cfg = {}) {
     `;
   }
 
+  const moneyField = isLaborMoneyField(field, isLaborCalculator);
   const inputAttrs = field.type === 'date'
     ? isLaborCalculator
-      ? `type="text" inputmode="numeric" placeholder="${esc(field.placeholder || 'DD/MM/AAAA')}" autocomplete="off" data-date-input="true"`
+      ? `type="text" inputmode="numeric" maxlength="10" placeholder="${esc(field.placeholder || 'DD/MM/AAAA')}" autocomplete="off" data-date-input="true"`
       : 'type="date"'
+    : moneyField
+      ? `type="text" inputmode="decimal" placeholder="${esc(field.placeholder || '')}" autocomplete="off" data-money-input="true"`
       : `type="${field.type || 'number'}" inputmode="decimal" placeholder="${esc(field.placeholder || '')}" min="${field.min ?? 0}" step="${field.step || 'any'}"${isLaborCalculator ? ' autocomplete="off"' : ''}`;
 
   return `
@@ -1404,7 +1412,7 @@ const calculatorPages = [
         { value: 'diario', label: 'Salario diario' },
       ], help: 'Selecciona si el monto capturado corresponde al salario mensual o al diario.' },
       { id: 'salario_base', label: 'Salario capturado (mensual o diario)', type: 'number', placeholder: 'Ej. 13500 o 450', help: 'Ingresa el salario que tengas a la mano; el sistema convierte el valor diario cuando corresponde.' },
-      { id: 'fecha_ingreso', label: 'Fecha de ingreso (DD/MM/AAAA)', type: 'date', placeholder: 'DD/MM/AAAA', help: 'Sirve para calcular la antiguedad exacta en dias y anos.' },
+      { id: 'fecha_ingreso', label: 'Fecha de ingreso (DD/MM/AAAA)', type: 'date', placeholder: 'DD/MM/AAAA', help: 'Sirve para calcular la antiguedad exacta en dias y años.' },
       { id: 'fecha_terminacion', label: 'Fecha de terminacion (DD/MM/AAAA)', type: 'date', placeholder: 'DD/MM/AAAA', help: 'Se usa como fecha de salida o despido para cerrar el periodo laboral.' },
       { id: 'terminacion', label: 'Tipo de terminacion', type: 'select', options: [
         { value: 'injustificado', label: 'Despido injustificado' },
@@ -1514,7 +1522,7 @@ const calculatorPages = [
         { value: 'diario', label: 'Salario diario' },
       ], help: 'Selecciona si el monto capturado corresponde al salario mensual o al diario.' },
       { id: 'salario_base', label: 'Salario capturado (mensual o diario)', type: 'number', placeholder: 'Ej. 15600 o 520', help: 'Ingresa el salario disponible; el sistema calcula el salario diario cuando partes del mensual.' },
-      { id: 'fecha_ingreso', label: 'Fecha de ingreso (DD/MM/AAAA)', type: 'date', placeholder: 'DD/MM/AAAA', help: 'Define la antiguedad exacta en dias y anos.' },
+      { id: 'fecha_ingreso', label: 'Fecha de ingreso (DD/MM/AAAA)', type: 'date', placeholder: 'DD/MM/AAAA', help: 'Define la antiguedad exacta en dias y años.' },
       { id: 'fecha_terminacion', label: 'Fecha de terminacion (DD/MM/AAAA)', type: 'date', placeholder: 'DD/MM/AAAA', help: 'Se usa como fecha de despido o salida para cerrar el calculo.' },
       { id: 'terminacion', label: 'Tipo de terminacion', type: 'select', options: [
         { value: 'injustificado', label: 'Despido injustificado' },

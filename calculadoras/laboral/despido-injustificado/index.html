@@ -498,21 +498,21 @@
 
     <div class="field">
       <label for="salario_base">Salario capturado (mensual o diario)</label>
-      <input id="salario_base" type="number" inputmode="decimal" placeholder="Ej. 15600 o 520" min="0" step="any" autocomplete="off">
+      <input id="salario_base" type="text" inputmode="decimal" placeholder="Ej. 15600 o 520" autocomplete="off" data-money-input="true">
       <p class="help">Ingresa el salario disponible; el sistema calcula el salario diario cuando partes del mensual.</p>
     </div>
   
 
     <div class="field">
       <label for="fecha_ingreso">Fecha de ingreso (DD/MM/AAAA)</label>
-      <input id="fecha_ingreso" type="text" inputmode="numeric" placeholder="DD/MM/AAAA" autocomplete="off" data-date-input="true">
-      <p class="help">Define la antiguedad exacta en dias y anos.</p>
+      <input id="fecha_ingreso" type="text" inputmode="numeric" maxlength="10" placeholder="DD/MM/AAAA" autocomplete="off" data-date-input="true">
+      <p class="help">Define la antiguedad exacta en dias y años.</p>
     </div>
   
 
     <div class="field">
       <label for="fecha_terminacion">Fecha de terminacion (DD/MM/AAAA)</label>
-      <input id="fecha_terminacion" type="text" inputmode="numeric" placeholder="DD/MM/AAAA" autocomplete="off" data-date-input="true">
+      <input id="fecha_terminacion" type="text" inputmode="numeric" maxlength="10" placeholder="DD/MM/AAAA" autocomplete="off" data-date-input="true">
       <p class="help">Se usa como fecha de despido o salida para cerrar el calculo.</p>
     </div>
   
@@ -673,7 +673,7 @@
     "label": "Fecha de ingreso (DD/MM/AAAA)",
     "type": "date",
     "placeholder": "DD/MM/AAAA",
-    "help": "Define la antiguedad exacta en dias y anos."
+    "help": "Define la antiguedad exacta en dias y años."
   },
   {
     "id": "fecha_terminacion",

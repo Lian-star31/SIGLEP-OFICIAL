@@ -1019,13 +1019,14 @@ function hubPage(cfg) {
   <main>
     <section class="hero">
       <div class="hero-inner">
-        <div class="eyebrow">${esc(cfg.eyebrow)}</div>
+        ${cfg.eyebrow ? `<div class="eyebrow">${esc(cfg.eyebrow)}</div>` : ''}
         <h1>${cfg.heroTitle}</h1>
-        <p class="lead">${esc(cfg.heroLead)}</p>
+        ${cfg.heroLead ? `<p class="lead">${esc(cfg.heroLead)}</p>` : ''}
+        ${cfg.primaryLabel || cfg.secondaryLabel ? `
         <div style="display:flex;gap:0.9rem;flex-wrap:wrap;">
-          <a class="btn btn-primary" href="${cfg.primaryHref}">${esc(cfg.primaryLabel)}</a>
-          <a class="btn btn-secondary" href="${cfg.secondaryHref}" target="_blank" rel="noopener noreferrer">${esc(cfg.secondaryLabel)}</a>
-        </div>
+          ${cfg.primaryLabel ? `<a class="btn btn-primary" href="${cfg.primaryHref}">${esc(cfg.primaryLabel)}</a>` : ''}
+          ${cfg.secondaryLabel ? `<a class="btn btn-secondary" href="${cfg.secondaryHref}" target="_blank" rel="noopener noreferrer">${esc(cfg.secondaryLabel)}</a>` : ''}
+        </div>` : ''}
       </div>
     </section>
     <section class="section">
@@ -1040,22 +1041,23 @@ function hubPage(cfg) {
     <section class="section" style="background:var(--gray-light);">
       <div class="section-inner">
         <h2>Calculadoras destacadas</h2>
-        <p class="lead">Todas las calculadoras nuevas están agrupadas por área para conservar la arquitectura del sitio y facilitar la navegación.</p>
+        <p class="lead">Todas las calculadoras nuevas están agrupadas por área para facilitar la navegación.</p>
         <div class="cards">
           ${calcCards}
         </div>
       </div>
     </section>
+    ${cfg.ctaBandTitle || cfg.ctaBandLead ? `
     <section class="cta-band">
       <div class="section-inner">
         <h2>${cfg.ctaBandTitle}</h2>
         <p>${esc(cfg.ctaBandLead)}</p>
         <div style="display:flex;gap:0.9rem;justify-content:center;flex-wrap:wrap;">
-          <a class="btn btn-primary" href="${cfg.primaryHref}">${esc(cfg.primaryLabel)}</a>
-          <a class="btn btn-secondary" href="${cfg.secondaryHref}" target="_blank" rel="noopener noreferrer">${esc(cfg.secondaryLabel)}</a>
+          ${cfg.primaryLabel ? `<a class="btn btn-primary" href="${cfg.primaryHref}">${esc(cfg.primaryLabel)}</a>` : ''}
+          ${cfg.secondaryLabel ? `<a class="btn btn-secondary" href="${cfg.secondaryHref}" target="_blank" rel="noopener noreferrer">${esc(cfg.secondaryLabel)}</a>` : ''}
         </div>
       </div>
-    </section>
+    </section>` : ''}
     <div class="footer-space"></div>
   </main>
   <footer></footer>
@@ -1935,7 +1937,7 @@ const categoryPages = [
     url: '/civil/',
     eyebrow: 'Área Civil',
     heroTitle: 'Derecho civil <em>con estrategia y orden.</em>',
-    heroLead: 'Reclamos por daño moral, daños y perjuicios, responsabilidad civil e intereses moratorios, con una navegación limpia y una arquitectura preparada para crecer.',
+    heroLead: 'Reclamos por daño moral, daños y perjuicios, responsabilidad civil e intereses moratorios, con una ruta clara para revisar tu caso.',
     description: 'SIGLEP en Derecho Civil: daño moral, daños y perjuicios, responsabilidad civil e intereses moratorios en México.',
     ogTitle: 'Derecho Civil México | SIGLEP',
     ogDescription: 'Daño moral, daños y perjuicios, responsabilidad civil e intereses moratorios. Estrategia civil con enfoque práctico.',
@@ -1964,7 +1966,7 @@ const categoryPages = [
     url: '/seguridad-social/',
     eyebrow: 'Área Seguridad Social',
     heroTitle: 'Seguridad social <em>para planear el retiro con claridad.</em>',
-    heroLead: 'Pensión IMSS, Modalidad 40, Pensión ISSSTE, invalidez y viudez en una sola arquitectura de navegación.',
+    heroLead: 'Pensión IMSS, Modalidad 40, Pensión ISSSTE, invalidez y viudez en una sola ruta de navegación.',
     description: 'SIGLEP en Seguridad Social: pensión IMSS, Modalidad 40, pensión ISSSTE, invalidez y viudez en México.',
     ogTitle: 'Seguridad Social México | SIGLEP',
     ogDescription: 'Pensión IMSS, Modalidad 40, pensión ISSSTE, invalidez y viudez. Planeación de seguridad social en México.',
@@ -1996,7 +1998,7 @@ const calculatorCategoryPages = [
     url: '/calculadoras/laboral/',
     eyebrow: 'Categoría Laboral',
     heroTitle: 'Calculadoras laborales <em>para revisar tus números.</em>',
-    heroLead: 'Agrupamos liquidación, finiquito, despido, horas extras y prestaciones proporcionales en una sola ruta dentro de la arquitectura de calculadoras.',
+    heroLead: 'Agrupamos liquidación, finiquito, despido, horas extras y prestaciones proporcionales en una sola ruta de calculadoras.',
     description: 'Calculadoras laborales SIGLEP para liquidación, finiquito, despido injustificado, horas extras y prestaciones proporcionales.',
     primaryHref: '/laboral/',
     primaryLabel: 'Ir al Área Laboral',
@@ -2137,17 +2139,17 @@ const hubConfig = {
   title: 'Calculadoras SIGLEP | Áreas',
   url: '/calculadoras/',
   description: 'Hub de calculadoras legales SIGLEP para Laboral, Familiar, Civil, Patrimonial y Seguridad Social.',
-  eyebrow: 'Calculadoras por área',
-  heroTitle: 'Calculadoras legales <em>organizadas por área.</em>',
-  heroLead: 'Conservamos la arquitectura del sitio y agrupamos las herramientas por categoría para que todo sea fácil de encontrar y mantener.',
+  eyebrow: '',
+  heroTitle: 'CALCULADORAS LEGALES',
+  heroLead: '',
   primaryHref: '/calculadoras/laboral/',
-  primaryLabel: 'Ir a Laboral',
+  primaryLabel: '',
   secondaryHref: '/calculadoras/seguridad-social/',
-  secondaryLabel: 'Ir a Seguridad Social',
+  secondaryLabel: '',
   sectionTitle: 'Áreas disponibles',
   sectionLead: 'Seleccione el área jurídica que corresponda a su asunto.',
-  ctaBandTitle: 'Una sola arquitectura, veinte calculadoras',
-  ctaBandLead: 'La navegación centraliza el acceso sin romper rutas ni duplicar versiones.',
+  ctaBandTitle: '',
+  ctaBandLead: '',
   categories: [
     { href: '/calculadoras/laboral/', kicker: 'Área', title: 'Laboral', desc: 'Liquidación, finiquito, despido, horas extras y prestaciones proporcionales.' },
     { href: '/calculadoras/familiar/', kicker: 'Área', title: 'Familiar', desc: 'Pensión alimenticia, divorcio, custodia, régimen matrimonial y sociedad conyugal.' },

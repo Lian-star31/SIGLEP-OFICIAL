@@ -108,6 +108,10 @@
       .siglep-shell-links > li {
         position: relative;
       }
+      .siglep-shell-services {
+        padding-bottom: 12px;
+        margin-bottom: -12px;
+      }
       .siglep-shell-links a,
       .siglep-shell-links button {
         appearance: none;
@@ -153,9 +157,21 @@
         background: rgba(8, 12, 20, 0.98);
         box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
         display: none;
+        pointer-events: auto;
+      }
+      .siglep-shell-dropdown::before {
+        content: '';
+        position: absolute;
+        top: -12px;
+        left: 0;
+        right: 0;
+        height: 12px;
       }
       .siglep-shell-services:hover .siglep-shell-dropdown,
       .siglep-shell-services:focus-within .siglep-shell-dropdown {
+        display: block;
+      }
+      .siglep-shell-services.is-open .siglep-shell-dropdown {
         display: block;
       }
       .siglep-shell-dropdown a {
@@ -507,6 +523,54 @@
     });
   }
 
+  function addServicesDropdownHelpers() {
+    const item = document.querySelector('.siglep-shell-services');
+    if (!item) return;
+
+    const button = item.querySelector('button[data-nav="services"]');
+    let closeTimer = null;
+
+    const setOpen = (open) => {
+      item.classList.toggle('is-open', open);
+      if (button) button.setAttribute('aria-expanded', open ? 'true' : 'false');
+    };
+
+    const open = () => {
+      if (closeTimer) {
+        clearTimeout(closeTimer);
+        closeTimer = null;
+      }
+      setOpen(true);
+    };
+
+    const scheduleClose = () => {
+      if (closeTimer) clearTimeout(closeTimer);
+      closeTimer = setTimeout(() => setOpen(false), 140);
+    };
+
+    item.addEventListener('pointerenter', open);
+    item.addEventListener('pointerleave', scheduleClose);
+    item.addEventListener('focusin', open);
+    item.addEventListener('focusout', (event) => {
+      if (!item.contains(event.relatedTarget)) scheduleClose();
+    });
+
+    if (button) {
+      button.addEventListener('click', (event) => {
+        event.preventDefault();
+        setOpen(!item.classList.contains('is-open'));
+      });
+    }
+
+    document.addEventListener('click', (event) => {
+      if (!item.contains(event.target)) setOpen(false);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') setOpen(false);
+    });
+  }
+
   function normalizeCopy() {
     const replacements = [
       [/te responder[aá] en minutos\.?/gi, 'Respondemos a la brevedad posible en horario de atención.'],
@@ -572,6 +636,7 @@
     injectStyles();
     replaceNavAndFooter();
     addMobileHelpers();
+    addServicesDropdownHelpers();
     normalizeCopy();
     markActiveLinks();
     ensureCalculatorAnchors();

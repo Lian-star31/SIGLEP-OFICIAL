@@ -501,7 +501,8 @@ function esc(value) {
     .replace(/'/g, '&#39;');
 }
 
-function calcFieldMarkup(field) {
+function calcFieldMarkup(field, cfg = {}) {
+  const isLaborCalculator = cfg.categorySlug === 'laboral' && String(cfg.formulaKey || '').startsWith('labor-');
   if (field.type === 'select') {
     return `
       <div class="field">
@@ -515,8 +516,10 @@ function calcFieldMarkup(field) {
   }
 
   const inputAttrs = field.type === 'date'
-    ? 'type="date"'
-    : `type="${field.type || 'number'}" inputmode="decimal" placeholder="${esc(field.placeholder || '')}" min="${field.min ?? 0}" step="${field.step || 'any'}"`;
+    ? isLaborCalculator
+      ? `type="text" inputmode="numeric" placeholder="${esc(field.placeholder || 'DD/MM/AAAA')}" autocomplete="off" data-date-input="true"`
+      : 'type="date"'
+      : `type="${field.type || 'number'}" inputmode="decimal" placeholder="${esc(field.placeholder || '')}" min="${field.min ?? 0}" step="${field.step || 'any'}"${isLaborCalculator ? ' autocomplete="off"' : ''}`;
 
   return `
     <div class="field">
@@ -613,12 +616,22 @@ function relatedMarkup(items) {
 }
 
 function calculatorPage(cfg) {
-  const fields = cfg.fields.map(calcFieldMarkup).join('\n');
+  const isLaborCalculator = cfg.categorySlug === 'laboral' && String(cfg.formulaKey || '').startsWith('labor-');
+  const fields = cfg.fields.map((field) => calcFieldMarkup(field, cfg)).join('\n');
   const faq = faqMarkup(cfg.faq);
   const related = relatedMarkup(cfg.related);
   const faqLead = cfg.faqLead || 'Respuestas rápidas para ubicar el escenario y decidir el siguiente paso.';
   const legalBasis = legalBasisForCalculator(cfg);
-  const legalBasisMarkup = legalBasis.length
+  const legalBasisMarkup = isLaborCalculator
+    ? `
+      <div class="legal-basis">
+        <div class="legal-basis-kicker">Sustento legal 2026</div>
+        <ul id="legalBasisList">
+          <li>Completa la simulación para ver los artículos aplicados.</li>
+        </ul>
+      </div>
+    `
+    : legalBasis.length
     ? `
       <div class="legal-basis">
         <div class="legal-basis-kicker">Sustento legal 2026</div>
@@ -646,247 +659,20 @@ function calculatorPage(cfg) {
   };
 
   const fieldConfig = JSON.stringify(cfg.fields, null, 2);
-
-  return `<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${esc(cfg.title)}</title>
-  <meta name="description" content="${esc(cfg.description)}">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="${SITE_URL}${cfg.url}">
-  <meta property="og:title" content="${esc(cfg.ogTitle || cfg.title)}">
-  <meta property="og:description" content="${esc(cfg.ogDescription || cfg.description)}">
-  <meta property="og:url" content="${SITE_URL}${cfg.url}">
-  <meta property="og:type" content="website">
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="apple-touch-icon" href="/favicon.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --navy:#1A365D;--navy-deep:#0F2240;--gold:#C5A059;--gold-light:#D4B878;--red:#C0392B;--red-dark:#96281B;
-      --black:#080C14;--white:#FAFAF8;--gray-light:#F0EEE8;--text-body:#2D3748;--font-display:'Cormorant Garamond',serif;--font-body:'Montserrat',sans-serif;
-    }
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    html{scroll-behavior:smooth;}
-    body{font-family:var(--font-body);background:var(--white);color:var(--text-body);overflow-x:hidden;}
-    main{display:block;}
-    .hero{min-height:72vh;padding:8rem 1.25rem 4rem;background:linear-gradient(145deg,#050810 0%,#0A1628 40%,#0F2240 70%,#111B30 100%);position:relative;overflow:hidden;}
-    .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 55% at 75% 45%,rgba(197,160,89,0.07) 0%,transparent 65%),radial-gradient(ellipse 35% 50% at 10% 85%,rgba(192,57,43,0.07) 0%,transparent 60%);pointer-events:none;}
-    .hero-inner,.section-inner,.footer-inner,.footer-bottom{max-width:1180px;margin:0 auto;position:relative;z-index:1;}
-    .eyebrow{font-size:0.66rem;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:flex;align-items:center;gap:0.7rem;}
-    .eyebrow::before{content:'';width:34px;height:1px;background:var(--gold);display:block;}
-    h1{font-family:var(--font-display);font-size:clamp(2.4rem,5.8vw,4.6rem);line-height:1.05;color:var(--white);margin-bottom:1rem;}
-    h1 em{font-style:italic;color:var(--gold);}
-    .lead{max-width:760px;font-size:1rem;line-height:1.85;color:rgba(255,255,255,0.68);font-weight:300;margin-bottom:2rem;}
-    .breadcrumbs{display:flex;flex-wrap:wrap;gap:0.55rem;align-items:center;font-size:0.65rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:1.5rem;}
-    .breadcrumbs a{color:rgba(197,160,89,0.75);text-decoration:none;}
-    .breadcrumbs span.sep{color:rgba(255,255,255,0.18);}
-    .hero-actions{display:flex;flex-wrap:wrap;gap:0.9rem;align-items:center;}
-    .btn{display:inline-flex;align-items:center;justify-content:center;padding:0.95rem 1.35rem;border-radius:2px;text-decoration:none;font-size:0.78rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;transition:transform .2s ease,background .2s ease,color .2s ease;border:1px solid transparent;}
-    .btn-primary{background:var(--red);color:#fff;box-shadow:0 4px 18px rgba(192,57,43,0.35);}
-    .btn-primary:hover{background:var(--red-dark);transform:translateY(-2px);}
-    .btn-secondary{background:transparent;border-color:rgba(197,160,89,0.5);color:var(--gold);}
-    .btn-secondary:hover{background:var(--gold);color:var(--navy-deep);transform:translateY(-2px);}
-    .section{padding:5rem 1.25rem;}
-    .section h2{font-family:var(--font-display);font-size:clamp(1.9rem,4vw,3rem);line-height:1.1;color:var(--navy-deep);margin-bottom:0.9rem;}
-    .section h2 em{font-style:italic;color:var(--gold);}
-    .section p.lead{color:#4A5568;max-width:800px;margin-bottom:0;}
-    .calc-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:1.5rem;margin-top:2.5rem;align-items:start;}
-    .panel{background:var(--white);border:1px solid rgba(197,160,89,0.16);border-radius:14px;box-shadow:0 12px 40px rgba(15,34,64,0.08);overflow:hidden;}
-    .panel.dark{background:linear-gradient(180deg,#0F2240 0%,#08111f 100%);border-color:rgba(197,160,89,0.18);}
-    .panel-head{padding:1.35rem 1.35rem 1rem;border-bottom:1px solid rgba(197,160,89,0.12);}
-    .panel-head .kicker{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:700;color:var(--gold);}
-    .panel-head h3{font-family:var(--font-display);font-size:1.6rem;line-height:1.1;color:inherit;margin-top:0.4rem;}
-    .panel-head p{color:inherit;font-size:0.86rem;line-height:1.7;font-weight:300;opacity:0.86;margin-top:0.55rem;}
-    .panel.dark .panel-head p,
-    .panel.dark .help,
-    .panel.dark .note{
-      color:#E2E8F0;
-      opacity:0.96;
-    }
-    .panel-body{padding:1.35rem;}
-    .field{display:grid;gap:0.45rem;margin-bottom:1rem;}
-    .field label{font-size:0.66rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);}
-    .field input,.field select{width:100%;padding:0.92rem 0.95rem;border-radius:10px;border:1px solid rgba(197,160,89,0.22);background:rgba(255,255,255,0.08);color:inherit;font-family:var(--font-body);font-size:0.92rem;outline:none;}
-    .panel.dark .field input,
-    .panel.dark .field select{
-      color:var(--white);
-      -webkit-text-fill-color:var(--white);
-      caret-color:var(--gold);
-      background:rgba(255,255,255,0.06);
-    }
-    .panel.dark .field input::placeholder{
-      color:rgba(250,250,248,0.55);
-    }
-    .panel.dark .field select option{
-      color:var(--navy-deep);
-    }
-    .field select{appearance:none;}
-    .help{font-size:0.72rem;line-height:1.55;color:#718096;}
-    .calc-button{width:100%;margin-top:0.4rem;padding:0.95rem 1rem;border:0;border-radius:10px;background:var(--red);color:#fff;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:transform .2s ease,background .2s ease;}
-    .calc-button:hover{background:var(--red-dark);transform:translateY(-1px);}
-    .result{display:grid;gap:1rem;}
-    .result-box{padding:1.3rem;border-radius:14px;background:rgba(197,160,89,0.06);border:1px solid rgba(197,160,89,0.16);}
-    .result-kicker{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:700;color:var(--gold);margin-bottom:0.6rem;}
-    .result-amount{font-family:var(--font-display);font-size:clamp(2.2rem,5vw,3.6rem);line-height:1;color:var(--navy-deep);}
-    .result-note{font-size:0.78rem;line-height:1.7;color:#4A5568;margin-top:0.8rem;}
-    .legal-basis{
-      margin-top:1rem;
-      padding-top:1rem;
-      border-top:1px solid rgba(197,160,89,0.16);
-    }
-    .legal-basis-kicker{
-      font-size:0.6rem;
-      letter-spacing:0.22em;
-      text-transform:uppercase;
-      font-weight:700;
-      color:var(--gold);
-      margin-bottom:0.55rem;
-    }
-    .legal-basis ul{
-      list-style:none;
-      display:grid;
-      gap:0.55rem;
-    }
-    .legal-basis li{
-      font-size:0.76rem;
-      line-height:1.65;
-      color:#4A5568;
-      padding-left:0.9rem;
-      position:relative;
-    }
-    .legal-basis li::before{
-      content:'•';
-      position:absolute;
-      left:0;
-      color:var(--gold);
-    }
-    .breakdown{display:grid;gap:0.55rem;margin-top:1rem;}
-    .breakdown-row{display:flex;justify-content:space-between;gap:1rem;font-size:0.84rem;color:#334155;border-top:1px solid rgba(197,160,89,0.12);padding-top:0.55rem;}
-    .breakdown-row strong{color:var(--navy-deep);}
-    .faq-grid{display:grid;gap:0.85rem;margin-top:2rem;}
-    .faq-item{border:1px solid rgba(197,160,89,0.16);border-radius:14px;background:var(--white);overflow:hidden;}
-    .faq-item summary{cursor:pointer;list-style:none;padding:1rem 1.1rem;font-weight:600;color:var(--navy-deep);}
-    .faq-item summary::-webkit-details-marker{display:none;}
-    .faq-item p{padding:0 1.1rem 1.1rem;color:#4A5568;font-size:0.86rem;line-height:1.75;}
-    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem;margin-top:2rem;}
-    .card-link{display:block;padding:1.15rem;border-radius:14px;border:1px solid rgba(197,160,89,0.16);background:var(--white);text-decoration:none;color:inherit;transition:transform .2s ease,background .2s ease,border-color .2s ease;}
-    .card-link:hover{transform:translateY(-2px);background:#0F2240;border-color:rgba(197,160,89,0.35);}
-    .card-link:hover h3,.card-link:hover p{color:#fff;}
-    .card-link h3{font-family:var(--font-display);font-size:1.25rem;color:var(--navy-deep);margin:0.2rem 0 0.4rem;}
-    .card-link p{font-size:0.82rem;line-height:1.7;color:#4A5568;}
-    .card-kicker{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:var(--gold);}
-    .cta-band{padding:4rem 1.25rem;background:linear-gradient(135deg,#0a1628 0%,#0f2240 55%,#0a1628 100%);border-top:1px solid rgba(197,160,89,0.15);border-bottom:1px solid rgba(197,160,89,0.15);text-align:center;}
-    .cta-band h2{color:var(--white);}
-    .cta-band p{margin:0 auto 1.8rem;color:rgba(255,255,255,0.62);max-width:760px;}
-    .alt-band{background:var(--gray-light);}
-    .note{font-size:0.8rem;line-height:1.7;color:#718096;margin-top:1rem;}
-    .footer-space{height:1px;}
-    @media (max-width: 900px){.calc-grid{grid-template-columns:1fr}.hero{padding-top:7.6rem}}
-  </style>
-  <script type="application/ld+json">${JSON.stringify(schema)}</script>
-  ${SHELL_NAV_STYLE}
-  <script defer src="${SHELL_SCRIPT}"></script>
-</head>
-<body>
-  ${SHELL_NAV_HTML}
-  <main>
-    <section class="hero">
-      <div class="hero-inner">
-        <div class="breadcrumbs">
-          ${cfg.breadcrumb.map((item, index) => `${index ? '<span class="sep">›</span>' : ''}${index < cfg.breadcrumb.length - 1 ? `<a href="${item.href}">${esc(item.name)}</a>` : `<span>${esc(item.name)}</span>`}`).join('')}
-        </div>
-        <div class="eyebrow">${esc(cfg.eyebrow)}</div>
-        <h1>${cfg.heroTitle}</h1>
-        <p class="lead">${esc(cfg.heroLead)}</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="${areaNavigationFor(cfg.categorySlug).href}">${esc(areaNavigationFor(cfg.categorySlug).label)}</a>
-          <a class="btn btn-secondary" href="${CONSULTATION_URL}" target="_blank" rel="noopener noreferrer">Agendar Consulta</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-inner">
-        <h2>${cfg.sectionTitle}</h2>
-        <p class="lead">${esc(cfg.sectionLead)}</p>
-        <div class="calc-grid">
-          <div class="panel dark">
-            <div class="panel-head">
-              <div class="kicker">${esc(cfg.formKicker)}</div>
-              <h3>${esc(cfg.formTitle)}</h3>
-              <p>${esc(cfg.formLead)}</p>
-            </div>
-            <div class="panel-body">
-              <form id="calc-form" onsubmit="return false;">
-                ${fields}
-                <button class="calc-button" type="button" id="calcButton">${esc(cfg.buttonLabel || 'Calcular estimación')}</button>
-              </form>
-            </div>
-          </div>
-          <div class="panel">
-            <div class="panel-head">
-              <div class="kicker">${esc(cfg.resultKicker || 'Resultado orientativo')}</div>
-              <h3>${esc(cfg.resultTitle)}</h3>
-              <p>${esc(cfg.resultLead)}</p>
-            </div>
-            <div class="panel-body">
-              <div class="result">
-                <div class="result-box">
-                  <div class="result-kicker">${esc(cfg.resultLabel)}</div>
-                  <div class="result-amount" id="resultAmount">$0 MXN</div>
-                  <div class="breakdown" id="resultBreakdown"></div>
-                  <p class="result-note">${esc(cfg.resultNote)}</p>
-                  ${legalBasisMarkup}
-                </div>
-                <div class="note">${esc(cfg.note)}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section alt-band">
-      <div class="section-inner">
-        <h2>Preguntas frecuentes</h2>
-        <p class="lead">${esc(faqLead)}</p>
-        <div class="faq-grid">
-          ${faq}
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-inner">
-        <h2>Otras calculadoras de <em>${esc(cfg.categoryName)}</em></h2>
-        <p class="lead">Mantén una visión completa del asunto legal y revisa otras calculadoras relacionadas de la misma área.</p>
-        <div class="cards">
-          ${related}
-        </div>
-      </div>
-    </section>
-
-    <section class="cta-band">
-      <div class="section-inner">
-        <h2>${cfg.ctaBandTitle}</h2>
-        <p>${esc(cfg.ctaBandLead)}</p>
-        <div class="hero-actions" style="justify-content:center;">
-          <a class="btn btn-primary" href="${areaNavigationFor(cfg.categorySlug).href}">Ir al Área Correspondiente</a>
-          <a class="btn btn-secondary" href="${CONSULTATION_URL}" target="_blank" rel="noopener noreferrer">Agendar Consulta</a>
-        </div>
-      </div>
-    </section>
-    <div class="footer-space"></div>
-  </main>
-  <footer></footer>
-  <script>
-    window.__SIGLEP_CALC__ = ${fieldConfig};
-    window.__SIGLEP_CALC_META__ = ${JSON.stringify({ formulaKey: cfg.formulaKey || null })};
-    const calcConfig = window.__SIGLEP_CALC__;
+  const formAttrs = isLaborCalculator
+    ? 'id="calc-form" novalidate autocomplete="off"'
+    : 'id="calc-form" onsubmit="return false;"';
+  const actionButtonsMarkup = isLaborCalculator
+    ? `<div class="calc-actions">
+                  <button class="calc-button" type="submit" id="calcButton">${esc(cfg.buttonLabel || 'Calcular estimación')}</button>
+                  <button class="calc-button calc-button-secondary" type="button" id="resetCalcButton">${esc(cfg.resetButtonLabel || 'Nueva simulación')}</button>
+                </div>`
+    : `<button class="calc-button" type="button" id="calcButton">${esc(cfg.buttonLabel || 'Calcular estimación')}</button>`;
+  const laborActionStyles = isLaborCalculator
+    ? '.calc-actions{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:0.8rem;align-items:center;}.calc-button-secondary{width:auto;background:transparent;border:1px solid rgba(197,160,89,0.45);color:var(--gold);padding-inline:1.1rem;}.calc-button-secondary:hover{background:rgba(197,160,89,0.12);color:var(--white);}'
+    : '';
+  const laborMobileActionStyles = isLaborCalculator ? '.calc-actions{grid-template-columns:1fr;}' : '';
+  const inlineRuntime = isLaborCalculator ? '' : `const calcConfig = window.__SIGLEP_CALC__;
     const calcMeta = window.__SIGLEP_CALC_META__ || {};
     const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
 
@@ -1023,8 +809,250 @@ function calculatorPage(cfg) {
     }
 
     document.getElementById('calcButton').addEventListener('click', runCalc);
-    runCalc();
-  </script>
+    runCalc();`;
+
+  return `<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${esc(cfg.title)}</title>
+  <meta name="description" content="${esc(cfg.description)}">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="${SITE_URL}${cfg.url}">
+  <meta property="og:title" content="${esc(cfg.ogTitle || cfg.title)}">
+  <meta property="og:description" content="${esc(cfg.ogDescription || cfg.description)}">
+  <meta property="og:url" content="${SITE_URL}${cfg.url}">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:#1A365D;--navy-deep:#0F2240;--gold:#C5A059;--gold-light:#D4B878;--red:#C0392B;--red-dark:#96281B;
+      --black:#080C14;--white:#FAFAF8;--gray-light:#F0EEE8;--text-body:#2D3748;--font-display:'Cormorant Garamond',serif;--font-body:'Montserrat',sans-serif;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--font-body);background:var(--white);color:var(--text-body);overflow-x:hidden;}
+    main{display:block;}
+    .hero{min-height:72vh;padding:8rem 1.25rem 4rem;background:linear-gradient(145deg,#050810 0%,#0A1628 40%,#0F2240 70%,#111B30 100%);position:relative;overflow:hidden;}
+    .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 55% at 75% 45%,rgba(197,160,89,0.07) 0%,transparent 65%),radial-gradient(ellipse 35% 50% at 10% 85%,rgba(192,57,43,0.07) 0%,transparent 60%);pointer-events:none;}
+    .hero-inner,.section-inner,.footer-inner,.footer-bottom{max-width:1180px;margin:0 auto;position:relative;z-index:1;}
+    .eyebrow{font-size:0.66rem;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:flex;align-items:center;gap:0.7rem;}
+    .eyebrow::before{content:'';width:34px;height:1px;background:var(--gold);display:block;}
+    h1{font-family:var(--font-display);font-size:clamp(2.4rem,5.8vw,4.6rem);line-height:1.05;color:var(--white);margin-bottom:1rem;}
+    h1 em{font-style:italic;color:var(--gold);}
+    .lead{max-width:760px;font-size:1rem;line-height:1.85;color:${isLaborCalculator ? '#E2E8F0' : 'rgba(255,255,255,0.68)'};font-weight:300;margin-bottom:2rem;}
+    .breadcrumbs{display:flex;flex-wrap:wrap;gap:0.55rem;align-items:center;font-size:0.65rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:1.5rem;}
+    .breadcrumbs a{color:rgba(197,160,89,0.75);text-decoration:none;}
+    .breadcrumbs span.sep{color:rgba(255,255,255,0.18);}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:0.9rem;align-items:center;}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:0.95rem 1.35rem;border-radius:2px;text-decoration:none;font-size:0.78rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;transition:transform .2s ease,background .2s ease,color .2s ease;border:1px solid transparent;}
+    .btn-primary{background:var(--red);color:#fff;box-shadow:0 4px 18px rgba(192,57,43,0.35);}
+    .btn-primary:hover{background:var(--red-dark);transform:translateY(-2px);}
+    .btn-secondary{background:transparent;border-color:rgba(197,160,89,0.5);color:var(--gold);}
+    .btn-secondary:hover{background:var(--gold);color:var(--navy-deep);transform:translateY(-2px);}
+    .section{padding:5rem 1.25rem;}
+    .section h2{font-family:var(--font-display);font-size:clamp(1.9rem,4vw,3rem);line-height:1.1;color:var(--navy-deep);margin-bottom:0.9rem;}
+    .section h2 em{font-style:italic;color:var(--gold);}
+    .section p.lead{color:#4A5568;max-width:800px;margin-bottom:0;}
+    .calc-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:1.5rem;margin-top:2.5rem;align-items:start;}
+    .panel{background:var(--white);border:1px solid rgba(197,160,89,0.16);border-radius:14px;box-shadow:0 12px 40px rgba(15,34,64,0.08);overflow:hidden;}
+    .panel.dark{background:linear-gradient(180deg,#0F2240 0%,#08111f 100%);border-color:rgba(197,160,89,0.18);}
+    .panel-head{padding:1.35rem 1.35rem 1rem;border-bottom:1px solid rgba(197,160,89,0.12);}
+    .panel-head .kicker{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:700;color:var(--gold);}
+    .panel-head h3{font-family:var(--font-display);font-size:1.6rem;line-height:1.1;color:inherit;margin-top:0.4rem;}
+    .panel-head p{color:inherit;font-size:0.86rem;line-height:1.7;font-weight:300;opacity:0.86;margin-top:0.55rem;}
+    .panel.dark .panel-head p,
+    .panel.dark .help,
+    .panel.dark .note{
+      color:#E2E8F0;
+      opacity:0.96;
+    }
+    .panel-body{padding:1.35rem;}
+    .field{display:grid;gap:0.45rem;margin-bottom:1rem;}
+    .field label{font-size:0.66rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);}
+    .field input,.field select{width:100%;padding:0.92rem 0.95rem;border-radius:10px;border:1px solid rgba(197,160,89,0.22);background:rgba(255,255,255,0.08);color:inherit;font-family:var(--font-body);font-size:0.92rem;outline:none;}
+    .panel.dark .field input,
+    .panel.dark .field select{
+      color:var(--white);
+      -webkit-text-fill-color:var(--white);
+      caret-color:var(--gold);
+      background:rgba(255,255,255,0.06);
+    }
+    .panel.dark .field input::placeholder{
+      color:rgba(250,250,248,0.55);
+    }
+    .panel.dark .field select option{
+      color:var(--navy-deep);
+    }
+    .field select{appearance:none;}
+    .help{font-size:0.72rem;line-height:1.55;color:#718096;}
+    .calc-button{width:100%;margin-top:0.4rem;padding:0.95rem 1rem;border:0;border-radius:10px;background:var(--red);color:#fff;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:transform .2s ease,background .2s ease;}
+    .calc-button:hover{background:var(--red-dark);transform:translateY(-1px);}${laborActionStyles}
+    .result{display:grid;gap:1rem;}
+    .result-box{padding:1.3rem;border-radius:14px;background:rgba(197,160,89,0.06);border:1px solid rgba(197,160,89,0.16);}
+    .result-kicker{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:700;color:var(--gold);margin-bottom:0.6rem;}
+    .result-amount{font-family:var(--font-display);font-size:clamp(2.2rem,5vw,3.6rem);line-height:1;color:var(--navy-deep);}
+    .result-note{font-size:0.78rem;line-height:1.7;color:#4A5568;margin-top:0.8rem;}
+    .legal-basis{
+      margin-top:1rem;
+      padding-top:1rem;
+      border-top:1px solid rgba(197,160,89,0.16);
+    }
+    .legal-basis-kicker{
+      font-size:0.6rem;
+      letter-spacing:0.22em;
+      text-transform:uppercase;
+      font-weight:700;
+      color:var(--gold);
+      margin-bottom:0.55rem;
+    }
+    .legal-basis ul{
+      list-style:none;
+      display:grid;
+      gap:0.55rem;
+    }
+    .legal-basis li{
+      font-size:0.76rem;
+      line-height:1.65;
+      color:#4A5568;
+      padding-left:0.9rem;
+      position:relative;
+    }
+    .legal-basis li::before{
+      content:'•';
+      position:absolute;
+      left:0;
+      color:var(--gold);
+    }
+    .breakdown{display:grid;gap:0.55rem;margin-top:1rem;}
+    .breakdown-row{display:flex;justify-content:space-between;gap:1rem;font-size:0.84rem;color:#334155;border-top:1px solid rgba(197,160,89,0.12);padding-top:0.55rem;}
+    .breakdown-row strong{color:var(--navy-deep);}
+    .faq-grid{display:grid;gap:0.85rem;margin-top:2rem;}
+    .faq-item{border:1px solid rgba(197,160,89,0.16);border-radius:14px;background:var(--white);overflow:hidden;}
+    .faq-item summary{cursor:pointer;list-style:none;padding:1rem 1.1rem;font-weight:600;color:var(--navy-deep);}
+    .faq-item summary::-webkit-details-marker{display:none;}
+    .faq-item p{padding:0 1.1rem 1.1rem;color:#4A5568;font-size:0.86rem;line-height:1.75;}
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem;margin-top:2rem;}
+    .card-link{display:block;padding:1.15rem;border-radius:14px;border:1px solid rgba(197,160,89,0.16);background:var(--white);text-decoration:none;color:inherit;transition:transform .2s ease,background .2s ease,border-color .2s ease;}
+    .card-link:hover{transform:translateY(-2px);background:#0F2240;border-color:rgba(197,160,89,0.35);}
+    .card-link:hover h3,.card-link:hover p{color:#fff;}
+    .card-link h3{font-family:var(--font-display);font-size:1.25rem;color:var(--navy-deep);margin:0.2rem 0 0.4rem;}
+    .card-link p{font-size:0.82rem;line-height:1.7;color:#4A5568;}
+    .card-kicker{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:var(--gold);}
+    .cta-band{padding:4rem 1.25rem;background:linear-gradient(135deg,#0a1628 0%,#0f2240 55%,#0a1628 100%);border-top:1px solid rgba(197,160,89,0.15);border-bottom:1px solid rgba(197,160,89,0.15);text-align:center;}
+    .cta-band h2{color:var(--white);}
+    .cta-band p{margin:0 auto 1.8rem;color:rgba(255,255,255,0.62);max-width:760px;}
+    .alt-band{background:var(--gray-light);}
+    .note{font-size:0.8rem;line-height:1.7;color:#718096;margin-top:1rem;}
+    .footer-space{height:1px;}
+    @media (max-width: 900px){.calc-grid{grid-template-columns:1fr}${laborMobileActionStyles}.hero{padding-top:7.6rem}}
+  </style>
+  <script type="application/ld+json">${JSON.stringify(schema)}</script>
+  ${SHELL_NAV_STYLE}
+  <script defer src="${SHELL_SCRIPT}"></script>
+</head>
+<body>
+  ${SHELL_NAV_HTML}
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="breadcrumbs">
+          ${cfg.breadcrumb.map((item, index) => `${index ? '<span class="sep">›</span>' : ''}${index < cfg.breadcrumb.length - 1 ? `<a href="${item.href}">${esc(item.name)}</a>` : `<span>${esc(item.name)}</span>`}`).join('')}
+        </div>
+        <div class="eyebrow">${esc(cfg.eyebrow)}</div>
+        <h1>${cfg.heroTitle}</h1>
+        <p class="lead">${esc(cfg.heroLead)}</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="${areaNavigationFor(cfg.categorySlug).href}">${esc(areaNavigationFor(cfg.categorySlug).label)}</a>
+          <a class="btn btn-secondary" href="${CONSULTATION_URL}" target="_blank" rel="noopener noreferrer">Agendar Consulta</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-inner">
+        <h2>${cfg.sectionTitle}</h2>
+        <p class="lead">${esc(cfg.sectionLead)}</p>
+        <div class="calc-grid">
+          <div class="panel dark">
+            <div class="panel-head">
+              <div class="kicker">${esc(cfg.formKicker)}</div>
+              <h3>${esc(cfg.formTitle)}</h3>
+              <p>${esc(cfg.formLead)}</p>
+            </div>
+            <div class="panel-body">
+              <form ${formAttrs}>
+                ${fields}
+                ${actionButtonsMarkup}
+              </form>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-head">
+              <div class="kicker">${esc(cfg.resultKicker || 'Resultado orientativo')}</div>
+              <h3>${esc(cfg.resultTitle)}</h3>
+              <p>${esc(cfg.resultLead)}</p>
+            </div>
+            <div class="panel-body">
+              <div class="result">
+                <div class="result-box">
+                  <div class="result-kicker">${esc(cfg.resultLabel)}</div>
+                  <div class="result-amount" id="resultAmount">$0 MXN</div>
+                  <div class="breakdown" id="resultBreakdown"></div>
+                  <p class="result-note">${esc(cfg.resultNote)}</p>
+                  ${legalBasisMarkup}
+                </div>
+                <div class="note">${esc(cfg.note)}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt-band">
+      <div class="section-inner">
+        <h2>Preguntas frecuentes</h2>
+        <p class="lead">${esc(faqLead)}</p>
+        <div class="faq-grid">
+          ${faq}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-inner">
+        <h2>Otras calculadoras de <em>${esc(cfg.categoryName)}</em></h2>
+        <p class="lead">Mantén una visión completa del asunto legal y revisa otras calculadoras relacionadas de la misma área.</p>
+        <div class="cards">
+          ${related}
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="section-inner">
+        <h2>${cfg.ctaBandTitle}</h2>
+        <p>${esc(cfg.ctaBandLead)}</p>
+        <div class="hero-actions" style="justify-content:center;">
+          <a class="btn btn-primary" href="${areaNavigationFor(cfg.categorySlug).href}">Ir al Área Correspondiente</a>
+          <a class="btn btn-secondary" href="${CONSULTATION_URL}" target="_blank" rel="noopener noreferrer">Agendar Consulta</a>
+        </div>
+      </div>
+    </section>
+    <div class="footer-space"></div>
+  </main>
+  <footer></footer>
+  <script>
+    window.__SIGLEP_CALC__ = ${fieldConfig};
+    window.__SIGLEP_CALC_META__ = ${JSON.stringify({ formulaKey: cfg.formulaKey || null })};
+    ${inlineRuntime}
+  </script>${isLaborCalculator ? `
+  <script defer src="/shared/labor-calculator.js"></script>` : ''}
 </body>
 </html>`;
 }
@@ -1354,7 +1382,7 @@ const calculatorPages = [
     sectionLead: 'Introduce datos básicos para obtener una referencia. El resultado es orientativo y debe contrastarse con tu caso real.',
     formKicker: 'Datos base',
     formTitle: 'Cálculo orientativo',
-    formLead: 'Usa salario diario y fechas reales; el sistema calcula la antigüedad y las proporciones automáticamente.',
+    formLead: 'Captura salario mensual o diario y fechas reales en formato DD/MM/AAAA; el sistema calcula antigüedad y proporcionales automáticamente.',
     resultTitle: 'Monto estimado',
     resultLead: 'Usa esta referencia como punto de partida para tu negociación o revisión legal.',
     resultLabel: 'Estimación orientativa',
@@ -1371,14 +1399,21 @@ const calculatorPages = [
       { name: 'Liquidación laboral', href: '/calculadoras/laboral/liquidacion-laboral/' },
     ],
     fields: [
-      { id: 'salario_diario', label: 'Salario diario', type: 'number', placeholder: 'Ej. 450', help: 'Monto base diario percibido por la persona trabajadora.' },
-      { id: 'fecha_ingreso', label: 'Fecha de ingreso', type: 'date', help: 'Se usa para calcular antigüedad real.' },
-      { id: 'fecha_terminacion', label: 'Fecha de terminación', type: 'date', help: 'La calculadora toma la fecha de salida o despido.' },
-      { id: 'terminacion', label: 'Tipo de terminación', type: 'select', multiplierMap: { injustificado: 22000, renuncia: 6500, mutuo: 12000 }, options: [
+      { id: 'modo_salario', label: 'Tipo de salario', type: 'select', options: [
+        { value: 'mensual', label: 'Salario mensual' },
+        { value: 'diario', label: 'Salario diario' },
+      ], help: 'Selecciona si el monto capturado corresponde al salario mensual o al diario.' },
+      { id: 'salario_base', label: 'Salario capturado (mensual o diario)', type: 'number', placeholder: 'Ej. 13500 o 450', help: 'Ingresa el salario que tengas a la mano; el sistema convierte el valor diario cuando corresponde.' },
+      { id: 'fecha_ingreso', label: 'Fecha de ingreso (DD/MM/AAAA)', type: 'date', placeholder: 'DD/MM/AAAA', help: 'Sirve para calcular la antiguedad exacta en dias y anos.' },
+      { id: 'fecha_terminacion', label: 'Fecha de terminacion (DD/MM/AAAA)', type: 'date', placeholder: 'DD/MM/AAAA', help: 'Se usa como fecha de salida o despido para cerrar el periodo laboral.' },
+      { id: 'terminacion', label: 'Tipo de terminacion', type: 'select', options: [
         { value: 'injustificado', label: 'Despido injustificado' },
         { value: 'renuncia', label: 'Renuncia voluntaria' },
-        { value: 'mutuo', label: 'Mutuo acuerdo' },
-      ] },
+      ], help: 'Si eliges despido injustificado, el sistema agrega la indemnizacion constitucional y la prima de antiguedad.' },
+      { id: 'zona_salario_minimo', label: 'Zona salarial 2026', type: 'select', options: [
+        { value: 'general', label: 'Resto del pais' },
+        { value: 'frontera', label: 'Frontera norte' },
+      ], help: 'Se usa solo para el tope legal de prima de antiguedad con salarios minimos vigentes de 2026.' },
     ],
     faq: [
       { q: '¿La estimación es exacta?', a: 'No. Es una referencia útil para entender el rango general de tu posible liquidación antes de la revisión profesional.' },
@@ -1402,7 +1437,7 @@ const calculatorPages = [
     sectionLead: 'El finiquito no es una cortesía: integra pagos proporcionales y conceptos pendientes.',
     formKicker: 'Escenario',
     formTitle: 'Estimación de finiquito',
-    formLead: 'Introduce salario diario y fechas reales; los proporcionales se calculan automáticamente.',
+    formLead: 'Captura salario mensual o diario y fechas reales en formato DD/MM/AAAA; el sistema calcula los proporcionales automaticamente.',
     resultTitle: 'Monto de referencia',
     resultLead: 'Compara esta referencia con lo que te ofrezcan.',
     resultLabel: 'Finiquito orientativo',
@@ -1419,9 +1454,21 @@ const calculatorPages = [
       { name: 'Finiquito', href: '/calculadoras/laboral/finiquito/' },
     ],
     fields: [
-      { id: 'salario_diario', label: 'Salario diario', type: 'number', placeholder: 'Ej. 300', help: 'Usa el salario base diario para calcular el finiquito.' },
-      { id: 'fecha_ingreso', label: 'Fecha de ingreso', type: 'date', help: 'Sirve para obtener antigüedad y proporciones.' },
-      { id: 'fecha_terminacion', label: 'Fecha de terminación', type: 'date', help: 'Se usa para cerrar el periodo trabajado.' },
+      { id: 'modo_salario', label: 'Tipo de salario', type: 'select', options: [
+        { value: 'mensual', label: 'Salario mensual' },
+        { value: 'diario', label: 'Salario diario' },
+      ], help: 'Selecciona si el monto capturado corresponde al salario mensual o al diario.' },
+      { id: 'salario_base', label: 'Salario capturado (mensual o diario)', type: 'number', placeholder: 'Ej. 9000 o 300', help: 'Ingresa el salario que conozcas; el sistema obtiene el valor diario automaticamente.' },
+      { id: 'fecha_ingreso', label: 'Fecha de ingreso (DD/MM/AAAA)', type: 'date', placeholder: 'DD/MM/AAAA', help: 'Sirve para calcular la antiguedad exacta y el ciclo vacacional vigente.' },
+      { id: 'fecha_terminacion', label: 'Fecha de terminacion (DD/MM/AAAA)', type: 'date', placeholder: 'DD/MM/AAAA', help: 'Se usa para cerrar el periodo trabajado y calcular los proporcionales.' },
+      { id: 'terminacion', label: 'Tipo de terminacion', type: 'select', options: [
+        { value: 'renuncia', label: 'Renuncia voluntaria' },
+        { value: 'injustificado', label: 'Despido injustificado' },
+      ], help: 'Si eliges despido injustificado, el sistema suma indemnizacion constitucional y prima de antiguedad.' },
+      { id: 'zona_salario_minimo', label: 'Zona salarial 2026', type: 'select', options: [
+        { value: 'general', label: 'Resto del pais' },
+        { value: 'frontera', label: 'Frontera norte' },
+      ], help: 'Se usa solo cuando aplica el tope legal de prima de antiguedad en 2026.' },
     ],
     faq: [
       { q: '¿Finiquito y liquidación son lo mismo?', a: 'No. El finiquito cubre prestaciones pendientes; la liquidación incluye indemnización cuando procede.' },
@@ -1445,7 +1492,7 @@ const calculatorPages = [
     sectionLead: 'La liquidación por despido puede cambiar de forma importante según salario, antigüedad y prestaciones.',
     formKicker: 'Variables',
     formTitle: 'Cálculo orientativo de despido',
-    formLead: 'Usa salario diario y fechas reales; el sistema estima antigüedad y conceptos legales.',
+    formLead: 'Captura salario mensual o diario y fechas reales en formato DD/MM/AAAA; el sistema estima antiguedad y conceptos legales.',
     resultTitle: 'Indemnización estimada',
     resultLead: 'Compárala con la propuesta de tu empleador.',
     resultLabel: 'Indemnización orientativa',
@@ -1462,14 +1509,21 @@ const calculatorPages = [
       { name: 'Despido injustificado', href: '/calculadoras/laboral/despido-injustificado/' },
     ],
     fields: [
-      { id: 'salario_diario', label: 'Salario diario', type: 'number', placeholder: 'Ej. 520', help: 'Base diaria usada para estimar la indemnización.' },
-      { id: 'fecha_ingreso', label: 'Fecha de ingreso', type: 'date', help: 'Define la antigüedad real.' },
-      { id: 'fecha_terminacion', label: 'Fecha de terminación', type: 'date', help: 'Se usa como cierre del vínculo laboral.' },
-      { id: 'terminacion', label: 'Tipo de terminación', type: 'select', multiplierMap: { verbal: 18000, escrita: 22000, sin_causa: 28000 }, options: [
-        { value: 'sin_causa', label: 'Sin causa justificada' },
-        { value: 'verbal', label: 'Despido verbal' },
-        { value: 'escrita', label: 'Carta de despido' },
-      ] },
+      { id: 'modo_salario', label: 'Tipo de salario', type: 'select', options: [
+        { value: 'mensual', label: 'Salario mensual' },
+        { value: 'diario', label: 'Salario diario' },
+      ], help: 'Selecciona si el monto capturado corresponde al salario mensual o al diario.' },
+      { id: 'salario_base', label: 'Salario capturado (mensual o diario)', type: 'number', placeholder: 'Ej. 15600 o 520', help: 'Ingresa el salario disponible; el sistema calcula el salario diario cuando partes del mensual.' },
+      { id: 'fecha_ingreso', label: 'Fecha de ingreso (DD/MM/AAAA)', type: 'date', placeholder: 'DD/MM/AAAA', help: 'Define la antiguedad exacta en dias y anos.' },
+      { id: 'fecha_terminacion', label: 'Fecha de terminacion (DD/MM/AAAA)', type: 'date', placeholder: 'DD/MM/AAAA', help: 'Se usa como fecha de despido o salida para cerrar el calculo.' },
+      { id: 'terminacion', label: 'Tipo de terminacion', type: 'select', options: [
+        { value: 'injustificado', label: 'Despido injustificado' },
+        { value: 'renuncia', label: 'Renuncia voluntaria' },
+      ], help: 'La opcion de despido injustificado agrega automaticamente 3 meses y prima de antiguedad.' },
+      { id: 'zona_salario_minimo', label: 'Zona salarial 2026', type: 'select', options: [
+        { value: 'general', label: 'Resto del pais' },
+        { value: 'frontera', label: 'Frontera norte' },
+      ], help: 'Se usa para aplicar el tope legal de prima de antiguedad con salario minimo general o de frontera.' },
     ],
     faq: [
       { q: '¿Qué incluye esta referencia?', a: 'Una estimación de los rubros más frecuentes en despido injustificado; no sustituye la revisión completa.' },
@@ -1493,7 +1547,7 @@ const calculatorPages = [
     sectionLead: 'Acumula lo que trabajaste de más y compara el resultado con lo que realmente te pagaron.',
     formKicker: 'Horas',
     formTitle: 'Cálculo orientativo',
-    formLead: 'Introduce la tarifa base y las horas acumuladas; el recargo se aplica dentro del cálculo.',
+    formLead: 'Captura salario mensual o diario, horas extra de la semana y tipo de jornada; el sistema separa horas dobles y triples automaticamente.',
     resultTitle: 'Pago pendiente estimado',
     resultLead: 'El cálculo es orientativo y sirve como registro inicial.',
     resultLabel: 'Horas extra estimadas',
@@ -1510,14 +1564,17 @@ const calculatorPages = [
       { name: 'Horas extras', href: '/calculadoras/laboral/horas-extras/' },
     ],
     fields: [
-      { id: 'tarifa_hora', label: 'Tarifa por hora', type: 'number', placeholder: 'Ej. 80', help: 'Tarifa ordinaria por hora.' },
-      { id: 'horas_extras', label: 'Horas extra acumuladas', type: 'number', placeholder: 'Ej. 24', help: 'Total de horas adicionales realmente trabajadas.' },
-      { id: 'semanas', label: 'Semanas trabajadas', type: 'number', placeholder: 'Ej. 8', help: 'Número de semanas cubiertas por el reclamo.' },
-      { id: 'recargo', label: 'Recargo aplicable', type: 'select', multiplierMap: { simple: 1500, doble: 3500, triple: 5500 }, options: [
-        { value: 'simple', label: 'Recargo simple' },
-        { value: 'doble', label: 'Recargo doble' },
-        { value: 'triple', label: 'Recargo triple' },
-      ] },
+      { id: 'modo_salario', label: 'Tipo de salario', type: 'select', options: [
+        { value: 'mensual', label: 'Salario mensual' },
+        { value: 'diario', label: 'Salario diario' },
+      ], help: 'Selecciona si el monto capturado corresponde al salario mensual o al diario.' },
+      { id: 'salario_base', label: 'Salario capturado (mensual o diario)', type: 'number', placeholder: 'Ej. 12000 o 400', help: 'El sistema convierte el salario a valor hora segun el tipo de jornada elegido.' },
+      { id: 'horas_extras_semana', label: 'Horas extras totales (las primeras 9 se consideran dobles por ley)', type: 'number', placeholder: 'Ej. 11', help: 'Captura las horas extra realmente laboradas en la semana que quieres revisar.' },
+      { id: 'tipo_jornada', label: 'Tipo de jornada', type: 'select', options: [
+        { value: 'diurna', label: 'Diurna (8 h)' },
+        { value: 'nocturna', label: 'Nocturna (7 h)' },
+        { value: 'mixta', label: 'Mixta (7.5 h)' },
+      ], help: 'La jornada define el valor de la hora base antes de aplicar dobles y triples.' },
     ],
     faq: [
       { q: '¿Siempre se pagan al triple?', a: 'No. Depende de la jornada, el exceso y el contexto del trabajo realizado.' },
@@ -1541,7 +1598,7 @@ const calculatorPages = [
     sectionLead: 'Una salida laboral también deja prestaciones pendientes; aquí dimensionas ese proporcional.',
     formKicker: 'Prestaciones',
     formTitle: 'Cálculo orientativo',
-    formLead: 'Usa salario diario y fechas reales; la calculadora estima aguinaldo y prima automáticamente.',
+    formLead: 'Captura salario mensual o diario y fechas reales en formato DD/MM/AAAA; la calculadora estima prestaciones proporcionales automaticamente.',
     resultTitle: 'Total estimado de prestaciones',
     resultLead: 'Suma de aguinaldo y prima vacacional.',
     resultLabel: 'Prestaciones proporcionales',
@@ -1558,9 +1615,13 @@ const calculatorPages = [
       { name: 'Aguinaldo y prima vacacional', href: '/calculadoras/laboral/aguinaldo-prima-vacacional/' },
     ],
     fields: [
-      { id: 'salario_diario', label: 'Salario diario', type: 'number', placeholder: 'Ej. 460', help: 'Base diaria para calcular aguinaldo y prima vacacional.' },
-      { id: 'fecha_ingreso', label: 'Fecha de ingreso', type: 'date', help: 'Sirve para obtener la antigüedad real.' },
-      { id: 'fecha_terminacion', label: 'Fecha de terminación', type: 'date', help: 'Se usa como corte del periodo trabajado.' },
+      { id: 'modo_salario', label: 'Tipo de salario', type: 'select', options: [
+        { value: 'mensual', label: 'Salario mensual' },
+        { value: 'diario', label: 'Salario diario' },
+      ], help: 'Selecciona si el monto capturado corresponde al salario mensual o al diario.' },
+      { id: 'salario_base', label: 'Salario capturado (mensual o diario)', type: 'number', placeholder: 'Ej. 13800 o 460', help: 'El sistema obtiene el salario diario de referencia para calcular prestaciones proporcionales.' },
+      { id: 'fecha_ingreso', label: 'Fecha de ingreso (DD/MM/AAAA)', type: 'date', placeholder: 'DD/MM/AAAA', help: 'Sirve para ubicar la antiguedad real y el ciclo vacacional vigente.' },
+      { id: 'fecha_terminacion', label: 'Fecha de terminacion (DD/MM/AAAA)', type: 'date', placeholder: 'DD/MM/AAAA', help: 'Se usa como corte del periodo trabajado para calcular aguinaldo, vacaciones y prima.' },
     ],
     faq: [
       { q: '¿Aguinaldo y prima se pagan aunque renuncie?', a: 'Sí, de forma proporcional a lo trabajado durante el año.' },

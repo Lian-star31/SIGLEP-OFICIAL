@@ -31,7 +31,7 @@
     .eyebrow::before{content:'';width:34px;height:1px;background:var(--gold);display:block;}
     h1{font-family:var(--font-display);font-size:clamp(2.4rem,5.8vw,4.6rem);line-height:1.05;color:var(--white);margin-bottom:1rem;}
     h1 em{font-style:italic;color:var(--gold);}
-    .lead{max-width:760px;font-size:1rem;line-height:1.85;color:rgba(255,255,255,0.68);font-weight:300;margin-bottom:2rem;}
+    .lead{max-width:760px;font-size:1rem;line-height:1.85;color:#E2E8F0;font-weight:300;margin-bottom:2rem;}
     .breadcrumbs{display:flex;flex-wrap:wrap;gap:0.55rem;align-items:center;font-size:0.65rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:1.5rem;}
     .breadcrumbs a{color:rgba(197,160,89,0.75);text-decoration:none;}
     .breadcrumbs span.sep{color:rgba(255,255,255,0.18);}
@@ -78,7 +78,7 @@
     .field select{appearance:none;}
     .help{font-size:0.72rem;line-height:1.55;color:#718096;}
     .calc-button{width:100%;margin-top:0.4rem;padding:0.95rem 1rem;border:0;border-radius:10px;background:var(--red);color:#fff;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:transform .2s ease,background .2s ease;}
-    .calc-button:hover{background:var(--red-dark);transform:translateY(-1px);}
+    .calc-button:hover{background:var(--red-dark);transform:translateY(-1px);}.calc-actions{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:0.8rem;align-items:center;}.calc-button-secondary{width:auto;background:transparent;border:1px solid rgba(197,160,89,0.45);color:var(--gold);padding-inline:1.1rem;}.calc-button-secondary:hover{background:rgba(197,160,89,0.12);color:var(--white);}
     .result{display:grid;gap:1rem;}
     .result-box{padding:1.3rem;border-radius:14px;background:rgba(197,160,89,0.06);border:1px solid rgba(197,160,89,0.16);}
     .result-kicker{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:700;color:var(--gold);margin-bottom:0.6rem;}
@@ -136,7 +136,7 @@
     .alt-band{background:var(--gray-light);}
     .note{font-size:0.8rem;line-height:1.7;color:#718096;margin-top:1rem;}
     .footer-space{height:1px;}
-    @media (max-width: 900px){.calc-grid{grid-template-columns:1fr}.hero{padding-top:7.6rem}}
+    @media (max-width: 900px){.calc-grid{grid-template-columns:1fr}.calc-actions{grid-template-columns:1fr;}.hero{padding-top:7.6rem}}
   </style>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Calculadora de Liquidación Laboral | SIGLEP","url":"https://siglep.lat/calculadoras/laboral/liquidacion-laboral/","description":"Calculadora orientativa de liquidación laboral en México con salario diario, antigüedad y tipo de terminación.","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://siglep.lat/"},{"@type":"ListItem","position":2,"name":"Calculadoras","item":"https://siglep.lat/calculadoras/"},{"@type":"ListItem","position":3,"name":"Laboral","item":"https://siglep.lat/calculadoras/laboral/"},{"@type":"ListItem","position":4,"name":"Liquidación laboral","item":"https://siglep.lat/calculadoras/laboral/liquidacion-laboral/"}]}}</script>
   
@@ -482,41 +482,62 @@
             <div class="panel-head">
               <div class="kicker">Datos base</div>
               <h3>Cálculo orientativo</h3>
-              <p>Usa salario diario y fechas reales; el sistema calcula la antigüedad y las proporciones automáticamente.</p>
+              <p>Captura salario mensual o diario y fechas reales en formato DD/MM/AAAA; el sistema calcula antigüedad y proporcionales automáticamente.</p>
             </div>
             <div class="panel-body">
-              <form id="calc-form" onsubmit="return false;">
+              <form id="calc-form" novalidate autocomplete="off">
                 
+      <div class="field">
+        <label for="modo_salario">Tipo de salario</label>
+        <select id="modo_salario">
+          <option value="mensual">Salario mensual</option><option value="diario">Salario diario</option>
+        </select>
+        <p class="help">Selecciona si el monto capturado corresponde al salario mensual o al diario.</p>
+      </div>
+    
+
     <div class="field">
-      <label for="salario_diario">Salario diario</label>
-      <input id="salario_diario" type="number" inputmode="decimal" placeholder="Ej. 450" min="0" step="any">
-      <p class="help">Monto base diario percibido por la persona trabajadora.</p>
+      <label for="salario_base">Salario capturado (mensual o diario)</label>
+      <input id="salario_base" type="number" inputmode="decimal" placeholder="Ej. 13500 o 450" min="0" step="any" autocomplete="off">
+      <p class="help">Ingresa el salario que tengas a la mano; el sistema convierte el valor diario cuando corresponde.</p>
     </div>
   
 
     <div class="field">
-      <label for="fecha_ingreso">Fecha de ingreso</label>
-      <input id="fecha_ingreso" type="date">
-      <p class="help">Se usa para calcular antigüedad real.</p>
+      <label for="fecha_ingreso">Fecha de ingreso (DD/MM/AAAA)</label>
+      <input id="fecha_ingreso" type="text" inputmode="numeric" placeholder="DD/MM/AAAA" autocomplete="off" data-date-input="true">
+      <p class="help">Sirve para calcular la antiguedad exacta en dias y anos.</p>
     </div>
   
 
     <div class="field">
-      <label for="fecha_terminacion">Fecha de terminación</label>
-      <input id="fecha_terminacion" type="date">
-      <p class="help">La calculadora toma la fecha de salida o despido.</p>
+      <label for="fecha_terminacion">Fecha de terminacion (DD/MM/AAAA)</label>
+      <input id="fecha_terminacion" type="text" inputmode="numeric" placeholder="DD/MM/AAAA" autocomplete="off" data-date-input="true">
+      <p class="help">Se usa como fecha de salida o despido para cerrar el periodo laboral.</p>
     </div>
   
 
       <div class="field">
-        <label for="terminacion">Tipo de terminación</label>
+        <label for="terminacion">Tipo de terminacion</label>
         <select id="terminacion">
-          <option value="injustificado">Despido injustificado</option><option value="renuncia">Renuncia voluntaria</option><option value="mutuo">Mutuo acuerdo</option>
+          <option value="injustificado">Despido injustificado</option><option value="renuncia">Renuncia voluntaria</option>
         </select>
-        
+        <p class="help">Si eliges despido injustificado, el sistema agrega la indemnizacion constitucional y la prima de antiguedad.</p>
       </div>
     
-                <button class="calc-button" type="button" id="calcButton">Calcular estimación</button>
+
+      <div class="field">
+        <label for="zona_salario_minimo">Zona salarial 2026</label>
+        <select id="zona_salario_minimo">
+          <option value="general">Resto del pais</option><option value="frontera">Frontera norte</option>
+        </select>
+        <p class="help">Se usa solo para el tope legal de prima de antiguedad con salarios minimos vigentes de 2026.</p>
+      </div>
+    
+                <div class="calc-actions">
+                  <button class="calc-button" type="submit" id="calcButton">Calcular estimación</button>
+                  <button class="calc-button calc-button-secondary" type="button" id="resetCalcButton">Nueva simulación</button>
+                </div>
               </form>
             </div>
           </div>
@@ -536,8 +557,8 @@
                   
       <div class="legal-basis">
         <div class="legal-basis-kicker">Sustento legal 2026</div>
-        <ul>
-          <li>Ley Federal del Trabajo: artículos 48, 50, 76, 80 y 87.</li>
+        <ul id="legalBasisList">
+          <li>Completa la simulación para ver los artículos aplicados.</li>
         </ul>
       </div>
     
@@ -625,33 +646,46 @@
   <script>
     window.__SIGLEP_CALC__ = [
   {
-    "id": "salario_diario",
-    "label": "Salario diario",
+    "id": "modo_salario",
+    "label": "Tipo de salario",
+    "type": "select",
+    "options": [
+      {
+        "value": "mensual",
+        "label": "Salario mensual"
+      },
+      {
+        "value": "diario",
+        "label": "Salario diario"
+      }
+    ],
+    "help": "Selecciona si el monto capturado corresponde al salario mensual o al diario."
+  },
+  {
+    "id": "salario_base",
+    "label": "Salario capturado (mensual o diario)",
     "type": "number",
-    "placeholder": "Ej. 450",
-    "help": "Monto base diario percibido por la persona trabajadora."
+    "placeholder": "Ej. 13500 o 450",
+    "help": "Ingresa el salario que tengas a la mano; el sistema convierte el valor diario cuando corresponde."
   },
   {
     "id": "fecha_ingreso",
-    "label": "Fecha de ingreso",
+    "label": "Fecha de ingreso (DD/MM/AAAA)",
     "type": "date",
-    "help": "Se usa para calcular antigüedad real."
+    "placeholder": "DD/MM/AAAA",
+    "help": "Sirve para calcular la antiguedad exacta en dias y anos."
   },
   {
     "id": "fecha_terminacion",
-    "label": "Fecha de terminación",
+    "label": "Fecha de terminacion (DD/MM/AAAA)",
     "type": "date",
-    "help": "La calculadora toma la fecha de salida o despido."
+    "placeholder": "DD/MM/AAAA",
+    "help": "Se usa como fecha de salida o despido para cerrar el periodo laboral."
   },
   {
     "id": "terminacion",
-    "label": "Tipo de terminación",
+    "label": "Tipo de terminacion",
     "type": "select",
-    "multiplierMap": {
-      "injustificado": 22000,
-      "renuncia": 6500,
-      "mutuo": 12000
-    },
     "options": [
       {
         "value": "injustificado",
@@ -660,153 +694,30 @@
       {
         "value": "renuncia",
         "label": "Renuncia voluntaria"
+      }
+    ],
+    "help": "Si eliges despido injustificado, el sistema agrega la indemnizacion constitucional y la prima de antiguedad."
+  },
+  {
+    "id": "zona_salario_minimo",
+    "label": "Zona salarial 2026",
+    "type": "select",
+    "options": [
+      {
+        "value": "general",
+        "label": "Resto del pais"
       },
       {
-        "value": "mutuo",
-        "label": "Mutuo acuerdo"
+        "value": "frontera",
+        "label": "Frontera norte"
       }
-    ]
+    ],
+    "help": "Se usa solo para el tope legal de prima de antiguedad con salarios minimos vigentes de 2026."
   }
 ];
     window.__SIGLEP_CALC_META__ = {"formulaKey":"labor-liquidation"};
-    const calcConfig = window.__SIGLEP_CALC__;
-    const calcMeta = window.__SIGLEP_CALC_META__ || {};
-    const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
-
-    function num(id) {
-      const el = document.getElementById(id);
-      return el && el.value !== '' ? Number(el.value) || 0 : 0;
-    }
-
-    function dateValue(id) {
-      const el = document.getElementById(id);
-      return el && el.value ? el.value : '';
-    }
-
-    function selectedMultiplier(field) {
-      const el = document.getElementById(field.id);
-      const value = el ? el.value : '';
-      if (field.multiplierMap && Object.prototype.hasOwnProperty.call(field.multiplierMap, value)) {
-        return field.multiplierMap[value];
-      }
-      return field.multiplier ?? 1;
-    }
-
-    function daysBetween(start, end) {
-      if (!start || !end) return 0;
-      const startDate = new Date(start + 'T00:00:00');
-      const endDate = new Date(end + 'T00:00:00');
-      const diff = endDate - startDate;
-      if (!Number.isFinite(diff) || diff <= 0) return 0;
-      return Math.floor(diff / 86400000);
-    }
-
-    function yearsBetween(start, end) {
-      return daysBetween(start, end) / 365;
-    }
-
-    function vacationDaysForYears(years) {
-      const fullYears = Math.max(0, Math.floor(years));
-      if (fullYears <= 0) return 0;
-      if (fullYears === 1) return 12;
-      if (fullYears === 2) return 14;
-      if (fullYears === 3) return 16;
-      if (fullYears === 4) return 18;
-      if (fullYears === 5) return 20;
-      return 20 + Math.ceil((fullYears - 5) / 5) * 2;
-    }
-
-    function runCalc() {
-      const breakdown = [];
-      let total = 0;
-
-      if (calcMeta.formulaKey === 'labor-liquidation') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const termination = selectedMultiplier({ id: 'terminacion', multiplierMap: { injustificado: 22000, renuncia: 6500, mutuo: 12000 } });
-        const indemnizacion = salary * 90;
-        const seniority = salary * 20 * years;
-        const proporcional = salary * vacationDays * 0.25 * Math.max(0.25, Math.min(1, years / 5));
-        breakdown.push(['Indemnización base', money.format(Math.round(indemnizacion))]);
-        breakdown.push(['Antigüedad estimada', money.format(Math.round(seniority))]);
-        breakdown.push(['Vacaciones y prima', money.format(Math.round(proporcional))]);
-        breakdown.push(['Tipo de terminación', money.format(Math.round(termination))]);
-        total += indemnizacion + seniority + proporcional + termination;
-      } else if (calcMeta.formulaKey === 'labor-finiquito') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const days = daysBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const aguinaldo = salary * 15 * (days / 365);
-        const vacaciones = salary * vacationDays * 0.25 * (days / 365);
-        const salariosPendientes = salary * Math.max(0, Math.min(15, days % 15));
-        breakdown.push(['Salarios pendientes', money.format(Math.round(salariosPendientes))]);
-        breakdown.push(['Aguinaldo proporcional', money.format(Math.round(aguinaldo))]);
-        breakdown.push(['Vacaciones proporcionales', money.format(Math.round(vacaciones))]);
-        total += salariosPendientes + aguinaldo + vacaciones;
-      } else if (calcMeta.formulaKey === 'labor-despido') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const termination = selectedMultiplier({ id: 'terminacion', multiplierMap: { sin_causa: 28000, verbal: 18000, escrita: 22000 } });
-        const indemnizacion = salary * 90;
-        const seniority = salary * 20 * years;
-        const proporcional = salary * vacationDays * 0.25;
-        breakdown.push(['Indemnización base', money.format(Math.round(indemnizacion))]);
-        breakdown.push(['Prima de antigüedad', money.format(Math.round(seniority))]);
-        breakdown.push(['Vacaciones y prima', money.format(Math.round(proporcional))]);
-        breakdown.push(['Tipo de terminación', money.format(Math.round(termination))]);
-        total += indemnizacion + seniority + proporcional + termination;
-      } else if (calcMeta.formulaKey === 'labor-hours') {
-        const tarifa = num('tarifa_hora');
-        const horas = num('horas_extras');
-        const semanas = num('semanas');
-        const factor = selectedMultiplier({ id: 'recargo', multiplierMap: { simple: 1.5, doble: 2, triple: 3 } });
-        const totalHoras = tarifa * horas * semanas * factor;
-        breakdown.push(['Tarifa base', money.format(Math.round(tarifa))]);
-        breakdown.push(['Horas extra', money.format(Math.round(horas))]);
-        breakdown.push(['Semanas trabajadas', money.format(Math.round(semanas))]);
-        breakdown.push(['Recargo aplicado', factor.toFixed(1) + 'x']);
-        total += totalHoras;
-      } else if (calcMeta.formulaKey === 'labor-aguinaldo') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const days = daysBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const aguinaldo = salary * 15 * (days / 365);
-        const prima = salary * vacationDays * 0.25 * (days / 365);
-        breakdown.push(['Aguinaldo legal', money.format(Math.round(aguinaldo))]);
-        breakdown.push(['Prima vacacional', money.format(Math.round(prima))]);
-        total += aguinaldo + prima;
-      } else {
-        calcConfig.forEach((field) => {
-          let contribution = 0;
-          if (field.type === 'select') {
-            const el = document.getElementById(field.id);
-            const label = el && el.options[el.selectedIndex] ? el.options[el.selectedIndex].textContent : field.label;
-            const factor = selectedMultiplier(field);
-            contribution = factor;
-            breakdown.push([label, money.format(Math.round(contribution))]);
-            total += contribution;
-            return;
-          }
-
-          const value = num(field.id);
-          contribution = value * (field.multiplier ?? 1);
-          breakdown.push([field.label, money.format(Math.round(contribution))]);
-          total += contribution;
-        });
-      }
-
-      document.getElementById('resultAmount').textContent = money.format(Math.max(0, Math.round(total)));
-      document.getElementById('resultBreakdown').innerHTML = breakdown
-        .map(([label, amount]) => '<div class="breakdown-row"><span>' + label + '</span><strong>' + amount + '</strong></div>')
-        .join('');
-    }
-
-    document.getElementById('calcButton').addEventListener('click', runCalc);
-    runCalc();
+    
   </script>
+  <script defer src="/shared/labor-calculator.js"></script>
 </body>
 </html>

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<!-- Google Analytics 4 — SIGLEP -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3R9SXNDXR5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-3R9SXNDXR5", {
+    page_title: document.title,
+    page_location: window.location.href
+  });
+
+  document.addEventListener("DOMContentLoaded", function() {
+    // EVENTO: WhatsApp click
+    document.querySelectorAll('a[href*="wa.me"], .btn-wa, .float-wa a').forEach(function(el) {
+      el.addEventListener("click", function() {
+        gtag("event", "whatsapp_click", {
+          page_location: window.location.href,
+          page_title: document.title
+        });
+      });
+    });
+
+    // EVENTO: Calendly / Agendar consulta
+    document.querySelectorAll('a[href*="calendly"]').forEach(function(el) {
+      el.addEventListener("click", function() {
+        gtag("event", "calendly_click", {
+          page_location: window.location.href,
+          page_title: document.title
+        });
+      });
+    });
+  });
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog Legal SIGLEP – Consejos y Guías de Derecho en México</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="description" content="Artículos, guías y consejos legales en México. Derecho laboral, familiar, migratorio y patrimonial explicado de forma clara y práctica por los abogados de SIGLEP.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://siglep.lat/blog/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#1A365D;--navy-deep:#0F2240;--gold:#C5A059;--red:#C0392B;--red-dark:#96281B;--white:#FAFAF8;--text-body:#2D3748;--font-display:'Cormorant Garamond',serif;--font-body:'Montserrat',sans-serif;}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--font-body);background:var(--white);color:var(--text-body);overflow-x:hidden;}
+  nav{position:fixed;top:0;left:0;width:100%;z-index:900;background:rgba(8,12,20,0.98);backdrop-filter:blur(14px);border-bottom:1px solid rgba(197,160,89,0.18);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px;}
+  .nav-logo{display:flex;align-items:center;gap:0.75rem;text-decoration:none;}
+  .nav-logo-shield{width:36px;height:36px;}
+  .nav-logo-text{font-family:var(--font-display);font-size:1.6rem;font-weight:700;color:var(--gold);letter-spacing:0.1em;line-height:1;}
+  .nav-logo-text span{color:rgba(255,255,255,0.45);font-size:0.65rem;font-family:var(--font-body);font-weight:300;display:block;margin-top:1px;}
+  .nav-links{display:flex;gap:1.8rem;list-style:none;align-items:center;}
+  .nav-links a{color:rgba(255,255,255,0.62);text-decoration:none;font-size:0.68rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;transition:color 0.2s;white-space:nowrap;}
+  .nav-links a:hover,.nav-links a.active{color:var(--gold);}
+  .nav-cta{background:var(--red)!important;color:#fff!important;padding:0.42rem 1.1rem!important;border-radius:2px;}
+  .nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none;}
+  .nav-hamburger span{display:block;width:22px;height:2px;background:rgba(255,255,255,0.7);border-radius:2px;}
+  .nav-mobile{display:none;position:fixed;top:64px;left:0;width:100%;background:rgba(8,12,20,0.99);border-bottom:1px solid rgba(197,160,89,0.15);flex-direction:column;padding:1.2rem 2rem 1.5rem;gap:0;z-index:899;}
+  .nav-mobile.open{display:flex;}
+  .nav-mobile a{color:rgba(255,255,255,0.7);text-decoration:none;font-size:0.75rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:0.85rem 0;border-bottom:1px solid rgba(197,160,89,0.08);transition:color 0.2s;}
+  .nav-mobile a:last-child{border-bottom:none;}
+  .nav-mobile .nav-cta-mobile{color:#fff!important;background:var(--red);padding:0.6rem 1rem;border-radius:2px;text-align:center;margin-top:0.5rem;}
+  @media(max-width:768px){.nav-links{display:none;}.nav-hamburger{display:flex;}}
+  .page-hero{padding:7rem 2rem 4rem;background:linear-gradient(145deg,#050810 0%,#0A1628 40%,#0F2240 70%,#111B30 100%);position:relative;}
+  .page-hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(197,160,89,0.035) 1px,transparent 1px),linear-gradient(90deg,rgba(197,160,89,0.035) 1px,transparent 1px);background-size:56px 56px;}
+  .page-hero-inner{max-width:900px;margin:0 auto;position:relative;z-index:2;}
+  .page-eyebrow{font-size:0.65rem;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;display:flex;align-items:center;gap:0.8rem;}
+  .page-eyebrow::before{content:'';display:block;width:36px;height:1px;background:var(--gold);}
+  .page-hero h1{font-family:var(--font-display);font-size:clamp(2.2rem,6vw,4rem);font-weight:700;line-height:1.08;color:#FAFAF8;margin-bottom:1rem;}
+  .page-hero h1 em{font-style:italic;color:var(--gold);}
+  .page-hero p{font-size:1rem;line-height:1.8;color:rgba(255,255,255,0.6);max-width:580px;font-weight:300;}
+  .blog-section{padding:5rem 2rem;}
+  .container{max-width:1100px;margin:0 auto;}
+  .blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:2rem;margin-top:3rem;}
+  .blog-card{background:#fff;border:1px solid rgba(197,160,89,0.15);border-radius:2px;overflow:hidden;transition:box-shadow 0.3s,transform 0.3s;display:flex;flex-direction:column;}
+  .blog-card:hover{box-shadow:0 8px 32px rgba(26,54,93,0.1);transform:translateY(-4px);}
+  .blog-card-cat{padding:1.5rem 1.8rem 0;}
+  .blog-card-cat span{font-size:0.58rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);background:rgba(197,160,89,0.08);padding:0.25rem 0.7rem;border-radius:40px;}
+  .blog-card-body{padding:1rem 1.8rem 1.5rem;flex:1;display:flex;flex-direction:column;gap:0.8rem;}
+  .blog-card-date{font-size:0.7rem;color:#9CA3AF;font-weight:400;}
+  .blog-card-title{font-family:var(--font-display);font-size:1.4rem;font-weight:700;color:var(--navy-deep);line-height:1.2;}
+  .blog-card-excerpt{font-size:0.83rem;line-height:1.75;color:#4A5568;font-weight:300;flex:1;}
+  .blog-card-link{font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);text-decoration:none;display:inline-flex;align-items:center;gap:0.4rem;margin-top:0.5rem;}
+  .blog-card-link:hover{color:var(--navy-deep);}
+  footer{background:#050810;padding:3rem 2rem 2rem;border-top:1px solid rgba(197,160,89,0.12);}
+  .footer-bottom{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+  .footer-bottom p{font-size:0.72rem;color:rgba(255,255,255,0.25);}
+  .float-wa{position:fixed;bottom:2rem;right:1.5rem;z-index:999;display:flex;align-items:center;gap:0.6rem;padding:0.8rem 1.3rem;border-radius:40px;font-size:0.76rem;font-weight:700;text-decoration:none;background:#25D366;color:#fff;box-shadow:0 4px 22px rgba(0,0,0,0.4);}
+  @media(max-width:480px){.float-wa .btn-text{display:none;}.float-wa{padding:0.9rem;border-radius:50%;}}
+</style>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Blog Legal SIGLEP – Consejos y Guías de Derecho en México","url":"https://siglep.lat/blog/","description":"Artículos, guías y consejos legales en México. Derecho laboral, familiar, migratorio y patrimonial explicado de forma clara y práctica por los abogados de SIGLEP."}</script>
+  <script defer src="/shared/site-shell.js"></script>
+
+  <style>
+    nav.siglep-shell-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 2000;
+      height: 76px;
+      background: rgba(5, 8, 16, 0.96);
+      border-bottom: 1px solid rgba(197, 160, 89, 0.18);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .siglep-shell-nav-inner {
+      max-width: 1240px;
+      height: 100%;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .siglep-shell-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      text-decoration: none;
+      color: inherit;
+      min-width: 0;
+    }
+    .siglep-shell-shield {
+      width: 36px;
+      height: 42px;
+      flex: 0 0 auto;
+    }
+    .siglep-shell-brand-copy {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+    .siglep-shell-mark {
+      font-family: var(--font-display, Georgia, serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: #c5a059;
+    }
+    .siglep-shell-sub {
+      margin-top: 0.2rem;
+      font-size: 0.61rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.45);
+      white-space: nowrap;
+    }
+    .siglep-shell-links {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 1.15rem;
+    }
+    .siglep-shell-links > li {
+      position: relative;
+    }
+    .siglep-shell-links a,
+    .siglep-shell-links button {
+      appearance: none;
+      border: 0;
+      background: none;
+      color: rgba(255, 255, 255, 0.68);
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      cursor: pointer;
+      white-space: nowrap;
+      padding: 0;
+      transition: color 0.2s ease;
+    }
+    .siglep-shell-links a:hover,
+    .siglep-shell-links button:hover,
+    .siglep-shell-links a[aria-current="page"] {
+      color: #c5a059;
+    }
+    .siglep-shell-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.78rem 1.15rem !important;
+      border-radius: 2px;
+      background: #c0392b !important;
+      color: #fff !important;
+    }
+    .siglep-shell-cta:hover {
+      background: #96281b !important;
+      color: #fff !important;
+    }
+    .siglep-shell-dropdown {
+      position: absolute;
+      top: calc(100% + 0.8rem);
+      left: 0;
+      min-width: 260px;
+      padding: 0.75rem;
+      border-radius: 8px;
+      border: 1px solid rgba(197, 160, 89, 0.18);
+      background: rgba(8, 12, 20, 0.98);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+      display: none;
+    }
+    .siglep-shell-services:hover .siglep-shell-dropdown,
+    .siglep-shell-services:focus-within .siglep-shell-dropdown {
+      display: block;
+    }
+    .siglep-shell-dropdown a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.72rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.66rem;
+      letter-spacing: 0.12em;
+    }
+    .siglep-shell-dropdown a:hover {
+      background: rgba(197, 160, 89, 0.08);
+    }
+    .siglep-shell-dropdown a span {
+      color: rgba(197, 160, 89, 0.7);
+      letter-spacing: 0.04em;
+    }
+    .siglep-shell-burger {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      border: 1px solid rgba(197, 160, 89, 0.18);
+      background: rgba(255, 255, 255, 0.02);
+      color: #fff;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .siglep-shell-burger svg {
+      width: 20px;
+      height: 20px;
+    }
+    .siglep-shell-mobile {
+      display: none;
+      position: fixed;
+      top: 76px;
+      left: 0;
+      right: 0;
+      z-index: 1999;
+      background: rgba(5, 8, 16, 0.98);
+      border-bottom: 1px solid rgba(197, 160, 89, 0.15);
+      padding: 1rem 1.15rem 1.2rem;
+      max-height: calc(100vh - 76px);
+      overflow: auto;
+    }
+    .siglep-shell-mobile.open {
+      display: block;
+    }
+    .siglep-shell-mobile-group {
+      display: grid;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+    }
+    .siglep-shell-mobile-title {
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(197, 160, 89, 0.72);
+      margin: 0.45rem 0 0.2rem;
+    }
+    .siglep-shell-mobile a,
+    .siglep-shell-mobile button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 0.92rem 0.2rem;
+      border: 0;
+      border-bottom: 1px solid rgba(197, 160, 89, 0.08);
+      background: none;
+      color: rgba(255, 255, 255, 0.78);
+      text-decoration: none;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .siglep-shell-mobile a:last-child,
+    .siglep-shell-mobile button:last-child {
+      border-bottom: 0;
+    }
+    .siglep-shell-mobile .siglep-shell-cta {
+      margin-top: 0.65rem;
+    }
+    @media (max-width: 980px) {
+      .siglep-shell-links {
+        display: none;
+      }
+      .siglep-shell-burger {
+        display: inline-flex;
+      }
+    }
+    @media (max-width: 680px) {
+      nav.siglep-shell-nav {
+        height: 70px;
+      }
+      .siglep-shell-nav-inner {
+        padding-inline: 0.9rem;
+      }
+      .siglep-shell-brand-copy {
+        display: none;
+      }
+      .siglep-shell-mobile {
+        top: 70px;
+        max-height: calc(100vh - 70px);
+      }
+    }
+  </style>
+
+</head>
+<body>
+
+
+  <nav class="siglep-shell-nav" id="navbar">
+    <div class="siglep-shell-nav-inner">
+      <a class="siglep-shell-brand" href="/" aria-label="SIGLEP">
+        <svg class="siglep-shell-shield" viewBox="0 0 40 46" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M20 2L4 9V22C4 31.4 11.1 40.2 20 43C28.9 40.2 36 31.4 36 22V9L20 2Z" fill="#1A365D" stroke="#C5A059" stroke-width="1.5"></path>
+          <text x="20" y="28" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="13" font-weight="700" fill="#C5A059">SL</text>
+        </svg>
+        <span class="siglep-shell-brand-copy">
+          <span class="siglep-shell-mark">SIGLEP</span>
+          <span class="siglep-shell-sub">Sistemas Integrales de Gestión Legal</span>
+        </span>
+      </a>
+      <ul class="siglep-shell-links">
+        <li><a href="/" data-nav="home">Inicio</a></li>
+        <li class="siglep-shell-services">
+          <button type="button" aria-haspopup="true" aria-expanded="false" data-nav="services">Servicios ▼</button>
+          <div class="siglep-shell-dropdown">
+            <a href="/laboral/">Laboral <span>→</span></a>
+            <a href="/familiar/">Familiar <span>→</span></a>
+            <a href="/civil/">Civil <span>→</span></a>
+            <a href="/migratorio/">Migratorio <span>→</span></a>
+            <a href="/patrimonial/">Patrimonial <span>→</span></a>
+            <a href="/penal/">Penal <span>→</span></a>
+            <a href="/seguridad-social/">Seguridad Social <span>→</span></a>
+          </div>
+        </li>
+        <li><a href="/calculadoras/" data-nav="calculadoras">Calculadoras</a></li>
+        <li><a href="/expediente/" data-nav="expediente">Expediente</a></li>
+        <li><a href="/nosotros/" data-nav="nosotros">Nosotros</a></li>
+        <li><a class="siglep-shell-cta" href="https://wa.me/527352169503?text=Hola%20SIGLEP%2C%20quiero%20una%20consulta%20gratuita" target="_blank" rel="noopener noreferrer">Consulta Gratis</a></li>
+      </ul>
+      <button type="button" class="siglep-shell-burger" aria-label="Abrir menú" onclick="toggleMobileNav()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M4 6h16"></path>
+          <path d="M4 12h16"></path>
+          <path d="M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="siglep-shell-mobile" id="navMobile" aria-hidden="true">
+      <div class="siglep-shell-mobile-group">
+        <a href="/" onclick="closeMobileNav()">Inicio</a>
+      </div>
+      <div class="siglep-shell-mobile-title">Servicios</div>
+      <div class="siglep-shell-mobile-group">
+        <a href="/laboral/" onclick="closeMobileNav()">Laboral</a>
+        <a href="/familiar/" onclick="closeMobileNav()">Familiar</a>
+        <a href="/civil/" onclick="closeMobileNav()">Civil</a>
+        <a href="/migratorio/" onclick="closeMobileNav()">Migratorio</a>
+        <a href="/patrimonial/" onclick="closeMobileNav()">Patrimonial</a>
+        <a href="/penal/" onclick="closeMobileNav()">Penal</a>
+        <a href="/seguridad-social/" onclick="closeMobileNav()">Seguridad Social</a>
+      </div>
+      <div class="siglep-shell-mobile-group">
+        <a href="/calculadoras/" onclick="closeMobileNav()">Calculadoras</a>
+        <a href="/expediente/" onclick="closeMobileNav()">Expediente</a>
+        <a href="/nosotros/" onclick="closeMobileNav()">Nosotros</a>
+        <a class="siglep-shell-cta" href="https://wa.me/527352169503?text=Hola%20SIGLEP%2C%20quiero%20una%20consulta%20gratuita" target="_blank" rel="noopener noreferrer">Consulta Gratis</a>
+      </div>
+    </div>
+  </nav>
+
+
+<div class="page-hero">
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-inner">
+    <div class="page-eyebrow">Blog Legal</div>
+    <h1>Conoce tus derechos.<br><em>Actúa con información.</em></h1>
+    <p>Guías prácticas, consejos legales y análisis de los temas que más afectan a personas y familias en México — explicados sin tecnicismos.</p>
+  </div>
+</div>
+
+<section class="blog-section">
+  <div class="container">
+    <div class="blog-grid">
+
+      <article class="blog-card">
+        <div class="blog-card-cat"><span>Derecho Laboral</span></div>
+        <div class="blog-card-body">
+          <div class="blog-card-date">Mayo 2025</div>
+          <h2 class="blog-card-title">¿Cuánto te deben pagar si te despiden injustificadamente?</h2>
+          <p class="blog-card-excerpt">En México, el despido injustificado activa una serie de derechos económicos que muchos trabajadores desconocen. Te explicamos exactamente qué incluye una liquidación completa y cómo calcularla.</p>
+          <a href="/blog/despido-injustificado-liquidacion/" class="blog-card-link">Leer artículo →</a>
+        </div>
+      </article>
+
+      <article class="blog-card">
+        <div class="blog-card-cat"><span>Derecho Familiar</span></div>
+        <div class="blog-card-body">
+          <div class="blog-card-date">Mayo 2025</div>
+          <h2 class="blog-card-title">Pensión alimentaria: lo que el padre que no paga no quiere que sepas</h2>
+          <p class="blog-card-excerpt">La pensión alimentaria no es opcional ni negociable. Explicamos las consecuencias reales para quien incumple y cómo exigir su pago de forma efectiva ante un juez.</p>
+          <a href="/blog/pension-alimentaria-mexico/" class="blog-card-link">Leer artículo →</a>
+        </div>
+      </article>
+
+      <article class="blog-card">
+        <div class="blog-card-cat"><span>Derecho Migratorio</span></div>
+        <div class="blog-card-body">
+          <div class="blog-card-date">Abril 2025</div>
+          <h2 class="blog-card-title">Visa de trabajo en México: requisitos y proceso paso a paso</h2>
+          <p class="blog-card-excerpt">Extranjeros que desean trabajar legalmente en México necesitan regularizar su situación migratoria. Guía completa sobre los tipos de visa, tiempos y documentos necesarios en 2025.</p>
+          <a href="/blog/visa-trabajo-mexico/" class="blog-card-link">Leer artículo →</a>
+        </div>
+      </article>
+
+      <article class="blog-card">
+        <div class="blog-card-cat"><span>Derecho Penal</span></div>
+        <div class="blog-card-body">
+          <div class="blog-card-date">Abril 2025</div>
+          <h2 class="blog-card-title">Te citaron al Ministerio Público: qué hacer y qué no hacer</h2>
+          <p class="blog-card-excerpt">Recibir una citación del MP genera angustia e incertidumbre. Te explicamos tus derechos constitucionales, qué puedes y no puedes hacer, y por qué nunca debes ir sin abogado.</p>
+          <a href="/blog/citatorio-ministerio-publico/" class="blog-card-link">Leer artículo →</a>
+        </div>
+      </article>
+
+      <article class="blog-card">
+        <div class="blog-card-cat"><span>Derecho Patrimonial</span></div>
+        <div class="blog-card-body">
+          <div class="blog-card-date">Marzo 2025</div>
+          <h2 class="blog-card-title">Herencia sin testamento en México: ¿quién tiene derecho y cómo reclamarla?</h2>
+          <p class="blog-card-excerpt">Cuando alguien fallece sin testamento, se abre una sucesión intestamentaria. Explicamos el orden de prelación de herederos y los pasos para tramitar la herencia ante notario o juez.</p>
+          <a href="/blog/herencia-sin-testamento-mexico/" class="blog-card-link">Leer artículo →</a>
+        </div>
+      </article>
+
+      <article class="blog-card">
+        <div class="blog-card-cat"><span>Derecho Laboral</span></div>
+        <div class="blog-card-body">
+          <div class="blog-card-date">Marzo 2025</div>
+          <h2 class="blog-card-title">Acoso laboral en México: cómo identificarlo y qué puedes hacer legalmente</h2>
+          <p class="blog-card-excerpt">El mobbing o acoso laboral es una forma de violencia que tiene consecuencias legales para el empleador. Te explicamos cómo documentarlo y las acciones legales disponibles para las víctimas.</p>
+          <a href="/blog/acoso-laboral-mobbing-mexico/" class="blog-card-link">Leer artículo →</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-bottom">
+    <p>© 2025 SIGLEP — Sistemas Integrales de Gestión Legal. Todos los derechos reservados.</p>
+    <p><a href="mailto:hola@siglep.lat" style="color:rgba(197,160,89,0.5);text-decoration:none;">hola@siglep.lat</a></p>
+  </div>
+</footer>
+
+<a href="https://wa.me/527352169503?text=Hola%20SIGLEP" target="_blank" rel="noopener noreferrer" class="float-wa">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  <span class="btn-text">WhatsApp</span>
+</a>
+
+</body>
+</html>

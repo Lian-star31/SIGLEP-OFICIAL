@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 70" width="60" height="70">
+  <path d="M30 2L4 13V34C4 49 17 62 30 68C43 62 56 49 56 34V13L30 2Z" fill="#C5A059" stroke="#8A6D2C" stroke-width="1.5"/>
+  <path d="M30 6L8 16V34C8 47 20 59 30 64C40 59 52 47 52 34V16L30 6Z" fill="#0F2240"/>
+  <text x="14" y="46" font-family="Georgia,serif" font-size="22" font-weight="bold" fill="#C5A059">SL</text>
+</svg>

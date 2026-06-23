@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<!-- Google Analytics 4 — SIGLEP -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3R9SXNDXR5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-3R9SXNDXR5", {
+    page_title: document.title,
+    page_location: window.location.href
+  });
+
+  document.addEventListener("DOMContentLoaded", function() {
+    // EVENTO: WhatsApp click
+    document.querySelectorAll('a[href*="wa.me"], .btn-wa, .float-wa a').forEach(function(el) {
+      el.addEventListener("click", function() {
+        gtag("event", "whatsapp_click", {
+          page_location: window.location.href,
+          page_title: document.title
+        });
+      });
+    });
+
+    // EVENTO: Calendly / Agendar consulta
+    document.querySelectorAll('a[href*="calendly"]').forEach(function(el) {
+      el.addEventListener("click", function() {
+        gtag("event", "calendly_click", {
+          page_location: window.location.href,
+          page_title: document.title
+        });
+      });
+    });
+  });
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mensaje recibido — Te contactamos hoy | SIGLEP</title>
+<meta name="description" content="Hemos recibido tu mensaje. Respondemos a la brevedad posible en horario de atención.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#1A365D;--navy-deep:#0F2240;--gold:#C5A059;--red:#C0392B;--black:#080C14;--white:#FAFAF8;--gray-light:#F0EEE8;--text-body:#2D3748;--font-display:'Cormorant Garamond',serif;--font-body:'Montserrat',sans-serif;}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--font-body);background:var(--white);color:var(--text-body);min-height:100vh;display:flex;flex-direction:column;}
+
+  nav{position:fixed;top:0;left:0;width:100%;z-index:900;background:rgba(8,12,20,0.98);backdrop-filter:blur(14px);border-bottom:1px solid rgba(197,160,89,0.18);padding:0 2rem;display:flex;align-items:center;height:64px;}
+  .nav-logo{display:flex;align-items:center;gap:0.75rem;text-decoration:none;}
+  .nav-logo-text{font-family:var(--font-display);font-size:1.6rem;font-weight:700;color:var(--gold);letter-spacing:0.1em;line-height:1;}
+  .nav-logo-text span{color:rgba(255,255,255,0.45);font-size:0.65rem;font-family:var(--font-body);font-weight:300;letter-spacing:0.06em;display:block;margin-top:1px;}
+
+  .gracias-main{flex:1;display:flex;align-items:center;justify-content:center;padding:6rem 2rem 4rem;background:linear-gradient(145deg,#050810 0%,#0A1628 40%,#0F2240 70%,#111B30 100%);position:relative;overflow:hidden;}
+  .gracias-grid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(197,160,89,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(197,160,89,0.03) 1px,transparent 1px);background-size:56px 56px;}
+  .gracias-card{background:rgba(255,255,255,0.04);border:1px solid rgba(197,160,89,0.2);border-radius:2px;padding:3rem 2.5rem;max-width:560px;width:100%;text-align:center;position:relative;z-index:2;animation:fadeUp 0.8s ease both;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:none;}}
+
+  .gracias-icon{width:72px;height:72px;background:rgba(37,211,102,0.12);border:2px solid rgba(37,211,102,0.4);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;}
+  .gracias-icon svg{width:36px;height:36px;color:#25D366;}
+  .gracias-tag{font-size:0.62rem;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:flex;align-items:center;justify-content:center;gap:0.6rem;}
+  .gracias-tag::before,.gracias-tag::after{content:'';display:block;width:24px;height:1px;background:var(--gold);}
+  .gracias-card h1{font-family:var(--font-display);font-size:clamp(1.8rem,5vw,2.8rem);font-weight:700;color:var(--white);line-height:1.1;margin-bottom:1rem;}
+  .gracias-card h1 em{color:var(--gold);font-style:italic;}
+  .gracias-card p{font-size:0.9rem;line-height:1.8;color:rgba(255,255,255,0.55);font-weight:300;margin-bottom:2rem;}
+
+  .gracias-steps{display:flex;flex-direction:column;gap:0.8rem;margin-bottom:2rem;text-align:left;}
+  .gs{display:flex;align-items:flex-start;gap:0.8rem;}
+  .gs-num{width:28px;height:28px;background:var(--gold);color:var(--navy-deep);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;flex-shrink:0;margin-top:0.1rem;}
+  .gs-text{font-size:0.82rem;color:rgba(255,255,255,0.6);line-height:1.5;font-weight:300;}
+  .gs-text strong{color:var(--white);font-weight:600;}
+
+  .btn-wa-gracias{background:#25D366;color:#fff;padding:1rem 2rem;font-family:var(--font-body);font-size:0.82rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;border:none;cursor:pointer;border-radius:2px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:0.6rem;transition:all 0.25s;box-shadow:0 4px 18px rgba(37,211,102,0.3);width:100%;margin-bottom:1rem;}
+  .btn-wa-gracias:hover{background:#1da853;transform:translateY(-2px);}
+  .btn-volver{background:transparent;color:rgba(255,255,255,0.4);padding:0.7rem 1rem;font-family:var(--font-body);font-size:0.75rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;border:1px solid rgba(255,255,255,0.1);cursor:pointer;border-radius:2px;text-decoration:none;display:inline-block;transition:all 0.25s;width:100%;text-align:center;}
+  .btn-volver:hover{border-color:var(--gold);color:var(--gold);}
+
+  footer{background:var(--black);border-top:1px solid rgba(197,160,89,0.1);padding:1.5rem 2rem;text-align:center;font-size:0.72rem;color:rgba(255,255,255,0.2);}
+  footer a{color:rgba(197,160,89,0.5);text-decoration:none;}
+</style>
+  <script defer src="/shared/site-shell.js"></script>
+  <link rel="canonical" href="https://siglep.lat/gracias/">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Mensaje recibido — Te contactamos hoy | SIGLEP","url":"https://siglep.lat/gracias/","description":"Hemos recibido tu mensaje. Respondemos a la brevedad posible en horario de atención."}</script>
+
+  <style>
+    nav.siglep-shell-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 2000;
+      height: 76px;
+      background: rgba(5, 8, 16, 0.96);
+      border-bottom: 1px solid rgba(197, 160, 89, 0.18);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .siglep-shell-nav-inner {
+      max-width: 1240px;
+      height: 100%;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .siglep-shell-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      text-decoration: none;
+      color: inherit;
+      min-width: 0;
+    }
+    .siglep-shell-shield {
+      width: 36px;
+      height: 42px;
+      flex: 0 0 auto;
+    }
+    .siglep-shell-brand-copy {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+    .siglep-shell-mark {
+      font-family: var(--font-display, Georgia, serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: #c5a059;
+    }
+    .siglep-shell-sub {
+      margin-top: 0.2rem;
+      font-size: 0.61rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.45);
+      white-space: nowrap;
+    }
+    .siglep-shell-links {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 1.15rem;
+    }
+    .siglep-shell-links > li {
+      position: relative;
+    }
+    .siglep-shell-links a,
+    .siglep-shell-links button {
+      appearance: none;
+      border: 0;
+      background: none;
+      color: rgba(255, 255, 255, 0.68);
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      cursor: pointer;
+      white-space: nowrap;
+      padding: 0;
+      transition: color 0.2s ease;
+    }
+    .siglep-shell-links a:hover,
+    .siglep-shell-links button:hover,
+    .siglep-shell-links a[aria-current="page"] {
+      color: #c5a059;
+    }
+    .siglep-shell-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.78rem 1.15rem !important;
+      border-radius: 2px;
+      background: #c0392b !important;
+      color: #fff !important;
+    }
+    .siglep-shell-cta:hover {
+      background: #96281b !important;
+      color: #fff !important;
+    }
+    .siglep-shell-dropdown {
+      position: absolute;
+      top: calc(100% + 0.8rem);
+      left: 0;
+      min-width: 260px;
+      padding: 0.75rem;
+      border-radius: 8px;
+      border: 1px solid rgba(197, 160, 89, 0.18);
+      background: rgba(8, 12, 20, 0.98);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+      display: none;
+    }
+    .siglep-shell-services:hover .siglep-shell-dropdown,
+    .siglep-shell-services:focus-within .siglep-shell-dropdown {
+      display: block;
+    }
+    .siglep-shell-dropdown a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.72rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.66rem;
+      letter-spacing: 0.12em;
+    }
+    .siglep-shell-dropdown a:hover {
+      background: rgba(197, 160, 89, 0.08);
+    }
+    .siglep-shell-dropdown a span {
+      color: rgba(197, 160, 89, 0.7);
+      letter-spacing: 0.04em;
+    }
+    .siglep-shell-burger {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      border: 1px solid rgba(197, 160, 89, 0.18);
+      background: rgba(255, 255, 255, 0.02);
+      color: #fff;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .siglep-shell-burger svg {
+      width: 20px;
+      height: 20px;
+    }
+    .siglep-shell-mobile {
+      display: none;
+      position: fixed;
+      top: 76px;
+      left: 0;
+      right: 0;
+      z-index: 1999;
+      background: rgba(5, 8, 16, 0.98);
+      border-bottom: 1px solid rgba(197, 160, 89, 0.15);
+      padding: 1rem 1.15rem 1.2rem;
+      max-height: calc(100vh - 76px);
+      overflow: auto;
+    }
+    .siglep-shell-mobile.open {
+      display: block;
+    }
+    .siglep-shell-mobile-group {
+      display: grid;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+    }
+    .siglep-shell-mobile-title {
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(197, 160, 89, 0.72);
+      margin: 0.45rem 0 0.2rem;
+    }
+    .siglep-shell-mobile a,
+    .siglep-shell-mobile button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 0.92rem 0.2rem;
+      border: 0;
+      border-bottom: 1px solid rgba(197, 160, 89, 0.08);
+      background: none;
+      color: rgba(255, 255, 255, 0.78);
+      text-decoration: none;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .siglep-shell-mobile a:last-child,
+    .siglep-shell-mobile button:last-child {
+      border-bottom: 0;
+    }
+    .siglep-shell-mobile .siglep-shell-cta {
+      margin-top: 0.65rem;
+    }
+    @media (max-width: 980px) {
+      .siglep-shell-links {
+        display: none;
+      }
+      .siglep-shell-burger {
+        display: inline-flex;
+      }
+    }
+    @media (max-width: 680px) {
+      nav.siglep-shell-nav {
+        height: 70px;
+      }
+      .siglep-shell-nav-inner {
+        padding-inline: 0.9rem;
+      }
+      .siglep-shell-brand-copy {
+        display: none;
+      }
+      .siglep-shell-mobile {
+        top: 70px;
+        max-height: calc(100vh - 70px);
+      }
+    }
+  </style>
+
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <svg viewBox="0 0 60 70" fill="none" width="36" height="36"><path d="M30 2L4 13V34C4 49 17 62 30 68C43 62 56 49 56 34V13L30 2Z" fill="#C5A059" stroke="#8A6D2C" stroke-width="1.5"/><path d="M30 6L8 16V34C8 47 20 59 30 64C40 59 52 47 52 34V16L30 6Z" fill="#0F2240"/><text x="14" y="46" font-family="Georgia,serif" font-size="22" font-weight="bold" fill="#C5A059">SL</text></svg>
+    <div class="nav-logo-text">SIGLEP<span>Sistemas Integrales de Gestión Legal</span></div>
+  </a>
+</nav>
+
+<main class="gracias-main">
+  <div class="gracias-grid"></div>
+  <div class="gracias-card">
+    <div class="gracias-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <div class="gracias-tag">Mensaje recibido</div>
+    <h1>Tu consulta está<br>en <em>buenas manos.</em></h1>
+    <p>Recibimos tu información. Un especialista SIGLEP revisará tu caso y te contactará personalmente a la brevedad posible en horario de atención.</p>
+
+    <div class="gracias-steps">
+      <div class="gs"><div class="gs-num">1</div><div class="gs-text"><strong>Revisamos tu caso</strong> — Un especialista analiza la información que nos enviaste.</div></div>
+      <div class="gs"><div class="gs-num">2</div><div class="gs-text"><strong>Te contactamos</strong> — Te escribimos por WhatsApp o al número que indicaste.</div></div>
+      <div class="gs"><div class="gs-num">3</div><div class="gs-text"><strong>Consulta gratuita</strong> — Te explicamos tus opciones sin costo y sin compromisos.</div></div>
+    </div>
+
+    <a href="https://wa.me/527352169503?text=Hola%20SIGLEP%2C%20acabo%20de%20enviar%20mi%20consulta%20y%20quiero%20confirmar%20que%20la%20recibieron" class="btn-wa-gracias" target="_blank" rel="noopener noreferrer">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2.001c-5.514 0-9.998 4.484-9.998 9.998 0 1.761.462 3.413 1.27 4.847L2.005 22l5.273-1.381c1.378.748 2.954 1.179 4.721 1.179h.004c5.513 0 9.997-4.484 9.997-9.998 0-5.515-4.484-9.999-9.997-9.999H11.999zm0 1.8h.003c4.52 0 8.198 3.678 8.198 8.198 0 4.521-3.678 8.199-8.198 8.199h-.003c-1.584 0-3.072-.443-4.341-1.211l-.311-.185-3.129.82.834-3.047-.204-.323c-.839-1.313-1.316-2.85-1.316-4.455 0-4.52 3.678-8.197 8.197-8.197z"/></svg>
+      Confirmar por WhatsApp ahora
+    </a>
+    <a href="/" class="btn-volver">← Volver al inicio</a>
+  </div>
+</main>
+
+<footer>
+  <span>© 2026 SIGLEP — Sistemas Integrales de Gestión Legal · <a href="/">siglep.lat</a></span>
+</footer>
+
+</body>
+</html>

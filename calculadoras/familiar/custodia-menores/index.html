@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Custodia de Menores | SIGLEP</title>
+  <meta name="description" content="Calculadora orientativa de custodia de menores en México para revisar complejidad y urgencia.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://siglep.lat/calculadoras/familiar/custodia-menores/">
+  <meta property="og:title" content="Calculadora de Custodia de Menores | SIGLEP">
+  <meta property="og:description" content="Calculadora orientativa de custodia de menores en México para revisar complejidad y urgencia.">
+  <meta property="og:url" content="https://siglep.lat/calculadoras/familiar/custodia-menores/">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:#1A365D;--navy-deep:#0F2240;--gold:#C5A059;--gold-light:#D4B878;--red:#C0392B;--red-dark:#96281B;
+      --black:#080C14;--white:#FAFAF8;--gray-light:#F0EEE8;--text-body:#2D3748;--font-display:'Cormorant Garamond',serif;--font-body:'Montserrat',sans-serif;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--font-body);background:var(--white);color:var(--text-body);overflow-x:hidden;}
+    main{display:block;}
+    .hero{min-height:72vh;padding:8rem 1.25rem 4rem;background:linear-gradient(145deg,#050810 0%,#0A1628 40%,#0F2240 70%,#111B30 100%);position:relative;overflow:hidden;}
+    .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 55% at 75% 45%,rgba(197,160,89,0.07) 0%,transparent 65%),radial-gradient(ellipse 35% 50% at 10% 85%,rgba(192,57,43,0.07) 0%,transparent 60%);pointer-events:none;}
+    .hero-inner,.section-inner,.footer-inner,.footer-bottom{max-width:1180px;margin:0 auto;position:relative;z-index:1;}
+    .eyebrow{font-size:0.66rem;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:flex;align-items:center;gap:0.7rem;}
+    .eyebrow::before{content:'';width:34px;height:1px;background:var(--gold);display:block;}
+    h1{font-family:var(--font-display);font-size:clamp(2.4rem,5.8vw,4.6rem);line-height:1.05;color:var(--white);margin-bottom:1rem;}
+    h1 em{font-style:italic;color:var(--gold);}
+    .lead{max-width:760px;font-size:1rem;line-height:1.85;color:rgba(255,255,255,0.68);font-weight:300;margin-bottom:2rem;}
+    .breadcrumbs{display:flex;flex-wrap:wrap;gap:0.55rem;align-items:center;font-size:0.65rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:1.5rem;}
+    .breadcrumbs a{color:rgba(197,160,89,0.75);text-decoration:none;}
+    .breadcrumbs span.sep{color:rgba(255,255,255,0.18);}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:0.9rem;align-items:center;}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:0.95rem 1.35rem;border-radius:2px;text-decoration:none;font-size:0.78rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;transition:transform .2s ease,background .2s ease,color .2s ease;border:1px solid transparent;}
+    .btn-primary{background:var(--red);color:#fff;box-shadow:0 4px 18px rgba(192,57,43,0.35);}
+    .btn-primary:hover{background:var(--red-dark);transform:translateY(-2px);}
+    .btn-secondary{background:transparent;border-color:rgba(197,160,89,0.5);color:var(--gold);}
+    .btn-secondary:hover{background:var(--gold);color:var(--navy-deep);transform:translateY(-2px);}
+    .section{padding:5rem 1.25rem;}
+    .section h2{font-family:var(--font-display);font-size:clamp(1.9rem,4vw,3rem);line-height:1.1;color:var(--navy-deep);margin-bottom:0.9rem;}
+    .section h2 em{font-style:italic;color:var(--gold);}
+    .section p.lead{color:#4A5568;max-width:800px;margin-bottom:0;}
+    .calc-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:1.5rem;margin-top:2.5rem;align-items:start;}
+    .panel{background:var(--white);border:1px solid rgba(197,160,89,0.16);border-radius:14px;box-shadow:0 12px 40px rgba(15,34,64,0.08);overflow:hidden;}
+    .panel.dark{background:linear-gradient(180deg,#0F2240 0%,#08111f 100%);border-color:rgba(197,160,89,0.18);}
+    .panel-head{padding:1.35rem 1.35rem 1rem;border-bottom:1px solid rgba(197,160,89,0.12);}
+    .panel-head .kicker{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:700;color:var(--gold);}
+    .panel-head h3{font-family:var(--font-display);font-size:1.6rem;line-height:1.1;color:inherit;margin-top:0.4rem;}
+    .panel-head p{color:inherit;font-size:0.86rem;line-height:1.7;font-weight:300;opacity:0.86;margin-top:0.55rem;}
+    .panel-body{padding:1.35rem;}
+    .field{display:grid;gap:0.45rem;margin-bottom:1rem;}
+    .field label{font-size:0.66rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);}
+    .field input,.field select{width:100%;padding:0.92rem 0.95rem;border-radius:10px;border:1px solid rgba(197,160,89,0.22);background:rgba(255,255,255,0.08);color:inherit;font-family:var(--font-body);font-size:0.92rem;outline:none;}
+    .field select{appearance:none;}
+    .help{font-size:0.72rem;line-height:1.55;color:#718096;}
+    .calc-button{width:100%;margin-top:0.4rem;padding:0.95rem 1rem;border:0;border-radius:10px;background:var(--red);color:#fff;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:transform .2s ease,background .2s ease;}
+    .calc-button:hover{background:var(--red-dark);transform:translateY(-1px);}
+    .result{display:grid;gap:1rem;}
+    .result-box{padding:1.3rem;border-radius:14px;background:rgba(197,160,89,0.06);border:1px solid rgba(197,160,89,0.16);}
+    .result-kicker{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:700;color:var(--gold);margin-bottom:0.6rem;}
+    .result-amount{font-family:var(--font-display);font-size:clamp(2.2rem,5vw,3.6rem);line-height:1;color:var(--navy-deep);}
+    .result-note{font-size:0.78rem;line-height:1.7;color:#4A5568;margin-top:0.8rem;}
+    .breakdown{display:grid;gap:0.55rem;margin-top:1rem;}
+    .breakdown-row{display:flex;justify-content:space-between;gap:1rem;font-size:0.84rem;color:#334155;border-top:1px solid rgba(197,160,89,0.12);padding-top:0.55rem;}
+    .breakdown-row strong{color:var(--navy-deep);}
+    .faq-grid{display:grid;gap:0.85rem;margin-top:2rem;}
+    .faq-item{border:1px solid rgba(197,160,89,0.16);border-radius:14px;background:var(--white);overflow:hidden;}
+    .faq-item summary{cursor:pointer;list-style:none;padding:1rem 1.1rem;font-weight:600;color:var(--navy-deep);}
+    .faq-item summary::-webkit-details-marker{display:none;}
+    .faq-item p{padding:0 1.1rem 1.1rem;color:#4A5568;font-size:0.86rem;line-height:1.75;}
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem;margin-top:2rem;}
+    .card-link{display:block;padding:1.15rem;border-radius:14px;border:1px solid rgba(197,160,89,0.16);background:var(--white);text-decoration:none;color:inherit;transition:transform .2s ease,background .2s ease,border-color .2s ease;}
+    .card-link:hover{transform:translateY(-2px);background:#0F2240;border-color:rgba(197,160,89,0.35);}
+    .card-link:hover h3,.card-link:hover p{color:#fff;}
+    .card-link h3{font-family:var(--font-display);font-size:1.25rem;color:var(--navy-deep);margin:0.2rem 0 0.4rem;}
+    .card-link p{font-size:0.82rem;line-height:1.7;color:#4A5568;}
+    .card-kicker{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:var(--gold);}
+    .cta-band{padding:4rem 1.25rem;background:linear-gradient(135deg,#0a1628 0%,#0f2240 55%,#0a1628 100%);border-top:1px solid rgba(197,160,89,0.15);border-bottom:1px solid rgba(197,160,89,0.15);text-align:center;}
+    .cta-band h2{color:var(--white);}
+    .cta-band p{margin:0 auto 1.8rem;color:rgba(255,255,255,0.62);max-width:760px;}
+    .alt-band{background:var(--gray-light);}
+    .note{font-size:0.8rem;line-height:1.7;color:#718096;margin-top:1rem;}
+    .footer-space{height:1px;}
+    @media (max-width: 900px){.calc-grid{grid-template-columns:1fr}.hero{padding-top:7.6rem}}
+  </style>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Calculadora de Custodia de Menores | SIGLEP","url":"https://siglep.lat/calculadoras/familiar/custodia-menores/","description":"Calculadora orientativa de custodia de menores en México para revisar complejidad y urgencia.","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://siglep.lat/"},{"@type":"ListItem","position":2,"name":"Calculadoras","item":"https://siglep.lat/calculadoras/"},{"@type":"ListItem","position":3,"name":"Familiar","item":"https://siglep.lat/calculadoras/familiar/"},{"@type":"ListItem","position":4,"name":"Custodia de menores","item":"https://siglep.lat/calculadoras/familiar/custodia-menores/"}]}}</script>
+  
+  <style>
+    nav.siglep-shell-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 2000;
+      height: 76px;
+      background: rgba(5, 8, 16, 0.96);
+      border-bottom: 1px solid rgba(197, 160, 89, 0.18);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .siglep-shell-nav-inner {
+      max-width: 1240px;
+      height: 100%;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .siglep-shell-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      text-decoration: none;
+      color: inherit;
+      min-width: 0;
+    }
+    .siglep-shell-shield {
+      width: 36px;
+      height: 42px;
+      flex: 0 0 auto;
+    }
+    .siglep-shell-brand-copy {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+    .siglep-shell-mark {
+      font-family: var(--font-display, Georgia, serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: #c5a059;
+    }
+    .siglep-shell-sub {
+      margin-top: 0.2rem;
+      font-size: 0.61rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.45);
+      white-space: nowrap;
+    }
+    .siglep-shell-links {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 1.15rem;
+    }
+    .siglep-shell-links > li {
+      position: relative;
+    }
+    .siglep-shell-links a,
+    .siglep-shell-links button {
+      appearance: none;
+      border: 0;
+      background: none;
+      color: rgba(255, 255, 255, 0.68);
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      cursor: pointer;
+      white-space: nowrap;
+      padding: 0;
+      transition: color 0.2s ease;
+    }
+    .siglep-shell-links a:hover,
+    .siglep-shell-links button:hover,
+    .siglep-shell-links a[aria-current="page"] {
+      color: #c5a059;
+    }
+    .siglep-shell-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.78rem 1.15rem !important;
+      border-radius: 2px;
+      background: #c0392b !important;
+      color: #fff !important;
+    }
+    .siglep-shell-cta:hover {
+      background: #96281b !important;
+      color: #fff !important;
+    }
+    .siglep-shell-dropdown {
+      position: absolute;
+      top: calc(100% + 0.8rem);
+      left: 0;
+      min-width: 260px;
+      padding: 0.75rem;
+      border-radius: 8px;
+      border: 1px solid rgba(197, 160, 89, 0.18);
+      background: rgba(8, 12, 20, 0.98);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+      display: none;
+    }
+    .siglep-shell-services:hover .siglep-shell-dropdown,
+    .siglep-shell-services:focus-within .siglep-shell-dropdown {
+      display: block;
+    }
+    .siglep-shell-dropdown a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.72rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.66rem;
+      letter-spacing: 0.12em;
+    }
+    .siglep-shell-dropdown a:hover {
+      background: rgba(197, 160, 89, 0.08);
+    }
+    .siglep-shell-dropdown a span {
+      color: rgba(197, 160, 89, 0.7);
+      letter-spacing: 0.04em;
+    }
+    .siglep-shell-burger {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      border: 1px solid rgba(197, 160, 89, 0.18);
+      background: rgba(255, 255, 255, 0.02);
+      color: #fff;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .siglep-shell-burger svg {
+      width: 20px;
+      height: 20px;
+    }
+    .siglep-shell-mobile {
+      display: none;
+      position: fixed;
+      top: 76px;
+      left: 0;
+      right: 0;
+      z-index: 1999;
+      background: rgba(5, 8, 16, 0.98);
+      border-bottom: 1px solid rgba(197, 160, 89, 0.15);
+      padding: 1rem 1.15rem 1.2rem;
+      max-height: calc(100vh - 76px);
+      overflow: auto;
+    }
+    .siglep-shell-mobile.open {
+      display: block;
+    }
+    .siglep-shell-mobile-group {
+      display: grid;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+    }
+    .siglep-shell-mobile-title {
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(197, 160, 89, 0.72);
+      margin: 0.45rem 0 0.2rem;
+    }
+    .siglep-shell-mobile a,
+    .siglep-shell-mobile button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 0.92rem 0.2rem;
+      border: 0;
+      border-bottom: 1px solid rgba(197, 160, 89, 0.08);
+      background: none;
+      color: rgba(255, 255, 255, 0.78);
+      text-decoration: none;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .siglep-shell-mobile a:last-child,
+    .siglep-shell-mobile button:last-child {
+      border-bottom: 0;
+    }
+    .siglep-shell-mobile .siglep-shell-cta {
+      margin-top: 0.65rem;
+    }
+    @media (max-width: 980px) {
+      .siglep-shell-links {
+        display: none;
+      }
+      .siglep-shell-burger {
+        display: inline-flex;
+      }
+    }
+    @media (max-width: 680px) {
+      nav.siglep-shell-nav {
+        height: 70px;
+      }
+      .siglep-shell-nav-inner {
+        padding-inline: 0.9rem;
+      }
+      .siglep-shell-brand-copy {
+        display: none;
+      }
+      .siglep-shell-mobile {
+        top: 70px;
+        max-height: calc(100vh - 70px);
+      }
+    }
+  </style>
+
+  <script defer src="/shared/site-shell.js"></script>
+</head>
+<body>
+  
+  <nav class="siglep-shell-nav" id="navbar">
+    <div class="siglep-shell-nav-inner">
+      <a class="siglep-shell-brand" href="/" aria-label="SIGLEP">
+        <svg class="siglep-shell-shield" viewBox="0 0 40 46" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M20 2L4 9V22C4 31.4 11.1 40.2 20 43C28.9 40.2 36 31.4 36 22V9L20 2Z" fill="#1A365D" stroke="#C5A059" stroke-width="1.5"></path>
+          <text x="20" y="28" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="13" font-weight="700" fill="#C5A059">SL</text>
+        </svg>
+        <span class="siglep-shell-brand-copy">
+          <span class="siglep-shell-mark">SIGLEP</span>
+          <span class="siglep-shell-sub">Sistemas Integrales de Gestión Legal</span>
+        </span>
+      </a>
+      <ul class="siglep-shell-links">
+        <li><a href="/" data-nav="home">Inicio</a></li>
+        <li class="siglep-shell-services">
+          <button type="button" aria-haspopup="true" aria-expanded="false" data-nav="services">Servicios ▼</button>
+          <div class="siglep-shell-dropdown">
+            <a href="/laboral/">Laboral <span>→</span></a>
+            <a href="/familiar/">Familiar <span>→</span></a>
+            <a href="/civil/">Civil <span>→</span></a>
+            <a href="/migratorio/">Migratorio <span>→</span></a>
+            <a href="/patrimonial/">Patrimonial <span>→</span></a>
+            <a href="/penal/">Penal <span>→</span></a>
+            <a href="/seguridad-social/">Seguridad Social <span>→</span></a>
+          </div>
+        </li>
+        <li><a href="/calculadoras/" data-nav="calculadoras">Calculadoras</a></li>
+        <li><a href="/expediente/" data-nav="expediente">Expediente</a></li>
+        <li><a href="/nosotros/" data-nav="nosotros">Nosotros</a></li>
+        <li><a class="siglep-shell-cta" href="https://wa.me/527352169503?text=Hola%20SIGLEP%2C%20quiero%20una%20consulta%20gratuita" target="_blank" rel="noopener noreferrer">Consulta Gratis</a></li>
+      </ul>
+      <button type="button" class="siglep-shell-burger" aria-label="Abrir menú" onclick="toggleMobileNav()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M4 6h16"></path>
+          <path d="M4 12h16"></path>
+          <path d="M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="siglep-shell-mobile" id="navMobile" aria-hidden="true">
+      <div class="siglep-shell-mobile-group">
+        <a href="/" onclick="closeMobileNav()">Inicio</a>
+      </div>
+      <div class="siglep-shell-mobile-title">Servicios</div>
+      <div class="siglep-shell-mobile-group">
+        <a href="/laboral/" onclick="closeMobileNav()">Laboral</a>
+        <a href="/familiar/" onclick="closeMobileNav()">Familiar</a>
+        <a href="/civil/" onclick="closeMobileNav()">Civil</a>
+        <a href="/migratorio/" onclick="closeMobileNav()">Migratorio</a>
+        <a href="/patrimonial/" onclick="closeMobileNav()">Patrimonial</a>
+        <a href="/penal/" onclick="closeMobileNav()">Penal</a>
+        <a href="/seguridad-social/" onclick="closeMobileNav()">Seguridad Social</a>
+      </div>
+      <div class="siglep-shell-mobile-group">
+        <a href="/calculadoras/" onclick="closeMobileNav()">Calculadoras</a>
+        <a href="/expediente/" onclick="closeMobileNav()">Expediente</a>
+        <a href="/nosotros/" onclick="closeMobileNav()">Nosotros</a>
+        <a class="siglep-shell-cta" href="https://wa.me/527352169503?text=Hola%20SIGLEP%2C%20quiero%20una%20consulta%20gratuita" target="_blank" rel="noopener noreferrer">Consulta Gratis</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="breadcrumbs">
+          <a href="/">Inicio</a><span class="sep">›</span><a href="/calculadoras/">Calculadoras</a><span class="sep">›</span><a href="/calculadoras/familiar/">Familiar</a><span class="sep">›</span><span>Custodia de menores</span>
+        </div>
+        <div class="eyebrow">Calculadora Familiar</div>
+        <h1>Custodia de menores <em>con enfoque real.</em></h1>
+        <p class="lead">Revisa un escenario de custodia y convivencia para entender qué tan urgente es tu caso.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://wa.me/527352169503?text=Hola%20SIGLEP%2C%20necesito%20orientaci%C3%B3n%20sobre%20custodia%20de%20menores" target="_blank" rel="noopener noreferrer">Consulta gratis por WhatsApp</a>
+          <a class="btn btn-secondary" href="/calculadoras/">Ver más calculadoras</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-inner">
+        <h2>Escenario de custodia</h2>
+        <p class="lead">La custodia prioriza el interés superior del menor y las condiciones reales de cuidado.</p>
+        <div class="calc-grid">
+          <div class="panel dark">
+            <div class="panel-head">
+              <div class="kicker">Contexto</div>
+              <h3>Cálculo orientativo</h3>
+              <p>Evaluamos urgencia, dependientes y recursos familiares.</p>
+            </div>
+            <div class="panel-body">
+              <form id="calc-form" onsubmit="return false;">
+                
+    <div class="field">
+      <label for="menores">Número de menores</label>
+      <input id="menores" type="number" inputmode="decimal" placeholder="Ej. 1" min="0" step="any">
+      
+    </div>
+  
+
+    <div class="field">
+      <label for="ingreso">Ingreso mensual del cuidador</label>
+      <input id="ingreso" type="number" inputmode="decimal" placeholder="Ej. 18000" min="0" step="any">
+      
+    </div>
+  
+
+      <div class="field">
+        <label for="riesgo">Nivel de urgencia</label>
+        <select id="riesgo">
+          <option value="bajo">Bajo</option><option value="medio">Medio</option><option value="alto">Alto</option>
+        </select>
+        
+      </div>
+    
+                <button class="calc-button" type="button" id="calcButton">Calcular estimación</button>
+              </form>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-head">
+              <div class="kicker">Resultado orientativo</div>
+              <h3>Urgencia y escenario</h3>
+              <p>Útil para preparar medidas y documentos.</p>
+            </div>
+            <div class="panel-body">
+              <div class="result">
+                <div class="result-box">
+                  <div class="result-kicker">Escenario de custodia</div>
+                  <div class="result-amount" id="resultAmount">$0 MXN</div>
+                  <div class="breakdown" id="resultBreakdown"></div>
+                  <p class="result-note">La calificación es orientativa y no sustituye medidas de protección o pruebas.</p>
+                </div>
+                <div class="note">Si existe violencia, la prioridad es la protección inmediata.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt-band">
+      <div class="section-inner">
+        <h2>Preguntas frecuentes</h2>
+        <p class="lead">Respuestas rápidas para ubicar el escenario y decidir el siguiente paso.</p>
+        <div class="faq-grid">
+          
+        <details class="faq-item">
+          <summary>¿Custodia y convivencia son lo mismo?</summary>
+          <p>No. La custodia se refiere al cuidado principal; la convivencia al régimen de visitas y tiempo con el otro progenitor.</p>
+        </details>
+      
+        <details class="faq-item">
+          <summary>¿Qué pasa si hay riesgo?</summary>
+          <p>La prioridad es protección y medidas inmediatas.</p>
+        </details>
+      
+        <details class="faq-item">
+          <summary>¿Se puede modificar?</summary>
+          <p>Sí, cuando cambian las circunstancias del menor o de las partes.</p>
+        </details>
+      
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-inner">
+        <h2>Otras calculadoras de <em>Familiar</em></h2>
+        <p class="lead">Mantén una visión completa del asunto legal y revisa otras calculadoras relacionadas de la misma área.</p>
+        <div class="cards">
+          
+        <a class="card-link" href="/calculadoras/familiar/pension-alimenticia/">
+          <div class="card-kicker">Familiar</div>
+          <h3>Pensión Alimenticia</h3>
+          <p>Calculadora orientativa de pensión alimenticia en México para revisar proporción de ingresos y dependientes.</p>
+        </a>
+      
+        <a class="card-link" href="/calculadoras/familiar/divorcio/">
+          <div class="card-kicker">Familiar</div>
+          <h3>Divorcio</h3>
+          <p>Calculadora orientativa de divorcio en México con variables de hijos, bienes y acuerdos.</p>
+        </a>
+      
+        <a class="card-link" href="/calculadoras/familiar/regimen-matrimonial/">
+          <div class="card-kicker">Familiar</div>
+          <h3>Régimen Matrimonial</h3>
+          <p>Calculadora orientativa de régimen matrimonial en México para estimar complejidad patrimonial.</p>
+        </a>
+      
+        <a class="card-link" href="/calculadoras/familiar/liquidacion-sociedad-conyugal/">
+          <div class="card-kicker">Familiar</div>
+          <h3>Liquidación de Sociedad Conyugal</h3>
+          <p>Calculadora orientativa de liquidación de sociedad conyugal en México para revisar bienes y pasivos.</p>
+        </a>
+      
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="section-inner">
+        <h2>La custodia se trabaja con urgencia y cuidado</h2>
+        <p>Si hay riesgo o incumplimiento, la prioridad es actuar con orden y evidencia.</p>
+        <div class="hero-actions" style="justify-content:center;">
+          <a class="btn btn-primary" href="https://wa.me/527352169503?text=Hola%20SIGLEP%2C%20necesito%20orientaci%C3%B3n%20sobre%20custodia%20de%20menores" target="_blank" rel="noopener noreferrer">Consulta gratis por WhatsApp</a>
+          <a class="btn btn-secondary" href="/familiar/">Ver categoría</a>
+        </div>
+      </div>
+    </section>
+    <div class="footer-space"></div>
+  </main>
+  <footer></footer>
+  <script>
+    window.__SIGLEP_CALC__ = [
+  {
+    "id": "menores",
+    "label": "Número de menores",
+    "type": "number",
+    "placeholder": "Ej. 1",
+    "multiplier": 2800
+  },
+  {
+    "id": "ingreso",
+    "label": "Ingreso mensual del cuidador",
+    "type": "number",
+    "placeholder": "Ej. 18000",
+    "multiplier": 0.08
+  },
+  {
+    "id": "riesgo",
+    "label": "Nivel de urgencia",
+    "type": "select",
+    "multiplierMap": {
+      "bajo": 1500,
+      "medio": 7000,
+      "alto": 15000
+    },
+    "options": [
+      {
+        "value": "bajo",
+        "label": "Bajo"
+      },
+      {
+        "value": "medio",
+        "label": "Medio"
+      },
+      {
+        "value": "alto",
+        "label": "Alto"
+      }
+    ]
+  }
+];
+    const calcConfig = window.__SIGLEP_CALC__;
+    const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
+
+    function num(id) {
+      const el = document.getElementById(id);
+      return el && el.value !== '' ? Number(el.value) || 0 : 0;
+    }
+
+    function selectedMultiplier(field) {
+      const el = document.getElementById(field.id);
+      const value = el ? el.value : '';
+      if (field.multiplierMap && Object.prototype.hasOwnProperty.call(field.multiplierMap, value)) {
+        return field.multiplierMap[value];
+      }
+      return field.multiplier ?? 1;
+    }
+
+    function runCalc() {
+      const breakdown = [];
+      let total = 0;
+      calcConfig.forEach((field) => {
+        let contribution = 0;
+        if (field.type === 'select') {
+          const el = document.getElementById(field.id);
+          const label = el && el.options[el.selectedIndex] ? el.options[el.selectedIndex].textContent : field.label;
+          const factor = selectedMultiplier(field);
+          contribution = factor;
+          breakdown.push([label, money.format(Math.round(contribution))]);
+          total += contribution;
+          return;
+        }
+
+        const value = num(field.id);
+        contribution = value * (field.multiplier ?? 1);
+        breakdown.push([field.label, money.format(Math.round(contribution))]);
+        total += contribution;
+      });
+      document.getElementById('resultAmount').textContent = money.format(Math.max(0, Math.round(total)));
+      document.getElementById('resultBreakdown').innerHTML = breakdown
+        .map(([label, amount]) => '<div class="breakdown-row"><span>' + label + '</span><strong>' + amount + '</strong></div>')
+        .join('');
+    }
+
+    document.getElementById('calcButton').addEventListener('click', runCalc);
+    runCalc();
+  </script>
+</body>
+</html>

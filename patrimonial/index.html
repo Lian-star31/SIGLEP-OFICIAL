@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<!-- Google Analytics 4 — SIGLEP -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3R9SXNDXR5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-3R9SXNDXR5", {
+    page_title: document.title,
+    page_location: window.location.href
+  });
+
+  document.addEventListener("DOMContentLoaded", function() {
+    // EVENTO: WhatsApp click
+    document.querySelectorAll('a[href*="wa.me"], .btn-wa, .float-wa a').forEach(function(el) {
+      el.addEventListener("click", function() {
+        gtag("event", "whatsapp_click", {
+          page_location: window.location.href,
+          page_title: document.title
+        });
+      });
+    });
+
+    // EVENTO: Calendly / Agendar consulta
+    document.querySelectorAll('a[href*="calendly"]').forEach(function(el) {
+      el.addEventListener("click", function() {
+        gtag("event", "calendly_click", {
+          page_location: window.location.href,
+          page_title: document.title
+        });
+      });
+    });
+  });
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Derecho Patrimonial México – Protección de Bienes, Herencias y Deudas | SIGLEP</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/favicon.svg">
+<meta name="description" content="SIGLEP: Abogados patrimoniales en México. Protección de bienes, contratos, testamentos, herencias y negociación de deudas bancarias. Consulta gratuita.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://siglep.lat/patrimonial/">
+<meta property="og:title" content="Derecho Patrimonial México | SIGLEP">
+<meta property="og:description" content="Protección patrimonial, contratos, herencias, testamentos y negociación de deudas. Estrategia legal para proteger lo que construiste.">
+<meta property="og:url" content="https://siglep.lat/patrimonial/">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#1A365D;--navy-deep:#0F2240;--navy-mid:#1E3F6E;--gold:#C5A059;--gold-light:#D4B878;--gold-pale:#F5ECD7;--red:#C0392B;--red-dark:#96281B;--black:#080C14;--white:#FAFAF8;--gray-light:#F0EEE8;--gray-mid:#B8B0A0;--text-body:#2D3748;--font-display:'Cormorant Garamond',serif;--font-body:'Montserrat',sans-serif;}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--font-body);background:var(--white);color:var(--text-body);overflow-x:hidden;}
+  nav{position:fixed;top:0;left:0;width:100%;z-index:900;background:rgba(8,12,20,0.98);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(197,160,89,0.18);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px;}
+  .nav-logo{display:flex;align-items:center;gap:0.75rem;text-decoration:none;}
+  .nav-logo-shield{width:36px;height:36px;flex-shrink:0;}
+  .nav-logo-text{font-family:var(--font-display);font-size:1.6rem;font-weight:700;color:var(--gold);letter-spacing:0.1em;line-height:1;}
+  .nav-logo-text span{color:rgba(255,255,255,0.45);font-size:0.65rem;font-family:var(--font-body);font-weight:300;letter-spacing:0.06em;display:block;margin-top:1px;}
+  .nav-links{display:flex;gap:1.8rem;list-style:none;align-items:center;}
+  .nav-links a{color:rgba(255,255,255,0.62);text-decoration:none;font-size:0.68rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;transition:color 0.2s;white-space:nowrap;}
+  .nav-links a:hover,.nav-links a.active{color:var(--gold);}
+  .nav-cta{background:var(--red)!important;color:#fff!important;padding:0.42rem 1.1rem!important;border-radius:2px;}
+  .nav-cta:hover{background:var(--red-dark)!important;}
+  .nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none;}
+  .nav-hamburger span{display:block;width:22px;height:2px;background:rgba(255,255,255,0.7);border-radius:2px;}
+  .nav-mobile{display:none;position:fixed;top:64px;left:0;width:100%;background:rgba(8,12,20,0.99);border-bottom:1px solid rgba(197,160,89,0.15);flex-direction:column;padding:1.2rem 2rem 1.5rem;gap:0;z-index:899;}
+  .nav-mobile.open{display:flex;}
+  .nav-mobile a{color:rgba(255,255,255,0.7);text-decoration:none;font-size:0.75rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:0.85rem 0;border-bottom:1px solid rgba(197,160,89,0.08);transition:color 0.2s;}
+  .nav-mobile a:last-child{border-bottom:none;}
+  .nav-mobile a:hover{color:var(--gold);}
+  .nav-mobile .nav-cta-mobile{color:#fff!important;background:var(--red);padding:0.6rem 1rem;border-radius:2px;text-align:center;margin-top:0.5rem;border:none;}
+  @media(max-width:768px){.nav-links{display:none;}.nav-hamburger{display:flex;}}
+  .page-hero{padding:7rem 2rem 4rem;background:linear-gradient(145deg,#050810 0%,#0A1628 40%,#0F2240 70%,#111B30 100%);position:relative;overflow:hidden;}
+  .page-hero-grid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(197,160,89,0.035) 1px,transparent 1px),linear-gradient(90deg,rgba(197,160,89,0.035) 1px,transparent 1px);background-size:56px 56px;}
+  .page-hero-glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 55% 55% at 75% 45%,rgba(197,160,89,0.07) 0%,transparent 65%);}
+  .page-hero-inner{max-width:900px;margin:0 auto;position:relative;z-index:2;animation:fadeUp 0.9s ease both;}
+  .breadcrumb{font-size:0.65rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:1.5rem;display:flex;align-items:center;gap:0.6rem;}
+  .breadcrumb a{color:rgba(197,160,89,0.6);text-decoration:none;transition:color 0.2s;}
+  .breadcrumb a:hover{color:var(--gold);}
+  .breadcrumb-sep{color:rgba(255,255,255,0.2);}
+  .page-eyebrow{font-size:0.65rem;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;display:flex;align-items:center;gap:0.8rem;}
+  .page-eyebrow::before{content:'';display:block;width:36px;height:1px;background:var(--gold);}
+  .page-hero h1{font-family:var(--font-display);font-size:clamp(2.2rem,6vw,4rem);font-weight:700;line-height:1.08;color:var(--white);margin-bottom:1.4rem;}
+  .page-hero h1 em{font-style:italic;color:var(--gold);}
+  .page-hero-sub{font-size:clamp(0.9rem,2vw,1.02rem);line-height:1.8;color:rgba(255,255,255,0.62);max-width:600px;margin-bottom:2rem;font-weight:300;}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:none;}}
+  .btn-wa{background:#25D366;color:#fff;padding:0.95rem 2.2rem;font-family:var(--font-body);font-size:0.8rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;border:none;cursor:pointer;border-radius:2px;text-decoration:none;display:inline-flex;align-items:center;gap:0.6rem;transition:all 0.25s;box-shadow:0 4px 18px rgba(37,211,102,0.3);}
+  .btn-wa:hover{background:#1da853;transform:translateY(-2px);}
+  .btn-secondary{background:transparent;color:var(--gold);padding:0.95rem 2.2rem;font-family:var(--font-body);font-size:0.8rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;border:1px solid var(--gold);cursor:pointer;border-radius:2px;text-decoration:none;display:inline-block;transition:all 0.25s;}
+  .btn-secondary:hover{background:var(--gold);color:var(--navy-deep);}
+  section{padding:5rem 2rem;}
+  .container{max-width:1100px;margin:0 auto;}
+  .section-tag{font-size:0.62rem;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem;display:flex;align-items:center;gap:0.7rem;}
+  .section-tag::before{content:'';display:block;width:26px;height:1px;background:var(--gold);}
+  .section-title{font-family:var(--font-display);font-size:clamp(1.9rem,4.5vw,3rem);font-weight:700;color:var(--navy-deep);line-height:1.12;margin-bottom:1rem;}
+  .section-title em{font-style:italic;color:var(--gold);}
+  .section-lead{font-size:0.97rem;line-height:1.8;color:#4A5568;max-width:620px;font-weight:300;}
+  .service-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-top:3rem;}
+  .service-card{background:var(--white);border:1px solid rgba(197,160,89,0.15);padding:2.2rem 2rem;border-radius:2px;display:flex;flex-direction:column;gap:1rem;transition:box-shadow 0.3s,transform 0.3s;position:relative;overflow:hidden;}
+  .service-card::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--gold);transition:width 0.4s ease;}
+  .service-card:hover{box-shadow:0 8px 32px rgba(26,54,93,0.1);transform:translateY(-4px);}
+  .service-card:hover::after{width:100%;}
+  .sc-num{font-family:var(--font-display);font-size:3rem;font-weight:700;color:rgba(197,160,89,0.08);position:absolute;top:0.8rem;right:1rem;line-height:1;}
+  .sc-icon{width:44px;height:44px;background:var(--navy-deep);border-radius:2px;display:flex;align-items:center;justify-content:center;color:var(--gold);}
+  .sc-icon svg{width:22px;height:22px;}
+  .sc-tag{font-size:0.58rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);}
+  .sc-title{font-family:var(--font-display);font-size:1.35rem;font-weight:700;color:var(--navy-deep);line-height:1.2;}
+  .sc-body{font-size:0.85rem;line-height:1.75;color:#4A5568;font-weight:300;}
+  .sc-list{list-style:none;display:flex;flex-direction:column;gap:0.4rem;margin-top:0.3rem;}
+  .sc-list li{font-size:0.8rem;color:var(--text-body);display:flex;align-items:flex-start;gap:0.5rem;}
+  .sc-list li::before{content:'→';color:var(--gold);font-size:0.7rem;margin-top:0.05rem;flex-shrink:0;}
+  .sc-cta{margin-top:auto;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);text-decoration:none;display:flex;align-items:center;gap:0.4rem;transition:gap 0.25s;background:none;border:none;cursor:pointer;}
+  .sc-cta:hover{gap:0.8rem;}
+  .highlight-band{background:linear-gradient(135deg,var(--black) 0%,var(--navy-deep) 100%);border-top:1px solid rgba(197,160,89,0.15);border-bottom:1px solid rgba(197,160,89,0.15);padding:3.5rem 2rem;text-align:center;}
+  .highlight-band h2{font-family:var(--font-display);font-size:clamp(1.6rem,4vw,2.6rem);font-weight:700;color:var(--white);margin-bottom:1rem;}
+  .highlight-band h2 em{color:var(--gold);font-style:italic;}
+  .highlight-band p{font-size:0.95rem;color:rgba(255,255,255,0.55);max-width:580px;margin:0 auto 2rem;line-height:1.8;font-weight:300;}
+  .area-links{background:var(--gray-light);padding:4rem 2rem;}
+  .area-links-inner{max-width:900px;margin:0 auto;}
+  .area-links h3{font-family:var(--font-display);font-size:1.6rem;font-weight:700;color:var(--navy-deep);margin-bottom:2rem;}
+  .area-links-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;}
+  .area-link-card{background:var(--white);border:1px solid rgba(197,160,89,0.2);padding:1.5rem;border-radius:2px;text-decoration:none;display:flex;flex-direction:column;gap:0.5rem;transition:all 0.25s;}
+  .area-link-card:hover{background:var(--navy-deep);border-color:var(--gold);}
+  .area-link-card:hover .alc-title{color:var(--gold);}
+  .area-link-card:hover .alc-desc{color:rgba(255,255,255,0.5);}
+  .alc-icon{font-size:1.5rem;}
+  .alc-title{font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:var(--navy-deep);transition:color 0.25s;}
+  .alc-desc{font-size:0.78rem;color:#6B7280;font-weight:300;transition:color 0.25s;}
+  .faq-section{background:var(--white);padding:5rem 2rem;}
+  .faq-grid{display:flex;flex-direction:column;gap:0;margin-top:2.5rem;border:1px solid rgba(197,160,89,0.15);border-radius:2px;overflow:hidden;}
+  .faq-item{border-bottom:1px solid rgba(197,160,89,0.12);}
+  .faq-item:last-child{border-bottom:none;}
+  .faq-q{padding:1.3rem 1.5rem;font-size:0.9rem;font-weight:600;color:var(--navy-deep);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:background 0.2s;}
+  .faq-q:hover{background:rgba(197,160,89,0.05);}
+  .faq-q span{font-family:var(--font-display);font-size:1.2rem;color:var(--gold);flex-shrink:0;}
+  .faq-a{display:none;padding:0 1.5rem 1.3rem;font-size:0.85rem;line-height:1.75;color:#4A5568;font-weight:300;}
+  .faq-item.open .faq-a{display:block;}
+  .faq-item.open .faq-q{background:rgba(197,160,89,0.06);}
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease;}
+  .reveal.visible{opacity:1;transform:none;}
+  footer{background:var(--black);border-top:1px solid rgba(197,160,89,0.1);padding:4rem 2rem 2rem;}
+  .footer-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem;}
+  .footer-brand .logo{font-family:var(--font-display);font-size:2rem;font-weight:700;color:var(--gold);margin-bottom:1rem;}
+  .footer-brand p{font-size:0.78rem;line-height:1.7;color:rgba(255,255,255,0.3);font-weight:300;max-width:280px;}
+  .footer-col h5{font-size:0.62rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
+  .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:0.5rem;}
+  .footer-col ul li a{font-size:0.78rem;color:rgba(255,255,255,0.38);text-decoration:none;transition:color 0.2s;}
+  .footer-col ul li a:hover{color:var(--gold);}
+  .footer-bottom{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;font-size:0.72rem;border-top:1px solid rgba(197,160,89,0.08);padding-top:1.5rem;}
+  .footer-bottom span{color:rgba(255,255,255,0.22);}
+  .footer-bottom a{color:rgba(255,255,255,0.28);text-decoration:none;}
+  .footer-bottom a:hover{color:var(--gold);}
+  .float-wa{position:fixed;bottom:2rem;right:1.5rem;z-index:999;display:flex;align-items:center;gap:0.6rem;padding:0.8rem 1.3rem;border-radius:40px;font-family:var(--font-body);font-size:0.76rem;font-weight:700;letter-spacing:0.06em;text-decoration:none;background:#25D366;color:#fff;box-shadow:0 4px 22px rgba(0,0,0,0.4);transition:transform 0.25s;}
+  .float-wa:hover{transform:translateY(-3px);}
+  .float-wa svg{width:20px;height:20px;flex-shrink:0;}
+  @media(max-width:480px){.float-wa .btn-text{display:none;}.float-wa{padding:0.9rem;border-radius:50%;}}
+  @media(max-width:768px){.page-hero{padding:6rem 1.4rem 3.5rem;}.hero-actions{flex-direction:column;gap:0.75rem;}.hero-actions .btn-wa,.hero-actions .btn-secondary{width:100%;justify-content:center;text-align:center;}.footer-inner{grid-template-columns:1fr;gap:2rem;}}
+  @media(max-width:600px){section{padding:3.5rem 1.2rem;}.service-grid{grid-template-columns:1fr;}.area-links-grid{grid-template-columns:1fr;}}
+  @media print{nav,.nav-mobile,.float-wa{display:none!important;}}
+
+  /* ── AI CHATBOT (OWL) — inyectado ── */
+  /* ── AI CHATBOT (OWL) ── */
+  .owl-trigger {
+    position: fixed; bottom: 6.5rem; right: 1.5rem; z-index: 998;
+    width: 58px; height: 58px; border-radius: 50%;
+    background: var(--navy-deep); border: 2px solid rgba(197,160,89,0.5);
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 22px rgba(0,0,0,0.5); transition: border-color 0.25s, transform 0.25s;
+    animation: owlPulse 3s ease-in-out infinite;
+  }
+  .owl-trigger:hover { border-color: var(--gold); transform: scale(1.08); }
+  @keyframes owlPulse { 0%, 100% { box-shadow: 0 4px 22px rgba(0,0,0,0.5); } 50% { box-shadow: 0 4px 28px rgba(197,160,89,0.4); } }
+  .owl-badge { position: absolute; top: -4px; right: -4px; width: 18px; height: 18px; border-radius: 50%; background: var(--red); color: #fff; font-size: 0.55rem; font-weight: 700; display: flex; align-items: center; justify-content: center; border: 2px solid var(--black); }
+  .chat-panel { position: fixed; bottom: 9.5rem; right: 1.5rem; z-index: 997; width: min(380px, calc(100vw - 2rem)); background: var(--navy-deep); border: 1px solid rgba(197,160,89,0.22); border-radius: 8px; box-shadow: 0 16px 60px rgba(0,0,0,0.6); display: none; flex-direction: column; overflow: hidden; animation: slideUp 0.3s ease; }
+  .chat-panel.open { display: flex; }
+  @keyframes slideUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:none; } }
+  .chat-header { background: rgba(197,160,89,0.08); border-bottom: 1px solid rgba(197,160,89,0.15); padding: 1rem 1.2rem; display: flex; align-items: center; gap: 0.8rem; }
+  .chat-header-owl { font-size: 1.5rem; }
+  .chat-header-info h4 { font-family: var(--font-display); font-size: 1.05rem; color: var(--gold); font-weight: 700; }
+  .chat-header-info p { font-size: 0.65rem; color: rgba(255,255,255,0.45); letter-spacing: 0.05em; }
+  .chat-status { width: 8px; height: 8px; border-radius: 50%; background: #2ecc71; flex-shrink: 0; }
+  .chat-messages { flex: 1; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: 0.8rem; max-height: 320px; scrollbar-width: thin; scrollbar-color: rgba(197,160,89,0.2) transparent; }
+  .chat-msg { font-size: 0.82rem; line-height: 1.55; padding: 0.75rem 1rem; border-radius: 6px; max-width: 88%; animation: fadeUp 0.3s ease; }
+  .chat-msg.bot { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.85); align-self: flex-start; }
+  .chat-msg.user { background: var(--gold); color: var(--navy-deep); align-self: flex-end; font-weight: 600; }
+  .chat-options { padding: 0.75rem 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .chat-opt { background: rgba(197,160,89,0.1); border: 1px solid rgba(197,160,89,0.25); color: var(--gold); font-size: 0.75rem; font-weight: 600; padding: 0.6rem 1rem; border-radius: 4px; cursor: pointer; text-align: left; font-family: var(--font-body); transition: background 0.2s; letter-spacing: 0.04em; }
+  .chat-opt:hover { background: rgba(197,160,89,0.2); }
+  .chat-opt-wa { background: rgba(37,211,102,0.12) !important; border-color: rgba(37,211,102,0.4) !important; color: #2ecc71 !important; text-decoration: none; display: block; }
+  .chat-footer { padding: 0.8rem 1rem; border-top: 1px solid rgba(197,160,89,0.1); font-size: 0.6rem; color: rgba(255,255,255,0.25); text-align: center; letter-spacing: 0.08em; display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+  .chat-footer-text { flex: 1; }
+  .chat-restart { background: none; border: 1px solid rgba(197,160,89,0.25); color: rgba(197,160,89,0.55); font-size: 0.58rem; font-family: var(--font-body); font-weight: 600; letter-spacing: 0.08em; padding: 0.3rem 0.65rem; border-radius: 3px; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+  .chat-restart:hover { border-color: var(--gold); color: var(--gold); }
+  .chat-close { margin-left: auto; background: none; border: none; color: rgba(255,255,255,0.4); font-size: 1.1rem; cursor: pointer; line-height: 1; padding: 0.2rem 0.4rem; transition: color 0.2s; flex-shrink: 0; }
+  .chat-close:hover { color: var(--gold); }
+  .chat-input-area { padding: 0.6rem 1rem; border-top: 1px solid rgba(197,160,89,0.1); display: flex; gap: 0.5rem; }
+  .chat-input { flex: 1; background: rgba(255,255,255,0.06); border: 1px solid rgba(197,160,89,0.2); border-radius: 4px; padding: 0.55rem 0.9rem; color: var(--white); font-family: var(--font-body); font-size: 0.8rem; outline: none; transition: border-color 0.2s; }
+  .chat-input::placeholder { color: rgba(255,255,255,0.28); }
+  .chat-input:focus { border-color: rgba(197,160,89,0.55); }
+  .chat-send { background: var(--gold); border: none; border-radius: 4px; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; transition: background 0.2s; }
+  .chat-send:hover { background: var(--gold-light); }
+  .chat-send svg { color: var(--navy-deep); }
+  .chat-typing { display: flex; align-items: center; gap: 4px; padding: 0.5rem; }
+  .chat-typing span { width: 6px; height: 6px; border-radius: 50%; background: rgba(197,160,89,0.5); animation: typingDot 1.2s ease infinite; }
+  .chat-typing span:nth-child(2) { animation-delay: 0.2s; }
+  .chat-typing span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes typingDot { 0%,80%,100%{transform:scale(0.7);opacity:0.4;} 40%{transform:scale(1);opacity:1;} }
+
+
+  @media(max-width:600px){
+    .chat-panel{width:calc(100vw - 1.5rem);right:0.75rem;bottom:8rem;}
+    .owl-trigger{bottom:4.5rem;right:1rem;width:52px;height:52px;}
+  }
+  @keyframes slideUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:none;}}
+  @keyframes typingDot{0%,80%,100%{transform:scale(0.7);opacity:0.4;}40%{transform:scale(1);opacity:1;}}
+
+  @media print{.owl-trigger,.chat-panel{display:none!important;}}
+
+  /* ── TESTIMONIOS ── */
+  .testimonios{background:var(--gray-light);padding:5rem 2rem;}
+  .testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.5rem;margin-top:3rem;}
+  .testi-card{background:var(--white);border:1px solid rgba(197,160,89,0.15);border-radius:2px;padding:2rem 1.8rem;display:flex;flex-direction:column;gap:1.1rem;position:relative;transition:box-shadow 0.3s,transform 0.3s;}
+  .testi-card:hover{box-shadow:0 8px 32px rgba(26,54,93,0.1);transform:translateY(-4px);}
+  .testi-quote-mark{font-family:var(--font-display);font-size:3.5rem;line-height:0.6;color:rgba(197,160,89,0.25);height:1.4rem;}
+  .testi-stars{color:var(--gold);font-size:0.85rem;letter-spacing:0.15em;}
+  .testi-text{font-size:0.88rem;line-height:1.75;color:#3A4453;font-weight:300;font-style:italic;}
+  .testi-author{display:flex;align-items:center;gap:0.8rem;margin-top:auto;padding-top:0.6rem;border-top:1px solid rgba(197,160,89,0.12);}
+  .testi-avatar{width:40px;height:40px;border-radius:50%;background:var(--navy-deep);color:var(--gold);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:1.1rem;font-weight:700;flex-shrink:0;}
+  .testi-name{font-size:0.82rem;font-weight:600;color:var(--navy-deep);}
+  .testi-meta{font-size:0.68rem;color:#6B7280;letter-spacing:0.04em;}
+  .testi-disclaimer{font-size:0.68rem;color:#8A92A0;font-weight:300;margin-top:2rem;text-align:center;font-style:italic;}
+</style>
+  <script defer src="/shared/site-shell.js"></script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Derecho Patrimonial México – Protección de Bienes, Herencias y Deudas | SIGLEP","url":"https://siglep.lat/patrimonial/","description":"SIGLEP: Abogados patrimoniales en México. Protección de bienes, contratos, testamentos, herencias y negociación de deudas bancarias. Consulta gratuita."}</script>
+
+  <style>
+    nav.siglep-shell-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 2000;
+      height: 76px;
+      background: rgba(5, 8, 16, 0.96);
+      border-bottom: 1px solid rgba(197, 160, 89, 0.18);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .siglep-shell-nav-inner {
+      max-width: 1240px;
+      height: 100%;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .siglep-shell-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      text-decoration: none;
+      color: inherit;
+      min-width: 0;
+    }
+    .siglep-shell-shield {
+      width: 36px;
+      height: 42px;
+      flex: 0 0 auto;
+    }
+    .siglep-shell-brand-copy {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+    .siglep-shell-mark {
+      font-family: var(--font-display, Georgia, serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: #c5a059;
+    }
+    .siglep-shell-sub {
+      margin-top: 0.2rem;
+      font-size: 0.61rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.45);
+      white-space: nowrap;
+    }
+    .siglep-shell-links {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 1.15rem;
+    }
+    .siglep-shell-links > li {
+      position: relative;
+    }
+    .siglep-shell-links a,
+    .siglep-shell-links button {
+      appearance: none;
+      border: 0;
+      background: none;
+      color: rgba(255, 255, 255, 0.68);
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      cursor: pointer;
+      white-space: nowrap;
+      padding: 0;
+      transition: color 0.2s ease;
+    }
+    .siglep-shell-links a:hover,
+    .siglep-shell-links button:hover,
+    .siglep-shell-links a[aria-current="page"] {
+      color: #c5a059;
+    }
+    .siglep-shell-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.78rem 1.15rem !important;
+      border-radius: 2px;
+      background: #c0392b !important;
+      color: #fff !important;
+    }
+    .siglep-shell-cta:hover {
+      background: #96281b !important;
+      color: #fff !important;
+    }
+    .siglep-shell-dropdown {
+      position: absolute;
+      top: calc(100% + 0.8rem);
+      left: 0;
+      min-width: 260px;
+      padding: 0.75rem;
+      border-radius: 8px;
+      border: 1px solid rgba(197, 160, 89, 0.18);
+      background: rgba(8, 12, 20, 0.98);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+      display: none;
+    }
+    .siglep-shell-services:hover .siglep-shell-dropdown,
+    .siglep-shell-services:focus-within .siglep-shell-dropdown {
+      display: block;
+    }
+    .siglep-shell-dropdown a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.72rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.66rem;
+      letter-spacing: 0.12em;
+    }
+    .siglep-shell-dropdown a:hover {
+      background: rgba(197, 160, 89, 0.08);
+    }
+    .siglep-shell-dropdown a span {
+      color: rgba(197, 160, 89, 0.7);
+      letter-spacing: 0.04em;
+    }
+    .siglep-shell-burger {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      border: 1px solid rgba(197, 160, 89, 0.18);
+      background: rgba(255, 255, 255, 0.02);
+      color: #fff;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .siglep-shell-burger svg {
+      width: 20px;
+      height: 20px;
+    }
+    .siglep-shell-mobile {
+      display: none;
+      position: fixed;
+      top: 76px;
+      left: 0;
+      right: 0;
+      z-index: 1999;
+      background: rgba(5, 8, 16, 0.98);
+      border-bottom: 1px solid rgba(197, 160, 89, 0.15);
+      padding: 1rem 1.15rem 1.2rem;
+      max-height: calc(100vh - 76px);
+      overflow: auto;
+    }
+    .siglep-shell-mobile.open {
+      display: block;
+    }
+    .siglep-shell-mobile-group {
+      display: grid;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+    }
+    .siglep-shell-mobile-title {
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(197, 160, 89, 0.72);
+      margin: 0.45rem 0 0.2rem;
+    }
+    .siglep-shell-mobile a,
+    .siglep-shell-mobile button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 0.92rem 0.2rem;
+      border: 0;
+      border-bottom: 1px solid rgba(197, 160, 89, 0.08);
+      background: none;
+      color: rgba(255, 255, 255, 0.78);
+      text-decoration: none;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .siglep-shell-mobile a:last-child,
+    .siglep-shell-mobile button:last-child {
+      border-bottom: 0;
+    }
+    .siglep-shell-mobile .siglep-shell-cta {
+      margin-top: 0.65rem;
+    }
+    @media (max-width: 980px) {
+      .siglep-shell-links {
+        display: none;
+      }
+      .siglep-shell-burger {
+        display: inline-flex;
+      }
+    }
+    @media (max-width: 680px) {
+      nav.siglep-shell-nav {
+        height: 70px;
+      }
+      .siglep-shell-nav-inner {
+        padding-inline: 0.9rem;
+      }
+      .siglep-shell-brand-copy {
+        display: none;
+      }
+      .siglep-shell-mobile {
+        top: 70px;
+        max-height: calc(100vh - 70px);
+      }
+    }
+  </style>
+
+</head>
+<body>
+
+  <nav class="siglep-shell-nav" id="navbar">
+    <div class="siglep-shell-nav-inner">
+      <a class="siglep-shell-brand" href="/" aria-label="SIGLEP">
+        <svg class="siglep-shell-shield" viewBox="0 0 40 46" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M20 2L4 9V22C4 31.4 11.1 40.2 20 43C28.9 40.2 36 31.4 36 22V9L20 2Z" fill="#1A365D" stroke="#C5A059" stroke-width="1.5"></path>
+          <text x="20" y="28" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="13" font-weight="700" fill="#C5A059">SL</text>
+        </svg>
+        <span class="siglep-shell-brand-copy">
+          <span class="siglep-shell-mark">SIGLEP</span>
+          <span class="siglep-shell-sub">Sistemas Integrales de Gestión Legal</span>
+        </span>
+      </a>
+      <ul class="siglep-shell-links">
+        <li><a href="/" data-nav="home">Inicio</a></li>
+        <li class="siglep-shell-services">
+          <button type="button" aria-haspopup="true" aria-expanded="false" data-nav="services">Servicios ▼</button>
+          <div class="siglep-shell-dropdown">
+            <a href="/laboral/">Laboral <span>→</span></a>
+            <a href="/familiar/">Familiar <span>→</span></a>
+            <a href="/civil/">Civil <span>→</span></a>
+            <a href="/migratorio/">Migratorio <span>→</span></a>
+            <a href="/patrimonial/">Patrimonial <span>→</span></a>
+            <a href="/penal/">Penal <span>→</span></a>
+            <a href="/seguridad-social/">Seguridad Social <span>→</span></a>
+          </div>
+        </li>
+        <li><a href="/calculadoras/" data-nav="calculadoras">Calculadoras</a></li>
+        <li><a href="/expediente/" data-nav="expediente">Expediente</a></li>
+        <li><a href="/nosotros/" data-nav="nosotros">Nosotros</a></li>
+        <li><a class="siglep-shell-cta" href="https://wa.me/527352169503?text=Hola%20SIGLEP%2C%20quiero%20una%20consulta%20gratuita" target="_blank" rel="noopener noreferrer">Consulta Gratis</a></li>
+      </ul>
+      <button type="button" class="siglep-shell-burger" aria-label="Abrir menú" onclick="toggleMobileNav()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M4 6h16"></path>
+          <path d="M4 12h16"></path>
+          <path d="M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="siglep-shell-mobile" id="navMobile" aria-hidden="true">
+      <div class="siglep-shell-mobile-group">
+        <a href="/" onclick="closeMobileNav()">Inicio</a>
+      </div>
+      <div class="siglep-shell-mobile-title">Servicios</div>
+      <div class="siglep-shell-mobile-group">
+        <a href="/laboral/" onclick="closeMobileNav()">Laboral</a>
+        <a href="/familiar/" onclick="closeMobileNav()">Familiar</a>
+        <a href="/civil/" onclick="closeMobileNav()">Civil</a>
+        <a href="/migratorio/" onclick="closeMobileNav()">Migratorio</a>
+        <a href="/patrimonial/" onclick="closeMobileNav()">Patrimonial</a>
+        <a href="/penal/" onclick="closeMobileNav()">Penal</a>
+        <a href="/seguridad-social/" onclick="closeMobileNav()">Seguridad Social</a>
+      </div>
+      <div class="siglep-shell-mobile-group">
+        <a href="/calculadoras/" onclick="closeMobileNav()">Calculadoras</a>
+        <a href="/expediente/" onclick="closeMobileNav()">Expediente</a>
+        <a href="/nosotros/" onclick="closeMobileNav()">Nosotros</a>
+        <a class="siglep-shell-cta" href="https://wa.me/527352169503?text=Hola%20SIGLEP%2C%20quiero%20una%20consulta%20gratuita" target="_blank" rel="noopener noreferrer">Consulta Gratis</a>
+      </div>
+    </div>
+  </nav>
+
+
+<div class="page-hero">
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-glow"></div>
+  <div class="page-hero-inner">
+    <div class="breadcrumb"><a href="/">SIGLEP</a><span class="breadcrumb-sep">›</span><span>Derecho Patrimonial</span></div>
+    <div class="page-eyebrow">Derecho Patrimonial · México · Protección de Bienes</div>
+    <h1>Lo que construiste con años<br>merece <em>protección real.</em></h1>
+    <p class="page-hero-sub">Las deudas, los conflictos familiares, los contratos mal redactados y la falta de un testamento son las cuatro razones más comunes por las que el patrimonio de una familia desaparece. SIGLEP te ayuda a blindar lo tuyo — antes y después de que surja el problema.</p>
+    <div class="hero-actions">
+      <a href="https://wa.me/527352169503?text=Hola%20SIGLEP%2C%20necesito%20asesor%C3%ADa%20patrimonial%20gratuita" class="btn-wa" target="_blank" rel="noopener noreferrer">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2.001c-5.514 0-9.998 4.484-9.998 9.998 0 1.761.462 3.413 1.27 4.847L2.005 22l5.273-1.381c1.378.748 2.954 1.179 4.721 1.179h.004c5.513 0 9.997-4.484 9.997-9.998 0-5.515-4.484-9.999-9.997-9.999H11.999zm0 1.8h.003c4.52 0 8.198 3.678 8.198 8.198 0 4.521-3.678 8.199-8.198 8.199h-.003c-1.584 0-3.072-.443-4.341-1.211l-.311-.185-3.129.82.834-3.047-.204-.323c-.839-1.313-1.316-2.85-1.316-4.455 0-4.52 3.678-8.197 8.197-8.197z"/></svg>
+        Consulta Gratuita por WhatsApp
+      </a>
+      <a href="https://calendly.com/hola-siglep/30min" class="btn-secondary" target="_blank" rel="noopener noreferrer">Agendar Consulta</a>
+    </div>
+  </div>
+</div>
+
+<section style="background:var(--white);">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-tag">Servicios Patrimoniales</div>
+      <h2 class="section-title">Protección legal para <em>lo que más importa.</em></h2>
+      <p class="section-lead">El patrimonio no se protege solo. Requiere estrategia legal anticipada y defensa activa cuando hay amenazas. SIGLEP cubre todo el espectro patrimonial.</p>
+    </div>
+    <div class="service-grid reveal">
+
+      <div class="service-card">
+        <div class="sc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+        <div class="sc-tag">Sucesiones</div>
+        <div class="sc-title">Testamentos y Herencias</div>
+        <div class="sc-body">Un testamento bien hecho hoy evita conflictos familiares costosos mañana. También gestionamos herencias con o sin testamento.</div>
+        <ul class="sc-list">
+          <li>Testamento público ante notario</li>
+          <li>Asesoría sobre bienes en distintos estados</li>
+          <li>Sucesión intestamentaria</li>
+          <li>Trámites sucesorios ante juez o notario</li>
+        </ul>
+      </div>
+
+      <div class="service-card">
+        <div class="sc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 13h6M9 17h4"/></svg></div>
+        <div class="sc-tag">Contratos</div>
+        <div class="sc-title">Contratos y Documentos</div>
+        <div class="sc-body">Redactamos y revisamos contratos para que protejan tus intereses. Un contrato mal hecho puede costarte más de lo que ahorras.</div>
+        <ul class="sc-list">
+          <li>Contratos de compraventa</li>
+          <li>Arrendamiento y comodato</li>
+          <li>Contratos de prestación de servicios</li>
+          <li>Revisión antes de firmar</li>
+        </ul>
+      </div>
+
+      <div class="service-card">
+        <div class="sc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+        <div class="sc-tag">Deudas</div>
+        <div class="sc-title">Negociación de Deudas</div>
+        <div class="sc-body">Negociamos con acreedores, bancos y despachos de cobranza para reducir o reestructurar deudas. También te defendemos ante demandas de cobro.</div>
+        <ul class="sc-list">
+          <li>Negociación directa con acreedores</li>
+          <li>Reestructura de deuda</li>
+          <li>Defensa ante demandas civiles</li>
+          <li>Análisis de prescripción de deudas</li>
+        </ul>
+      </div>
+
+    </div>
+</section>
+
+<div class="highlight-band reveal">
+  <div class="container" style="text-align:center;">
+    <h2>El problema patrimonial más caro<br>es el que <em>no se previno.</em></h2>
+    <p>Una consulta hoy puede ahorrarte años de litigio y la pérdida de lo que construiste. SIGLEP te orienta sobre cómo proteger tu patrimonio — la primera consulta es gratuita y sin compromisos.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+      <a href="https://wa.me/527352169503?text=Hola%20SIGLEP%2C%20quiero%20asesor%C3%ADa%20patrimonial%20gratuita" class="btn-wa" target="_blank" rel="noopener noreferrer">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2.001c-5.514 0-9.998 4.484-9.998 9.998 0 1.761.462 3.413 1.27 4.847L2.005 22l5.273-1.381c1.378.748 2.954 1.179 4.721 1.179h.004c5.513 0 9.997-4.484 9.997-9.998 0-5.515-4.484-9.999-9.997-9.999H11.999zm0 1.8h.003c4.52 0 8.198 3.678 8.198 8.198 0 4.521-3.678 8.199-8.198 8.199h-.003c-1.584 0-3.072-.443-4.341-1.211l-.311-.185-3.129.82.834-3.047-.204-.323c-.839-1.313-1.316-2.85-1.316-4.455 0-4.52 3.678-8.197 8.197-8.197z"/></svg>
+        Consulta gratuita sobre mi patrimonio
+      </a>
+      <a href="/laboral/#calculadora" class="btn-secondary">Simular negociación de deuda</a>
+    </div>
+  </div>
+</div>
+
+<div class="faq-section">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-tag">Preguntas Frecuentes</div>
+      <h2 class="section-title">Patrimonial: lo que más <em>nos preguntan.</em></h2>
+    </div>
+    <div class="faq-grid reveal">
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">¿Puedo proteger mis bienes si ya tengo deudas? <span>+</span></div>
+        <div class="faq-a">Depende del momento y del tipo de deuda. Algunas estructuras de protección patrimonial pueden implementarse incluso con deudas existentes, aunque con ciertas limitaciones legales. La clave es actuar antes de que una deuda se convierta en demanda o embargo.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">¿Es obligatorio hacer testamento? <span>+</span></div>
+        <div class="faq-a">No es legalmente obligatorio, pero es altamente recomendable. Sin testamento, la distribución de bienes la determina la ley — no tus deseos. Además, el proceso sucesorio sin testamento es significativamente más largo y costoso.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">¿Cuánto se puede reducir una deuda bancaria con negociación? <span>+</span></div>
+        <div class="faq-a">Varía según el tipo de deuda, el tiempo de mora y la institución. En casos de tarjetas o créditos personales con mora prolongada, las quitas pueden ser significativas. Cada caso se analiza individualmente — no prometemos porcentajes porque depende de múltiples factores.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">¿Qué pasa si hay conflicto entre herederos? <span>+</span></div>
+        <div class="faq-a">Los conflictos entre herederos son frecuentes y pueden prolongarse por años. La mediación jurídica temprana suele resolver la mayoría de los casos sin llegar a litigio. Cuando no hay acuerdo, representamos a nuestros clientes en el proceso sucesorio contencioso.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">¿Pueden embargarme mi casa si tengo deudas? <span>+</span></div>
+        <div class="faq-a">En México existen figuras de protección como el patrimonio familiar que pueden proteger la vivienda principal de ciertos tipos de embargo. Sin embargo, no toda propiedad es inembargable — depende de la naturaleza de la deuda y de si se implementaron medidas preventivas.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- TESTIMONIOS -->
+<section class="testimonios reveal">
+  <div class="container">
+    <div>
+      <div class="section-tag">Lo que dicen nuestros clientes</div>
+      <h2 class="section-title">Patrimonios <em>bien protegidos.</em></h2>
+      <p class="section-lead">Familias y personas que pusieron en orden sus bienes y sus deudas a tiempo.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-quote-mark">"</div>
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">Tenía una deuda de tarjeta que ya no podía pagar y los cobradores no paraban. Me orientaron sobre mis derechos y sobre cómo negociar. Logré una reducción considerable.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">F</div>
+          <div><div class="testi-name">Fernando A.</div><div class="testi-meta">Negociación de deuda · CDMX</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote-mark">"</div>
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">Mi familia nunca había hecho testamento y empezaban los conflictos. Nos ayudaron a dejar todo en orden y claro. Nos quitaron un peso enorme de encima.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">R</div>
+          <div><div class="testi-name">Rosa María H.</div><div class="testi-meta">Testamento · Cuernavaca</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote-mark">"</div>
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">Quería proteger la casa y un pequeño negocio antes de que surgiera cualquier problema. Me explicaron las opciones sin tecnicismos y elegí la que más me convenía.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">E</div>
+          <div><div class="testi-name">Eduardo P.</div><div class="testi-meta">Protección patrimonial · Yautepec</div></div>
+        </div>
+      </div>
+    </div>
+    <p class="testi-disclaimer">Testimonios de clientes reales. Se han abreviado y se omiten apellidos completos por confidencialidad. Cada caso es distinto; los resultados dependen de las circunstancias particulares.</p>
+  </div>
+</section>
+
+<div class="area-links reveal">
+  <div class="area-links-inner">
+    <h3>Otras áreas de práctica de <em style="font-style:italic;color:var(--gold)">SIGLEP</em></h3>
+    <div class="area-links-grid">
+      <a href="/laboral/" class="area-link-card"><div class="alc-icon">⚖️</div><div class="alc-title">Derecho Laboral</div><div class="alc-desc">Despidos, liquidaciones, finiquitos y defensa del trabajador.</div></a>
+      <a href="/migratorio/" class="area-link-card"><div class="alc-icon">🌐</div><div class="alc-title">Derecho Migratorio</div><div class="alc-desc">Visas, pasaportes, regularización y citas consulares.</div></a>
+      <a href="/despido-injustificado/" class="area-link-card"><div class="alc-icon">🚪</div><div class="alc-title">Despido Injustificado</div><div class="alc-desc">Guía completa sobre indemnización por despido sin causa.</div></a>
+      <a href="/" class="area-link-card"><div class="alc-icon">🏠</div><div class="alc-title">SIGLEP · Inicio</div><div class="alc-desc">Calculadora de liquidación y simulador de deuda bancaria.</div></a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand"><div class="logo">SIGLEP.</div><p>Sistemas Integrales de Gestión Legal. Especialistas en Derecho Laboral, Migratorio y Protección Patrimonial. Atención nacional · México 2026.</p></div>
+    <div class="footer-col"><h5>Patrimonial</h5><ul><li><a href="/patrimonial/">Protección de Bienes</a></li><li><a href="/patrimonial/">Contratos</a></li><li><a href="/patrimonial/">Testamentos</a></li><li><a href="/patrimonial/">Herencias</a></li><li><a href="/patrimonial/">Negociación de Deudas</a></li></ul></div>
+    <div class="footer-col"><h5>Otras Áreas</h5><ul><li><a href="/laboral/">Derecho Laboral</a></li><li><a href="/migratorio/">Derecho Migratorio</a></li><li><a href="/">Inicio</a></li></ul></div>
+    <div class="footer-col"><h5>Contacto</h5><ul><li><a href="https://wa.me/527352169503" target="_blank" rel="noopener noreferrer">📲 +52 735 216 9503</a></li><li><a href="mailto:hola@siglep.lat">✉ hola@siglep.lat</a></li><li><a href="mailto:juridico@siglep.lat" style="opacity:0.6;font-size:0.85em;">✉ juridico@siglep.lat</a></li><li><a href="#">🌐 Atención Nacional</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 SIGLEP — Sistemas Integrales de Gestión Legal. Todos los derechos reservados.</span><span><a href="/">Aviso de Privacidad</a> · <a href="/">Términos de Servicio</a></span></div>
+</footer>
+
+<a href="https://wa.me/527352169503?text=Hola%20SIGLEP%2C%20necesito%20asesor%C3%ADa%20patrimonial" class="float-wa" target="_blank" rel="noopener noreferrer">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2.001c-5.514 0-9.998 4.484-9.998 9.998 0 1.761.462 3.413 1.27 4.847L2.005 22l5.273-1.381c1.378.748 2.954 1.179 4.721 1.179h.004c5.513 0 9.997-4.484 9.997-9.998 0-5.515-4.484-9.999-9.997-9.999H11.999zm0 1.8h.003c4.52 0 8.198 3.678 8.198 8.198 0 4.521-3.678 8.199-8.198 8.199h-.003c-1.584 0-3.072-.443-4.341-1.211l-.311-.185-3.129.82.834-3.047-.204-.323c-.839-1.313-1.316-2.85-1.316-4.455 0-4.52 3.678-8.197 8.197-8.197z"/></svg>
+  <span class="btn-text">WhatsApp</span>
+</a>
+<script>
+  const observer = new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}});},{threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+// ══════════════════════════════════════════
+// ── CHATBOT SIGLEP — LÓGICA LOCAL ──
+// ══════════════════════════════════════════
+
+const WA = 'https://wa.me/527352169503';
+
+// ── Utilidades ──
+function addMsg(html, type) {
+  const msgs = document.getElementById('chatMessages');
+  const d = document.createElement('div');
+  d.className = 'chat-msg ' + type;
+  d.innerHTML = html;
+  msgs.appendChild(d);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function showTyping() {
+  const msgs = document.getElementById('chatMessages');
+  const t = document.createElement('div');
+  t.className = 'chat-msg bot chat-typing';
+  t.id = 'owlTyping';
+  t.innerHTML = '<span></span><span></span><span></span>';
+  msgs.appendChild(t);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function hideTyping() {
+  const t = document.getElementById('owlTyping');
+  if (t) t.remove();
+}
+
+function setOpts(opts) {
+  const el = document.getElementById('chatOptions');
+  el.innerHTML = opts.map(o => {
+    if (o.wa) {
+      const txt = encodeURIComponent(o.wa);
+      return `<a class="chat-opt chat-opt-wa" href="${WA}?text=${txt}" target="_blank" rel="noopener noreferrer">📲 ${o.label}</a>`;
+    }
+    return `<button class="chat-opt" onclick="step('${o.k}')">${o.label}</button>`;
+  }).join('');
+}
+
+function clearOpts() {
+  document.getElementById('chatOptions').innerHTML = '';
+}
+
+function bot(html, delay, cb) {
+  setTimeout(() => { hideTyping(); addMsg(html, 'bot'); if (cb) cb(); }, delay || 500);
+}
+
+// ── Flujo principal ──
+function step(k) {
+  clearOpts();
+  showTyping();
+
+  // ── MENÚ PRINCIPAL ──
+  if (k === '__init__') {
+    hideTyping();
+    addMsg('Hola, soy el asistente legal de <strong>SIGLEP</strong> 🦉. Estoy aquí para orientarte — sin importar dónde estés en México.<br><br>¿Sobre qué necesitas orientación hoy?', 'bot');
+    setOpts([
+      { k: 'laboral',    label: '⚖️ Asunto laboral' },
+      { k: 'familiar',   label: '👨‍👩‍👧 Asunto familiar' },
+      { k: 'penal',      label: '🔒 Asunto penal' },
+      { k: 'financiero', label: '💳 Deudas / cobranza' },
+      { k: 'mercantil',  label: '📋 Contratos / negocios' },
+      { k: 'cobertura',  label: '📍 ¿Atienden desde mi ciudad?' },
+      { k: 'costos',     label: '💰 ¿Cuánto cobran?' },
+    ]);
+    return;
+  }
+
+  // ── LABORAL ──
+  if (k === 'laboral') {
+    bot('Los asuntos laborales tienen plazos legales — actuar rápido marca la diferencia. ¿Qué está pasando?', 400, () => setOpts([
+      { k: 'lab_despido',   label: '🚪 Me despidieron' },
+      { k: 'lab_liquidacion', label: '💵 Revisión de liquidación o finiquito' },
+      { k: 'lab_renuncia',  label: '✍️ Quiero renunciar / me presionan a renunciar' },
+      { k: 'lab_acoso',     label: '😤 Acoso o presión laboral' },
+      { k: 'lab_nomina',    label: '📉 Descuentos o incumplimientos de nómina' },
+      { k: 'lab_contrato',  label: '📄 Contrato laboral o incumplimiento' },
+      { k: 'lab_otro',      label: '💬 Otra situación laboral' },
+    ]));
+  }
+  else if (k === 'lab_despido') {
+    bot('Un despido sin causa justificada te da derecho a indemnización completa: 3 meses de salario + 20 días por año + partes proporcionales. El patrón no siempre calcula bien — por eso conviene revisarlo antes de firmar cualquier cosa.', 500, () => setOpts([
+      { k: 'lab_despido_doc', label: '📄 Me dieron documentos a firmar' },
+      { k: 'lab_despido_nodoc', label: '❌ No me dieron nada' },
+      { k: 'lab_despido_verbal', label: '🗣️ Fue verbal, sin papel' },
+    ]));
+  }
+  else if (k === 'lab_despido_doc') {
+    bot('No firmes nada sin que alguien lo revise primero. Una firma puede hacerte perder derechos importantes que después no se pueden recuperar.<br><br>Podemos revisar esos documentos antes de que decidas.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, me despidieron y tengo documentos para firmar, necesito revisión urgente', label: 'Quiero que revisen mis documentos' },
+    ]));
+  }
+  else if (k === 'lab_despido_nodoc') {
+    bot('Sin documentos también tienes derechos. Hay registros ante IMSS y STPS que respaldan tu caso. Lo importante es actuar dentro de los plazos legales — en materia laboral el tiempo corre en tu contra.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, me despidieron sin darme ningún documento, quiero saber mis opciones', label: 'Quiero conocer mis opciones' },
+    ]));
+  }
+  else if (k === 'lab_despido_verbal') {
+    bot('Un despido verbal también es un despido. Si puedes demostrar que dejaste de trabajar a partir de cierta fecha, tienes caso. Cuéntanos los detalles — hay formas de documentar esto.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, me despidieron verbalmente sin ningún papel, quiero asesoría', label: 'Quiero asesoría sobre esto' },
+    ]));
+  }
+  else if (k === 'lab_liquidacion') {
+    bot('Muchos patrones calculan el mínimo legal esperando que el trabajador no sepa lo que le corresponde. Una liquidación puede incluir: 3 meses, 20 días por año, aguinaldo proporcional, vacaciones y prima vacacional.<br><br>¿Ya te ofrecieron una cantidad?', 500, () => setOpts([
+      { k: 'lab_liq_si', label: '✅ Sí, ya me ofrecieron algo' },
+      { k: 'lab_liq_no', label: '❌ Todavía no me dicen nada' },
+      { k: 'lab_liq_duda', label: '🤔 No sé si lo que me dieron está bien' },
+    ]));
+  }
+  else if (k === 'lab_liq_si' || k === 'lab_liq_duda') {
+    bot('Bien. Antes de aceptar cualquier cantidad, conviene que un especialista la revise. No cuesta nada saberlo — y la diferencia puede ser significativa.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, quiero que revisen la liquidación que me ofrecieron', label: 'Quiero que revisen mi liquidación' },
+    ]));
+  }
+  else if (k === 'lab_liq_no') {
+    bot('Mientras más tiempo pase sin documentar nada, más complicado puede volverse. Te orientamos para que llegues preparado a esa conversación con tu patrón.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, aún no me han dado mi liquidación y quiero saber qué me corresponde', label: 'Quiero saber qué me corresponde' },
+    ]));
+  }
+  else if (k === 'lab_renuncia') {
+    bot('Importante: si te están presionando a renunciar, eso puede configurar un despido indirecto — y tendrías derecho a indemnización igual que en un despido injustificado.<br><br>No renuncies todavía sin hablar con nosotros.', 500, () => setOpts([
+      { k: 'lab_renuncia_presion', label: '😰 Me están presionando' },
+      { k: 'lab_renuncia_voluntaria', label: '✋ Quiero renunciar por decisión propia' },
+    ]));
+  }
+  else if (k === 'lab_renuncia_presion') {
+    bot('Eso tiene nombre legal: despido indirecto o rescisión justificada imputable al patrón. Antes de hacer cualquier movimiento, habla con nosotros — hay una estrategia correcta para esto.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, mi patrón me está presionando para renunciar, necesito orientación', label: 'Necesito orientación urgente' },
+    ]));
+  }
+  else if (k === 'lab_renuncia_voluntaria') {
+    bot('En una renuncia voluntaria tienes derecho a partes proporcionales: aguinaldo, vacaciones y prima vacacional. No todo se pierde — pero conviene saber exactamente qué puedes exigir antes de firmar.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, quiero renunciar voluntariamente y saber qué me corresponde', label: 'Quiero saber qué me corresponde' },
+    ]));
+  }
+  else if (k === 'lab_acoso') {
+    bot('El acoso y el hostigamiento laboral están tipificados en la ley. Tienes derecho a denunciar y a exigir medidas. Lo importante es empezar a documentar desde ahora: fechas, testigos, mensajes.<br><br>Podemos orientarte en cómo hacerlo.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, estoy viviendo acoso laboral y quiero orientación', label: 'Quiero orientación sobre acoso laboral' },
+    ]));
+  }
+  else if (k === 'lab_nomina') {
+    bot('Los descuentos indebidos o retención de salario son incumplimientos del patrón que dan pie a demanda. ¿Cuánto tiempo llevan pasando?', 500, () => setOpts([
+      { k: 'lab_nom_reciente', label: 'Hace poco / recientemente' },
+      { k: 'lab_nom_tiempo',   label: 'Llevan meses o años' },
+    ]));
+  }
+  else if (k === 'lab_nom_reciente') {
+    bot('Bien — cuanto antes se actúa, mejor posición tienes. Podemos orientarte sobre cómo documentar y qué pasos seguir.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, mi patrón me está haciendo descuentos indebidos y quiero orientación', label: 'Quiero orientación' },
+    ]));
+  }
+  else if (k === 'lab_nom_tiempo') {
+    bot('Hay posibilidad de reclamar retroactivo dependiendo del caso y los plazos. Es importante revisar la situación con detalle antes de actuar.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, tengo descuentos de nómina acumulados por meses y quiero saber qué puedo reclamar', label: 'Quiero saber qué puedo reclamar' },
+    ]));
+  }
+  else if (k === 'lab_contrato') {
+    bot('Los contratos laborales son vinculantes para ambas partes. Si el patrón incumplió condiciones pactadas — salario, horario, funciones, prestaciones — eso es exigible legalmente.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, tengo un problema con mi contrato laboral y quiero asesoría', label: 'Quiero revisar mi situación' },
+    ]));
+  }
+  else if (k === 'lab_otro') {
+    bot('No hay asunto laboral menor cuando se trata de tus derechos. Cuéntanos tu situación directamente — la primera consulta es gratuita.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, tengo una situación laboral y quiero orientación', label: 'Contactar a SIGLEP' },
+    ]));
+  }
+
+  // ── FAMILIAR ──
+  else if (k === 'familiar') {
+    bot('Los asuntos familiares son de los más delicados — porque no solo hay un problema legal, hay personas involucradas. ¿Qué está pasando?', 400, () => setOpts([
+      { k: 'fam_custodia',   label: '👶 Guarda y custodia de hijos' },
+      { k: 'fam_pension',    label: '💵 Pensión alimenticia' },
+      { k: 'fam_divorcio',   label: '💔 Divorcio' },
+      { k: 'fam_violencia',  label: '🚨 Violencia familiar' },
+      { k: 'fam_paternidad', label: '👤 Reconocimiento de paternidad' },
+      { k: 'fam_convenio',   label: '📝 Convenio familiar' },
+      { k: 'fam_otro',       label: '💬 Otro asunto familiar' },
+    ]));
+  }
+  else if (k === 'fam_custodia') {
+    bot('Sí, llevamos casos de guarda y custodia. La ley prioriza el interés superior del menor — pero eso no significa que el proceso sea sencillo. ¿Hay un procedimiento legal ya abierto o es una situación nueva?', 500, () => setOpts([
+      { k: 'fam_cust_nuevo',    label: 'Es una situación nueva' },
+      { k: 'fam_cust_proceso',  label: 'Ya hay un proceso abierto' },
+      { k: 'fam_cust_incumple', label: 'El otro padre incumple el acuerdo' },
+    ]));
+  }
+  else if (k === 'fam_cust_nuevo') {
+    bot('Lo más importante al inicio es documentar bien y actuar antes de que la otra parte lo haga. La primera consulta nos permite evaluar tu situación y explicarte qué opciones tienes.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, necesito asesoría sobre guarda y custodia de mis hijos', label: 'Quiero una consulta sobre custodia' },
+    ]));
+  }
+  else if (k === 'fam_cust_proceso') {
+    bot('Si ya hay un proceso abierto, podemos revisar en qué punto está y qué opciones tienes para defender tu posición o mejorar las condiciones actuales.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, ya tengo un proceso de custodia abierto y necesito asesoría', label: 'Quiero asesoría sobre mi proceso' },
+    ]));
+  }
+  else if (k === 'fam_cust_incumple') {
+    bot('El incumplimiento de un acuerdo de custodia o convivencia tiene consecuencias legales para quien incumple. Hay mecanismos para hacer valer esos acuerdos.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, el padre/madre de mi hijo incumple el acuerdo de custodia y necesito orientación', label: 'Quiero hacer valer el acuerdo' },
+    ]));
+  }
+  else if (k === 'fam_pension') {
+    bot('La pensión alimenticia es un derecho — no un favor. Aplica para hijos, pero también puede aplicar para el cónyuge según el caso. ¿Cuál es tu situación?', 500, () => setOpts([
+      { k: 'fam_pen_exigir',    label: 'Quiero exigir o aumentar una pensión' },
+      { k: 'fam_pen_incumple',  label: 'No me están pagando lo acordado' },
+      { k: 'fam_pen_reducir',   label: 'Quiero revisar o reducir lo que pago' },
+    ]));
+  }
+  else if (k === 'fam_pen_exigir') {
+    bot('Para fijar o aumentar una pensión se toman en cuenta los ingresos del obligado y las necesidades del menor. Podemos orientarte sobre el proceso y qué documentos necesitas.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, necesito orientación para exigir o aumentar una pensión alimenticia', label: 'Quiero orientación sobre pensión' },
+    ]));
+  }
+  else if (k === 'fam_pen_incumple') {
+    bot('El incumplimiento de pago de pensión alimenticia puede derivar en arresto. No es un asunto menor — hay formas legales de hacerlo efectivo.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, no me están pagando la pensión alimenticia acordada y necesito ayuda', label: 'Quiero hacer efectivo el pago' },
+    ]));
+  }
+  else if (k === 'fam_pen_reducir') {
+    bot('Si hubo un cambio real en tu situación económica, es posible solicitar una revisión de la pensión. Esto requiere documentar el cambio ante el juez.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, quiero revisar el monto de pensión que actualmente pago', label: 'Quiero revisar mi situación' },
+    ]));
+  }
+  else if (k === 'fam_divorcio') {
+    bot('Un divorcio bien llevado protege a ambas partes y a los hijos. ¿Es de mutuo acuerdo o es una situación más complicada?', 500, () => setOpts([
+      { k: 'fam_div_acuerdo',     label: '🤝 Hay acuerdo entre ambas partes' },
+      { k: 'fam_div_contencioso', label: '⚠️ No hay acuerdo, es conflictivo' },
+    ]));
+  }
+  else if (k === 'fam_div_acuerdo') {
+    bot('Un divorcio por mutuo acuerdo es más rápido y económico. Lo importante es que el convenio quede bien redactado — especialmente si hay hijos o bienes de por medio.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, quiero iniciar un divorcio por mutuo acuerdo y necesito orientación', label: 'Quiero orientación sobre divorcio' },
+    ]));
+  }
+  else if (k === 'fam_div_contencioso') {
+    bot('En un divorcio contencioso la estrategia legal importa desde el primer día. Entre más preparados lleguemos, mejor posición tendrás para negociar o litigar.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, estoy en un proceso de divorcio complicado y necesito representación', label: 'Quiero hablar con un abogado' },
+    ]));
+  }
+  else if (k === 'fam_violencia') {
+    bot('La violencia familiar es urgente — no hay que esperar a que escale. Hay medidas de protección que se pueden obtener de forma inmediata. ¿Estás en una situación de riesgo ahora mismo?', 500, () => setOpts([
+      { k: 'fam_viol_urgente', label: '🚨 Sí, necesito ayuda urgente' },
+      { k: 'fam_viol_proceso', label: '📋 Quiero iniciar un proceso legal' },
+    ]));
+  }
+  else if (k === 'fam_viol_urgente') {
+    bot('En una situación de riesgo inmediato puedes llamar al 800 HÁBLALO (800 422 5256) o al 911. SIGLEP puede acompañarte legalmente en el proceso — escríbenos y te orientamos de inmediato.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, estoy en una situación de violencia familiar y necesito orientación urgente', label: 'Contactar a SIGLEP ahora' },
+    ]));
+  }
+  else if (k === 'fam_viol_proceso') {
+    bot('Podemos orientarte en cómo documentar la situación, solicitar medidas de protección y avanzar legalmente. La primera consulta es gratuita.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, quiero iniciar un proceso legal por violencia familiar', label: 'Quiero iniciar el proceso' },
+    ]));
+  }
+  else if (k === 'fam_paternidad') {
+    bot('El reconocimiento de paternidad puede ser voluntario o forzado mediante demanda. En ambos casos hay efectos legales importantes: apellidos, alimentos, herencia. ¿Cómo está tu situación?', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, necesito orientación sobre reconocimiento de paternidad', label: 'Quiero orientación' },
+    ]));
+  }
+  else if (k === 'fam_convenio') {
+    bot('Un convenio familiar bien redactado previene conflictos futuros. Podemos elaborarlo o revisarlo para que tenga validez legal y proteja a todas las partes.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, necesito elaborar o revisar un convenio familiar', label: 'Quiero elaborar un convenio' },
+    ]));
+  }
+  else if (k === 'fam_otro') {
+    bot('No hay asunto familiar sin solución cuando se aborda con la estrategia correcta. Cuéntanos tu situación — sin costo, sin compromiso.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, tengo un asunto familiar y necesito orientación', label: 'Contactar a SIGLEP' },
+    ]));
+  }
+
+  // ── PENAL ──
+  else if (k === 'penal') {
+    bot('En asuntos penales el tiempo y la información son críticos. ¿Qué está pasando?', 400, () => setOpts([
+      { k: 'pen_denuncia',  label: '📋 Quiero presentar una denuncia' },
+      { k: 'pen_defensa',   label: '🛡️ Necesito defensa penal' },
+      { k: 'pen_carpeta',   label: '📁 Ya hay una carpeta de investigación' },
+      { k: 'pen_otro',      label: '💬 Otra situación penal' },
+    ]));
+  }
+  else if (k === 'pen_denuncia') {
+    bot('Una denuncia bien presentada marca la diferencia en cómo avanza tu caso. Podemos orientarte sobre qué incluir, cómo redactarla y ante qué instancia presentarla.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, quiero presentar una denuncia y necesito orientación', label: 'Quiero orientación para denunciar' },
+    ]));
+  }
+  else if (k === 'pen_defensa') {
+    bot('En materia penal, la defensa técnica desde el inicio puede cambiar completamente el resultado. No es lo mismo enfrentar un proceso con acompañamiento que sin él.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, necesito defensa penal y quiero una consulta', label: 'Quiero hablar con un abogado penal' },
+    ]));
+  }
+  else if (k === 'pen_carpeta') {
+    bot('Si ya hay una carpeta de investigación abierta, lo más importante es saber en qué etapa está y cómo posicionarse correctamente. ¿Eres imputado, víctima o testigo?', 500, () => setOpts([
+      { k: 'pen_carp_imputado', label: 'Soy imputado' },
+      { k: 'pen_carp_victima',  label: 'Soy víctima' },
+    ]));
+  }
+  else if (k === 'pen_carp_imputado') {
+    bot('Como imputado tienes derechos garantizados por la ley — incluyendo el derecho a un defensor desde el primer momento. No enfrentes esto solo.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, soy imputado en una carpeta de investigación y necesito defensa', label: 'Quiero defensa legal' },
+    ]));
+  }
+  else if (k === 'pen_carp_victima') {
+    bot('Como víctima tienes derecho a asesoría jurídica, a conocer el avance de tu caso y a que el Ministerio Público actúe. Podemos acompañarte en todo el proceso.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, soy víctima en una carpeta de investigación y quiero acompañamiento', label: 'Quiero acompañamiento legal' },
+    ]));
+  }
+  else if (k === 'pen_otro') {
+    bot('Cuéntanos tu situación — en materia penal es importante no actuar sin información. La primera orientación es gratuita.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, tengo un asunto penal y necesito orientación', label: 'Contactar a SIGLEP' },
+    ]));
+  }
+
+  // ── FINANCIERO / COBRANZA ──
+  else if (k === 'financiero') {
+    bot('Las deudas tienen solución — y la cobranza tiene límites legales que muchas veces no se respetan. ¿Cuál es tu situación?', 400, () => setOpts([
+      { k: 'fin_deuda',      label: '🏦 Quiero negociar una deuda' },
+      { k: 'fin_cobranza',   label: '📞 Me están hostigando cobradores' },
+      { k: 'fin_embargo',    label: '🔒 Hay un embargo o amenaza de embargo' },
+      { k: 'fin_reestructura', label: '🔄 Quiero reestructurar mis pagos' },
+    ]));
+  }
+  else if (k === 'fin_deuda') {
+    bot('Los bancos e instituciones financieras prefieren recuperar algo a no recuperar nada — eso te da poder de negociación. La clave es saber cómo usarlo.<br><br>¿Qué tipo de deuda es?', 500, () => setOpts([
+      { k: 'fin_deu_tarjeta',   label: '💳 Tarjeta de crédito' },
+      { k: 'fin_deu_personal',  label: '💵 Crédito personal o nómina' },
+      { k: 'fin_deu_hipoteca',  label: '🏠 Crédito hipotecario' },
+      { k: 'fin_deu_otro',      label: '📋 Otro tipo de deuda' },
+    ]));
+  }
+  else if (k === 'fin_deu_tarjeta' || k === 'fin_deu_personal') {
+    bot('En tarjetas y créditos personales es común obtener quitas importantes o planes reales cuando hay mora prolongada. Antes de hablar con el banco, habla con nosotros.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, quiero negociar una deuda de tarjeta/crédito personal y necesito asesoría', label: 'Quiero asesoría para negociar' },
+    ]));
+  }
+  else if (k === 'fin_deu_hipoteca') {
+    bot('Los créditos hipotecarios tienen condiciones especiales de negociación. Hay que actuar antes de que el proceso llegue a una etapa que limite las opciones.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, tengo problemas con un crédito hipotecario y necesito orientación', label: 'Quiero orientación' },
+    ]));
+  }
+  else if (k === 'fin_deu_otro') {
+    bot('Sin importar el tipo de deuda, hay estrategias legales para negociar. La primera consulta nos ayuda a ver qué opciones tienes.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, quiero orientación para negociar una deuda', label: 'Quiero orientación' },
+    ]));
+  }
+  else if (k === 'fin_cobranza') {
+    bot('La cobranza tiene límites legales claros: no pueden llamarte a horas indebidas, no pueden amenazarte, no pueden contactar a tus familiares o trabajo de forma intimidatoria. Eso tiene consecuencias legales para ellos.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, estoy siendo hostigado por cobradores y quiero saber mis derechos', label: 'Quiero conocer mis derechos' },
+    ]));
+  }
+  else if (k === 'fin_embargo') {
+    bot('Un embargo tiene un proceso legal previo que debe cumplirse. Si hay irregularidades en ese proceso, puede impugnarse. Si es una amenaza, hay formas de protegerse antes de que llegue a ejecutarse.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, tengo una situación de embargo y necesito orientación urgente', label: 'Quiero orientación urgente' },
+    ]));
+  }
+  else if (k === 'fin_reestructura') {
+    bot('Una reestructura de pagos puede negociarse directamente con la institución — pero hacerlo con asesoría legal mejora significativamente los términos que obtienes.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, quiero reestructurar mis deudas y necesito orientación', label: 'Quiero orientación' },
+    ]));
+  }
+
+  // ── MERCANTIL / CONTRACTUAL ──
+  else if (k === 'mercantil') {
+    bot('Los contratos y acuerdos de negocio son la base de cualquier relación comercial. Cuando algo falla, hay mecanismos legales para exigir cumplimiento o recuperar lo que corresponde. ¿Cuál es tu situación?', 400, () => setOpts([
+      { k: 'mer_incumplimiento', label: '⚠️ Me incumplieron un contrato' },
+      { k: 'mer_revision',       label: '📄 Quiero revisar un contrato antes de firmarlo' },
+      { k: 'mer_pagare',         label: '💵 Tengo un pagaré o me deben dinero' },
+      { k: 'mer_demanda',        label: '⚖️ Quiero demandar a una empresa o persona' },
+      { k: 'mer_otro',           label: '💬 Otro asunto mercantil' },
+    ]));
+  }
+  else if (k === 'mer_incumplimiento') {
+    bot('Un incumplimiento contractual te da derecho a exigir cumplimiento forzado o rescisión con daños y perjuicios. Lo importante es tener documentado el acuerdo y el incumplimiento.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, me incumplieron un contrato y quiero saber mis opciones legales', label: 'Quiero orientación legal' },
+    ]));
+  }
+  else if (k === 'mer_revision') {
+    bot('Revisar un contrato antes de firmarlo es la mejor inversión legal que puedes hacer — evita problemas que después cuestan mucho más resolver.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, quiero que revisen un contrato antes de que lo firme', label: 'Quiero revisión de contrato' },
+    ]));
+  }
+  else if (k === 'mer_pagare') {
+    bot('Un pagaré es un título ejecutivo — tiene fuerza legal directa para cobrar. Si alguien te debe dinero con respaldo documental, hay vías rápidas para recuperarlo.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, tengo un pagaré y quiero saber cómo cobrar lo que me deben', label: 'Quiero cobrar lo que me deben' },
+    ]));
+  }
+  else if (k === 'mer_demanda') {
+    bot('Una demanda mercantil bien preparada es la herramienta más efectiva cuando ya no hay otra salida. Podemos analizar tu caso y decirte si tienes fundamentos sólidos.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, quiero interponer una demanda mercantil y necesito asesoría', label: 'Quiero asesoría para demandar' },
+    ]));
+  }
+  else if (k === 'mer_otro') {
+    bot('Cuéntanos tu situación. En asuntos mercantiles cada detalle importa — la primera consulta es gratuita y sin compromisos.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, tengo un asunto mercantil y quiero orientación', label: 'Contactar a SIGLEP' },
+    ]));
+  }
+
+  // ── COBERTURA ──
+  else if (k === 'cobertura') {
+    bot('SIGLEP atiende presencialmente en Ciudad de México, Cuernavaca, Cuautla y Yautepec.<br><br>Para otros estados, dependiendo del asunto, podemos ofrecer orientación remota, revisión documental digital y asesorías por videollamada.<br><br>El primer contacto siempre es por WhatsApp — sin costo y sin compromiso.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, quiero saber si pueden atender mi caso desde mi ciudad', label: '📲 Preguntar sobre mi ubicación' },
+      { k: '__init__', label: '↩ Volver al menú principal' },
+    ]));
+  }
+
+  // ── COSTOS ──
+  else if (k === 'costos') {
+    bot('Los honorarios dependen del tipo de asunto y su complejidad. Lo que sí es fijo:<br><br>✔ La primera consulta es <strong>gratuita</strong>.<br>✔ En casos laborales trabajamos con esquema de contingencia: los honorarios están alineados con el resultado.<br>✔ En otros casos te damos un presupuesto claro antes de comenzar — sin sorpresas.<br><br>Nunca cobraremos por algo que no te hayamos explicado de antemano.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, quiero una consulta gratuita para conocer el costo de mi caso', label: '📲 Pedir consulta gratuita' },
+      { k: '__init__', label: '↩ Volver al menú principal' },
+    ]));
+  }
+
+  // ── FALLBACK ──
+  else {
+    bot('Puedes escribirnos directamente por WhatsApp. Respondemos a la brevedad posible en horario de atención. La primera consulta es gratuita.', 500, () => setOpts([
+      { wa: 'Hola SIGLEP, quiero una consulta gratuita', label: '📲 Contactar a SIGLEP' },
+      { k: '__init__', label: '↩ Volver al menú principal' },
+    ]));
+  }
+}
+
+// ── Input libre ──
+function sendMsg() {
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  addMsg(text, 'user');
+  clearOpts();
+  showTyping();
+
+  const t = text.toLowerCase();
+  setTimeout(() => {
+    hideTyping();
+    if (/(despido|liquidaci|finiquito|patron|trabajo|laboral|nomina|renuncia|acoso laboral|contrato de trabajo|vacacion|incapacidad)/.test(t)) {
+      step('laboral');
+    } else if (/(custodia|pension|divorcio|hijos|familiar|violencia|paternidad|convenio familiar|alimento)/.test(t)) {
+      step('familiar');
+    } else if (/(denuncia|penal|delito|carpeta|imputado|ministerio|querella|defensa penal)/.test(t)) {
+      step('penal');
+    } else if (/(deuda|banco|cobrador|embargo|tarjeta|credito|reestructura|cobranza|pagare mercantil)/.test(t)) {
+      step('financiero');
+    } else if (/(contrato|pagare|incumplimiento|demanda mercantil|negocio|empresa|adeudo)/.test(t)) {
+      step('mercantil');
+    } else if (/(ciudad|estado|donde|dónde|presencial|remoto|oficina|cobertura)/.test(t)) {
+      step('cobertura');
+    } else if (/(costo|precio|cobran|honorario|cuanto|cuánto|pago)/.test(t)) {
+      step('costos');
+    } else if (/(hola|buenas|buen dia|buenas tardes|buenas noches|buenos)/.test(t)) {
+      step('__init__');
+    } else {
+      addMsg('Entendido. Para orientarte de la mejor manera, dime en qué área legal está tu situación:', 'bot');
+      step('__init__');
+    }
+  }, 600);
+}
+
+// ── Control del panel ──
+let chatOpened = false;
+
+function resetChat() {
+  chatOpened = false;
+  document.getElementById('chatMessages').innerHTML = '';
+  clearOpts();
+  step('__init__');
+  chatOpened = true;
+}
+
+function toggleChat() {
+  const panel = document.getElementById('chatPanel');
+  const badge = document.querySelector('.owl-badge');
+  const isOpen = panel.classList.contains('open');
+  if (!isOpen) {
+    panel.classList.add('open');
+    if (!chatOpened) { step('__init__'); chatOpened = true; }
+  } else {
+    panel.classList.remove('open');
+  }
+  if (badge) badge.style.display = 'none';
+}
+
+</script>
+<!-- AI OWL CHATBOT TRIGGER -->
+<div class="owl-trigger" id="owlTrigger" onclick="toggleChat()" title="Asistente SIGLEP">
+  <svg width="30" height="30" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="50" cy="62" rx="28" ry="30" fill="#C5A059"/>
+    <ellipse cx="50" cy="35" rx="24" ry="22" fill="#C5A059"/>
+    <polygon points="32,18 27,5 38,14" fill="#8A6D2C"/>
+    <polygon points="68,18 73,5 62,14" fill="#8A6D2C"/>
+    <ellipse cx="50" cy="37" rx="18" ry="16" fill="#F5ECD7"/>
+    <circle cx="42" cy="33" r="7" fill="#0F2240"/>
+    <circle cx="58" cy="33" r="7" fill="#0F2240"/>
+    <circle cx="43" cy="32" r="2.5" fill="white"/>
+    <circle cx="59" cy="32" r="2.5" fill="white"/>
+    <polygon points="50,38 46,44 54,44" fill="#8A6D2C"/>
+    <ellipse cx="26" cy="68" rx="10" ry="18" fill="#8A6D2C" transform="rotate(-15 26 68)"/>
+    <ellipse cx="74" cy="68" rx="10" ry="18" fill="#8A6D2C" transform="rotate(15 74 68)"/>
+    <ellipse cx="50" cy="68" rx="16" ry="18" fill="#D4B878" opacity="0.5"/>
+    <line x1="42" y1="88" x2="36" y2="96" stroke="#8A6D2C" stroke-width="3" stroke-linecap="round"/>
+    <line x1="42" y1="88" x2="42" y2="97" stroke="#8A6D2C" stroke-width="3" stroke-linecap="round"/>
+    <line x1="42" y1="88" x2="48" y2="96" stroke="#8A6D2C" stroke-width="3" stroke-linecap="round"/>
+    <line x1="58" y1="88" x2="52" y2="96" stroke="#8A6D2C" stroke-width="3" stroke-linecap="round"/>
+    <line x1="58" y1="88" x2="58" y2="97" stroke="#8A6D2C" stroke-width="3" stroke-linecap="round"/>
+    <line x1="58" y1="88" x2="64" y2="96" stroke="#8A6D2C" stroke-width="3" stroke-linecap="round"/>
+  </svg>
+  <div class="owl-badge">1</div>
+</div>
+
+<!-- CHAT PANEL -->
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-header">
+    <div class="chat-header-owl">🦉</div>
+    <div class="chat-header-info">
+      <h4>Asistente SIGLEP</h4>
+      <p>ASESORÍA LEGAL INTELIGENTE · EN LÍNEA</p>
+    </div>
+    <div class="chat-status"></div>
+    <button class="chat-close" onclick="toggleChat()" aria-label="Cerrar chat">✕</button>
+  </div>
+  <div class="chat-messages" id="chatMessages"></div>
+  <div class="chat-options" id="chatOptions"></div>
+  <div class="chat-input-area">
+    <input class="chat-input" id="chatInput" type="text" placeholder="Escribe tu pregunta aquí…" onkeydown="if(event.key==='Enter')sendMsg()">
+    <button class="chat-send" onclick="sendMsg()" aria-label="Enviar">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+  <div class="chat-footer">
+    <span class="chat-footer-text">SIGLEP · Consulta inicial gratuita · Atención Nacional</span>
+    <button class="chat-restart" onclick="resetChat()" title="Volver al inicio">↺ Reiniciar</button>
+  </div>
+</div>
+
+
+</body>
+</html>

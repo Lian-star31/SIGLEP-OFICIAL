@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<!-- Google Analytics 4 — SIGLEP -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3R9SXNDXR5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-3R9SXNDXR5", {
+    page_title: document.title,
+    page_location: window.location.href
+  });
+
+  document.addEventListener("DOMContentLoaded", function() {
+    // EVENTO: WhatsApp click
+    document.querySelectorAll('a[href*="wa.me"], .btn-wa, .float-wa a').forEach(function(el) {
+      el.addEventListener("click", function() {
+        gtag("event", "whatsapp_click", {
+          page_location: window.location.href,
+          page_title: document.title
+        });
+      });
+    });
+
+    // EVENTO: Calendly / Agendar consulta
+    document.querySelectorAll('a[href*="calendly"]').forEach(function(el) {
+      el.addEventListener("click", function() {
+        gtag("event", "calendly_click", {
+          page_location: window.location.href,
+          page_title: document.title
+        });
+      });
+    });
+  });
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Expediente Inteligente SIGLEP — Diagnóstico Legal Gratuito en México</title>
+<meta name="description" content="Obtén un diagnóstico preliminar gratuito de tu caso legal. SIGLEP analiza tu situación con rapidez y te dice qué opciones tienes. Laboral, migratorio y patrimonial.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://siglep.lat/expediente/">
+<meta property="og:title" content="Expediente Inteligente SIGLEP — Diagnóstico Legal Gratuito">
+<meta property="og:description" content="Describe tu caso y recibe un diagnóstico preliminar gratuito. Sin compromisos, sin tecnicismos.">
+<meta property="og:url" content="https://siglep.lat/expediente/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1A365D;--navy-deep:#0F2240;--navy-mid:#1E3F6E;
+  --gold:#C5A059;--gold-light:#D4B878;--gold-pale:#F5ECD7;
+  --red:#C0392B;--red-dark:#96281B;--black:#080C14;
+  --white:#FAFAF8;--gray-light:#F0EEE8;--text-body:#2D3748;
+  --font-display:'Cormorant Garamond',serif;
+  --font-body:'Montserrat',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font-body);background:var(--white);color:var(--text-body);overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;width:100%;z-index:900;background:rgba(8,12,20,0.98);backdrop-filter:blur(14px);border-bottom:1px solid rgba(197,160,89,0.18);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px;}
+.nav-logo{display:flex;align-items:center;gap:0.75rem;text-decoration:none;}
+.nav-logo-text{font-family:var(--font-display);font-size:1.6rem;font-weight:700;color:var(--gold);letter-spacing:0.1em;line-height:1;}
+.nav-logo-text span{color:rgba(255,255,255,0.45);font-size:0.65rem;font-family:var(--font-body);font-weight:300;letter-spacing:0.06em;display:block;margin-top:1px;}
+.nav-links{display:flex;gap:1.8rem;list-style:none;align-items:center;}
+.nav-links a{color:rgba(255,255,255,0.62);text-decoration:none;font-size:0.68rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;transition:color 0.2s;white-space:nowrap;}
+.nav-links a:hover{color:var(--gold);}
+.nav-cta{background:var(--red)!important;color:#fff!important;padding:0.42rem 1.1rem!important;border-radius:2px;}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none;}
+.nav-hamburger span{display:block;width:22px;height:2px;background:rgba(255,255,255,0.7);border-radius:2px;}
+.nav-mobile{display:none;position:fixed;top:64px;left:0;width:100%;background:rgba(8,12,20,0.99);border-bottom:1px solid rgba(197,160,89,0.15);flex-direction:column;padding:1.2rem 2rem 1.5rem;gap:0;z-index:899;}
+.nav-mobile.open{display:flex;}
+.nav-mobile a{color:rgba(255,255,255,0.7);text-decoration:none;font-size:0.75rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;padding:0.85rem 0;border-bottom:1px solid rgba(197,160,89,0.08);transition:color 0.2s;}
+.nav-mobile a:last-child{border-bottom:none;}
+.nav-mobile a:hover{color:var(--gold);}
+.nav-mobile .nav-cta-mobile{color:#fff!important;background:var(--red);padding:0.6rem 1rem;border-radius:2px;text-align:center;margin-top:0.5rem;}
+@media(max-width:768px){.nav-links{display:none;}.nav-hamburger{display:flex;}}
+
+/* HERO */
+.exp-hero{padding:7rem 2rem 4rem;background:linear-gradient(145deg,#050810 0%,#0A1628 40%,#0F2240 70%,#111B30 100%);position:relative;overflow:hidden;text-align:center;}
+.exp-hero-grid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(197,160,89,0.035) 1px,transparent 1px),linear-gradient(90deg,rgba(197,160,89,0.035) 1px,transparent 1px);background-size:56px 56px;}
+.exp-hero-inner{max-width:700px;margin:0 auto;position:relative;z-index:2;animation:fadeUp 0.8s ease both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:none;}}
+.exp-eyebrow{font-size:0.65rem;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;display:flex;align-items:center;justify-content:center;gap:0.8rem;}
+.exp-eyebrow::before,.exp-eyebrow::after{content:'';display:block;width:28px;height:1px;background:var(--gold);}
+.exp-hero h1{font-family:var(--font-display);font-size:clamp(2rem,5.5vw,3.5rem);font-weight:700;line-height:1.08;color:var(--white);margin-bottom:1.2rem;}
+.exp-hero h1 em{font-style:italic;color:var(--gold);}
+.exp-hero p{font-size:clamp(0.88rem,2vw,1rem);line-height:1.8;color:rgba(255,255,255,0.58);font-weight:300;margin-bottom:2rem;}
+.exp-badges{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+.exp-badge{background:rgba(197,160,89,0.1);border:1px solid rgba(197,160,89,0.25);border-radius:40px;padding:0.4rem 1rem;font-size:0.72rem;font-weight:600;color:rgba(255,255,255,0.7);letter-spacing:0.06em;}
+
+/* WIZARD */
+.wizard-section{padding:3rem 1.5rem 5rem;background:var(--white);}
+.wizard-wrap{max-width:700px;margin:0 auto;}
+
+/* PROGRESS */
+.progress-bar{height:3px;background:rgba(197,160,89,0.15);border-radius:2px;margin-bottom:2.5rem;overflow:hidden;}
+.progress-fill{height:100%;background:var(--gold);border-radius:2px;transition:width 0.4s ease;}
+.progress-label{font-size:0.68rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(0,0,0,0.35);margin-bottom:0.6rem;}
+
+/* STEP */
+.step{display:none;animation:fadeUp 0.5s ease both;}
+.step.active{display:block;}
+
+/* AREA SELECTOR */
+.area-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1rem;margin-top:1.5rem;}
+.area-card{border:2px solid rgba(197,160,89,0.2);border-radius:4px;padding:1.8rem 1.4rem;cursor:pointer;transition:all 0.25s;text-align:center;background:var(--white);}
+.area-card:hover,.area-card.selected{border-color:var(--gold);background:rgba(197,160,89,0.05);}
+.area-card.selected{box-shadow:0 0 0 3px rgba(197,160,89,0.2);}
+.ac-icon{font-size:2rem;margin-bottom:0.8rem;}
+.ac-title{font-family:var(--font-display);font-size:1.2rem;font-weight:700;color:var(--navy-deep);margin-bottom:0.4rem;}
+.ac-desc{font-size:0.75rem;color:#6B7280;line-height:1.5;font-weight:300;}
+
+/* PREGUNTA */
+.step-title{font-family:var(--font-display);font-size:clamp(1.5rem,4vw,2.2rem);font-weight:700;color:var(--navy-deep);line-height:1.2;margin-bottom:0.5rem;}
+.step-sub{font-size:0.85rem;color:#6B7280;font-weight:300;margin-bottom:1.8rem;line-height:1.6;}
+.opciones{display:flex;flex-direction:column;gap:0.75rem;}
+.opcion{border:1.5px solid rgba(197,160,89,0.2);border-radius:4px;padding:1rem 1.2rem;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:0.8rem;font-size:0.88rem;font-weight:500;color:var(--navy-deep);background:var(--white);}
+.opcion:hover,.opcion.selected{border-color:var(--gold);background:rgba(197,160,89,0.06);color:var(--navy-deep);}
+.opcion.selected{font-weight:600;}
+.opcion-radio{width:18px;height:18px;border:2px solid rgba(197,160,89,0.4);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+.opcion.selected .opcion-radio{border-color:var(--gold);background:var(--gold);}
+.opcion.selected .opcion-radio::after{content:'';width:6px;height:6px;background:#fff;border-radius:50%;}
+
+/* INPUTS */
+.input-group{display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1rem;}
+.input-group label{font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(26,54,93,0.7);}
+.input-group input,.input-group textarea,.input-group select{border:1.5px solid rgba(197,160,89,0.25);border-radius:4px;padding:0.8rem 1rem;font-family:var(--font-body);font-size:0.9rem;color:var(--navy-deep);outline:none;transition:border-color 0.2s;background:var(--white);width:100%;}
+.input-group input:focus,.input-group textarea:focus,.input-group select:focus{border-color:var(--gold);}
+.input-group input::placeholder,.input-group textarea::placeholder{color:rgba(0,0,0,0.3);}
+.input-group textarea{resize:vertical;min-height:90px;}
+.input-group select option{color:var(--navy-deep);}
+.input-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+
+/* BOTONES */
+.btn-next{background:var(--navy-deep);color:var(--gold);padding:0.95rem 2rem;font-family:var(--font-body);font-size:0.82rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;border:none;cursor:pointer;border-radius:2px;transition:all 0.25s;display:flex;align-items:center;gap:0.6rem;margin-top:1.8rem;}
+.btn-next:hover{background:var(--navy-mid);}
+.btn-next:disabled{opacity:0.4;cursor:not-allowed;}
+.btn-back{background:transparent;color:rgba(0,0,0,0.4);padding:0.6rem 0;font-family:var(--font-body);font-size:0.75rem;font-weight:500;letter-spacing:0.08em;border:none;cursor:pointer;text-decoration:underline;margin-top:0.8rem;display:block;}
+.btn-wa-big{background:#25D366;color:#fff;padding:1.1rem 2rem;font-family:var(--font-body);font-size:0.88rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;border:none;cursor:pointer;border-radius:2px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:0.7rem;transition:all 0.25s;box-shadow:0 4px 18px rgba(37,211,102,0.3);width:100%;}
+.btn-wa-big:hover{background:#1da853;transform:translateY(-2px);}
+.btn-secondary-full{background:transparent;color:var(--navy-deep);padding:0.95rem 2rem;font-family:var(--font-body);font-size:0.82rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;border:2px solid rgba(26,54,93,0.2);cursor:pointer;border-radius:2px;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:0.6rem;transition:all 0.25s;width:100%;margin-top:0.75rem;}
+.btn-secondary-full:hover{border-color:var(--navy-deep);}
+
+/* DIAGNÓSTICO */
+.diagnostico{background:var(--navy-deep);border-radius:4px;padding:2.5rem 2rem;margin-top:1.5rem;}
+.diag-header{text-align:center;margin-bottom:2rem;}
+.diag-check{width:64px;height:64px;background:rgba(37,211,102,0.15);border:2px solid rgba(37,211,102,0.4);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;}
+.diag-header h2{font-family:var(--font-display);font-size:clamp(1.5rem,4vw,2.2rem);font-weight:700;color:var(--white);margin-bottom:0.5rem;}
+.diag-header h2 em{color:var(--gold);font-style:italic;}
+.diag-header p{font-size:0.85rem;color:rgba(255,255,255,0.5);font-weight:300;}
+.diag-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem;}
+.diag-item{background:rgba(255,255,255,0.04);border:1px solid rgba(197,160,89,0.15);border-radius:4px;padding:1.2rem;}
+.diag-item-label{font-size:0.62rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(197,160,89,0.7);margin-bottom:0.4rem;}
+.diag-item-value{font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:var(--white);}
+.diag-urgencia-alta{color:#FC8181;}
+.diag-urgencia-media{color:#F6AD55;}
+.diag-urgencia-baja{color:#68D391;}
+.diag-acciones{background:rgba(197,160,89,0.08);border:1px solid rgba(197,160,89,0.2);border-radius:4px;padding:1.4rem;margin-bottom:1.5rem;}
+.diag-acciones h4{font-size:0.68rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
+.diag-accion{display:flex;align-items:flex-start;gap:0.6rem;margin-bottom:0.7rem;font-size:0.83rem;color:rgba(255,255,255,0.7);line-height:1.5;}
+.diag-accion::before{content:'→';color:var(--gold);flex-shrink:0;margin-top:0.05rem;}
+.diag-disclaimer{font-size:0.72rem;color:rgba(255,255,255,0.3);text-align:center;line-height:1.6;margin-bottom:1.5rem;font-style:italic;}
+.diag-cta-label{font-size:0.68rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(197,160,89,0.7);text-align:center;margin-bottom:1rem;}
+
+/* URGENCIA BADGE */
+.urgencia-badge{display:inline-flex;align-items:center;gap:0.4rem;padding:0.35rem 0.9rem;border-radius:40px;font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem;}
+.urgencia-alta{background:rgba(252,129,129,0.15);border:1px solid rgba(252,129,129,0.3);color:#FC8181;}
+.urgencia-media{background:rgba(246,173,85,0.15);border:1px solid rgba(246,173,85,0.3);color:#F6AD55;}
+.urgencia-baja{background:rgba(104,211,145,0.15);border:1px solid rgba(104,211,145,0.3);color:#68D391;}
+
+  @keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+
+  /* CONTACTO BOX EN DIAGNÓSTICO */
+.diag-contacto-box{background:rgba(255,255,255,0.04);border:1px solid rgba(197,160,89,0.25);border-radius:4px;padding:1.8rem 1.6rem;margin-top:1.5rem;}
+.diag-contacto-header{text-align:center;margin-bottom:0.8rem;}
+.diag-contacto-icon{font-size:2rem;margin-bottom:0.6rem;}
+.diag-contacto-header h3{font-family:var(--font-display);font-size:1.4rem;font-weight:700;color:var(--white);margin-bottom:0.6rem;}
+.diag-contacto-header p{font-size:0.85rem;color:rgba(255,255,255,0.6);line-height:1.7;font-weight:300;margin-bottom:0.4rem;}
+.diag-contacto-header strong{color:var(--white);font-weight:600;}
+.diag-contacto-sub{font-size:0.78rem!important;color:rgba(197,160,89,0.7)!important;}
+
+/* FLOAT WA */
+.float-wa{position:fixed;bottom:2rem;right:1.5rem;z-index:999;display:flex;align-items:center;gap:0.6rem;padding:0.8rem 1.3rem;border-radius:40px;font-family:var(--font-body);font-size:0.76rem;font-weight:700;text-decoration:none;background:#25D366;color:#fff;box-shadow:0 4px 22px rgba(0,0,0,0.4);transition:transform 0.25s;}
+.float-wa:hover{transform:translateY(-3px);}
+.float-wa svg{width:20px;height:20px;}
+@media(max-width:480px){.float-wa .btn-text{display:none;}.float-wa{padding:0.9rem;border-radius:50%;}}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  .wizard-section{padding:2.5rem 1rem 4rem;}
+  .area-cards{grid-template-columns:1fr;}
+  .input-row{grid-template-columns:1fr;}
+  .diag-grid{grid-template-columns:1fr;}
+  .exp-hero{padding:5.5rem 1.2rem 3rem;}
+}
+@media print{nav,.nav-mobile,.float-wa{display:none!important;}}
+</style>
+  <script defer src="/shared/site-shell.js"></script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Expediente Inteligente SIGLEP — Diagnóstico Legal Gratuito en México","url":"https://siglep.lat/expediente/","description":"Obtén un diagnóstico preliminar gratuito de tu caso legal. SIGLEP analiza tu situación con rapidez y te dice qué opciones tienes. Laboral, migratorio y patrimonial."}</script>
+
+  <style>
+    nav.siglep-shell-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 2000;
+      height: 76px;
+      background: rgba(5, 8, 16, 0.96);
+      border-bottom: 1px solid rgba(197, 160, 89, 0.18);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .siglep-shell-nav-inner {
+      max-width: 1240px;
+      height: 100%;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .siglep-shell-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      text-decoration: none;
+      color: inherit;
+      min-width: 0;
+    }
+    .siglep-shell-shield {
+      width: 36px;
+      height: 42px;
+      flex: 0 0 auto;
+    }
+    .siglep-shell-brand-copy {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+    .siglep-shell-mark {
+      font-family: var(--font-display, Georgia, serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: #c5a059;
+    }
+    .siglep-shell-sub {
+      margin-top: 0.2rem;
+      font-size: 0.61rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.45);
+      white-space: nowrap;
+    }
+    .siglep-shell-links {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 1.15rem;
+    }
+    .siglep-shell-links > li {
+      position: relative;
+    }
+    .siglep-shell-links a,
+    .siglep-shell-links button {
+      appearance: none;
+      border: 0;
+      background: none;
+      color: rgba(255, 255, 255, 0.68);
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      cursor: pointer;
+      white-space: nowrap;
+      padding: 0;
+      transition: color 0.2s ease;
+    }
+    .siglep-shell-links a:hover,
+    .siglep-shell-links button:hover,
+    .siglep-shell-links a[aria-current="page"] {
+      color: #c5a059;
+    }
+    .siglep-shell-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.78rem 1.15rem !important;
+      border-radius: 2px;
+      background: #c0392b !important;
+      color: #fff !important;
+    }
+    .siglep-shell-cta:hover {
+      background: #96281b !important;
+      color: #fff !important;
+    }
+    .siglep-shell-dropdown {
+      position: absolute;
+      top: calc(100% + 0.8rem);
+      left: 0;
+      min-width: 260px;
+      padding: 0.75rem;
+      border-radius: 8px;
+      border: 1px solid rgba(197, 160, 89, 0.18);
+      background: rgba(8, 12, 20, 0.98);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+      display: none;
+    }
+    .siglep-shell-services:hover .siglep-shell-dropdown,
+    .siglep-shell-services:focus-within .siglep-shell-dropdown {
+      display: block;
+    }
+    .siglep-shell-dropdown a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.72rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.66rem;
+      letter-spacing: 0.12em;
+    }
+    .siglep-shell-dropdown a:hover {
+      background: rgba(197, 160, 89, 0.08);
+    }
+    .siglep-shell-dropdown a span {
+      color: rgba(197, 160, 89, 0.7);
+      letter-spacing: 0.04em;
+    }
+    .siglep-shell-burger {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      border: 1px solid rgba(197, 160, 89, 0.18);
+      background: rgba(255, 255, 255, 0.02);
+      color: #fff;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .siglep-shell-burger svg {
+      width: 20px;
+      height: 20px;
+    }
+    .siglep-shell-mobile {
+      display: none;
+      position: fixed;
+      top: 76px;
+      left: 0;
+      right: 0;
+      z-index: 1999;
+      background: rgba(5, 8, 16, 0.98);
+      border-bottom: 1px solid rgba(197, 160, 89, 0.15);
+      padding: 1rem 1.15rem 1.2rem;
+      max-height: calc(100vh - 76px);
+      overflow: auto;
+    }
+    .siglep-shell-mobile.open {
+      display: block;
+    }
+    .siglep-shell-mobile-group {
+      display: grid;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+    }
+    .siglep-shell-mobile-title {
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(197, 160, 89, 0.72);
+      margin: 0.45rem 0 0.2rem;
+    }
+    .siglep-shell-mobile a,
+    .siglep-shell-mobile button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 0.92rem 0.2rem;
+      border: 0;
+      border-bottom: 1px solid rgba(197, 160, 89, 0.08);
+      background: none;
+      color: rgba(255, 255, 255, 0.78);
+      text-decoration: none;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .siglep-shell-mobile a:last-child,
+    .siglep-shell-mobile button:last-child {
+      border-bottom: 0;
+    }
+    .siglep-shell-mobile .siglep-shell-cta {
+      margin-top: 0.65rem;
+    }
+    @media (max-width: 980px) {
+      .siglep-shell-links {
+        display: none;
+      }
+      .siglep-shell-burger {
+        display: inline-flex;
+      }
+    }
+    @media (max-width: 680px) {
+      nav.siglep-shell-nav {
+        height: 70px;
+      }
+      .siglep-shell-nav-inner {
+        padding-inline: 0.9rem;
+      }
+      .siglep-shell-brand-copy {
+        display: none;
+      }
+      .siglep-shell-mobile {
+        top: 70px;
+        max-height: calc(100vh - 70px);
+      }
+    }
+  </style>
+
+</head>
+<body>
+
+
+  <nav class="siglep-shell-nav" id="navbar">
+    <div class="siglep-shell-nav-inner">
+      <a class="siglep-shell-brand" href="/" aria-label="SIGLEP">
+        <svg class="siglep-shell-shield" viewBox="0 0 40 46" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M20 2L4 9V22C4 31.4 11.1 40.2 20 43C28.9 40.2 36 31.4 36 22V9L20 2Z" fill="#1A365D" stroke="#C5A059" stroke-width="1.5"></path>
+          <text x="20" y="28" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="13" font-weight="700" fill="#C5A059">SL</text>
+        </svg>
+        <span class="siglep-shell-brand-copy">
+          <span class="siglep-shell-mark">SIGLEP</span>
+          <span class="siglep-shell-sub">Sistemas Integrales de Gestión Legal</span>
+        </span>
+      </a>
+      <ul class="siglep-shell-links">
+        <li><a href="/" data-nav="home">Inicio</a></li>
+        <li class="siglep-shell-services">
+          <button type="button" aria-haspopup="true" aria-expanded="false" data-nav="services">Servicios ▼</button>
+          <div class="siglep-shell-dropdown">
+            <a href="/laboral/">Laboral <span>→</span></a>
+            <a href="/familiar/">Familiar <span>→</span></a>
+            <a href="/civil/">Civil <span>→</span></a>
+            <a href="/migratorio/">Migratorio <span>→</span></a>
+            <a href="/patrimonial/">Patrimonial <span>→</span></a>
+            <a href="/penal/">Penal <span>→</span></a>
+            <a href="/seguridad-social/">Seguridad Social <span>→</span></a>
+          </div>
+        </li>
+        <li><a href="/calculadoras/" data-nav="calculadoras">Calculadoras</a></li>
+        <li><a href="/expediente/" data-nav="expediente">Expediente</a></li>
+        <li><a href="/nosotros/" data-nav="nosotros">Nosotros</a></li>
+        <li><a class="siglep-shell-cta" href="https://wa.me/527352169503?text=Hola%20SIGLEP%2C%20quiero%20una%20consulta%20gratuita" target="_blank" rel="noopener noreferrer">Consulta Gratis</a></li>
+      </ul>
+      <button type="button" class="siglep-shell-burger" aria-label="Abrir menú" onclick="toggleMobileNav()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M4 6h16"></path>
+          <path d="M4 12h16"></path>
+          <path d="M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="siglep-shell-mobile" id="navMobile" aria-hidden="true">
+      <div class="siglep-shell-mobile-group">
+        <a href="/" onclick="closeMobileNav()">Inicio</a>
+      </div>
+      <div class="siglep-shell-mobile-title">Servicios</div>
+      <div class="siglep-shell-mobile-group">
+        <a href="/laboral/" onclick="closeMobileNav()">Laboral</a>
+        <a href="/familiar/" onclick="closeMobileNav()">Familiar</a>
+        <a href="/civil/" onclick="closeMobileNav()">Civil</a>
+        <a href="/migratorio/" onclick="closeMobileNav()">Migratorio</a>
+        <a href="/patrimonial/" onclick="closeMobileNav()">Patrimonial</a>
+        <a href="/penal/" onclick="closeMobileNav()">Penal</a>
+        <a href="/seguridad-social/" onclick="closeMobileNav()">Seguridad Social</a>
+      </div>
+      <div class="siglep-shell-mobile-group">
+        <a href="/calculadoras/" onclick="closeMobileNav()">Calculadoras</a>
+        <a href="/expediente/" onclick="closeMobileNav()">Expediente</a>
+        <a href="/nosotros/" onclick="closeMobileNav()">Nosotros</a>
+        <a class="siglep-shell-cta" href="https://wa.me/527352169503?text=Hola%20SIGLEP%2C%20quiero%20una%20consulta%20gratuita" target="_blank" rel="noopener noreferrer">Consulta Gratis</a>
+      </div>
+    </div>
+  </nav>
+
+
+<!-- HERO -->
+<div class="exp-hero">
+  <div class="exp-hero-grid"></div>
+  <div class="exp-hero-inner">
+    <div class="exp-eyebrow">Expediente Inteligente</div>
+    <h1>Conoce tus opciones legales <em>antes de llamar.</em></h1>
+    <p>Responde 5 preguntas y recibe un diagnóstico preliminar gratuito de tu caso. Sin tecnicismos, sin compromiso. En menos de 3 minutos.</p>
+    <div class="exp-badges">
+      <span class="exp-badge">✓ Completamente gratuito</span>
+      <span class="exp-badge">✓ Sin registro requerido</span>
+      <span class="exp-badge">✓ Diagnóstico inmediato</span>
+    </div>
+  </div>
+</div>
+
+<!-- WIZARD -->
+<div class="wizard-section">
+  <div class="wizard-wrap">
+    <div class="progress-label" id="progress-label">Paso 1 de 5</div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:20%"></div></div>
+
+    <!-- PASO 1: ÁREA -->
+    <div class="step active" id="step-1">
+      <h2 class="step-title">¿Cuál es tu situación?</h2>
+      <p class="step-sub">Selecciona el área que mejor describe tu caso. Esto nos ayuda a hacerte las preguntas correctas.</p>
+      <div class="area-cards">
+        <div class="area-card" onclick="seleccionarArea('laboral', this)">
+          <div class="ac-icon">⚖️</div>
+          <div class="ac-title">Laboral</div>
+          <div class="ac-desc">Despidos, liquidaciones, acoso laboral, horas extra, conflictos con el patrón</div>
+        </div>
+        <div class="area-card" onclick="seleccionarArea('migratorio', this)">
+          <div class="ac-icon">🌐</div>
+          <div class="ac-title">Migratorio</div>
+          <div class="ac-desc">Visas, pasaportes, regularización migratoria, trámites consulares</div>
+        </div>
+        <div class="area-card" onclick="seleccionarArea('patrimonial', this)">
+          <div class="ac-icon">🏛️</div>
+          <div class="ac-title">Patrimonial</div>
+          <div class="ac-desc">Herencias, testamentos, contratos, deudas, protección de bienes</div>
+        </div>
+        <div class="area-card" onclick="seleccionarArea('familiar', this)">
+          <div class="ac-icon">👨‍👩‍👧</div>
+          <div class="ac-title">Familiar / Penal</div>
+          <div class="ac-desc">Divorcio, pensión, custodia, violencia familiar, denuncias penales</div>
+        </div>
+      </div>
+      <button class="btn-next" id="btn-1" onclick="irPaso(2)" disabled>Continuar <span>→</span></button>
+    </div>
+
+    <!-- PASO 2: PREGUNTAS ESPECÍFICAS POR ÁREA -->
+    <div class="step" id="step-2">
+      <div id="preguntas-area"></div>
+      <button class="btn-next" id="btn-2" onclick="irPaso(3)" disabled>Continuar <span>→</span></button>
+      <button class="btn-back" onclick="irPaso(1)">← Cambiar área</button>
+    </div>
+
+    <!-- PASO 3: TIEMPO Y URGENCIA -->
+    <div class="step" id="step-3">
+      <h2 class="step-title">¿Cuándo ocurrió?</h2>
+      <p class="step-sub">Esto nos ayuda a determinar si hay plazos legales que considerar.</p>
+      <div class="opciones" id="opciones-tiempo">
+        <div class="opcion" onclick="seleccionarOpcion(this,'tiempo','menos7')"><div class="opcion-radio"></div>Hace menos de 7 días</div>
+        <div class="opcion" onclick="seleccionarOpcion(this,'tiempo','menos1mes')"><div class="opcion-radio"></div>Entre 1 semana y 1 mes</div>
+        <div class="opcion" onclick="seleccionarOpcion(this,'tiempo','menos6meses')"><div class="opcion-radio"></div>Entre 1 y 6 meses</div>
+        <div class="opcion" onclick="seleccionarOpcion(this,'tiempo','menos2anios')"><div class="opcion-radio"></div>Entre 6 meses y 2 años</div>
+        <div class="opcion" onclick="seleccionarOpcion(this,'tiempo','mas2anios')"><div class="opcion-radio"></div>Más de 2 años</div>
+      </div>
+      <button class="btn-next" id="btn-3" onclick="irPaso(4)" disabled>Continuar <span>→</span></button>
+      <button class="btn-back" onclick="irPaso(2)">← Regresar</button>
+    </div>
+
+    <!-- PASO 4: DESCRIPCIÓN LIBRE -->
+    <div class="step" id="step-4">
+      <h2 class="step-title">Cuéntanos qué pasó.</h2>
+      <p class="step-sub">Con tus propias palabras. No necesitas usar términos legales — solo describe tu situación. Esto nos permite darte un diagnóstico real, no genérico.</p>
+      <div class="input-group">
+        <textarea id="inp-descripcion" placeholder="Ej: Me avisaron que ya no iba a trabajar ahí, sin ningún papel ni explicación. Tenía 3 años ahí y me pagaron solo dos semanas..." rows="5" oninput="validarDescripcion()" style="border-radius:4px;padding:1rem;font-size:0.92rem;line-height:1.7;border:1.5px solid rgba(197,160,89,0.25);"></textarea>
+        <div style="font-size:0.7rem;color:#9CA3AF;text-align:right;margin-top:0.3rem;" id="char-count">Mínimo 30 caracteres</div>
+      </div>
+      <button class="btn-next" id="btn-4" onclick="generarDiagnosticoIA()" disabled>Analizar mi caso <span>→</span></button>
+      <button class="btn-back" onclick="irPaso(3)">← Regresar</button>
+    </div>
+
+    <!-- PASO 5: DIAGNÓSTICO IA -->
+    <div class="step" id="step-5">
+      <div class="diagnostico">
+        <div class="diag-header">
+          <div class="diag-check">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#25D366" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div id="diag-urgencia-badge"></div>
+          <h2>Tu diagnóstico <em>preliminar.</em></h2>
+          <p>Basado en la información que nos proporcionaste. Un especialista SIGLEP revisará tu caso personalmente.</p>
+        </div>
+
+        <div class="diag-grid">
+          <div class="diag-item">
+            <div class="diag-item-label">Área identificada</div>
+            <div class="diag-item-value" id="diag-area">—</div>
+          </div>
+          <div class="diag-item">
+            <div class="diag-item-label">Nivel de urgencia</div>
+            <div class="diag-item-value" id="diag-urgencia-text">—</div>
+          </div>
+          <div class="diag-item">
+            <div class="diag-item-label">Situación identificada</div>
+            <div class="diag-item-value" id="diag-situacion">—</div>
+          </div>
+          <div class="diag-item">
+            <div class="diag-item-label">Viabilidad del caso</div>
+            <div class="diag-item-value" id="diag-viabilidad">—</div>
+          </div>
+        </div>
+
+        <div class="diag-acciones">
+          <h4>Lo que detectamos en tu caso</h4>
+          <p id="diag-gancho" style="font-size:0.88rem;line-height:1.75;color:rgba(255,255,255,0.75);font-weight:300;margin-bottom:1.2rem;font-style:italic;"></p>
+          <h4 style="margin-top:1rem;">Posibles acciones legales</h4>
+          <div id="diag-acciones-lista"></div>
+        </div>
+
+        <p class="diag-disclaimer">Este diagnóstico es orientativo y no constituye asesoría jurídica formal. Los resultados reales dependen del análisis completo de tu caso por parte de un especialista.</p>
+
+        <!-- FORMULARIO DE CONTACTO — aparece después del diagnóstico -->
+        <div class="diag-contacto-box">
+          <div class="diag-contacto-header">
+            <div class="diag-contacto-icon">⚖️</div>
+            <h3>Tu caso merece una revisión real.</h3>
+            <p>Este diagnóstico es el primer paso. Para saber exactamente qué opciones tienes <strong>en tu situación específica</strong>, un especialista SIGLEP lo revisa sin costo y sin compromiso.</p>
+            <p class="diag-contacto-sub">Solo necesitamos tu nombre y WhatsApp para contactarte — nada más.</p>
+          </div>
+          <div class="input-row" style="margin-top:1.2rem;">
+            <div class="input-group">
+              <label style="color:rgba(197,160,89,0.8);">Nombre *</label>
+              <input type="text" id="inp-nombre" placeholder="Tu nombre" oninput="validarContacto()" style="background:rgba(255,255,255,0.06);border-color:rgba(197,160,89,0.25);color:#fff;">
+            </div>
+            <div class="input-group">
+              <label style="color:rgba(197,160,89,0.8);">WhatsApp *</label>
+              <input type="tel" id="inp-tel" placeholder="55 1234 5678" oninput="validarContacto()" style="background:rgba(255,255,255,0.06);border-color:rgba(197,160,89,0.25);color:#fff;">
+            </div>
+          </div>
+          <div class="input-group" style="margin-top:0.5rem;">
+            <label style="color:rgba(197,160,89,0.8);">¿Qué es lo más urgente que necesitas resolver? *</label>
+            <textarea id="inp-detalle" placeholder="Ej: Necesito saber cuánto me corresponde antes de firmar / Quiero saber si puedo recuperar algo / No sé si aún estoy a tiempo..." oninput="validarContacto()" style="background:rgba(255,255,255,0.06);border-color:rgba(197,160,89,0.25);color:#fff;min-height:80px;"></textarea>
+          </div>
+          <a href="#" class="btn-wa-big" id="diag-wa-btn" style="margin-top:1rem;opacity:0.5;pointer-events:none;" target="_blank" rel="noopener noreferrer">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2.001c-5.514 0-9.998 4.484-9.998 9.998 0 1.761.462 3.413 1.27 4.847L2.005 22l5.273-1.381c1.378.748 2.954 1.179 4.721 1.179h.004c5.513 0 9.997-4.484 9.997-9.998 0-5.515-4.484-9.999-9.997-9.999H11.999zm0 1.8h.003c4.52 0 8.198 3.678 8.198 8.198 0 4.521-3.678 8.199-8.198 8.199h-.003c-1.584 0-3.072-.443-4.341-1.211l-.311-.185-3.129.82.834-3.047-.204-.323c-.839-1.313-1.316-2.85-1.316-4.455 0-4.52 3.678-8.197 8.197-8.197z"/></svg>
+            Quiero que revisen mi caso — es gratis
+          </a>
+          <p style="font-size:0.68rem;color:rgba(255,255,255,0.25);text-align:center;margin-top:0.8rem;">Tus datos son confidenciales. Solo los usa SIGLEP para contactarte sobre tu caso.</p>
+        </div>
+
+        <a href="/" class="btn-secondary-full" style="margin-top:1rem;">← Volver al inicio</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FLOAT WA -->
+<a href="https://wa.me/527352169503?text=Hola%20SIGLEP%2C%20quiero%20una%20consulta%20gratuita" class="float-wa" target="_blank" rel="noopener noreferrer">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2.001c-5.514 0-9.998 4.484-9.998 9.998 0 1.761.462 3.413 1.27 4.847L2.005 22l5.273-1.381c1.378.748 2.954 1.179 4.721 1.179h.004c5.513 0 9.997-4.484 9.997-9.998 0-5.515-4.484-9.999-9.997-9.999H11.999zm0 1.8h.003c4.52 0 8.198 3.678 8.198 8.198 0 4.521-3.678 8.199-8.198 8.199h-.003c-1.584 0-3.072-.443-4.341-1.211l-.311-.185-3.129.82.834-3.047-.204-.323c-.839-1.313-1.316-2.85-1.316-4.455 0-4.52 3.678-8.197 8.197-8.197z"/></svg>
+  <span class="btn-text">WhatsApp</span>
+</a>
+
+<script>
+// ══════════════════════════════════════════
+// ESTADO GLOBAL
+// ══════════════════════════════════════════
+const estado = {
+  area: null,
+  respuesta2: null,
+  tiempo: null,
+  nombre: '',
+  telefono: '',
+  detalle: ''
+};
+
+// ══════════════════════════════════════════
+// PREGUNTAS POR ÁREA
+// ══════════════════════════════════════════
+const preguntasPorArea = {
+  laboral: {
+    titulo: '¿Cuál es tu situación laboral?',
+    sub: 'Selecciona la opción que mejor describe lo que está pasando.',
+    opciones: [
+      { val: 'despido', txt: 'Me despidieron y no me han pagado correctamente' },
+      { val: 'liquidacion', txt: 'Me ofrecieron una liquidación y quiero saber si es justa' },
+      { val: 'acoso', txt: 'Estoy sufriendo acoso o presión para renunciar' },
+      { val: 'horas', txt: 'No me pagan horas extra o me descuentan indebidamente' },
+      { val: 'contrato', txt: 'Tengo un conflicto con mi contrato o condiciones laborales' },
+      { val: 'otro', txt: 'Otra situación laboral' },
+    ]
+  },
+  migratorio: {
+    titulo: '¿Cuál es tu necesidad migratoria?',
+    sub: 'Selecciona la opción que mejor describe tu situación.',
+    opciones: [
+      { val: 'visa', txt: 'Necesito tramitar o renovar una visa' },
+      { val: 'pasaporte', txt: 'Necesito tramitar o renovar mi pasaporte' },
+      { val: 'regularizacion', txt: 'Quiero regularizar mi situación migratoria' },
+      { val: 'familiar', txt: 'Trámite migratorio para un familiar' },
+      { val: 'otro', txt: 'Otro trámite migratorio' },
+    ]
+  },
+  patrimonial: {
+    titulo: '¿Cuál es tu situación patrimonial?',
+    sub: 'Selecciona la opción que mejor describe tu caso.',
+    opciones: [
+      { val: 'herencia', txt: 'Hay una herencia o sucesión que necesito gestionar' },
+      { val: 'testamento', txt: 'Quiero hacer o actualizar mi testamento' },
+      { val: 'contrato', txt: 'Tengo un contrato que necesito revisar o redactar' },
+      { val: 'deuda', txt: 'Tengo una deuda bancaria que quiero negociar' },
+      { val: 'proteccion', txt: 'Quiero proteger mis bienes o propiedades' },
+      { val: 'otro', txt: 'Otra situación patrimonial' },
+    ]
+  },
+  familiar: {
+    titulo: '¿Cuál es tu situación?',
+    sub: 'Selecciona la opción que mejor describe tu caso.',
+    opciones: [
+      { val: 'divorcio', txt: 'Quiero tramitar un divorcio' },
+      { val: 'pension', txt: 'Necesito establecer o modificar una pensión alimenticia' },
+      { val: 'custodia', txt: 'Hay un conflicto de guarda y custodia de menores' },
+      { val: 'violencia', txt: 'Hay una situación de violencia familiar' },
+      { val: 'penal', txt: 'Necesito interponer o responder a una denuncia penal' },
+      { val: 'otro', txt: 'Otra situación familiar o penal' },
+    ]
+  }
+};
+
+// ══════════════════════════════════════════
+// DIAGNÓSTICOS ÚNICOS POR COMBINACIÓN
+// Estructura: { area, sit, viab, urgenciaBase, textos:{tiempo} }
+// textos puede tener: menos7, menos1mes, menos6meses, menos2anios, mas2anios, default
+// ══════════════════════════════════════════
+const urgenciaConfig = {
+  urgente:    { label:'🔴 URGENTE', clase:'urgencia-urgente', textoColor:'diag-urgencia-urgente' },
+  importante: { label:'🟡 IMPORTANTE', clase:'urgencia-importante', textoColor:'diag-urgencia-importante' },
+  atencion:   { label:'🟠 ATENCIÓN', clase:'urgencia-atencion', textoColor:'diag-urgencia-atencion' },
+};
+
+const diagnosticos = {
+  laboral: {
+    despido: {
+      area:'Derecho Laboral', sit:'Despido injustificado', viab:'Alta',
+      textos: {
+        menos7: { u:'urgente', gancho:'Tienes una ventana crítica. En los primeros días el patrón aún no ha "limpiado" registros ni ajustado documentos internos — eso juega completamente a tu favor. La indemnización mínima incluye 3 meses de salario integrado más 20 días por año trabajado, pero el salario integrado casi nunca es el que aparece en tu recibo. La diferencia puede ser importante. Actuar esta semana marca la diferencia.', acciones:['Revisión urgente de todos los documentos laborales','Cálculo exacto de tu salario diario integrado','Estrategia antes de que el patrón se organice','No firmes nada sin revisión previa'] },
+        menos1mes: { u:'urgente', gancho:'Estás en el momento ideal para actuar. El patrón aún no ha archivado el caso y la negociación extrajudicial es más efectiva ahora. Lo que muchos no saben: tu liquidación debe calcularse con salario integrado, no el salario base — esa diferencia sola puede representar miles de pesos adicionales que te corresponden.', acciones:['Análisis del salario integrado vs lo que te ofrecieron','Revisión de partes proporcionales incluidas','Negociación antes de que escale a demanda','Orientación sobre qué documentos necesitas'] },
+        menos6meses: { u:'urgente', gancho:'Todavía estás en tiempo, pero el reloj corre. En México el plazo para reclamar prestaciones laborales es de 2 años, pero entre más esperas, más difícil es reconstruir la evidencia. El patrón calculó que no ibas a reclamar — sorpréndelo. Lo que te corresponde puede ser significativamente mayor a lo que te ofrecieron.', acciones:['Evaluación de lo que te corresponde vs lo recibido','Identificación de documentos clave aún recuperables','Estrategia de negociación o demanda','Análisis de prescripción aplicable a tu caso'] },
+        menos2anios: { u:'importante', gancho:'Tienes opciones, pero el tiempo trabaja en tu contra. Los plazos legales en materia laboral son de 2 años — estás dentro, pero cada mes que pasa complica la documentación. Lo positivo: si firmaste algo bajo presión o con información incompleta, eso puede impugnarse. Vale la pena revisar antes de que prescriba tu derecho.', acciones:['Revisión de documentos que firmaste al salir','Análisis de posible impugnación si hubo presión','Cálculo de lo que aún puedes recuperar','Evaluación de viabilidad antes de que prescriba'] },
+        mas2anios: { u:'atencion', gancho:'El plazo general de prescripción laboral es de 2 años — dependiendo de la fecha exacta, puede que aún haya opciones. No asumas que ya no puedes hacer nada. Hay casos donde la prescripción se interrumpe o hay conceptos que tienen plazos distintos. Vale una revisión antes de descartarlo.', acciones:['Análisis exacto de fechas y plazos aplicables','Revisión de posibles excepciones a la prescripción','Evaluación de conceptos con plazos distintos','Primera consulta para determinar viabilidad'] },
+      }
+    },
+    liquidacion: {
+      area:'Derecho Laboral', sit:'Revisión de liquidación', viab:'Alta',
+      textos: {
+        menos7: { u:'urgente', gancho:'No firmes nada todavía. Una firma es permanente y los patrones lo saben. El error más común: aceptar una cantidad calculada con el salario base cuando la ley exige el salario integrado — que incluye proporcionales de aguinaldo, vacaciones y prima. La diferencia puede ser del 15 al 40% adicional. En este momento tienes todo el poder de negociación.', acciones:['Revisión urgente de la oferta antes de firmar','Cálculo correcto del salario diario integrado','Verificación de todos los conceptos incluidos','Negociación de diferencias con respaldo legal'] },
+        menos1mes: { u:'urgente', gancho:'Si aún no has firmado, el poder de negociación sigue siendo tuyo. Si ya firmaste hace menos de un mes, dependiendo de las circunstancias puede haber opciones. Lo que importa saber: los patrones sistemáticamente calculan la liquidación con el mínimo esperando que aceptes. Con revisión especializada, la mayoría de nuestros casos resultan en montos superiores a la oferta original.', acciones:['Análisis de la oferta vs lo que corresponde por ley','Cálculo de salario integrado y partes proporcionales','Revisión de prima de antigüedad incluida','Orientación sobre qué hacer si ya firmaste'] },
+        menos6meses: { u:'importante', gancho:'Si recibiste menos de lo que te correspondía y ya firmaste, no necesariamente está todo perdido. Existen figuras legales para reclamar diferencias cuando hubo error o información incompleta. Y si aún no has firmado — detente. El tiempo que tienes aún permite una negociación efectiva.', acciones:['Evaluación de lo que firmaste y bajo qué condiciones','Análisis de posibles diferencias reclamables','Revisión de si hubo presión o información incompleta','Estrategia para cada escenario'] },
+        default: { u:'importante', gancho:'Las liquidaciones calculadas incorrectamente son el caso más frecuente que atendemos. El patrón apuesta a que no revisarás. Una revisión profesional tarda menos de lo que imaginas y puede revelar diferencias significativas a tu favor.', acciones:['Revisión completa del cálculo recibido','Comparación con lo que establece la ley','Identificación de conceptos omitidos','Plan de acción según tu situación'] },
+      }
+    },
+    acoso: {
+      area:'Derecho Laboral', sit:'Acoso / presión laboral', viab:'Alta',
+      textos: {
+        menos7: { u:'urgente', gancho:'Lo que estás viviendo tiene nombre legal: hostigamiento laboral, y el patrón que lo ejerce comete una violación a la Ley Federal del Trabajo. Lo que pocos saben: si te fuerzan a renunciar, esa renuncia puede considerarse despido injustificado — y tienes derecho a la indemnización completa. Documentar desde ahora es crítico.', acciones:['Estrategia urgente de documentación del acoso','Protección de tus derechos mientras sigues en la empresa','Opciones: denuncia, rescisión o permanencia','Evaluación de indemnización por rescisión imputable al patrón'] },
+        menos1mes: { u:'urgente', gancho:'La figura de "rescisión imputable al patrón" es una de las más poderosas en derecho laboral — y una de las menos conocidas. Si el acoso es demostrable, puedes rescindir el contrato con causa justificada y recibir la misma indemnización que en un despido injustificado, más daños. El tiempo de documentación es ahora.', acciones:['Construcción del expediente de acoso laboral','Identificación de testigos y evidencias','Denuncia ante STPS si procede','Cálculo de indemnización por rescisión imputable'] },
+        default: { u:'importante', gancho:'El acoso laboral continuado tiene consecuencias legales para el patrón proporcionales al tiempo que lleva ocurriendo. Entre más documentado esté, más sólido es el caso. La estrategia correcta depende de si quieres seguir en la empresa o salir con indemnización completa — hay opciones para ambos escenarios.', acciones:['Análisis de la situación y opciones disponibles','Documentación de los hechos ocurridos','Estrategia según tu objetivo (quedarte o salir)','Evaluación de daños reclamables'] },
+      }
+    },
+    horas: {
+      area:'Derecho Laboral', sit:'Horas extra no pagadas', viab:'Media-Alta',
+      textos: {
+        menos7: { u:'urgente', gancho:'Las horas extra no pagadas son una violación laboral directa. Lo que la ley establece es claro: las primeras 9 horas extra semanales se pagan al doble, y a partir de la décima, al triple. Si llevas tiempo trabajando horas extra sin que aparezcan en tu recibo, el adeudo acumulado puede ser considerable. Actuar pronto facilita la documentación.', acciones:['Cálculo retroactivo de horas extra adeudadas','Documentación del tiempo trabajado extra','Reclamación ante la STPS o directamente al patrón','Evaluación de demanda si no hay acuerdo'] },
+        menos6meses: { u:'importante', gancho:'En México puedes reclamar horas extra no pagadas de hasta 2 años atrás. La clave está en la documentación: correos, mensajes, registros de entrada y salida. Aunque no tengas todo, lo que existe puede ser suficiente. El patrón tiene la carga de probar que no hubo horas extra — eso trabaja a tu favor.', acciones:['Identificación de evidencias disponibles','Cálculo del adeudo de los últimos 2 años','Estrategia de reclamación según evidencia','Evaluación de negociación vs demanda'] },
+        default: { u:'importante', gancho:'Las horas extra no pagadas son más frecuentes de lo que parece y más reclamables de lo que los patrones hacen creer. Tienes hasta 2 años para reclamar. El monto acumulado sorprende a la mayoría de las personas cuando se calcula correctamente.', acciones:['Estimación del adeudo acumulado','Revisión de evidencias disponibles','Estrategia de reclamación','Orientación sobre plazos vigentes'] },
+      }
+    },
+    contrato: {
+      area:'Derecho Laboral', sit:'Conflicto contractual', viab:'Media-Alta',
+      textos: {
+        menos7: { u:'urgente', gancho:'Los cambios unilaterales en las condiciones laborales — salario, horario, funciones — son ilegales en México. Si te los impusieron recientemente, puedes elegir entre aceptar con constancia de disconformidad o iniciar una rescisión con causa. La estrategia correcta depende de lo que quieres lograr. No actuar también es una decisión con consecuencias.', acciones:['Análisis de los cambios impuestos y su legalidad','Opciones: aceptar, negociar o rescindir','Documentación de la disconformidad','Evaluación de indemnización si procede'] },
+        default: { u:'importante', gancho:'En derecho laboral, los derechos irrenunciables no pueden eliminarse aunque estén en un contrato firmado. Muchas cláusulas que los patrones presentan como obligatorias simplemente no tienen validez legal. Saber cuáles aplican a tu caso cambia completamente tu posición.', acciones:['Revisión de cláusulas potencialmente ilegales','Identificación de derechos que no pueden eliminarse','Estrategia de negociación con respaldo legal','Orientación sobre cómo proceder'] },
+      }
+    },
+    otro: {
+      area:'Derecho Laboral', sit:'Asunto laboral', viab:'Media-Alta',
+      textos: {
+        default: { u:'importante', gancho:'La Ley Federal del Trabajo protege al trabajador en más situaciones de las que la mayoría conoce. Sin analizar los detalles específicos de tu caso, es difícil decirte exactamente qué te corresponde — pero esa evaluación inicial es gratuita y frecuentemente revela derechos que el trabajador desconocía.', acciones:['Análisis de tu situación específica','Identificación de derechos aplicables','Orientación sobre las vías disponibles','Evaluación sin costo de tu caso'] },
+      }
+    },
+  },
+
+  migratorio: {
+    visa: {
+      area:'Derecho Migratorio', sit:'Trámite de visa', viab:'Alta',
+      textos: {
+        menos7: { u:'urgente', gancho:'Las visas tienen ventanas de solicitud muy específicas y los errores en el expediente resultan en rechazos que afectan solicitudes futuras. Un rechazo no es definitivo, pero sí complica el proceso. La diferencia entre un expediente bien armado y uno incompleto puede ser meses de espera. Esta semana importa.', acciones:['Revisión urgente del tipo de visa más adecuada','Armado correcto del expediente desde el inicio','Preparación para la entrevista consular','Estrategia para maximizar probabilidad de aprobación'] },
+        menos1mes: { u:'urgente', gancho:'Los consulados tienen citas limitadas y los errores documentales reinician el proceso. Saber exactamente qué presentar, en qué orden y con qué respaldo es la diferencia entre una solicitud aprobada y meses perdidos. Un expediente bien preparado eleva significativamente las probabilidades de éxito en el primer intento.', acciones:['Lista exacta de documentos requeridos para tu perfil','Verificación de vigencia y apostillas necesarias','Estrategia de presentación del expediente','Preparación para preguntas de la entrevista'] },
+        default: { u:'importante', gancho:'Los trámites de visa fallan principalmente por razones técnicas que son completamente evitables: documentación incompleta, orden incorrecto, o apostillas faltantes. Con el expediente correcto desde el inicio, el proceso es predecible. Lo que necesitas saber antes de tu próxima cita lo revisamos en consulta.', acciones:['Diagnóstico de tu perfil migratorio','Expediente completo para tu tipo de visa','Orientación sobre tiempos y citas','Acompañamiento durante el proceso'] },
+      }
+    },
+    pasaporte: {
+      area:'Derecho Migratorio', sit:'Trámite de pasaporte', viab:'Alta',
+      textos: {
+        menos7: { u:'urgente', gancho:'Si hay un viaje próximo, los tiempos son críticos. Existen procedimientos de trámite urgente ante la SRE pero tienen requisitos específicos. La diferencia entre saber exactamente cómo gestionarlo y no saberlo puede ser perder un vuelo o un trámite en el extranjero. Esta semana define todo.', acciones:['Gestión urgente de cita ante la SRE','Procedimiento de pasaporte urgente por viaje','Documentación necesaria para tu caso específico','Alternativas si el tiempo es muy limitado'] },
+        default: { u:'importante', gancho:'Las citas para pasaporte se agotan rápido y el sistema de la SRE tiene sus propios códigos. Saber cuándo y cómo buscar disponibilidad, y llegar con el expediente correcto, elimina las vueltas innecesarias. Un trámite bien gestionado desde el inicio ahorra semanas.', acciones:['Estrategia para obtener cita disponible','Documentación exacta requerida','Casos especiales: primer pasaporte, extravío, corrección de datos','Seguimiento hasta la obtención del documento'] },
+      }
+    },
+    regularizacion: {
+      area:'Derecho Migratorio', sit:'Regularización migratoria', viab:'Alta',
+      textos: {
+        menos7: { u:'urgente', gancho:'Las ventanas de regularización migratoria se abren y se cierran. Estar en situación irregular no solo genera multas — puede resultar en restricciones de entrada por años. Lo que muchas personas no saben: hay procedimientos específicos ante el INM según el tiempo de estancia y los vínculos con México. Actuar antes de que la situación se agrave es crítico.', acciones:['Diagnóstico urgente de tu situación migratoria actual','Identificación de la vía de regularización más viable','Procedimiento ante el INM paso a paso','Protección durante el proceso de regularización'] },
+        menos6meses: { u:'urgente', gancho:'La situación migratoria irregular tiene consecuencias que se acumulan con el tiempo. Cada mes que pasa puede cerrar opciones de regularización. Lo importante: hay más alternativas de las que la mayoría imagina, dependiendo de tus vínculos con México, tiempo de estancia y situación familiar. La evaluación inicial es el primer paso.', acciones:['Análisis de tu perfil migratorio y opciones disponibles','Identificación de vínculos que facilitan la regularización','Procedimiento correcto según tu situación','Acompañamiento durante todo el proceso ante el INM'] },
+        default: { u:'importante', gancho:'Regularizar la situación migratoria es posible en más casos de los que la gente cree. El proceso correcto depende de factores específicos: tiempo en México, vínculos familiares, antecedentes. Una evaluación inicial determina cuál es el camino más viable y más rápido para tu situación particular.', acciones:['Evaluación de tu situación migratoria actual','Opciones de regularización según tu perfil','Procedimiento ante el INM','Tiempos y costos aproximados'] },
+      }
+    },
+    residencia: {
+      area:'Derecho Migratorio', sit:'Residencia en México', viab:'Alta',
+      textos: {
+        default: { u:'importante', gancho:'Existen múltiples vías para obtener residencia en México y la más conveniente depende de tu situación: vínculos familiares, actividad económica, tiempo en el país. Elegir la vía incorrecta significa iniciar de nuevo. Con la estrategia correcta, el proceso es predecible y tiene plazos definidos.', acciones:['Análisis de la vía de residencia más adecuada para tu perfil','Expediente completo y en el orden correcto','Gestión ante el INM','Seguimiento hasta la resolución'] },
+      }
+    },
+    familiar: {
+      area:'Derecho Migratorio', sit:'Trámite familiar migratorio', viab:'Alta',
+      textos: {
+        menos7: { u:'urgente', gancho:'Los trámites migratorios familiares tienen complejidades adicionales que los individuales no tienen. Coordinar documentación de múltiples personas, especialmente menores, requiere un orden específico o el proceso se detiene. Esta semana es el momento de organizar correctamente para evitar retrasos costosos.', acciones:['Coordinación de documentación familiar completa','Trámites de menores: requisitos específicos','Reagrupación familiar: procedimiento correcto','Tiempos coordinados para toda la familia'] },
+        default: { u:'importante', gancho:'Los trámites migratorios para familias tienen requisitos adicionales que los procesos individuales no tienen — especialmente cuando hay menores involucrados. Coordinarlos incorrectamente duplica los tiempos. Con la estrategia correcta, los trámites de toda la familia pueden gestionarse de forma coordinada y eficiente.', acciones:['Mapa de trámites para cada miembro de la familia','Documentación específica por tipo de trámite','Coordinación de citas y procedimientos','Casos especiales: menores, cónyuge extranjero'] },
+      }
+    },
+    otro: {
+      area:'Derecho Migratorio', sit:'Asunto migratorio', viab:'Media-Alta',
+      textos: {
+        default: { u:'importante', gancho:'El derecho migratorio en México tiene procedimientos muy específicos y cambia con frecuencia. Lo que funcionó hace un año puede no aplicar hoy. Una evaluación inicial de tu situación concreta es la forma más eficiente de saber exactamente qué pasos seguir y en qué orden.', acciones:['Análisis de tu situación migratoria específica','Identificación de la ruta correcta','Orientación sobre tiempos y requisitos actualizados','Primera consulta gratuita'] },
+      }
+    },
+  },
+
+  patrimonial: {
+    herencia: {
+      area:'Derecho Patrimonial', sit:'Herencia / sucesión', viab:'Alta',
+      textos: {
+        menos7: { u:'urgente', gancho:'Los primeros días después de un fallecimiento son críticos en materia patrimonial. Los bienes sin gestión inmediata pueden ser objeto de disputas, acceso no autorizado o deterioro. Además, hay plazos fiscales relacionados con herencias que pocos conocen. Actuar en los primeros días protege el patrimonio y evita conflictos futuros.', acciones:['Medidas inmediatas de protección de bienes','Inicio del proceso sucesorio (con o sin testamento)','Identificación de bienes y posibles herederos','Estrategia para prevenir conflictos entre herederos'] },
+        menos1mes: { u:'urgente', gancho:'El proceso sucesorio sin guía especializada puede convertirse en un conflicto familiar prolongado y costoso. Con testamento, el proceso es más predecible. Sin testamento, la ley determina quién hereda — pero la interpretación incorrecta genera disputas. Iniciar el proceso correctamente desde el principio ahorra años.', acciones:['Análisis del testamento si existe','Proceso de sucesión intestamentaria si no hay testamento','Inventario de bienes y documentos necesarios','Estrategia para llegar a acuerdo entre herederos'] },
+        default: { u:'importante', gancho:'El proceso sucesorio en México puede resolverse en meses o convertirse en un litigio de años — la diferencia está en cómo se inicia y gestiona. Con los documentos correctos y la estrategia adecuada, la mayoría de las sucesiones se resuelven sin llegar a juicio. La evaluación inicial es gratuita.', acciones:['Diagnóstico del proceso sucesorio','Documentación necesaria para iniciar','Opciones: amigable o contencioso','Tiempos y costos aproximados'] },
+      }
+    },
+    testamento: {
+      area:'Derecho Patrimonial', sit:'Testamento', viab:'Alta',
+      textos: {
+        default: { u:'atencion', gancho:'El 80% de los conflictos familiares por herencias son completamente evitables con un testamento bien redactado. Lo que muchas personas no saben: un testamento no es solo para cuando ya eres mayor — es para cuando tienes algo que proteger. Sin testamento, la ley decide por ti quién hereda y en qué proporción, y eso frecuentemente no coincide con lo que querías.', acciones:['Asesoría sobre el tipo de testamento más conveniente','Cláusulas de protección para situaciones específicas','Coordinación con notario','Actualización de testamento existente si ya tienes uno'] },
+      }
+    },
+    contrato: {
+      area:'Derecho Patrimonial', sit:'Contrato o acuerdo legal', viab:'Alta',
+      textos: {
+        menos7: { u:'urgente', gancho:'Un contrato mal revisado puede tener consecuencias que duran años. Lo que parece "estándar" frecuentemente contiene cláusulas que favorecen desproporcionadamente a la otra parte. Antes de firmar cualquier documento con implicaciones patrimoniales, una revisión especializada es la mejor inversión que puedes hacer.', acciones:['Revisión urgente del contrato antes de firmar','Identificación de cláusulas problemáticas o abusivas','Negociación de modificaciones','Alternativa: redacción de contrato que sí te proteja'] },
+        default: { u:'importante', gancho:'Los contratos sin revisión legal son la causa número uno de conflictos patrimoniales evitables. Las cláusulas ambiguas, los derechos mal definidos y los incumplimientos sin consecuencias son problemas que aparecen meses o años después de firmar. Revisarlo antes cuesta una fracción de lo que costaría resolverlo después.', acciones:['Revisión de cláusulas y riesgos','Identificación de derechos y obligaciones reales','Negociación de términos si procede','Redacción de contrato alternativo si es necesario'] },
+      }
+    },
+    deuda: {
+      area:'Derecho Patrimonial', sit:'Negociación de deuda bancaria', viab:'Alta',
+      textos: {
+        menos6meses: { u:'importante', gancho:'Con menos de 6 meses de mora, la posición negociadora es moderada pero existe. Los bancos prefieren una reestructura a un crédito en cartera vencida. Lo que pocas personas saben: hay límites legales a los intereses y cargos que los bancos pueden cobrar — y muchas veces los exceden. Una revisión puede revelar cobros que no proceden legalmente.', acciones:['Revisión de intereses y cargos aplicados vs límites legales','Estrategia de reestructura o acuerdo de pago','Negociación directa con respaldo jurídico','Protección de bienes durante el proceso'] },
+        menos2anios: { u:'importante', gancho:'Con más de 6 meses de mora, tu posición negociadora mejora considerablemente. Los bancos saben que una cuenta en cartera vencida vale menos que un acuerdo. El 78% de las personas acepta la primera oferta sin saber que había margen para negociar mejor. Con asesoría especializada, los resultados son sistemáticamente superiores.', acciones:['Análisis de tu posición negociadora real','Estrategia de quita o reestructura','Negociación directa con la institución','Defensa ante posible embargo o demanda'] },
+        mas2anios: { u:'importante', gancho:'Con más de 2 años de mora, la cuenta probablemente ya está en despacho de cobranza. Eso en realidad mejora tu posición: los despachos compran la cartera con descuento y tienen más flexibilidad para negociar. Además, hay límites legales a las prácticas de cobranza que frecuentemente se violan — y eso también es negociable.', acciones:['Verificación del estado actual de la deuda','Identificación de prácticas de cobranza ilegales','Estrategia de negociación con despacho o banco','Acuerdo de pago con quita significativa'] },
+        default: { u:'importante', gancho:'Los bancos calculan que la mayoría de personas acepta su primera oferta. Con representación legal, los resultados de negociación son sistemáticamente mejores. Lo que te corresponde negociar depende del tipo de deuda, tiempo de mora y tu capacidad de pago — todo eso lo evaluamos en la primera consulta.', acciones:['Diagnóstico de tu posición negociadora','Estrategia según tipo de deuda y mora','Negociación con respaldo legal','Protección durante el proceso'] },
+      }
+    },
+    proteccion: {
+      area:'Derecho Patrimonial', sit:'Protección de bienes', viab:'Alta',
+      textos: {
+        default: { u:'atencion', gancho:'El patrimonio no protegido es patrimonio vulnerable. Las deudas de terceros, los conflictos laborales, las separaciones y los embargos afectan con frecuencia a personas que creyeron que "eso no les pasaría a ellos". Las estructuras de protección patrimonial son más accesibles de lo que parece y funcionan mejor cuando se implementan antes de que surja el problema.', acciones:['Diagnóstico de vulnerabilidades patrimoniales actuales','Estructuras de protección según tu situación','Fideicomisos, donaciones y otras figuras disponibles','Costo-beneficio de cada opción'] },
+      }
+    },
+    otro: {
+      area:'Derecho Patrimonial', sit:'Asunto patrimonial', viab:'Media-Alta',
+      textos: {
+        default: { u:'importante', gancho:'El derecho patrimonial abarca más situaciones de las que la mayoría imagina. Desde la protección preventiva hasta la defensa activa ante conflictos, hay opciones legales para casi cualquier situación. Una evaluación inicial gratuita determina exactamente qué aplica a tu caso y cuál es la estrategia más eficiente.', acciones:['Análisis de tu situación patrimonial específica','Identificación de riesgos y oportunidades','Estrategia legal a medida','Primera consulta sin costo'] },
+      }
+    },
+  },
+
+  familiar: {
+    divorcio: {
+      area:'Derecho Familiar', sit:'Divorcio', viab:'Alta',
+      textos: {
+        menos7: { u:'urgente', gancho:'Las decisiones de los primeros días en un divorcio tienen consecuencias que duran años. Bienes, cuentas, propiedades — lo que ocurre antes de que el proceso comience puede ser determinante. La estrategia correcta desde el inicio protege tus intereses en el largo plazo. No es cuestión de pelear, es cuestión de llegar bien preparado.', acciones:['Medidas inmediatas de protección de bienes','Análisis de tipo de divorcio más conveniente','Estrategia sobre bienes, hijos y pensión','Protección de tus intereses antes y durante el proceso'] },
+        default: { u:'importante', gancho:'El divorcio bien gestionado puede resolverse en meses sin afectar significativamente a ninguna de las partes. El mal gestionado puede durar años y costar mucho más de lo necesario. La diferencia está en la estrategia desde el inicio: qué se negocia, cuándo y cómo. Una evaluación inicial define el camino más eficiente para tu situación.', acciones:['Análisis de bienes y situación conyugal','Estrategia para acuerdos sobre hijos y pensión','Tipo de divorcio más adecuado a tu caso','Tiempos y proceso esperado'] },
+      }
+    },
+    pension: {
+      area:'Derecho Familiar', sit:'Pensión alimenticia', viab:'Alta',
+      textos: {
+        menos7: { u:'urgente', gancho:'La pensión alimenticia en México se calcula sobre los ingresos reales del obligado — incluyendo prestaciones, bonos y cualquier percepción, no solo el salario declarado. Muchos obligados subestiman sus ingresos en el proceso. Saber cómo documentar los ingresos reales puede marcar una diferencia significativa en el monto establecido.', acciones:['Estrategia para documentar ingresos reales del obligado','Cálculo correcto de la pensión conforme a la ley','Medidas cautelares inmediatas si hay urgencia','Proceso ante el juez familiar'] },
+        default: { u:'importante', gancho:'La pensión alimenticia puede establecerse, modificarse o hacerse cumplir en cualquier momento. Si el obligado no paga, hay mecanismos de apremio efectivos. Si cambió la situación económica de alguna de las partes, la pensión puede modificarse. Una evaluación inicial determina cuál es la acción más efectiva en tu caso.', acciones:['Análisis de tu situación específica','Cálculo correcto o revisión de la pensión vigente','Procedimiento para establecer o modificar','Medidas de apremio por incumplimiento'] },
+      }
+    },
+    custodia: {
+      area:'Derecho Familiar', sit:'Guarda y custodia', viab:'Alta',
+      textos: {
+        menos7: { u:'urgente', gancho:'En asuntos de guarda y custodia, los jueces familiares en México aplican el principio del interés superior del menor. Lo que ocurre en los primeros días — dónde viven los menores, quién tiene contacto con ellos — puede influir en las decisiones del juez. La estrategia correcta desde el inicio importa.', acciones:['Medidas urgentes de protección del menor','Estrategia para establecer la situación durante el proceso','Documentación del entorno y cuidado actual','Análisis de viabilidad de custodia compartida o exclusiva'] },
+        default: { u:'importante', gancho:'La guarda y custodia en México se decide en función del interés superior del menor — no automáticamente a favor de ninguno de los padres. Lo que determina el resultado es la capacidad demostrable de cada parte para proveer un ambiente estable. Una estrategia bien construida desde el inicio hace la diferencia.', acciones:['Análisis del caso y situación actual de los menores','Estrategia para demostrar el interés superior','Régimen de visitas y convivencia','Proceso ante el juez familiar'] },
+      }
+    },
+    violencia: {
+      area:'Derecho Familiar / Penal', sit:'Violencia familiar', viab:'Alta',
+      textos: {
+        menos7: { u:'urgente', gancho:'Tu seguridad es la prioridad. Existen medidas de protección inmediata — órdenes de restricción y medidas cautelares — que pueden solicitarse de urgencia. Documentar lo ocurrido desde ahora es fundamental para el proceso legal. No estás sola en esto y hay un camino legal claro para protegerte.', acciones:['Medidas de protección inmediata disponibles','Denuncia penal y orden de restricción de urgencia','Documentación de la violencia sufrida','Acompañamiento integral durante todo el proceso'] },
+        default: { u:'urgente', gancho:'La violencia familiar es un delito en México y tiene procedimientos específicos tanto en el ámbito familiar como en el penal. Hay medidas de protección disponibles independientemente del tiempo transcurrido. Lo más importante es actuar — hay un camino legal claro y no tienes que enfrentarlo sin acompañamiento.', acciones:['Evaluación de opciones de protección disponibles','Denuncia penal y proceso ante el MP','Medidas cautelares y órdenes de protección','Proceso integral de protección legal'] },
+      }
+    },
+    penal: {
+      area:'Derecho Penal', sit:'Asunto penal', viab:'Media-Alta',
+      textos: {
+        menos7: { u:'urgente', gancho:'En materia penal, los primeros días son determinantes. Los plazos procesales en el sistema acusatorio mexicano son estrictos y las oportunidades de defensa o de presentar una denuncia efectiva se concentran al inicio. Lo que hagas o dejes de hacer esta semana puede definir el resultado del proceso.', acciones:['Análisis urgente de tu posición procesal','Estrategia de defensa o denuncia según tu caso','Derechos que tienes en este momento del proceso','Acción inmediata antes de que los plazos cierren'] },
+        default: { u:'importante', gancho:'El sistema penal acusatorio mexicano tiene plazos y procedimientos muy específicos. Conocer tus derechos procesales — ya sea como denunciante o como imputado — es fundamental para que el proceso funcione a tu favor. Una evaluación inicial determina exactamente en qué punto estás y cuáles son las acciones más efectivas.', acciones:['Diagnóstico de tu situación procesal actual','Derechos y opciones disponibles en tu caso','Estrategia de defensa o de denuncia','Proceso ante el Ministerio Público o juzgado'] },
+      }
+    },
+    otro: {
+      area:'Derecho Familiar / Penal', sit:'Asunto familiar o penal', viab:'Media-Alta',
+      textos: {
+        default: { u:'importante', gancho:'Los asuntos de derecho familiar y penal afectan directamente la vida cotidiana y los derechos más fundamentales. Sin conocer los detalles de tu caso es difícil ser específico, pero en casi todos los escenarios hay más opciones de las que la persona imagina al inicio. Una evaluación inicial gratuita abre el panorama.', acciones:['Análisis de tu situación específica','Identificación de derechos aplicables','Opciones legales disponibles en tu caso','Primera consulta sin costo ni compromiso'] },
+      }
+    },
+  }
+};
+
+// Obtener texto del diagnóstico según área, respuesta y tiempo
+function obtenerTexto(area, resp, tiempo) {
+  const cat = diagnosticos[area]?.[resp] || diagnosticos[area]?.otro;
+  if (!cat) return diagnosticos[area]?.otro?.textos?.default || {};
+  return cat.textos?.[tiempo] || cat.textos?.default || cat.textos?.menos6meses || Object.values(cat.textos)[0];
+}
+
+function ajustarUrgencia(u, tiempo) {
+  // Violencia siempre urgente
+  if (estado.respuesta2 === 'violencia') return 'urgente';
+  // Más de 2 años: bajar un nivel (pero nunca menos que atencion)
+  if (tiempo === 'mas2anios') {
+    if (u === 'urgente') return 'importante';
+    return 'atencion';
+  }
+  // Menos de 7 días: subir urgencia
+  if (tiempo === 'menos7') {
+    if (u === 'atencion') return 'importante';
+    if (u === 'importante') return 'urgente';
+  }
+  return u;
+}
+
+// ══════════════════════════════════════════
+// NAVEGACIÓN DEL WIZARD
+// ══════════════════════════════════════════
+function irPaso(paso) {
+  // GA4: expediente_start al llegar al paso 2
+  if (paso === 2) {
+    gtag('event', 'expediente_start', {
+      page_location: window.location.href,
+      page_title: document.title
+    });
+  }
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step-' + paso).classList.add('active');
+  const pct = (paso / 5) * 100;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = 'Paso ' + paso + ' de 5';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function validarDescripcion() {
+  const val = document.getElementById('inp-descripcion').value.trim();
+  const btn = document.getElementById('btn-4');
+  const counter = document.getElementById('char-count');
+  if (val.length >= 30) {
+    btn.disabled = false;
+    counter.textContent = val.length + ' caracteres ✓';
+    counter.style.color = '#68D391';
+  } else {
+    btn.disabled = true;
+    counter.textContent = `Mínimo 30 caracteres (${val.length}/30)`;
+    counter.style.color = '#9CA3AF';
+  }
+}
+
+async function generarDiagnosticoIA() {
+  const descripcion = document.getElementById('inp-descripcion').value.trim();
+  const btn = document.getElementById('btn-4');
+  const cat = diagnosticos[estado.area]?.[estado.respuesta2] || diagnosticos[estado.area]?.otro;
+
+  // Mostrar loading
+  btn.disabled = true;
+  btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:0.5rem;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin 1s linear infinite"><path d="M21 12a9 9 0 11-6.219-8.56"/></svg> Analizando tu caso...</span>';
+
+  try {
+    const res = await fetch('https://siglep-diagnostico.lic-palafox31.workers.dev', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        area: cat?.area || estado.area,
+        situacion: cat?.sit || estado.respuesta2,
+        tiempo: estado.tiempo,
+        descripcion
+      })
+    });
+
+    const data = await res.json();
+
+    if (data.diagnostico) {
+      // Rellenar diagnóstico con texto IA
+      document.getElementById('diag-gancho').textContent = data.diagnostico;
+
+      // Rellenar resto con datos del estado
+      const txt = obtenerTexto(estado.area, estado.respuesta2, estado.tiempo);
+      const urgenciaFinal = ajustarUrgencia(txt.u || 'importante', estado.tiempo);
+      const urgCfg = urgenciaConfig[urgenciaFinal];
+      const etiquetaUrgencia = { urgente:'Urgente', importante:'Importante', atencion:'Atención' };
+
+      document.getElementById('diag-area').textContent = cat?.area || '';
+      document.getElementById('diag-situacion').textContent = cat?.sit || '';
+      document.getElementById('diag-viabilidad').textContent = cat?.viab || '';
+      document.getElementById('diag-urgencia-text').innerHTML =
+        `<span class="${urgCfg.textoColor}">${etiquetaUrgencia[urgenciaFinal]}</span>`;
+      document.getElementById('diag-urgencia-badge').innerHTML =
+        `<span class="urgencia-badge ${urgCfg.clase}">${urgCfg.label}</span>`;
+      document.getElementById('diag-acciones-lista').innerHTML =
+        (txt.acciones || []).map(a => `<div class="diag-accion">${a}</div>`).join('');
+
+      irPaso(5);
+    } else {
+      throw new Error('Sin respuesta');
+    }
+
+  } catch(err) {
+    // Fallback: usar texto predefinido si falla la IA
+    generarDiagnostico();
+    irPaso(5);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = 'Analizar mi caso <span>→</span>';
+  }
+}
+
+
+function seleccionarArea(area, el) {
+  estado.area = area;
+  document.querySelectorAll('.area-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('btn-1').disabled = false;
+  // Renderizar preguntas
+  renderPreguntas(area);
+}
+
+function renderPreguntas(area) {
+  const cfg = preguntasPorArea[area];
+  const opcionesHTML = cfg.opciones.map(o =>
+    `<div class="opcion" onclick="seleccionarOpcion(this,'resp2','${o.val}')"><div class="opcion-radio"></div>${o.txt}</div>`
+  ).join('');
+  document.getElementById('preguntas-area').innerHTML = `
+    <h2 class="step-title">${cfg.titulo}</h2>
+    <p class="step-sub">${cfg.sub}</p>
+    <div class="opciones">${opcionesHTML}</div>
+  `;
+  estado.respuesta2 = null;
+  document.getElementById('btn-2').disabled = true;
+}
+
+function seleccionarOpcion(el, campo, val) {
+  const grupo = el.parentElement;
+  grupo.querySelectorAll('.opcion').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  estado[campo] = val;
+  if (campo === 'resp2') document.getElementById('btn-2').disabled = false;
+  if (campo === 'tiempo') document.getElementById('btn-3').disabled = false;
+}
+
+function validarContacto() {
+  const nombre = document.getElementById('inp-nombre').value.trim();
+  const tel = document.getElementById('inp-tel').value.trim();
+  const detalle = document.getElementById('inp-detalle')?.value.trim() || '';
+  const btn = document.getElementById('diag-wa-btn');
+  if (nombre && tel && detalle) {
+    btn.style.opacity = '1';
+    btn.style.pointerEvents = 'auto';
+    // Armar mensaje WA dinámico con los datos
+    const cat = diagnosticos[estado.area]?.[estado.respuesta2] || diagnosticos[estado.area]?.otro;
+    const tiempoLabels = {
+      menos7:'hace menos de 7 días', menos1mes:'hace entre 1 semana y 1 mes',
+      menos6meses:'hace entre 1 y 6 meses', menos2anios:'hace entre 6 meses y 2 años',
+      mas2anios:'hace más de 2 años'
+    };
+    const descripcion = document.getElementById('inp-descripcion')?.value.trim() || '';
+    const detalle = document.getElementById('inp-detalle')?.value.trim() || '';
+    const msg = encodeURIComponent(
+      `Hola SIGLEP, soy ${nombre}.\n` +
+      `Completé el Expediente Inteligente.\n` +
+      `Área: ${cat?.area || ''} — ${cat?.sit || ''}.\n` +
+      `Ocurrió: ${tiempoLabels[estado.tiempo] || estado.tiempo}.\n` +
+      (descripcion ? `Mi situación: ${descripcion}.\n` : '') +
+      (detalle ? `Lo más urgente: ${detalle}.\n` : '') +
+      `WhatsApp: ${tel}.\n` +
+      `Quiero una consulta gratuita.`
+    );
+    btn.href = `https://wa.me/527352169503?text=${msg}`;
+  } else {
+    btn.style.opacity = '0.4';
+    btn.style.pointerEvents = 'none';
+  }
+}
+
+// ══════════════════════════════════════════
+// GENERAR DIAGNÓSTICO
+// ══════════════════════════════════════════
+function generarDiagnostico() {
+  // GA4: expediente_complete
+  gtag('event', 'expediente_complete', {
+    area: estado.area || 'desconocida',
+    page_location: window.location.href,
+    page_title: document.title
+  });
+  const cat = diagnosticos[estado.area]?.[estado.respuesta2] || diagnosticos[estado.area]?.otro;
+  const txt = obtenerTexto(estado.area, estado.respuesta2, estado.tiempo);
+  const urgenciaFinal = ajustarUrgencia(txt.u || 'importante', estado.tiempo);
+  const urgCfg = urgenciaConfig[urgenciaFinal];
+  const etiquetaUrgencia = { urgente:'Urgente', importante:'Importante', atencion:'Atención' };
+
+  document.getElementById('diag-area').textContent = cat.area;
+  document.getElementById('diag-situacion').textContent = cat.sit;
+  document.getElementById('diag-viabilidad').textContent = cat.viab;
+  document.getElementById('diag-urgencia-text').innerHTML =
+    `<span class="${urgCfg.textoColor}">${etiquetaUrgencia[urgenciaFinal]}</span>`;
+  document.getElementById('diag-urgencia-badge').innerHTML =
+    `<span class="urgencia-badge ${urgCfg.clase}">${urgCfg.label}</span>`;
+
+  const ganchoEl = document.getElementById('diag-gancho');
+  if (ganchoEl) ganchoEl.textContent = txt.gancho || '';
+
+  document.getElementById('diag-acciones-lista').innerHTML =
+    (txt.acciones || []).map(a => `<div class="diag-accion">${a}</div>`).join('');
+
+  irPaso(4);
+}
+
+// Scroll suave
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior:'smooth' }); }
+  });
+});
+
+// Auto-select area from URL parameter
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  const area = params.get('area');
+  if (area) {
+    const card = document.querySelector(`.area-card[onclick*="'${area}'"]`);
+    if (card) {
+      seleccionarArea(area, card);
+      setTimeout(() => irPaso(2), 100);
+    }
+  }
+})();
+
+</script>
+</body>
+</html>

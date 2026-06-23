@@ -1,0 +1,3 @@
+# Netlify sirve automáticamente cada carpeta/index.html como URL limpia con barra final.
+# Solo definimos el fallback 404 para rutas inexistentes.
+/*    /index.html    404

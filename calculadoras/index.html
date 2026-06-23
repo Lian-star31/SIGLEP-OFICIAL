@@ -51,6 +51,12 @@
     .cta-band p{margin:0 auto 1.8rem;color:rgba(255,255,255,0.62);max-width:760px;}
     .footer-space{height:1px;}
     @media (max-width: 900px){.hero{padding-top:7.6rem}}
+    .mob-break{display:none;}
+    @media (max-width:680px){
+      .mob-break{display:block;}
+      .hero-inner h1{text-align:center;}
+      .hero-inner .hero-btns{justify-content:center;}
+    }
   </style>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Calculadoras SIGLEP | Áreas","url":"https://siglep.lat/calculadoras/","description":"Hub de calculadoras legales SIGLEP para Laboral, Familiar, Civil, Patrimonial y Seguridad Social."}</script>
   
@@ -375,10 +381,10 @@
     <section class="hero">
       <div class="hero-inner">
         
-        <h1>CALCULADORAS <em>LEGALES</em></h1>
+        <h1>CALCULADORAS<br class="mob-break"> <em>LEGALES</em></h1>
         
         
-        <div style="display:flex;gap:0.9rem;flex-wrap:wrap;margin-top:2rem;">
+        <div class="hero-btns" style="display:flex;gap:0.9rem;flex-wrap:wrap;margin-top:2rem;">
           <a class="btn btn-primary" href="https://wa.me/527352169503">Consulta Gratuita por WhatsApp</a>
           <a class="btn btn-secondary" href="https://calendly.com/hola-siglep/30min" target="_blank" rel="noopener noreferrer">Agendar Consulta</a>
         </div>

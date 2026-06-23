@@ -481,24 +481,23 @@
               <form id="calc-form" onsubmit="return false;">
                 
     <div class="field">
-      <label for="bienes">Valor de bienes a repartir</label>
-      <input id="bienes" type="number" inputmode="decimal" placeholder="Ej. 900000" min="0" step="any">
-      
+      <label for="bienes">Activo social — valor total de bienes comunes (MXN)</label>
+      <input id="bienes" type="number" inputmode="decimal" placeholder="Ej. 900000" min="0" step="any" oninput="runCalc()">
+      <span class="help">Suma el avalúo comercial vigente de todos los bienes del inventario: inmuebles, vehículos, cuentas bancarias, acciones. No uses precio de compra ni valor catastral.</span>
     </div>
-  
 
     <div class="field">
-      <label for="deudas">Deudas asociadas</label>
-      <input id="deudas" type="number" inputmode="decimal" placeholder="Ej. 160000" min="0" step="any">
-      
+      <label for="deudas">Pasivo social — deudas comunes (MXN)</label>
+      <input id="deudas" type="number" inputmode="decimal" placeholder="Ej. 160000" min="0" step="any" oninput="runCalc()">
+      <span class="help">Saldo vigente comprobable de hipotecas, créditos y obligaciones contraídas en nombre de la sociedad conyugal (Art. 188 CCF).</span>
     </div>
-  
 
       <div class="field">
-        <label for="reparto">Tipo de reparto</label>
-        <select id="reparto">
-          <option value="igualitario">Igualitario</option><option value="negociado">Negociado</option><option value="litigioso">Litigioso</option>
+        <label for="reparto">Tipo de liquidación</label>
+        <select id="reparto" onchange="runCalc()">
+          <option value="igualitario">Igualitario — 50/50 por convenio</option><option value="negociado">Negociado — acuerdo entre partes</option><option value="litigioso">Litigioso — resolución judicial</option>
         </select>
+        <span class="help">Si hay desacuerdo, el juez aplica 50/50 por defecto conforme a los Art. 183-193 CCF.</span>
         
       </div>
     

@@ -481,24 +481,23 @@
               <form id="calc-form" onsubmit="return false;">
                 
     <div class="field">
-      <label for="patrimonio">Valor del patrimonio común</label>
-      <input id="patrimonio" type="number" inputmode="decimal" placeholder="Ej. 700000" min="0" step="any">
-      
+      <label for="patrimonio">Valor total del patrimonio común (MXN)</label>
+      <input id="patrimonio" type="number" inputmode="decimal" placeholder="Ej. 700000" min="0" step="any" oninput="runCalc()">
+      <span class="help">Usa avalúo comercial vigente de todos los bienes comunes (inmuebles, vehículos, cuentas). No uses valor catastral ni precio de adquisición original.</span>
     </div>
-  
 
     <div class="field">
-      <label for="deudas">Deudas conjuntas</label>
-      <input id="deudas" type="number" inputmode="decimal" placeholder="Ej. 120000" min="0" step="any">
-      
+      <label for="deudas">Deudas conjuntas (MXN)</label>
+      <input id="deudas" type="number" inputmode="decimal" placeholder="Ej. 120000" min="0" step="any" oninput="runCalc()">
+      <span class="help">Saldo vigente comprobable de créditos e hipotecas contraídos en conjunto durante el matrimonio.</span>
     </div>
-  
 
       <div class="field">
-        <label for="capitulaciones">Capitulaciones previas</label>
-        <select id="capitulaciones">
-          <option value="no">No existen</option><option value="si">Sí existen</option><option value="parcial">Parciales</option>
+        <label for="capitulaciones">Capitulaciones matrimoniales</label>
+        <select id="capitulaciones" onchange="runCalc()">
+          <option value="no">No existen — sociedad conyugal</option><option value="si">Sí existen — separación de bienes</option><option value="parcial">Parciales — régimen mixto</option>
         </select>
+        <span class="help">Revisa tu acta de matrimonio o escritura de capitulaciones para confirmar el régimen pactado.</span>
         
       </div>
     

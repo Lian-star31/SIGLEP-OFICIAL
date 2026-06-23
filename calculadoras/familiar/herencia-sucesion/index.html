@@ -481,24 +481,23 @@
               <form id="calc-form" onsubmit="return false;">
                 
     <div class="field">
-      <label for="patrimonio">Valor del patrimonio</label>
-      <input id="patrimonio" type="number" inputmode="decimal" placeholder="Ej. 1500000" min="0" step="any">
-      
+      <label for="patrimonio">Valor bruto de la masa hereditaria (MXN)</label>
+      <input id="patrimonio" type="number" inputmode="decimal" placeholder="Ej. 1500000" min="0" step="any" oninput="runCalc()">
+      <span class="help">Suma el avalúo comercial vigente de todos los bienes del autor de la herencia: inmuebles, cuentas, vehículos, inversiones. No uses valor catastral ni precio de adquisición.</span>
     </div>
-  
 
     <div class="field">
-      <label for="herederos">Número de herederos</label>
-      <input id="herederos" type="number" inputmode="decimal" placeholder="Ej. 3" min="0" step="any">
-      
+      <label for="herederos">Número de herederos reconocidos</label>
+      <input id="herederos" type="number" inputmode="decimal" placeholder="Ej. 3" min="0" step="any" oninput="runCalc()">
+      <span class="help">Cuenta los herederos legítimos o designados en testamento. En intestado, el orden es: descendientes, cónyuge, ascendientes (Art. 1602 CCF).</span>
     </div>
-  
 
       <div class="field">
-        <label for="testamento">¿Existe testamento?</label>
-        <select id="testamento">
-          <option value="si">Sí</option><option value="no">No</option><option value="duda">No lo sé</option>
+        <label for="testamento">¿Existe testamento notarial?</label>
+        <select id="testamento" onchange="runCalc()">
+          <option value="si">Sí — testamento ante notario</option><option value="no">No — sucesión intestada</option><option value="duda">No lo sé</option>
         </select>
+        <span class="help">Sin testamento el proceso es más largo y costoso. Verifica en el Registro Nacional de Testamentos (RENATE).</span>
         
       </div>
     

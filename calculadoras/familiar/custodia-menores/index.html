@@ -481,24 +481,23 @@
               <form id="calc-form" onsubmit="return false;">
                 
     <div class="field">
-      <label for="menores">Número de menores</label>
-      <input id="menores" type="number" inputmode="decimal" placeholder="Ej. 1" min="0" step="any">
-      
+      <label for="menores">Número de menores bajo custodia</label>
+      <input id="menores" type="number" inputmode="decimal" placeholder="Ej. 1" min="0" step="any" oninput="runCalc()">
+      <span class="help">Cuenta únicamente los menores de 18 años sujetos al procedimiento.</span>
     </div>
-  
 
     <div class="field">
-      <label for="ingreso">Ingreso mensual del cuidador</label>
-      <input id="ingreso" type="number" inputmode="decimal" placeholder="Ej. 18000" min="0" step="any">
-      
+      <label for="ingreso">Ingreso mensual del progenitor obligado (MXN)</label>
+      <input id="ingreso" type="number" inputmode="decimal" placeholder="Ej. 18000" min="0" step="any" oninput="runCalc()">
+      <span class="help">Ingreso bruto real comprobable en nómina o CFDI. No uses estimaciones. Se aplica factor neto 82%.</span>
     </div>
-  
 
       <div class="field">
-        <label for="riesgo">Nivel de urgencia</label>
-        <select id="riesgo">
-          <option value="bajo">Bajo</option><option value="medio">Medio</option><option value="alto">Alto</option>
+        <label for="riesgo">Nivel de urgencia del caso</label>
+        <select id="riesgo" onchange="runCalc()">
+          <option value="bajo">Bajo — sin riesgo inmediato</option><option value="medio">Medio — conflicto activo</option><option value="alto">Alto — riesgo o violencia</option>
         </select>
+        <span class="help">A mayor urgencia, el juez puede decretar medidas cautelares más estrictas (Art. 282 CCF).</span>
         
       </div>
     

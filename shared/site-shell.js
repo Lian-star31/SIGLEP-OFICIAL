@@ -144,7 +144,7 @@
       }
       .siglep-shell-dropdown {
         position: absolute;
-        top: calc(100% + 0.8rem);
+        top: calc(100% - 1px);
         left: 0;
         min-width: 260px;
         padding: 0.75rem;

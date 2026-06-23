@@ -651,8 +651,8 @@ function calculatorPage(cfg) {
         <h1>${cfg.heroTitle}</h1>
         <p class="lead">${esc(cfg.heroLead)}</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="${WA_LINK}?text=${encodeURIComponent(cfg.waText || `Hola SIGLEP, necesito orientación sobre ${cfg.shortTopic}`)}" target="_blank" rel="noopener noreferrer">${esc(cfg.ctaPrimary || 'Consulta gratis por WhatsApp')}</a>
-          <a class="btn btn-secondary" href="${cfg.secondaryHref || '/calculadoras/'}">${esc(cfg.ctaSecondary || 'Ver más calculadoras')}</a>
+          <a class="btn btn-primary" href="${areaNavigationFor(cfg.categorySlug).href}">${esc(areaNavigationFor(cfg.categorySlug).label)}</a>
+          <a class="btn btn-secondary" href="${CONSULTATION_URL}" target="_blank" rel="noopener noreferrer">Agendar Consulta</a>
         </div>
       </div>
     </section>
@@ -722,8 +722,8 @@ function calculatorPage(cfg) {
         <h2>${cfg.ctaBandTitle}</h2>
         <p>${esc(cfg.ctaBandLead)}</p>
         <div class="hero-actions" style="justify-content:center;">
-          <a class="btn btn-primary" href="${WA_LINK}?text=${encodeURIComponent(cfg.waText || `Hola SIGLEP, necesito orientación sobre ${cfg.shortTopic}`)}" target="_blank" rel="noopener noreferrer">${esc(cfg.ctaPrimary || 'Consulta gratis por WhatsApp')}</a>
-          <a class="btn btn-secondary" href="/${cfg.categorySlug}/">${esc(cfg.ctaSecondary || 'Ver categoría')}</a>
+          <a class="btn btn-primary" href="${areaNavigationFor(cfg.categorySlug).href}">Ir al Área Correspondiente</a>
+          <a class="btn btn-secondary" href="${CONSULTATION_URL}" target="_blank" rel="noopener noreferrer">Agendar Consulta</a>
         </div>
       </div>
     </section>
@@ -884,7 +884,7 @@ function categoryPage(cfg) {
         <p class="lead">${esc(cfg.heroLead)}</p>
         <div style="display:flex;gap:0.9rem;flex-wrap:wrap;">
           <a class="btn btn-primary" href="${cfg.primaryHref}">${esc(cfg.primaryLabel)}</a>
-          <a class="btn btn-secondary" href="${cfg.secondaryHref}">${esc(cfg.secondaryLabel)}</a>
+          <a class="btn btn-secondary" href="${cfg.secondaryHref}" target="_blank" rel="noopener noreferrer">${esc(cfg.secondaryLabel)}</a>
         </div>
       </div>
     </section>
@@ -912,7 +912,7 @@ function categoryPage(cfg) {
         <p>${esc(cfg.ctaBandLead)}</p>
         <div style="display:flex;gap:0.9rem;justify-content:center;flex-wrap:wrap;">
           <a class="btn btn-primary" href="${cfg.primaryHref}">${esc(cfg.primaryLabel)}</a>
-          <a class="btn btn-secondary" href="${cfg.secondaryHref}">${esc(cfg.secondaryLabel)}</a>
+          <a class="btn btn-secondary" href="${cfg.secondaryHref}" target="_blank" rel="noopener noreferrer">${esc(cfg.secondaryLabel)}</a>
         </div>
       </div>
     </section>
@@ -1024,7 +1024,7 @@ function hubPage(cfg) {
         <p class="lead">${esc(cfg.heroLead)}</p>
         <div style="display:flex;gap:0.9rem;flex-wrap:wrap;">
           <a class="btn btn-primary" href="${cfg.primaryHref}">${esc(cfg.primaryLabel)}</a>
-          <a class="btn btn-secondary" href="${cfg.secondaryHref}">${esc(cfg.secondaryLabel)}</a>
+          <a class="btn btn-secondary" href="${cfg.secondaryHref}" target="_blank" rel="noopener noreferrer">${esc(cfg.secondaryLabel)}</a>
         </div>
       </div>
     </section>
@@ -1052,7 +1052,7 @@ function hubPage(cfg) {
         <p>${esc(cfg.ctaBandLead)}</p>
         <div style="display:flex;gap:0.9rem;justify-content:center;flex-wrap:wrap;">
           <a class="btn btn-primary" href="${cfg.primaryHref}">${esc(cfg.primaryLabel)}</a>
-          <a class="btn btn-secondary" href="${cfg.secondaryHref}">${esc(cfg.secondaryLabel)}</a>
+          <a class="btn btn-secondary" href="${cfg.secondaryHref}" target="_blank" rel="noopener noreferrer">${esc(cfg.secondaryLabel)}</a>
         </div>
       </div>
     </section>
@@ -1070,6 +1070,19 @@ function categoryCardsFor(calculators) {
     title: calc.title,
     desc: calc.description ?? calc.desc ?? '',
   }));
+}
+
+const CONSULTATION_URL = 'https://calendly.com/hola-siglep/30min';
+const AREA_NAVIGATION = {
+  laboral: { label: 'Ir al Área Laboral', href: '/laboral/' },
+  familiar: { label: 'Ir al Área Familiar', href: '/familiar/' },
+  civil: { label: 'Ir al Área Civil', href: '/civil/' },
+  patrimonial: { label: 'Ir al Área Patrimonial', href: '/patrimonial/' },
+  'seguridad-social': { label: 'Ir al Área de Seguridad Social', href: '/seguridad-social/' },
+};
+
+function areaNavigationFor(slug) {
+  return AREA_NAVIGATION[slug] || AREA_NAVIGATION.laboral;
 }
 
 const calculatorPages = [
@@ -1926,10 +1939,10 @@ const categoryPages = [
     description: 'SIGLEP en Derecho Civil: daño moral, daños y perjuicios, responsabilidad civil e intereses moratorios en México.',
     ogTitle: 'Derecho Civil México | SIGLEP',
     ogDescription: 'Daño moral, daños y perjuicios, responsabilidad civil e intereses moratorios. Estrategia civil con enfoque práctico.',
-    primaryHref: '/calculadoras/civil/dano-moral/',
-    primaryLabel: 'Ver calculadoras civiles',
-    secondaryHref: '/calculadoras/',
-    secondaryLabel: 'Ir al hub de calculadoras',
+    primaryHref: '/calculadoras/civil/',
+    primaryLabel: 'Ir al Área Civil',
+    secondaryHref: CONSULTATION_URL,
+    secondaryLabel: 'Agendar Consulta',
     sectionTitle: 'Cuatro herramientas para organizar tu reclamo civil',
     sectionLead: 'Cada calculadora está pensada para darte una referencia útil antes de la revisión legal.',
     ctaBandTitle: 'Si hubo daño, hay que cuantificarlo',
@@ -1943,7 +1956,7 @@ const categoryPages = [
     faq: [
       { q: '¿Qué tipo de asuntos cubre el área civil?', a: 'Daño moral, daños y perjuicios, responsabilidad civil e intereses moratorios.' },
       { q: '¿Debo llevar facturas o contratos?', a: 'Sí. Cualquier soporte documental mejora la revisión inicial.' },
-      { q: '¿Puedo ir directo a calculadoras?', a: 'Sí, el hub de calculadoras agrupa todo por área.' },
+      { q: '¿Puedo ir directo a calculadoras?', a: 'Sí, las calculadoras por área agrupan todo por categoría.' },
     ],
   },
   {
@@ -1955,10 +1968,10 @@ const categoryPages = [
     description: 'SIGLEP en Seguridad Social: pensión IMSS, Modalidad 40, pensión ISSSTE, invalidez y viudez en México.',
     ogTitle: 'Seguridad Social México | SIGLEP',
     ogDescription: 'Pensión IMSS, Modalidad 40, pensión ISSSTE, invalidez y viudez. Planeación de seguridad social en México.',
-    primaryHref: '/calculadoras/seguridad-social/pension-imss/',
-    primaryLabel: 'Ver calculadoras de seguridad social',
-    secondaryHref: '/calculadoras/',
-    secondaryLabel: 'Ir al hub de calculadoras',
+    primaryHref: '/calculadoras/seguridad-social/',
+    primaryLabel: 'Ir al Área de Seguridad Social',
+    secondaryHref: CONSULTATION_URL,
+    secondaryLabel: 'Agendar Consulta',
     sectionTitle: 'Cinco calculadoras para planear mejor tu pensión',
     sectionLead: 'Cada herramienta da una referencia distinta según la institución o el tipo de prestación.',
     ctaBandTitle: 'Tu retiro se prepara con anticipación',
@@ -1986,9 +1999,9 @@ const calculatorCategoryPages = [
     heroLead: 'Agrupamos liquidación, finiquito, despido, horas extras y prestaciones proporcionales en una sola ruta dentro de la arquitectura de calculadoras.',
     description: 'Calculadoras laborales SIGLEP para liquidación, finiquito, despido injustificado, horas extras y prestaciones proporcionales.',
     primaryHref: '/laboral/',
-    primaryLabel: 'Ir al área laboral',
-    secondaryHref: '/calculadoras/',
-    secondaryLabel: 'Volver al hub',
+    primaryLabel: 'Ir al Área Laboral',
+    secondaryHref: CONSULTATION_URL,
+    secondaryLabel: 'Agendar Consulta',
     sectionTitle: 'Cinco calculadoras laborales',
     sectionLead: 'Empieza por la herramienta que mejor se alinee con tu escenario y luego revisa las demás si el caso se complica.',
     ctaBandTitle: 'Todo lo laboral, en una sola ruta',
@@ -2014,9 +2027,9 @@ const calculatorCategoryPages = [
     heroLead: 'Pensión alimenticia, divorcio, custodia, régimen matrimonial y sociedad conyugal agrupados para revisar escenarios familiares con orden.',
     description: 'Calculadoras familiares SIGLEP para pensión alimenticia, divorcio, custodia de menores, régimen matrimonial y liquidación de sociedad conyugal.',
     primaryHref: '/familiar/',
-    primaryLabel: 'Ir al área familiar',
-    secondaryHref: '/calculadoras/',
-    secondaryLabel: 'Volver al hub',
+    primaryLabel: 'Ir al Área Familiar',
+    secondaryHref: CONSULTATION_URL,
+    secondaryLabel: 'Agendar Consulta',
     sectionTitle: 'Cinco calculadoras familiares',
     sectionLead: 'Selecciona la herramienta que corresponda a tu situación y revisa el contexto completo del asunto familiar.',
     ctaBandTitle: 'Los asuntos familiares se preparan con claridad',
@@ -2042,9 +2055,9 @@ const calculatorCategoryPages = [
     heroLead: 'Daño moral, daños y perjuicios, responsabilidad civil e intereses moratorios en un solo bloque de navegación.',
     description: 'Calculadoras civiles SIGLEP para daño moral, daños y perjuicios, responsabilidad civil e intereses moratorios.',
     primaryHref: '/civil/',
-    primaryLabel: 'Ir al área civil',
-    secondaryHref: '/calculadoras/',
-    secondaryLabel: 'Volver al hub',
+    primaryLabel: 'Ir al Área Civil',
+    secondaryHref: CONSULTATION_URL,
+    secondaryLabel: 'Agendar Consulta',
     sectionTitle: 'Cuatro calculadoras civiles',
     sectionLead: 'Úsalas para revisar cuantías y preparar mejor un reclamo o una negociación.',
     ctaBandTitle: 'Si hubo daño, también hay que cuantificarlo',
@@ -2070,9 +2083,9 @@ const calculatorCategoryPages = [
     heroLead: 'Herencia y sucesión en una sola ruta para revisar un escenario patrimonial con más claridad y continuidad.',
     description: 'Calculadora patrimonial SIGLEP para herencia y sucesión en México.',
     primaryHref: '/patrimonial/',
-    primaryLabel: 'Ir al área patrimonial',
-    secondaryHref: '/calculadoras/',
-    secondaryLabel: 'Volver al hub',
+    primaryLabel: 'Ir al Área Patrimonial',
+    secondaryHref: CONSULTATION_URL,
+    secondaryLabel: 'Agendar Consulta',
     sectionTitle: 'Una calculadora patrimonial',
     sectionLead: 'La herramienta te da una primera referencia antes de ordenar bienes, testamentos y herederos.',
     ctaBandTitle: 'La sucesión se revisa con orden',
@@ -2098,9 +2111,9 @@ const calculatorCategoryPages = [
     heroLead: 'IMSS, Modalidad 40, ISSSTE, invalidez y viudez agrupados para revisar el expediente con anticipación.',
     description: 'Calculadoras de seguridad social SIGLEP para pensión IMSS, Modalidad 40, pensión ISSSTE, invalidez y viudez.',
     primaryHref: '/seguridad-social/',
-    primaryLabel: 'Ir al área de seguridad social',
-    secondaryHref: '/calculadoras/',
-    secondaryLabel: 'Volver al hub',
+    primaryLabel: 'Ir al Área de Seguridad Social',
+    secondaryHref: CONSULTATION_URL,
+    secondaryLabel: 'Agendar Consulta',
     sectionTitle: 'Cinco calculadoras de seguridad social',
     sectionLead: 'Revisa la que corresponda a tu régimen y usa el resultado como guía de planeación.',
     ctaBandTitle: 'Tu retiro se prepara con anticipación',
@@ -2121,10 +2134,10 @@ const calculatorCategoryPages = [
 ];
 
 const hubConfig = {
-  title: 'Calculadoras SIGLEP | Hub Legal',
+  title: 'Calculadoras SIGLEP | Áreas',
   url: '/calculadoras/',
   description: 'Hub de calculadoras legales SIGLEP para Laboral, Familiar, Civil, Patrimonial y Seguridad Social.',
-  eyebrow: 'Hub de Calculadoras',
+  eyebrow: 'Calculadoras por área',
   heroTitle: 'Calculadoras legales <em>organizadas por área.</em>',
   heroLead: 'Conservamos la arquitectura del sitio y agrupamos las herramientas por categoría para que todo sea fácil de encontrar y mantener.',
   primaryHref: '/calculadoras/laboral/',
@@ -2132,7 +2145,7 @@ const hubConfig = {
   secondaryHref: '/calculadoras/seguridad-social/',
   secondaryLabel: 'Ir a Seguridad Social',
   sectionTitle: 'Áreas disponibles',
-  sectionLead: 'Las categorías nuevas conviven con las páginas existentes y respetan las URLs ya publicadas.',
+  sectionLead: 'Seleccione el área jurídica que corresponda a su asunto.',
   ctaBandTitle: 'Una sola arquitectura, veinte calculadoras',
   ctaBandLead: 'La navegación centraliza el acceso sin romper rutas ni duplicar versiones.',
   categories: [
@@ -2165,8 +2178,8 @@ function relatedForCategory(categorySlug, currentUrl) {
     {
       href: '/calculadoras/',
       kicker: 'Hub',
-      title: 'Volver al hub de calculadoras',
-      desc: 'Explora todas las áreas y vuelve a la arquitectura principal del sitio.',
+      title: 'Ir a calculadoras relacionadas',
+      desc: 'Explora todas las áreas y sigue una ruta más clara dentro del sitio.',
     },
   ];
 }

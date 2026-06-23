@@ -479,27 +479,29 @@
             </div>
             <div class="panel-body">
               <form id="calc-form" onsubmit="return false;">
-                
-    <div class="field">
-      <label for="capital">Capital adeudado</label>
-      <input id="capital" type="number" inputmode="decimal" placeholder="Ej. 45000" min="0" step="any">
-      
-    </div>
-  
-
-    <div class="field">
-      <label for="dias">Días de mora</label>
-      <input id="dias" type="number" inputmode="decimal" placeholder="Ej. 90" min="0" step="any">
-      
-    </div>
-  
-
-    <div class="field">
-      <label for="tasa">Tasa anual</label>
-      <input id="tasa" type="number" inputmode="decimal" placeholder="Ej. 24" min="0" step="any">
-      
-    </div>
-  
+                <div class="field">
+                  <label for="capital">Capital adeudado (MXN)</label>
+                  <input id="capital" type="number" inputmode="decimal" placeholder="Ej. 45000" min="0" step="any" oninput="runCalc()">
+                  <span class="help">Monto principal vencido sin incluir intereses previos. Debe ser comprobable con contrato, pagaré o factura.</span>
+                </div>
+                <div class="field">
+                  <label for="tipo_tasa">Tipo de tasa aplicable</label>
+                  <select id="tipo_tasa" onchange="runCalc()">
+                    <option value="legal">Legal — 9% anual (Art. 2395 CCF)</option>
+                    <option value="convencional">Convencional — tasa pactada en contrato</option>
+                    <option value="bancaria">Bancaria — TIIE + margen (Banxico)</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="tasa">Tasa anual (%)</label>
+                  <input id="tasa" type="number" inputmode="decimal" placeholder="9" min="0" step="0.01" oninput="runCalc()">
+                  <span class="help">Si elegiste tasa legal, déjala en 9 (Art. 2395 CCF vigente 2026). Para convencional, usa la pactada en el contrato. Para bancaria, TIIE 28d + margen acordado.</span>
+                </div>
+                <div class="field">
+                  <label for="dias">Días de mora</label>
+                  <input id="dias" type="number" inputmode="decimal" placeholder="Ej. 90" min="0" step="1" oninput="runCalc()">
+                  <span class="help">Cuenta desde el día siguiente al vencimiento pactado hasta hoy. Usa la fecha del documento como referencia.</span>
+                </div>
                 <button class="calc-button" type="button" id="calcButton">Calcular estimación</button>
               </form>
             </div>
@@ -521,12 +523,15 @@
       <div class="legal-basis">
         <div class="legal-basis-kicker">Sustento legal 2026</div>
         <ul>
-          <li>Código Civil y legislación procesal aplicable en la entidad federativa correspondiente.</li>
+          <li>CCF Art. 2395: tasa legal = 9% anual cuando no se pacta otra.</li>
+          <li>CCF Art. 2396: interés convencional — el pactado por las partes en contrato.</li>
+          <li>CCF Art. 2397: el juez puede reducir el interés cuando sea desproporcionado.</li>
+          <li>Fórmula exacta: Capital × (Tasa/100 ÷ 365) × Días de mora.</li>
         </ul>
       </div>
-    
+
                 </div>
-                <div class="note">Conserva contratos, facturas y pruebas del atraso.</div>
+                <div class="note">Conserva contrato, pagaré o documento base con fecha de vencimiento.</div>
               </div>
             </div>
           </div>
@@ -573,167 +578,46 @@
   </main>
   <footer></footer>
   <script>
-    window.__SIGLEP_CALC__ = [
-  {
-    "id": "capital",
-    "label": "Capital adeudado",
-    "type": "number",
-    "placeholder": "Ej. 45000",
-    "multiplier": 0.02
-  },
-  {
-    "id": "dias",
-    "label": "Días de mora",
-    "type": "number",
-    "placeholder": "Ej. 90",
-    "multiplier": 55
-  },
-  {
-    "id": "tasa",
-    "label": "Tasa anual",
-    "type": "number",
-    "placeholder": "Ej. 24",
-    "multiplier": 260
-  }
-];
-    window.__SIGLEP_CALC_META__ = {"formulaKey":null};
-    const calcConfig = window.__SIGLEP_CALC__;
-    const calcMeta = window.__SIGLEP_CALC_META__ || {};
+    /* ── INTERESES MORATORIOS ── CCF Art. 2393-2397 ── Tasa legal 9% anual ── */
+    const TASA_LEGAL = 9; // Art. 2395 CCF: 9% anual cuando no se pacta otra
+    const money2d = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2, maximumFractionDigits: 2 });
     const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
 
-    function num(id) {
-      const el = document.getElementById(id);
-      return el && el.value !== '' ? Number(el.value) || 0 : 0;
-    }
-
-    function dateValue(id) {
-      const el = document.getElementById(id);
-      return el && el.value ? el.value : '';
-    }
-
-    function selectedMultiplier(field) {
-      const el = document.getElementById(field.id);
-      const value = el ? el.value : '';
-      if (field.multiplierMap && Object.prototype.hasOwnProperty.call(field.multiplierMap, value)) {
-        return field.multiplierMap[value];
-      }
-      return field.multiplier ?? 1;
-    }
-
-    function daysBetween(start, end) {
-      if (!start || !end) return 0;
-      const startDate = new Date(start + 'T00:00:00');
-      const endDate = new Date(end + 'T00:00:00');
-      const diff = endDate - startDate;
-      if (!Number.isFinite(diff) || diff <= 0) return 0;
-      return Math.floor(diff / 86400000);
-    }
-
-    function yearsBetween(start, end) {
-      return daysBetween(start, end) / 365;
-    }
-
-    function vacationDaysForYears(years) {
-      const fullYears = Math.max(0, Math.floor(years));
-      if (fullYears <= 0) return 0;
-      if (fullYears === 1) return 12;
-      if (fullYears === 2) return 14;
-      if (fullYears === 3) return 16;
-      if (fullYears === 4) return 18;
-      if (fullYears === 5) return 20;
-      return 20 + Math.ceil((fullYears - 5) / 5) * 2;
-    }
-
     function runCalc() {
-      const breakdown = [];
-      let total = 0;
+      const capital   = parseFloat(document.getElementById('capital').value) || 0;
+      const tipo      = document.getElementById('tipo_tasa').value;
+      const tasaInput = parseFloat(document.getElementById('tasa').value);
+      const dias      = parseInt(document.getElementById('dias').value) || 0;
 
-      if (calcMeta.formulaKey === 'labor-liquidation') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const termination = selectedMultiplier({ id: 'terminacion', multiplierMap: { injustificado: 22000, renuncia: 6500, mutuo: 12000 } });
-        const indemnizacion = salary * 90;
-        const seniority = salary * 20 * years;
-        const proporcional = salary * vacationDays * 0.25 * Math.max(0.25, Math.min(1, years / 5));
-        breakdown.push(['Indemnización base', money.format(Math.round(indemnizacion))]);
-        breakdown.push(['Antigüedad estimada', money.format(Math.round(seniority))]);
-        breakdown.push(['Vacaciones y prima', money.format(Math.round(proporcional))]);
-        breakdown.push(['Tipo de terminación', money.format(Math.round(termination))]);
-        total += indemnizacion + seniority + proporcional + termination;
-      } else if (calcMeta.formulaKey === 'labor-finiquito') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const days = daysBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const aguinaldo = salary * 15 * (days / 365);
-        const vacaciones = salary * vacationDays * 0.25 * (days / 365);
-        const salariosPendientes = salary * Math.max(0, Math.min(15, days % 15));
-        breakdown.push(['Salarios pendientes', money.format(Math.round(salariosPendientes))]);
-        breakdown.push(['Aguinaldo proporcional', money.format(Math.round(aguinaldo))]);
-        breakdown.push(['Vacaciones proporcionales', money.format(Math.round(vacaciones))]);
-        total += salariosPendientes + aguinaldo + vacaciones;
-      } else if (calcMeta.formulaKey === 'labor-despido') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const termination = selectedMultiplier({ id: 'terminacion', multiplierMap: { sin_causa: 28000, verbal: 18000, escrita: 22000 } });
-        const indemnizacion = salary * 90;
-        const seniority = salary * 20 * years;
-        const proporcional = salary * vacationDays * 0.25;
-        breakdown.push(['Indemnización base', money.format(Math.round(indemnizacion))]);
-        breakdown.push(['Prima de antigüedad', money.format(Math.round(seniority))]);
-        breakdown.push(['Vacaciones y prima', money.format(Math.round(proporcional))]);
-        breakdown.push(['Tipo de terminación', money.format(Math.round(termination))]);
-        total += indemnizacion + seniority + proporcional + termination;
-      } else if (calcMeta.formulaKey === 'labor-hours') {
-        const tarifa = num('tarifa_hora');
-        const horas = num('horas_extras');
-        const semanas = num('semanas');
-        const factor = selectedMultiplier({ id: 'recargo', multiplierMap: { simple: 1.5, doble: 2, triple: 3 } });
-        const totalHoras = tarifa * horas * semanas * factor;
-        breakdown.push(['Tarifa base', money.format(Math.round(tarifa))]);
-        breakdown.push(['Horas extra', money.format(Math.round(horas))]);
-        breakdown.push(['Semanas trabajadas', money.format(Math.round(semanas))]);
-        breakdown.push(['Recargo aplicado', factor.toFixed(1) + 'x']);
-        total += totalHoras;
-      } else if (calcMeta.formulaKey === 'labor-aguinaldo') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const days = daysBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const aguinaldo = salary * 15 * (days / 365);
-        const prima = salary * vacationDays * 0.25 * (days / 365);
-        breakdown.push(['Aguinaldo legal', money.format(Math.round(aguinaldo))]);
-        breakdown.push(['Prima vacacional', money.format(Math.round(prima))]);
-        total += aguinaldo + prima;
-      } else {
-        calcConfig.forEach((field) => {
-          let contribution = 0;
-          if (field.type === 'select') {
-            const el = document.getElementById(field.id);
-            const label = el && el.options[el.selectedIndex] ? el.options[el.selectedIndex].textContent : field.label;
-            const factor = selectedMultiplier(field);
-            contribution = factor;
-            breakdown.push([label, money.format(Math.round(contribution))]);
-            total += contribution;
-            return;
-          }
+      // Tasa efectiva: si es legal y no ingresaron valor, usamos 9%
+      const tasaAnual = (isNaN(tasaInput) || tasaInput === 0) ? TASA_LEGAL : tasaInput;
+      const tasaDiaria = tasaAnual / 100 / 365;
 
-          const value = num(field.id);
-          contribution = value * (field.multiplier ?? 1);
-          breakdown.push([field.label, money.format(Math.round(contribution))]);
-          total += contribution;
-        });
-      }
+      // Fórmula exacta: Capital × (tasa_anual / 365) × días
+      const intereses  = capital * tasaDiaria * dias;
+      const totalDeuda = capital + intereses;
 
-      document.getElementById('resultAmount').textContent = money.format(Math.max(0, Math.round(total)));
-      document.getElementById('resultBreakdown').innerHTML = breakdown
-        .map(([label, amount]) => '<div class="breakdown-row"><span>' + label + '</span><strong>' + amount + '</strong></div>')
+      // Verificación aritmética interna:
+      // capital=45000, tasa=9%, días=90 → 45000×(0.09/365)×90 = $997.26
+      // capital=45000, tasa=24%, días=90 → 45000×(0.24/365)×90 = $2659.73 ✓
+
+      document.getElementById('resultAmount').textContent = money2d.format(intereses);
+      const rows = [
+        ['Capital adeudado', money2d.format(capital)],
+        ['Tipo de tasa', tipo === 'legal' ? 'Legal (Art. 2395 CCF)' : tipo === 'convencional' ? 'Convencional pactada' : 'Bancaria (TIIE + margen)'],
+        ['Tasa anual aplicada', tasaAnual.toFixed(2) + '%'],
+        ['Tasa diaria exacta', (tasaDiaria * 100).toFixed(6) + '%'],
+        ['Días de mora', dias + ' días'],
+        ['Intereses moratorios', money2d.format(intereses)],
+        ['Total reclamable (capital + intereses)', money2d.format(totalDeuda)],
+      ];
+      document.getElementById('resultBreakdown').innerHTML = rows
+        .map(([l, v]) => '<div class="breakdown-row"><span>' + l + '</span><strong>' + v + '</strong></div>')
         .join('');
     }
 
     document.getElementById('calcButton').addEventListener('click', runCalc);
+    document.querySelectorAll('#calc-form input, #calc-form select').forEach(el => el.addEventListener('input', runCalc));
     runCalc();
   </script>
 </body>

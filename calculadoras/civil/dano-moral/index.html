@@ -479,29 +479,24 @@
             </div>
             <div class="panel-body">
               <form id="calc-form" onsubmit="return false;">
-                
-    <div class="field">
-      <label for="gravedad">Gravedad de la afectación</label>
-      <input id="gravedad" type="number" inputmode="decimal" placeholder="Ej. 4" min="0" step="any">
-      
-    </div>
-  
-
-      <div class="field">
-        <label for="exposicion">Exposición pública</label>
-        <select id="exposicion">
-          <option value="baja">Baja</option><option value="media">Media</option><option value="alta">Alta</option>
-        </select>
-        
-      </div>
-    
-
-    <div class="field">
-      <label for="perdida">Pérdida económica asociada</label>
-      <input id="perdida" type="number" inputmode="decimal" placeholder="Ej. 20000" min="0" step="any">
-      
-    </div>
-  
+                <div class="field">
+                  <label for="gravedad">Gravedad de la afectación (1 = leve · 10 = muy grave)</label>
+                  <input id="gravedad" type="number" inputmode="decimal" placeholder="Ej. 6" min="1" max="10" step="1" oninput="runCalc()">
+                  <span class="help">Escala orientativa: 1-3 afectación leve, 4-6 moderada, 7-8 grave, 9-10 muy grave o irreversible. El juez valora prudencialmente (Art. 1916 CCF).</span>
+                </div>
+                <div class="field">
+                  <label for="exposicion">Nivel de exposición o difusión pública</label>
+                  <select id="exposicion" onchange="runCalc()">
+                    <option value="baja">Baja — daño en círculo privado/laboral reducido</option>
+                    <option value="media">Media — difusión regional o redes sociales</option>
+                    <option value="alta">Alta — medios masivos, viralización o afectación nacional</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="perdida">Gastos comprobables derivados del daño (MXN)</label>
+                  <input id="perdida" type="number" inputmode="decimal" placeholder="Ej. 20000" min="0" step="any" oninput="runCalc()">
+                  <span class="help">Terapia psicológica, tratamiento médico u otros gastos directamente causados. Documentar con facturas (daño emergente, Art. 2108 CCF).</span>
+                </div>
                 <button class="calc-button" type="button" id="calcButton">Calcular estimación</button>
               </form>
             </div>
@@ -523,7 +518,11 @@
       <div class="legal-basis">
         <div class="legal-basis-kicker">Sustento legal 2026</div>
         <ul>
-          <li>Código Civil y legislación procesal aplicable en la entidad federativa correspondiente.</li>
+          <li>CCF Art. 1916: daño moral = alteración de sentimientos, honor, reputación o vida privada por hecho ilícito.</li>
+          <li>Cuantificación judicial: tipo de derecho afectado + gravedad + gastos devengados (Tesis SCJN 2025).</li>
+          <li>Referencia orientativa: 10–500 veces UMA mensual ($3,566.22) según gravedad y exposición.</li>
+          <li>CCF Art. 2108: gastos comprobables se suman como daño emergente.</li>
+          <li>La cifra final es jurisdiccional — este cálculo es solo una referencia de trabajo.</li>
         </ul>
       </div>
     
@@ -575,184 +574,42 @@
   </main>
   <footer></footer>
   <script>
-    window.__SIGLEP_CALC__ = [
-  {
-    "id": "gravedad",
-    "label": "Gravedad de la afectación",
-    "type": "number",
-    "placeholder": "Ej. 4",
-    "multiplier": 7000
-  },
-  {
-    "id": "exposicion",
-    "label": "Exposición pública",
-    "type": "select",
-    "multiplierMap": {
-      "baja": 3500,
-      "media": 9500,
-      "alta": 18000
-    },
-    "options": [
-      {
-        "value": "baja",
-        "label": "Baja"
-      },
-      {
-        "value": "media",
-        "label": "Media"
-      },
-      {
-        "value": "alta",
-        "label": "Alta"
-      }
-    ]
-  },
-  {
-    "id": "perdida",
-    "label": "Pérdida económica asociada",
-    "type": "number",
-    "placeholder": "Ej. 20000",
-    "multiplier": 0.4
-  }
-];
-    window.__SIGLEP_CALC_META__ = {"formulaKey":null};
-    const calcConfig = window.__SIGLEP_CALC__;
-    const calcMeta = window.__SIGLEP_CALC_META__ || {};
+    /* ── DAÑO MORAL ── CCF Art. 1916 · Tesis SCJN 2025 · UMA 2026 ── */
+    const UMA_MENSUAL = 3566.22; // vigente desde 1-feb-2026
     const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
 
-    function num(id) {
-      const el = document.getElementById(id);
-      return el && el.value !== '' ? Number(el.value) || 0 : 0;
-    }
-
-    function dateValue(id) {
-      const el = document.getElementById(id);
-      return el && el.value ? el.value : '';
-    }
-
-    function selectedMultiplier(field) {
-      const el = document.getElementById(field.id);
-      const value = el ? el.value : '';
-      if (field.multiplierMap && Object.prototype.hasOwnProperty.call(field.multiplierMap, value)) {
-        return field.multiplierMap[value];
-      }
-      return field.multiplier ?? 1;
-    }
-
-    function daysBetween(start, end) {
-      if (!start || !end) return 0;
-      const startDate = new Date(start + 'T00:00:00');
-      const endDate = new Date(end + 'T00:00:00');
-      const diff = endDate - startDate;
-      if (!Number.isFinite(diff) || diff <= 0) return 0;
-      return Math.floor(diff / 86400000);
-    }
-
-    function yearsBetween(start, end) {
-      return daysBetween(start, end) / 365;
-    }
-
-    function vacationDaysForYears(years) {
-      const fullYears = Math.max(0, Math.floor(years));
-      if (fullYears <= 0) return 0;
-      if (fullYears === 1) return 12;
-      if (fullYears === 2) return 14;
-      if (fullYears === 3) return 16;
-      if (fullYears === 4) return 18;
-      if (fullYears === 5) return 20;
-      return 20 + Math.ceil((fullYears - 5) / 5) * 2;
-    }
-
     function runCalc() {
-      const breakdown = [];
-      let total = 0;
+      const gravedad  = Math.max(1, Math.min(10, parseInt(document.getElementById('gravedad').value) || 0));
+      const exposicion = document.getElementById('exposicion').value;
+      const gastos    = parseFloat(document.getElementById('perdida').value) || 0;
 
-      if (calcMeta.formulaKey === 'labor-liquidation') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const termination = selectedMultiplier({ id: 'terminacion', multiplierMap: { injustificado: 22000, renuncia: 6500, mutuo: 12000 } });
-        const indemnizacion = salary * 90;
-        const seniority = salary * 20 * years;
-        const proporcional = salary * vacationDays * 0.25 * Math.max(0.25, Math.min(1, years / 5));
-        breakdown.push(['Indemnización base', money.format(Math.round(indemnizacion))]);
-        breakdown.push(['Antigüedad estimada', money.format(Math.round(seniority))]);
-        breakdown.push(['Vacaciones y prima', money.format(Math.round(proporcional))]);
-        breakdown.push(['Tipo de terminación', money.format(Math.round(termination))]);
-        total += indemnizacion + seniority + proporcional + termination;
-      } else if (calcMeta.formulaKey === 'labor-finiquito') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const days = daysBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const aguinaldo = salary * 15 * (days / 365);
-        const vacaciones = salary * vacationDays * 0.25 * (days / 365);
-        const salariosPendientes = salary * Math.max(0, Math.min(15, days % 15));
-        breakdown.push(['Salarios pendientes', money.format(Math.round(salariosPendientes))]);
-        breakdown.push(['Aguinaldo proporcional', money.format(Math.round(aguinaldo))]);
-        breakdown.push(['Vacaciones proporcionales', money.format(Math.round(vacaciones))]);
-        total += salariosPendientes + aguinaldo + vacaciones;
-      } else if (calcMeta.formulaKey === 'labor-despido') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const termination = selectedMultiplier({ id: 'terminacion', multiplierMap: { sin_causa: 28000, verbal: 18000, escrita: 22000 } });
-        const indemnizacion = salary * 90;
-        const seniority = salary * 20 * years;
-        const proporcional = salary * vacationDays * 0.25;
-        breakdown.push(['Indemnización base', money.format(Math.round(indemnizacion))]);
-        breakdown.push(['Prima de antigüedad', money.format(Math.round(seniority))]);
-        breakdown.push(['Vacaciones y prima', money.format(Math.round(proporcional))]);
-        breakdown.push(['Tipo de terminación', money.format(Math.round(termination))]);
-        total += indemnizacion + seniority + proporcional + termination;
-      } else if (calcMeta.formulaKey === 'labor-hours') {
-        const tarifa = num('tarifa_hora');
-        const horas = num('horas_extras');
-        const semanas = num('semanas');
-        const factor = selectedMultiplier({ id: 'recargo', multiplierMap: { simple: 1.5, doble: 2, triple: 3 } });
-        const totalHoras = tarifa * horas * semanas * factor;
-        breakdown.push(['Tarifa base', money.format(Math.round(tarifa))]);
-        breakdown.push(['Horas extra', money.format(Math.round(horas))]);
-        breakdown.push(['Semanas trabajadas', money.format(Math.round(semanas))]);
-        breakdown.push(['Recargo aplicado', factor.toFixed(1) + 'x']);
-        total += totalHoras;
-      } else if (calcMeta.formulaKey === 'labor-aguinaldo') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const days = daysBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const aguinaldo = salary * 15 * (days / 365);
-        const prima = salary * vacationDays * 0.25 * (days / 365);
-        breakdown.push(['Aguinaldo legal', money.format(Math.round(aguinaldo))]);
-        breakdown.push(['Prima vacacional', money.format(Math.round(prima))]);
-        total += aguinaldo + prima;
-      } else {
-        calcConfig.forEach((field) => {
-          let contribution = 0;
-          if (field.type === 'select') {
-            const el = document.getElementById(field.id);
-            const label = el && el.options[el.selectedIndex] ? el.options[el.selectedIndex].textContent : field.label;
-            const factor = selectedMultiplier(field);
-            contribution = factor;
-            breakdown.push([label, money.format(Math.round(contribution))]);
-            total += contribution;
-            return;
-          }
+      // Escala de UMAs por gravedad (referencia jurisprudencial orientativa SCJN 2025)
+      // g=1-2→10 UMAs, g=3-4→25, g=5-6→60, g=7-8→120, g=9-10→250
+      const umasPorGravedad = [0, 10, 10, 25, 25, 60, 60, 120, 120, 250, 250];
+      const umasBase = umasPorGravedad[gravedad] || 10;
 
-          const value = num(field.id);
-          contribution = value * (field.multiplier ?? 1);
-          breakdown.push([field.label, money.format(Math.round(contribution))]);
-          total += contribution;
-        });
-      }
+      // Factor exposición pública (amplifica el daño difundido)
+      const factorExp = { baja: 1.0, media: 1.6, alta: 2.8 }[exposicion] || 1.0;
 
-      document.getElementById('resultAmount').textContent = money.format(Math.max(0, Math.round(total)));
-      document.getElementById('resultBreakdown').innerHTML = breakdown
-        .map(([label, amount]) => '<div class="breakdown-row"><span>' + label + '</span><strong>' + amount + '</strong></div>')
+      const montoMoral  = umasBase * factorExp * UMA_MENSUAL;
+      const totalReclamar = montoMoral + gastos;
+
+      document.getElementById('resultAmount').textContent = money.format(Math.round(totalReclamar));
+      const rows = [
+        ['Gravedad declarada (escala 1-10)', gravedad + '/10'],
+        ['UMAs orientativas base', umasBase + ' UMAs × ' + money.format(Math.round(UMA_MENSUAL))],
+        ['Factor exposición pública (' + exposicion + ')', 'x' + factorExp.toFixed(1)],
+        ['Cuantía daño moral orientativa (Art. 1916 CCF)', money.format(Math.round(montoMoral))],
+        ['Gastos comprobables (daño emergente, Art. 2108)', money.format(Math.round(gastos))],
+        ['Total de referencia a reclamar', money.format(Math.round(totalReclamar))],
+      ];
+      document.getElementById('resultBreakdown').innerHTML = rows
+        .map(([l, v]) => '<div class="breakdown-row"><span>' + l + '</span><strong>' + v + '</strong></div>')
         .join('');
     }
 
     document.getElementById('calcButton').addEventListener('click', runCalc);
+    document.querySelectorAll('#calc-form input, #calc-form select').forEach(el => el.addEventListener('input', runCalc));
     runCalc();
   </script>
 </body>

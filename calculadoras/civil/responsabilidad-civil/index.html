@@ -479,29 +479,31 @@
             </div>
             <div class="panel-body">
               <form id="calc-form" onsubmit="return false;">
-                
-    <div class="field">
-      <label for="danio">Daño estimado</label>
-      <input id="danio" type="number" inputmode="decimal" placeholder="Ej. 60000" min="0" step="any">
-      
-    </div>
-  
-
-    <div class="field">
-      <label for="victimas">Número de afectados</label>
-      <input id="victimas" type="number" inputmode="decimal" placeholder="Ej. 2" min="0" step="any">
-      
-    </div>
-  
-
-      <div class="field">
-        <label for="seguro">Cobertura de seguro</label>
-        <select id="seguro">
-          <option value="ninguna">Sin seguro</option><option value="parcial">Cobertura parcial</option><option value="completa">Cobertura completa</option>
-        </select>
-        
-      </div>
-    
+                <div class="field">
+                  <label for="tipo_rc">Tipo de responsabilidad</label>
+                  <select id="tipo_rc" onchange="runCalc()">
+                    <option value="subjetiva">Subjetiva — acto ilícito con culpa o negligencia (Art. 1910 CCF)</option>
+                    <option value="objetiva">Objetiva — uso de cosa peligrosa sin importar culpa (Art. 1913 CCF)</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="danio">Daño total estimado por afectado (MXN)</label>
+                  <input id="danio" type="number" inputmode="decimal" placeholder="Ej. 60000" min="0" step="any" oninput="runCalc()">
+                  <span class="help">Valor real del daño patrimonial acreditado con facturas, peritajes o avalúos. Incluye daño emergente y lucro cesante comprobable.</span>
+                </div>
+                <div class="field">
+                  <label for="victimas">Número de personas afectadas</label>
+                  <input id="victimas" type="number" inputmode="decimal" placeholder="Ej. 2" min="1" max="100" step="1" oninput="runCalc()">
+                </div>
+                <div class="field">
+                  <label for="seguro">Cobertura de seguro disponible</label>
+                  <select id="seguro" onchange="runCalc()">
+                    <option value="ninguna">Sin seguro — responsable cubre el 100%</option>
+                    <option value="parcial">Cobertura parcial — seguro cubre 50%</option>
+                    <option value="completa">Cobertura completa — seguro cubre 90%</option>
+                  </select>
+                  <span class="help">Verifica suma asegurada y exclusiones de la póliza antes de calcular el saldo a cargo del responsable.</span>
+                </div>
                 <button class="calc-button" type="button" id="calcButton">Calcular estimación</button>
               </form>
             </div>
@@ -523,7 +525,10 @@
       <div class="legal-basis">
         <div class="legal-basis-kicker">Sustento legal 2026</div>
         <ul>
-          <li>Código Civil y legislación procesal aplicable en la entidad federativa correspondiente.</li>
+          <li>CCF Art. 1910: responsabilidad subjetiva — acto ilícito + culpa/negligencia + daño + nexo causal.</li>
+          <li>CCF Art. 1913: responsabilidad objetiva — uso de mecanismos peligrosos, sin necesidad de acreditar culpa.</li>
+          <li>CCF Art. 1915: reparación = restituir al estado anterior; si no es posible, indemnización en dinero.</li>
+          <li>Saldo a cargo del responsable = daño total − cobertura de seguro.</li>
         </ul>
       </div>
     
@@ -575,184 +580,47 @@
   </main>
   <footer></footer>
   <script>
-    window.__SIGLEP_CALC__ = [
-  {
-    "id": "danio",
-    "label": "Daño estimado",
-    "type": "number",
-    "placeholder": "Ej. 60000",
-    "multiplier": 0.85
-  },
-  {
-    "id": "victimas",
-    "label": "Número de afectados",
-    "type": "number",
-    "placeholder": "Ej. 2",
-    "multiplier": 5500
-  },
-  {
-    "id": "seguro",
-    "label": "Cobertura de seguro",
-    "type": "select",
-    "multiplierMap": {
-      "ninguna": 15000,
-      "parcial": 9000,
-      "completa": 3500
-    },
-    "options": [
-      {
-        "value": "ninguna",
-        "label": "Sin seguro"
-      },
-      {
-        "value": "parcial",
-        "label": "Cobertura parcial"
-      },
-      {
-        "value": "completa",
-        "label": "Cobertura completa"
-      }
-    ]
-  }
-];
-    window.__SIGLEP_CALC_META__ = {"formulaKey":null};
-    const calcConfig = window.__SIGLEP_CALC__;
-    const calcMeta = window.__SIGLEP_CALC_META__ || {};
+    /* ── RESPONSABILIDAD CIVIL ── CCF Art. 1910/1913/1915 ── */
     const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
 
-    function num(id) {
-      const el = document.getElementById(id);
-      return el && el.value !== '' ? Number(el.value) || 0 : 0;
-    }
-
-    function dateValue(id) {
-      const el = document.getElementById(id);
-      return el && el.value ? el.value : '';
-    }
-
-    function selectedMultiplier(field) {
-      const el = document.getElementById(field.id);
-      const value = el ? el.value : '';
-      if (field.multiplierMap && Object.prototype.hasOwnProperty.call(field.multiplierMap, value)) {
-        return field.multiplierMap[value];
-      }
-      return field.multiplier ?? 1;
-    }
-
-    function daysBetween(start, end) {
-      if (!start || !end) return 0;
-      const startDate = new Date(start + 'T00:00:00');
-      const endDate = new Date(end + 'T00:00:00');
-      const diff = endDate - startDate;
-      if (!Number.isFinite(diff) || diff <= 0) return 0;
-      return Math.floor(diff / 86400000);
-    }
-
-    function yearsBetween(start, end) {
-      return daysBetween(start, end) / 365;
-    }
-
-    function vacationDaysForYears(years) {
-      const fullYears = Math.max(0, Math.floor(years));
-      if (fullYears <= 0) return 0;
-      if (fullYears === 1) return 12;
-      if (fullYears === 2) return 14;
-      if (fullYears === 3) return 16;
-      if (fullYears === 4) return 18;
-      if (fullYears === 5) return 20;
-      return 20 + Math.ceil((fullYears - 5) / 5) * 2;
-    }
-
     function runCalc() {
-      const breakdown = [];
-      let total = 0;
+      const tipoRC  = document.getElementById('tipo_rc').value;
+      const danio   = parseFloat(document.getElementById('danio').value) || 0;
+      const victimas = Math.max(1, parseInt(document.getElementById('victimas').value) || 1);
+      const seguro  = document.getElementById('seguro').value;
 
-      if (calcMeta.formulaKey === 'labor-liquidation') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const termination = selectedMultiplier({ id: 'terminacion', multiplierMap: { injustificado: 22000, renuncia: 6500, mutuo: 12000 } });
-        const indemnizacion = salary * 90;
-        const seniority = salary * 20 * years;
-        const proporcional = salary * vacationDays * 0.25 * Math.max(0.25, Math.min(1, years / 5));
-        breakdown.push(['Indemnización base', money.format(Math.round(indemnizacion))]);
-        breakdown.push(['Antigüedad estimada', money.format(Math.round(seniority))]);
-        breakdown.push(['Vacaciones y prima', money.format(Math.round(proporcional))]);
-        breakdown.push(['Tipo de terminación', money.format(Math.round(termination))]);
-        total += indemnizacion + seniority + proporcional + termination;
-      } else if (calcMeta.formulaKey === 'labor-finiquito') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const days = daysBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const aguinaldo = salary * 15 * (days / 365);
-        const vacaciones = salary * vacationDays * 0.25 * (days / 365);
-        const salariosPendientes = salary * Math.max(0, Math.min(15, days % 15));
-        breakdown.push(['Salarios pendientes', money.format(Math.round(salariosPendientes))]);
-        breakdown.push(['Aguinaldo proporcional', money.format(Math.round(aguinaldo))]);
-        breakdown.push(['Vacaciones proporcionales', money.format(Math.round(vacaciones))]);
-        total += salariosPendientes + aguinaldo + vacaciones;
-      } else if (calcMeta.formulaKey === 'labor-despido') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const termination = selectedMultiplier({ id: 'terminacion', multiplierMap: { sin_causa: 28000, verbal: 18000, escrita: 22000 } });
-        const indemnizacion = salary * 90;
-        const seniority = salary * 20 * years;
-        const proporcional = salary * vacationDays * 0.25;
-        breakdown.push(['Indemnización base', money.format(Math.round(indemnizacion))]);
-        breakdown.push(['Prima de antigüedad', money.format(Math.round(seniority))]);
-        breakdown.push(['Vacaciones y prima', money.format(Math.round(proporcional))]);
-        breakdown.push(['Tipo de terminación', money.format(Math.round(termination))]);
-        total += indemnizacion + seniority + proporcional + termination;
-      } else if (calcMeta.formulaKey === 'labor-hours') {
-        const tarifa = num('tarifa_hora');
-        const horas = num('horas_extras');
-        const semanas = num('semanas');
-        const factor = selectedMultiplier({ id: 'recargo', multiplierMap: { simple: 1.5, doble: 2, triple: 3 } });
-        const totalHoras = tarifa * horas * semanas * factor;
-        breakdown.push(['Tarifa base', money.format(Math.round(tarifa))]);
-        breakdown.push(['Horas extra', money.format(Math.round(horas))]);
-        breakdown.push(['Semanas trabajadas', money.format(Math.round(semanas))]);
-        breakdown.push(['Recargo aplicado', factor.toFixed(1) + 'x']);
-        total += totalHoras;
-      } else if (calcMeta.formulaKey === 'labor-aguinaldo') {
-        const salary = num('salario_diario');
-        const years = yearsBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const days = daysBetween(dateValue('fecha_ingreso'), dateValue('fecha_terminacion'));
-        const vacationDays = vacationDaysForYears(years);
-        const aguinaldo = salary * 15 * (days / 365);
-        const prima = salary * vacationDays * 0.25 * (days / 365);
-        breakdown.push(['Aguinaldo legal', money.format(Math.round(aguinaldo))]);
-        breakdown.push(['Prima vacacional', money.format(Math.round(prima))]);
-        total += aguinaldo + prima;
-      } else {
-        calcConfig.forEach((field) => {
-          let contribution = 0;
-          if (field.type === 'select') {
-            const el = document.getElementById(field.id);
-            const label = el && el.options[el.selectedIndex] ? el.options[el.selectedIndex].textContent : field.label;
-            const factor = selectedMultiplier(field);
-            contribution = factor;
-            breakdown.push([label, money.format(Math.round(contribution))]);
-            total += contribution;
-            return;
-          }
+      // Daño total = daño por persona × número de afectados
+      const danoTotal = danio * victimas;
 
-          const value = num(field.id);
-          contribution = value * (field.multiplier ?? 1);
-          breakdown.push([field.label, money.format(Math.round(contribution))]);
-          total += contribution;
-        });
-      }
+      // Cobertura de seguro (Art. 1915 CCF: reparación del daño, compensada por seguro)
+      const pctSeguro = { ninguna: 0, parcial: 0.50, completa: 0.90 }[seguro] || 0;
+      const coberturaSeguro = danoTotal * pctSeguro;
+      const saldoResponsable = Math.max(danoTotal - coberturaSeguro, 0);
 
-      document.getElementById('resultAmount').textContent = money.format(Math.max(0, Math.round(total)));
-      document.getElementById('resultBreakdown').innerHTML = breakdown
-        .map(([label, amount]) => '<div class="breakdown-row"><span>' + label + '</span><strong>' + amount + '</strong></div>')
+      // Responsabilidad objetiva (Art. 1913): incluye factor de riesgo agravado
+      const factorRC = tipoRC === 'objetiva' ? 1.20 : 1.0;
+      const totalReclamar = saldoResponsable * factorRC;
+
+      // Intereses legales orientativos sobre el saldo (Art. 2395 CCF: 9% anual)
+      const interesesAnuales = saldoResponsable * 0.09;
+
+      document.getElementById('resultAmount').textContent = money.format(Math.round(totalReclamar));
+      const rows = [
+        ['Tipo de RC', tipoRC === 'objetiva' ? 'Objetiva (Art. 1913 CCF) +20% riesgo' : 'Subjetiva (Art. 1910 CCF)'],
+        ['Daño por afectado', money.format(Math.round(danio))],
+        ['Total daño (' + victimas + ' afectado/s)', money.format(Math.round(danoTotal))],
+        ['Cobertura de seguro (' + Math.round(pctSeguro * 100) + '%)', money.format(Math.round(coberturaSeguro))],
+        ['Saldo a cargo del responsable', money.format(Math.round(saldoResponsable))],
+        ['Intereses legales ref. 9%/año (Art. 2395)', money.format(Math.round(interesesAnuales))],
+        ['Total a reclamar', money.format(Math.round(totalReclamar))],
+      ];
+      document.getElementById('resultBreakdown').innerHTML = rows
+        .map(([l, v]) => '<div class="breakdown-row"><span>' + l + '</span><strong>' + v + '</strong></div>')
         .join('');
     }
 
     document.getElementById('calcButton').addEventListener('click', runCalc);
+    document.querySelectorAll('#calc-form input, #calc-form select').forEach(el => el.addEventListener('input', runCalc));
     runCalc();
   </script>
 </body>

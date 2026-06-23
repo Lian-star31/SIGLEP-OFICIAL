@@ -646,6 +646,20 @@
     .siglep-shell-links > li {
       position: relative;
     }
+    .siglep-shell-services {
+      position: relative;
+      padding-bottom: 28px;
+      margin-bottom: -28px;
+    }
+    .siglep-shell-services::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 28px;
+      background: transparent;
+    }
     .siglep-shell-links a,
     .siglep-shell-links button {
       appearance: none;
@@ -682,7 +696,7 @@
     }
     .siglep-shell-dropdown {
       position: absolute;
-      top: calc(100% + 0.8rem);
+      top: calc(100% - 20px);
       left: 0;
       min-width: 260px;
       padding: 0.75rem;
@@ -691,6 +705,16 @@
       background: rgba(8, 12, 20, 0.98);
       box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
       display: none;
+      pointer-events: auto;
+      z-index: 5;
+    }
+    .siglep-shell-dropdown::before {
+      content: '';
+      position: absolute;
+      top: -28px;
+      left: -10px;
+      right: -10px;
+      height: 28px;
     }
     .siglep-shell-services:hover .siglep-shell-dropdown,
     .siglep-shell-services:focus-within .siglep-shell-dropdown {

@@ -10,11 +10,9 @@
   ];
 
   const CALCULATOR_AREAS = [
-    ['Calculadoras', '/calculadoras/'],
     ['Laboral', '/calculadoras/laboral/'],
     ['Familiar', '/calculadoras/familiar/'],
     ['Civil', '/calculadoras/civil/'],
-    ['Patrimonial', '/calculadoras/patrimonial/'],
     ['Seguridad Social', '/calculadoras/seguridad-social/'],
   ];
 
@@ -365,6 +363,54 @@
         .siglep-shell-footer-inner {
           grid-template-columns: 1fr;
         }
+        .siglep-shell-footer a,
+        .siglep-shell-footer span {
+          color: rgba(255, 255, 255, 0.38) !important;
+          text-decoration: none !important;
+        }
+        .siglep-shell-footer h5 {
+          color: #c5a059 !important;
+        }
+        .siglep-shell-footer-bottom a {
+          color: rgba(255, 255, 255, 0.35) !important;
+          text-decoration: none !important;
+        }
+      }
+      .siglep-calc-cta {
+        margin-top: 1rem;
+        padding: 1.1rem;
+        background: rgba(197, 160, 89, 0.07);
+        border: 1px solid rgba(197, 160, 89, 0.22);
+        border-radius: 14px;
+      }
+      .siglep-calc-cta-btn {
+        display: block;
+        width: 100%;
+        padding: 0.9rem 1rem;
+        border-radius: 10px;
+        background: #c5a059;
+        color: #0f2240 !important;
+        text-align: center;
+        font-size: 0.76rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        text-decoration: none !important;
+        transition: background 0.2s ease, transform 0.2s ease;
+        margin-bottom: 0.7rem;
+        line-height: 1.45;
+      }
+      .siglep-calc-cta-btn:hover {
+        background: #d4b878;
+        transform: translateY(-1px);
+        color: #0f2240 !important;
+      }
+      .siglep-calc-disclaimer {
+        font-size: 0.69rem;
+        line-height: 1.65;
+        color: #718096;
+        font-style: italic;
+        margin: 0;
       }
     `;
     document.head.appendChild(style);
@@ -648,6 +694,78 @@
     }
   }
 
+  function injectGA4() {
+    if (typeof window.gtag === 'function') return;
+    var GA_ID = 'G-3R9SXNDXR5';
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag('js', new Date());
+    window.gtag('config', GA_ID, { page_title: document.title, page_location: location.href });
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+    document.head.appendChild(s);
+  }
+
+  function injectCalcCTA() {
+    var parts = location.pathname.replace(/\/$/, '').split('/');
+    if (parts.length < 4 || parts[1] !== 'calculadoras') return;
+    var area = parts[2];
+    var areaMap = {
+      laboral: {
+        cta: 'Reclamar mi liquidación justa con un especialista',
+        href: '/laboral/',
+        disclaimer: 'Estimación orientativa basada en la Ley Federal del Trabajo vigente para 2026. No constituye asesoría jurídica vinculante; requiere revisión documental por nuestros abogados laborales.',
+      },
+      familiar: {
+        cta: 'Iniciar trámite de pensión / divorcio formal aquí',
+        href: '/familiar/',
+        disclaimer: 'Aproximado referencial basado en criterios del Código Civil. La determinación final corresponde a un juez de lo familiar. Solicite evaluación detallada para blindar a su familia.',
+      },
+      patrimonial: {
+        cta: 'Iniciar trámite de pensión / divorcio formal aquí',
+        href: '/familiar/',
+        disclaimer: 'Aproximado referencial basado en criterios del Código Civil. La determinación final corresponde a un juez de lo familiar. Solicite evaluación detallada para blindar a su familia.',
+      },
+      civil: {
+        cta: 'Evaluar mi demanda por daños con un abogado',
+        href: '/civil/',
+        disclaimer: 'Resultado preliminar bajo el Código Civil Federal. Cuantías por daños, perjuicios o intereses moratorios exigen valoración de pruebas. Consulte a la firma para la acción formal.',
+      },
+      'seguridad-social': {
+        cta: 'Planificar mi estrategia de pensión con SIGLEP',
+        href: '/seguridad-social/',
+        disclaimer: 'Proyección estimada según la LSS y Ley del ISSSTE vigentes. Datos reales dependen de semanas cotizadas y resoluciones oficiales. Agende asesoría para un retiro óptimo.',
+      },
+    };
+    var info = areaMap[area];
+    if (!info) return;
+    var resultBox = document.querySelector('.result-box');
+    if (!resultBox) return;
+    var ctaEl = document.createElement('div');
+    ctaEl.className = 'siglep-calc-cta';
+    ctaEl.innerHTML =
+      '<a class="siglep-calc-cta-btn" href="' + escapeHtml(info.href) + '">' + escapeHtml(info.cta) + '</a>' +
+      '<p class="siglep-calc-disclaimer">' + escapeHtml(info.disclaimer) + '</p>';
+    resultBox.insertAdjacentElement('afterend', ctaEl);
+  }
+
+  function attachCalcGA4Event() {
+    var btn = document.getElementById('calcButton');
+    if (!btn) return;
+    var parts = location.pathname.replace(/\/$/, '').split('/');
+    var slug = parts[parts.length - 1];
+    var eventName = 'calcular_' + slug.replace(/-/g, '_');
+    btn.addEventListener('click', function () {
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', eventName, {
+          page_location: location.href,
+          page_title: document.title,
+        });
+      }
+    }, true);
+  }
+
   function init() {
     injectStyles();
     replaceNavAndFooter();
@@ -656,6 +774,9 @@
     normalizeCopy();
     markActiveLinks();
     ensureCalculatorAnchors();
+    injectGA4();
+    injectCalcCTA();
+    attachCalcGA4Event();
   }
 
   if (document.readyState === 'loading') {

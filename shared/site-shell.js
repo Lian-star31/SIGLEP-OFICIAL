@@ -747,7 +747,9 @@
     ctaEl.innerHTML =
       '<a class="siglep-calc-cta-btn" href="' + escapeHtml(info.href) + '">' + escapeHtml(info.cta) + '</a>' +
       '<p class="siglep-calc-disclaimer">' + escapeHtml(info.disclaimer) + '</p>';
-    resultBox.insertAdjacentElement('afterend', ctaEl);
+    var calcGrid = resultBox.closest('.calc-grid');
+    var insertAfter = calcGrid || resultBox;
+    insertAfter.insertAdjacentElement('afterend', ctaEl);
   }
 
   function attachCalcGA4Event() {
@@ -763,6 +765,12 @@
           page_title: document.title,
         });
       }
+      setTimeout(function () {
+        var target = document.querySelector('.siglep-calc-cta') || document.querySelector('.result-box');
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }, 80);
     }, true);
   }
 

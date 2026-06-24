@@ -769,11 +769,14 @@
           page_title: document.title,
         });
       }
-      var ctaBlock = document.querySelector('.siglep-calc-cta');
-      if (ctaBlock) {
+      var isMobile = window.matchMedia && window.matchMedia('(max-width: 767px)').matches;
+      var scrollTarget = isMobile
+        ? document.querySelector('.result-box')
+        : document.querySelector('.siglep-calc-cta');
+      if (scrollTarget) {
         setTimeout(function () {
           window.scrollTo({
-            top: ctaBlock.getBoundingClientRect().top + window.scrollY - 40,
+            top: scrollTarget.getBoundingClientRect().top + window.scrollY - 40,
             behavior: 'smooth'
           });
         }, 300);

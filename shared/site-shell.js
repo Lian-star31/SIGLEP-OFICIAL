@@ -749,7 +749,7 @@
       '<p class="siglep-calc-disclaimer">' + escapeHtml(info.disclaimer) + '</p>';
     resultBox.insertAdjacentElement('afterend', ctaEl);
     var panel = resultBox.closest('.panel');
-    if (panel) panel.style.cssText += ';overflow:visible !important';
+    if (panel) panel.style.setProperty('overflow', 'visible', 'important');
   }
 
   function attachCalcGA4Event() {

@@ -784,6 +784,19 @@
     }, true);
   }
 
+  function loadEstadoSelector() {
+    var parts = location.pathname.replace(/\/$/, '').split('/');
+    if (parts.length < 4 || parts[1] !== 'calculadoras') return;
+    var s1 = document.createElement('script');
+    s1.src = '/shared/estados-mexico.js';
+    s1.onload = function () {
+      var s2 = document.createElement('script');
+      s2.src = '/shared/estado-selector.js';
+      document.head.appendChild(s2);
+    };
+    document.head.appendChild(s1);
+  }
+
   function init() {
     injectStyles();
     replaceNavAndFooter();
@@ -795,6 +808,7 @@
     injectGA4();
     injectCalcCTA();
     attachCalcGA4Event();
+    loadEstadoSelector();
   }
 
   if (document.readyState === 'loading') {

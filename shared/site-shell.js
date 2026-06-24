@@ -29,14 +29,6 @@
       .replace(/'/g, '&#39;');
   }
 
-  function isMobileCalcViewport() {
-    if (window.matchMedia) {
-      if (window.matchMedia('(max-width: 767px)').matches) return true;
-      if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) return true;
-    }
-    return navigator.maxTouchPoints > 0 && window.innerWidth <= 1024;
-  }
-
   function pageIs(prefix) {
     return location.pathname === prefix || location.pathname.startsWith(prefix.replace(/\/$/, '') + '/');
   }
@@ -758,19 +750,6 @@
     ctaEl.innerHTML =
       '<a class="siglep-calc-cta-btn" href="' + escapeHtml(info.href) + '">' + escapeHtml(info.cta) + '</a>' +
       '<p class="siglep-calc-disclaimer">' + escapeHtml(info.disclaimer) + '</p>';
-    if (isMobileCalcViewport()) {
-      ctaEl.style.setProperty('display', 'block', 'important');
-      ctaEl.style.setProperty('visibility', 'visible', 'important');
-      ctaEl.style.setProperty('min-height', '60px', 'important');
-      ctaEl.style.setProperty('position', 'relative');
-      ctaEl.style.setProperty('z-index', '1');
-    } else {
-      ctaEl.style.removeProperty('display');
-      ctaEl.style.removeProperty('visibility');
-      ctaEl.style.removeProperty('min-height');
-      ctaEl.style.removeProperty('position');
-      ctaEl.style.removeProperty('z-index');
-    }
     resultBox.insertAdjacentElement('afterend', ctaEl);
     var panel = resultBox.closest('.panel');
     if (panel) panel.style.setProperty('overflow', 'visible', 'important');
@@ -790,27 +769,14 @@
           page_title: document.title,
         });
       }
-      if (isMobileCalcViewport()) {
+      var ctaBlock = document.querySelector('.siglep-calc-cta');
+      if (ctaBlock) {
         setTimeout(function () {
-          var ctaBlock = injectCalcCTA();
-          if (!ctaBlock) return;
-          window.requestAnimationFrame(function () {
-            window.scrollTo({
-              top: ctaBlock.getBoundingClientRect().top + window.scrollY - 40,
-              behavior: 'smooth'
-            });
+          window.scrollTo({
+            top: ctaBlock.getBoundingClientRect().top + window.scrollY - 40,
+            behavior: 'smooth'
           });
         }, 300);
-      } else {
-        var ctaBlock = document.querySelector('.siglep-calc-cta');
-        if (ctaBlock) {
-          setTimeout(function () {
-            window.scrollTo({
-              top: ctaBlock.getBoundingClientRect().top + window.scrollY - 40,
-              behavior: 'smooth'
-            });
-          }, 300);
-        }
       }
     }, true);
   }

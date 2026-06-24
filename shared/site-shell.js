@@ -747,9 +747,9 @@
     ctaEl.innerHTML =
       '<a class="siglep-calc-cta-btn" href="' + escapeHtml(info.href) + '">' + escapeHtml(info.cta) + '</a>' +
       '<p class="siglep-calc-disclaimer">' + escapeHtml(info.disclaimer) + '</p>';
-    var calcGrid = resultBox.closest('.calc-grid');
-    var insertAfter = calcGrid || resultBox;
-    insertAfter.insertAdjacentElement('afterend', ctaEl);
+    resultBox.insertAdjacentElement('afterend', ctaEl);
+    var panel = resultBox.closest('.panel');
+    if (panel) panel.style.cssText += ';overflow:visible !important';
   }
 
   function attachCalcGA4Event() {
@@ -765,12 +765,15 @@
           page_title: document.title,
         });
       }
-      setTimeout(function () {
-        var target = document.querySelector('.siglep-calc-cta') || document.querySelector('.result-box');
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-      }, 80);
+      const ctaBlock = document.querySelector('.siglep-calc-cta');
+      if (ctaBlock) {
+        setTimeout(() => {
+          window.scrollTo({
+            top: ctaBlock.getBoundingClientRect().top + window.scrollY - 40,
+            behavior: 'smooth'
+          });
+        }, 300);
+      }
     }, true);
   }
 

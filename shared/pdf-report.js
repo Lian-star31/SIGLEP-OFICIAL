@@ -32,6 +32,23 @@
       .replace(/>/g, '&gt;');
   }
 
+  function getSalaryRange() {
+    var ids = ['salario_base', 'salario_mensual', 'salario_diario'];
+    var val = 0;
+    for (var i = 0; i < ids.length; i++) {
+      var el = document.getElementById(ids[i]);
+      if (el && el.value) {
+        val = parseFloat(String(el.value).replace(/[,$\s]/g, '')) || 0;
+        if (val > 0) break;
+      }
+    }
+    if (val <= 0) return 'desconocido';
+    if (val < 10000) return 'menos_10k';
+    if (val < 20000) return '10k_20k';
+    if (val < 40000) return '20k_40k';
+    return 'mas_40k';
+  }
+
   function buildBreakdownRows() {
     var container = document.getElementById('resultBreakdown');
     if (!container) return '';
@@ -41,8 +58,8 @@
       var value = (row.querySelector('strong') || {}).textContent || '';
       html +=
         '<tr>'
-        + '<td style="padding:9px 14px;border-bottom:1px solid #E2E8F0;color:#2D3748;font-size:13px;">' + esc(label) + '</td>'
-        + '<td style="padding:9px 14px;border-bottom:1px solid #E2E8F0;text-align:right;font-weight:600;color:#0F2240;font-size:13px;">' + esc(value) + '</td>'
+        + '<td>' + esc(label) + '</td>'
+        + '<td style="text-align:right;font-weight:600;color:#0F2240;">' + esc(value) + '</td>'
         + '</tr>';
     });
     return html;
@@ -53,7 +70,7 @@
     if (!list) return '';
     var html = '';
     list.querySelectorAll('li').forEach(function (li) {
-      html += '<li style="margin-bottom:5px;color:#4A5568;font-size:12px;line-height:1.55;">' + esc(li.textContent) + '</li>';
+      html += '<li>' + esc(li.textContent) + '</li>';
     });
     return html;
   }
@@ -68,85 +85,78 @@
     var rows      = buildBreakdownRows();
     var legal     = buildLegalItems();
 
-    return '<!DOCTYPE html>'
-      + '<html lang="es"><head>'
-      + '<meta charset="UTF-8">'
-      + '<title>SIGLEP.LAT — Reporte Orientativo</title>'
-      + '<style>'
+    var css =
+      '@page{size:letter;margin:8mm;}'
       + '*{margin:0;padding:0;box-sizing:border-box;}'
-      + 'body{font-family:Arial,Helvetica,sans-serif;background:#fff;color:#1A202C;padding:32px 40px;}'
-      + '@media print{'
-      + 'body{padding:20px 28px;}'
-      + '.no-print{display:none!important;}'
-      + '-webkit-print-color-adjust:exact;print-color-adjust:exact;'
-      + '}'
-      + '.header{border-bottom:3px solid #C5A059;padding-bottom:16px;margin-bottom:24px;display:flex;justify-content:space-between;align-items:flex-end;}'
-      + '.brand{font-size:22px;font-weight:700;color:#0F2240;letter-spacing:0.08em;}'
-      + '.brand-sub{font-size:10px;color:#718096;letter-spacing:0.12em;text-transform:uppercase;margin-top:3px;}'
-      + '.meta{text-align:right;}'
-      + '.meta .doc-title{font-size:13px;font-weight:600;color:#C5A059;text-transform:uppercase;letter-spacing:0.1em;}'
-      + '.meta .doc-date{font-size:11px;color:#718096;margin-top:3px;}'
-      + '.monto-box{background:#0F2240;border-radius:8px;padding:18px 24px;text-align:center;margin-bottom:20px;}'
-      + '.monto-label{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#C5A059;}'
-      + '.monto-value{font-size:28px;font-weight:700;color:#C5A059;margin-top:6px;}'
-      + '.section{margin-bottom:20px;}'
-      + '.section-label{font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#C5A059;margin-bottom:8px;}'
-      + '.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}'
-      + '.info-item{background:#F7FAFC;border:1px solid #E2E8F0;border-radius:6px;padding:10px 14px;}'
-      + '.info-item .label{font-size:10px;color:#718096;text-transform:uppercase;letter-spacing:0.1em;}'
-      + '.info-item .value{font-size:14px;font-weight:600;color:#0F2240;margin-top:3px;}'
+      + 'body{font-family:Arial,Helvetica,sans-serif;font-size:10px;color:#1A202C;background:#fff;}'
+      + '@media print{-webkit-print-color-adjust:exact;print-color-adjust:exact;}'
+      + '.hdr{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid #C5A059;padding-bottom:5px;margin-bottom:7px;}'
+      + '.brand{font-size:14px;font-weight:700;color:#0F2240;letter-spacing:0.06em;}'
+      + '.brand-sub{font-size:7px;color:#718096;letter-spacing:0.1em;text-transform:uppercase;margin-top:2px;}'
+      + '.doc-title{font-size:11px;font-weight:600;color:#C5A059;text-transform:uppercase;letter-spacing:0.08em;text-align:right;}'
+      + '.doc-date{font-size:8px;color:#718096;margin-top:2px;text-align:right;}'
+      + '.monto-box{background:#0F2240;border-radius:4px;padding:7px 12px;text-align:center;margin-bottom:7px;}'
+      + '.monto-label{font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:#C5A059;}'
+      + '.monto-value{font-size:16px;font-weight:700;color:#C5A059;margin-top:3px;}'
+      + '.sec{margin-bottom:7px;}'
+      + '.sec-lbl{font-size:8px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#C5A059;margin-bottom:3px;}'
+      + '.grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;}'
+      + '.ibox{background:#F7FAFC;border:1px solid #E2E8F0;border-radius:3px;padding:4px 7px;}'
+      + '.ilbl{font-size:7px;color:#718096;text-transform:uppercase;letter-spacing:0.08em;}'
+      + '.ival{font-size:10px;font-weight:600;color:#0F2240;margin-top:2px;}'
       + 'table{width:100%;border-collapse:collapse;border:1px solid #E2E8F0;}'
       + 'thead{background:#0F2240;}'
-      + 'thead th{padding:10px 14px;text-align:left;color:#C5A059;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;}'
+      + 'thead th{padding:4px 8px;font-size:8px;letter-spacing:0.1em;text-transform:uppercase;color:#C5A059;text-align:left;}'
       + 'thead th:last-child{text-align:right;}'
+      + 'tbody td{padding:4px 8px;font-size:10px;color:#2D3748;border-bottom:1px solid #E2E8F0;}'
       + 'tbody tr:last-child td{border-bottom:none;}'
-      + '.legal-box{padding:14px 16px;background:#FFFBF0;border:1px solid rgba(197,160,89,0.3);border-radius:6px;}'
-      + '.legal-box ul{padding-left:16px;}'
-      + '.disclaimer{margin-top:24px;padding:12px 16px;background:#F7FAFC;border-left:3px solid #CBD5E0;font-size:11px;color:#718096;line-height:1.6;}'
-      + '.footer{margin-top:24px;padding-top:14px;border-top:1px solid #E2E8F0;display:flex;justify-content:space-between;font-size:10px;color:#A0AEC0;}'
-      + '</style>'
+      + '.lbox{padding:5px 9px;background:#FFFBF0;border:1px solid rgba(197,160,89,0.3);border-radius:3px;}'
+      + '.lbox ul{padding-left:11px;}'
+      + '.lbox li{font-size:8px;color:#4A5568;line-height:1.4;margin-bottom:1px;}'
+      + '.disc{margin-top:7px;padding:5px 9px;background:#F7FAFC;border-left:2px solid #CBD5E0;font-size:8px;color:#718096;line-height:1.5;}'
+      + '.ftr{margin-top:6px;padding-top:5px;border-top:1px solid #E2E8F0;display:flex;justify-content:space-between;font-size:7px;color:#A0AEC0;}';
+
+    return '<!DOCTYPE html>'
+      + '<html lang="es"><head><meta charset="UTF-8">'
+      + '<title>SIGLEP.LAT - Reporte Orientativo</title>'
+      + '<style>' + css + '</style>'
       + '</head><body>'
 
-      + '<div class="header">'
-      + '<div><div class="brand">SIGLEP.</div>'
+      + '<div class="hdr">'
+      + '<div><div class="brand">SIGLEP.LAT</div>'
       + '<div class="brand-sub">Sistemas Integrales de Gestión Legal · siglep.lat</div></div>'
-      + '<div class="meta">'
-      + '<div class="doc-title">Reporte Orientativo</div>'
-      + '<div class="doc-date">' + esc(fecha) + '</div>'
-      + '</div></div>'
+      + '<div><div class="doc-title">Reporte Orientativo</div>'
+      + '<div class="doc-date">' + esc(fecha) + '</div></div>'
+      + '</div>'
 
       + '<div class="monto-box">'
       + '<div class="monto-label">Monto de Referencia — ' + esc(title) + '</div>'
       + '<div class="monto-value">' + esc(monto) + '</div>'
       + '</div>'
 
-      + '<div class="section">'
-      + '<div class="section-label">Datos de la estimación</div>'
-      + '<div class="info-grid">'
-      + '<div class="info-item"><div class="label">Tipo de cálculo</div><div class="value">' + esc(title) + '</div></div>'
-      + '<div class="info-item"><div class="label">Estado / Municipio</div><div class="value">' + esc(estadoTxt) + '</div></div>'
+      + '<div class="sec">'
+      + '<div class="sec-lbl">Datos de la estimación</div>'
+      + '<div class="grid">'
+      + '<div class="ibox"><div class="ilbl">Tipo de cálculo</div><div class="ival">' + esc(title) + '</div></div>'
+      + '<div class="ibox"><div class="ilbl">Estado / Municipio</div><div class="ival">' + esc(estadoTxt) + '</div></div>'
       + '</div></div>'
 
       + (rows
-        ? '<div class="section"><div class="section-label">Desglose detallado</div>'
-          + '<table><thead><tr>'
-          + '<th>Concepto</th>'
-          + '<th style="text-align:right;">Monto</th>'
-          + '</tr></thead><tbody>' + rows + '</tbody></table></div>'
+        ? '<div class="sec"><div class="sec-lbl">Desglose detallado</div>'
+          + '<table><thead><tr><th>Concepto</th><th style="text-align:right;">Monto</th></tr></thead>'
+          + '<tbody>' + rows + '</tbody></table></div>'
         : '')
 
       + (legal
-        ? '<div class="section"><div class="section-label">Fundamento legal aplicado</div>'
-          + '<div class="legal-box"><ul>' + legal + '</ul></div></div>'
+        ? '<div class="sec"><div class="sec-lbl">Fundamento legal aplicado</div>'
+          + '<div class="lbox"><ul>' + legal + '</ul></div></div>'
         : '')
 
-      + '<div class="disclaimer">'
-      + '<strong>Aviso legal:</strong> Este documento es una estimación orientativa generada con los datos capturados. '
+      + '<div class="disc"><strong>Aviso legal:</strong> Estimación orientativa generada con los datos capturados. '
       + 'No constituye asesoría jurídica vinculante ni reemplaza la revisión documental por un abogado. '
-      + 'Los montos reales pueden variar según las circunstancias específicas del caso y la resolución de autoridad competente.'
-      + '</div>'
+      + 'Los montos reales pueden variar según las circunstancias del caso y la resolución de autoridad competente.</div>'
 
-      + '<div class="footer">'
+      + '<div class="ftr">'
       + '<span>SIGLEP — Sistemas Integrales de Gestión Legal · siglep.lat</span>'
       + '<span>Generado el ' + esc(fecha) + ' · Solo para referencia orientativa</span>'
       + '</div>'
@@ -165,10 +175,12 @@
     if (typeof window.gtag === 'function') {
       var meta   = window.__SIGLEP_CALC_META__ || {};
       var estado = window.__SIGLEP_ESTADO_ACTIVO__;
-      window.gtag('event', 'pdf_descargado', {
+      window.gtag('event', 'calculo_ejecutado', {
+        accion:        'pdf',
         tipo_calculo:  meta.formulaKey || 'desconocido',
         estado_clave:  estado ? estado.clave : 'no_seleccionado',
-        page_location: location.href,
+        estado_nombre: estado ? estado.nombre : 'No seleccionado',
+        rango_salario: getSalaryRange(),
       });
     }
   }

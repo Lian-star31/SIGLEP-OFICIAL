@@ -802,8 +802,9 @@
         var estado = window.__SIGLEP_ESTADO_ACTIVO__;
         if (typeof window.gtag === 'function') {
           window.gtag('event', 'calculo_ejecutado', {
-            tipo_calculo: (window.__SIGLEP_CALC_META__ || {}).formulaKey || 'desconocido',
-            estado_clave: estado ? estado.clave : 'no_seleccionado',
+            accion:        'calcular',
+            tipo_calculo:  (window.__SIGLEP_CALC_META__ || {}).formulaKey || 'desconocido',
+            estado_clave:  estado ? estado.clave : 'no_seleccionado',
             estado_nombre: estado ? estado.nombre : 'No seleccionado',
             rango_salario: getSalaryRange(),
           });

@@ -756,6 +756,23 @@
     return ctaEl;
   }
 
+  function getSalaryRange() {
+    var ids = ['salario_base', 'salario_mensual', 'salario_diario'];
+    var val = 0;
+    for (var i = 0; i < ids.length; i++) {
+      var el = document.getElementById(ids[i]);
+      if (el && el.value) {
+        val = parseFloat(String(el.value).replace(/[,$\s]/g, '')) || 0;
+        if (val > 0) break;
+      }
+    }
+    if (val <= 0) return 'desconocido';
+    if (val < 10000) return 'menos_10k';
+    if (val < 20000) return '10k_20k';
+    if (val < 40000) return '20k_40k';
+    return 'mas_40k';
+  }
+
   function attachCalcGA4Event() {
     var btn = document.getElementById('calcButton');
     if (!btn) return;
@@ -781,10 +798,22 @@
           });
         }, 300);
       }
+      setTimeout(function () {
+        var estado = window.__SIGLEP_ESTADO_ACTIVO__;
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'calculo_ejecutado', {
+            tipo_calculo: (window.__SIGLEP_CALC_META__ || {}).formulaKey || 'desconocido',
+            estado_clave: estado ? estado.clave : 'no_seleccionado',
+            estado_nombre: estado ? estado.nombre : 'No seleccionado',
+            rango_salario: getSalaryRange(),
+          });
+        }
+        document.dispatchEvent(new CustomEvent('siglep:calc-done'));
+      }, 400);
     }, true);
   }
 
-  function loadEstadoSelector() {
+  function loadCalcModules() {
     var parts = location.pathname.replace(/\/$/, '').split('/');
     if (parts.length < 4 || parts[1] !== 'calculadoras') return;
     var s1 = document.createElement('script');
@@ -792,6 +821,11 @@
     s1.onload = function () {
       var s2 = document.createElement('script');
       s2.src = '/shared/estado-selector.js';
+      s2.onload = function () {
+        var s3 = document.createElement('script');
+        s3.src = '/shared/pdf-report.js';
+        document.head.appendChild(s3);
+      };
       document.head.appendChild(s2);
     };
     document.head.appendChild(s1);
@@ -808,7 +842,7 @@
     injectGA4();
     injectCalcCTA();
     attachCalcGA4Event();
-    loadEstadoSelector();
+    loadCalcModules();
   }
 
   if (document.readyState === 'loading') {

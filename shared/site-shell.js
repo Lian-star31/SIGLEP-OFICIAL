@@ -786,10 +786,7 @@
           page_title: document.title,
         });
       }
-      var isMobile = window.matchMedia && window.matchMedia('(max-width: 767px)').matches;
-      var scrollTarget = isMobile
-        ? document.querySelector('.result-box')
-        : document.querySelector('.siglep-calc-cta');
+      var scrollTarget = document.querySelector('.result-box');
       if (scrollTarget) {
         setTimeout(function () {
           window.scrollTo({

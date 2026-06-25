@@ -700,11 +700,33 @@
     window.dataLayer = window.dataLayer || [];
     window.gtag = function () { window.dataLayer.push(arguments); };
     window.gtag('js', new Date());
-    window.gtag('config', GA_ID, { page_title: document.title, page_location: location.href });
+    window.gtag('config', GA_ID, {
+      page_title: document.title,
+      page_location: location.href,
+      send_page_view: true,
+    });
+    window.gtag('set', 'user_properties', {
+      device_type: (window.matchMedia && window.matchMedia('(max-width: 767px)').matches)
+        ? 'movil'
+        : 'escritorio',
+    });
     var s = document.createElement('script');
     s.async = true;
     s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
     document.head.appendChild(s);
+  }
+
+  function attachResetGA4Event() {
+    var btn = document.getElementById('resetCalcButton');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'simulacion_reiniciada', {
+          tipo_calculo: (window.__SIGLEP_CALC_META__ || {}).formulaKey || 'desconocido',
+          page_location: location.href,
+        });
+      }
+    });
   }
 
   function injectCalcCTA() {
@@ -840,6 +862,7 @@
     injectGA4();
     injectCalcCTA();
     attachCalcGA4Event();
+    attachResetGA4Event();
     loadCalcModules();
   }
 

@@ -306,6 +306,7 @@
         gap: 0.55rem;
       }
       .siglep-shell-footer a,
+      .siglep-shell-footer a:visited,
       .siglep-shell-footer span {
         color: rgba(255, 255, 255, 0.75);
         font-size: 0.78rem;
@@ -326,7 +327,8 @@
         font-size: 0.72rem;
         color: rgba(255, 255, 255, 0.26);
       }
-      .siglep-shell-footer-bottom a {
+      .siglep-shell-footer-bottom a,
+      .siglep-shell-footer-bottom a:visited {
         color: rgba(255, 255, 255, 0.75);
       }
       .siglep-shell-footer-bottom a:hover {
@@ -364,6 +366,7 @@
           grid-template-columns: 1fr;
         }
         .siglep-shell-footer a,
+        .siglep-shell-footer a:visited,
         .siglep-shell-footer span {
           color: rgba(255, 255, 255, 0.75) !important;
           text-decoration: none !important;
@@ -371,7 +374,8 @@
         .siglep-shell-footer h5 {
           color: #c5a059 !important;
         }
-        .siglep-shell-footer-bottom a {
+        .siglep-shell-footer-bottom a,
+        .siglep-shell-footer-bottom a:visited {
           color: rgba(255, 255, 255, 0.75) !important;
           text-decoration: none !important;
         }

@@ -772,12 +772,82 @@
     .siglep-shell-mobile .siglep-shell-cta {
       margin-top: 0.65rem;
     }
+    footer.siglep-shell-footer {
+      background: #050810;
+      border-top: 1px solid rgba(197, 160, 89, 0.12);
+      padding: 4rem 1.25rem 1.5rem;
+    }
+    .siglep-shell-footer-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr 1fr;
+      gap: 2.25rem;
+    }
+    .siglep-shell-footer-brand .siglep-shell-mark {
+      display: block;
+      margin-bottom: 0.85rem;
+    }
+    .siglep-shell-footer-brand p {
+      max-width: 320px;
+      color: rgba(255, 255, 255, 0.38);
+      font-size: 0.8rem;
+      line-height: 1.8;
+      font-weight: 300;
+    }
+    .siglep-shell-footer h5 {
+      margin: 0 0 0.9rem;
+      color: #c5a059;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+    .siglep-shell-footer ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 0.55rem;
+    }
+    .siglep-shell-footer a,
+    .siglep-shell-footer a:visited,
+    .siglep-shell-footer span {
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 0.78rem;
+      text-decoration: none;
+    }
+    .siglep-shell-footer a:hover {
+      color: #c5a059;
+    }
+    .siglep-shell-footer-bottom {
+      max-width: 1240px;
+      margin: 2rem auto 0;
+      padding-top: 1.4rem;
+      border-top: 1px solid rgba(197, 160, 89, 0.08);
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.26);
+    }
+    .siglep-shell-footer-bottom a,
+    .siglep-shell-footer-bottom a:visited {
+      color: rgba(255, 255, 255, 0.75);
+    }
+    .siglep-shell-footer-bottom a:hover {
+      color: #c5a059;
+    }
     @media (max-width: 980px) {
       .siglep-shell-links {
         display: none;
       }
       .siglep-shell-burger {
         display: inline-flex;
+      }
+      .siglep-shell-footer-inner {
+        grid-template-columns: 1fr 1fr;
       }
     }
     @media (max-width: 680px) {
@@ -793,6 +863,26 @@
       .siglep-shell-mobile {
         top: 70px;
         max-height: calc(100vh - 70px);
+      }
+      .siglep-shell-footer {
+        padding-inline: 0.9rem;
+      }
+      .siglep-shell-footer-inner {
+        grid-template-columns: 1fr;
+      }
+      .siglep-shell-footer a,
+      .siglep-shell-footer a:visited,
+      .siglep-shell-footer span {
+        color: rgba(255, 255, 255, 0.75) !important;
+        text-decoration: none !important;
+      }
+      .siglep-shell-footer h5 {
+        color: #c5a059 !important;
+      }
+      .siglep-shell-footer-bottom a,
+      .siglep-shell-footer-bottom a:visited {
+        color: rgba(255, 255, 255, 0.75) !important;
+        text-decoration: none !important;
       }
     }
   </style>

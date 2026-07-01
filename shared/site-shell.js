@@ -224,48 +224,107 @@
         z-index: 1999;
         background: rgba(5, 8, 16, 0.98);
         border-bottom: 1px solid rgba(197, 160, 89, 0.15);
-        padding: 1rem 1.15rem 1.2rem;
+        padding: 0.85rem 0.9rem 1rem;
         max-height: calc(100vh - 76px);
         overflow: auto;
       }
       .siglep-shell-mobile.open {
         display: block;
       }
-      .siglep-shell-mobile-group {
+      .siglep-shell-mobile-panel {
+        max-width: 1240px;
+        margin: 0 auto;
         display: grid;
-        gap: 0.4rem;
-        margin-bottom: 1rem;
+        gap: 0.8rem;
+      }
+      .siglep-shell-mobile-hero {
+        padding: 0.95rem 1rem 1rem;
+        border: 1px solid rgba(197, 160, 89, 0.14);
+        border-radius: 16px;
+        background: linear-gradient(180deg, rgba(197, 160, 89, 0.06), rgba(5, 8, 16, 0.68));
+      }
+      .siglep-shell-mobile-kicker {
+        display: inline-block;
+        margin-bottom: 0.35rem;
+        color: rgba(197, 160, 89, 0.78);
+        font-size: 0.56rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+      .siglep-shell-mobile-hero strong {
+        display: block;
+        margin-bottom: 0.25rem;
+        color: #f5ecd7;
+        font-family: var(--font-display, Georgia, serif);
+        font-size: 1.05rem;
+        letter-spacing: 0.08em;
+      }
+      .siglep-shell-mobile-hero p {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.45);
+        font-size: 0.72rem;
+        line-height: 1.55;
+        max-width: 26rem;
+      }
+      .siglep-shell-mobile-section {
+        display: grid;
+        gap: 0.55rem;
       }
       .siglep-shell-mobile-title {
-        font-size: 0.58rem;
+        font-size: 0.56rem;
         font-weight: 700;
         letter-spacing: 0.18em;
         text-transform: uppercase;
         color: rgba(197, 160, 89, 0.72);
-        margin: 0.45rem 0 0.2rem;
+        margin: 0 0 0.05rem;
       }
-      .siglep-shell-mobile a,
-      .siglep-shell-mobile button {
-        display: block;
-        width: 100%;
-        text-align: left;
-        padding: 0.92rem 0.2rem;
-        border: 0;
-        border-bottom: 1px solid rgba(197, 160, 89, 0.08);
-        background: none;
-        color: rgba(255, 255, 255, 0.78);
+      .siglep-shell-mobile-grid {
+        display: grid;
+        gap: 0.65rem;
+      }
+      .siglep-shell-mobile-grid--1 {
+        grid-template-columns: 1fr;
+      }
+      .siglep-shell-mobile-grid--2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .siglep-shell-mobile-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        min-height: 3rem;
+        padding: 0.86rem 0.95rem;
+        border-radius: 14px;
+        border: 1px solid rgba(197, 160, 89, 0.12);
+        background: rgba(255, 255, 255, 0.02);
+        color: rgba(255, 255, 255, 0.82);
         text-decoration: none;
-        font-size: 0.75rem;
-        font-weight: 600;
-        letter-spacing: 0.12em;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
         text-transform: uppercase;
+        transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
       }
-      .siglep-shell-mobile a:last-child,
-      .siglep-shell-mobile button:last-child {
-        border-bottom: 0;
+      .siglep-shell-mobile-card:hover {
+        transform: translateY(-1px);
+        border-color: rgba(197, 160, 89, 0.24);
+        background: rgba(197, 160, 89, 0.07);
       }
-      .siglep-shell-mobile .siglep-shell-cta {
-        margin-top: 0.65rem;
+      .siglep-shell-mobile-card span {
+        color: rgba(197, 160, 89, 0.72);
+        font-size: 0.66rem;
+        letter-spacing: 0.04em;
+        flex-shrink: 0;
+      }
+      .siglep-shell-mobile-cta {
+        width: 100%;
+        justify-content: center;
+        margin-top: 0.15rem;
+        padding: 1rem 1.1rem !important;
+        border-radius: 14px;
+        box-shadow: 0 8px 22px rgba(192, 57, 43, 0.22);
       }
       footer.siglep-shell-footer {
         background: #050810;
@@ -380,6 +439,11 @@
           text-decoration: none !important;
         }
       }
+      @media (max-width: 420px) {
+        .siglep-shell-mobile-grid--2 {
+          grid-template-columns: 1fr;
+        }
+      }
       .siglep-calc-cta {
         margin-top: 1rem;
         padding: 1.1rem;
@@ -462,21 +526,42 @@
   }
 
   function createMobileNav() {
-    const serviceLinks = SERVICES.map(([label, href]) => `<a href="${href}" onclick="closeMobileNav()">${escapeHtml(label)}</a>`).join('');
+    const quickLinks = `
+      <a href="/calculadoras/" onclick="closeMobileNav()">Calculadoras</a>
+      <a href="/expediente/" onclick="closeMobileNav()">Expediente</a>
+      <a href="/nosotros/" onclick="closeMobileNav()">Nosotros</a>
+    `;
     return `
       <div class="siglep-shell-mobile" id="navMobile" aria-hidden="true">
-        <div class="siglep-shell-mobile-group">
-          <a href="/" onclick="closeMobileNav()">Inicio</a>
-        </div>
-        <div class="siglep-shell-mobile-title">Servicios</div>
-        <div class="siglep-shell-mobile-group">
-          ${serviceLinks}
-        </div>
-        <div class="siglep-shell-mobile-group">
-          <a href="/calculadoras/" onclick="closeMobileNav()">Calculadoras</a>
-          <a href="/expediente/" onclick="closeMobileNav()">Expediente</a>
-          <a href="/nosotros/" onclick="closeMobileNav()">Nosotros</a>
-          <a class="siglep-shell-cta" href="${WA}?text=${encodeURIComponent('Hola SIGLEP, quiero una consulta gratuita')}" target="_blank" rel="noopener noreferrer">Consulta Gratis</a>
+        <div class="siglep-shell-mobile-panel">
+          <div class="siglep-shell-mobile-hero">
+            <span class="siglep-shell-mobile-kicker">Menú móvil</span>
+            <strong>SIGLEP</strong>
+            <p>Acceso rápido a servicios y herramientas, con una vista más limpia y menos cargada.</p>
+          </div>
+
+          <div class="siglep-shell-mobile-section">
+            <div class="siglep-shell-mobile-title">Inicio</div>
+            <div class="siglep-shell-mobile-grid siglep-shell-mobile-grid--1">
+              <a class="siglep-shell-mobile-card" href="/" onclick="closeMobileNav()">Inicio <span>→</span></a>
+            </div>
+          </div>
+
+          <div class="siglep-shell-mobile-section">
+            <div class="siglep-shell-mobile-title">Servicios</div>
+            <div class="siglep-shell-mobile-grid siglep-shell-mobile-grid--2">
+              ${SERVICES.map(([label, href]) => `<a class="siglep-shell-mobile-card" href="${href}" onclick="closeMobileNav()">${escapeHtml(label)} <span>→</span></a>`).join('')}
+            </div>
+          </div>
+
+          <div class="siglep-shell-mobile-section">
+            <div class="siglep-shell-mobile-title">Accesos rápidos</div>
+            <div class="siglep-shell-mobile-grid siglep-shell-mobile-grid--2">
+              ${quickLinks}
+            </div>
+          </div>
+
+          <a class="siglep-shell-cta siglep-shell-mobile-cta" href="${WA}?text=${encodeURIComponent('Hola SIGLEP, quiero una consulta gratuita')}" target="_blank" rel="noopener noreferrer">Consulta Gratis</a>
         </div>
       </div>
     `;

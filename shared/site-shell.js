@@ -264,7 +264,7 @@
         border-radius: 12px;
         border: 1px solid rgba(197, 160, 89, 0.12);
         background: rgba(255, 255, 255, 0.02);
-        color: rgba(255, 255, 255, 0.82);
+        color: rgba(255, 255, 255, 0.82) !important;
         text-decoration: none;
         font-size: 0.72rem;
         font-weight: 700;
@@ -294,8 +294,14 @@
         display: grid;
         gap: 0.5rem;
       }
+      .siglep-shell-mobile-accordion > summary,
+      .siglep-shell-mobile-accordion > summary.siglep-shell-mobile-summary {
+        display: flex !important;
+        list-style: none !important;
+        color: rgba(255, 255, 255, 0.82) !important;
+      }
       .siglep-shell-mobile-accordion > summary::-webkit-details-marker {
-        display: none;
+        display: none !important;
       }
       .siglep-shell-mobile-accordion[open] .siglep-shell-mobile-summary {
         border-color: rgba(197, 160, 89, 0.2);
@@ -528,7 +534,7 @@
           </details>
 
           <details class="siglep-shell-mobile-accordion">
-            <summary class="siglep-shell-mobile-summary">Gestión / Herramientas <span class="accordion-icon"></span></summary>
+            <summary class="siglep-shell-mobile-summary">Herramientas <span class="accordion-icon"></span></summary>
             <div class="siglep-shell-mobile-accordion-body">
               <a class="siglep-shell-mobile-link" href="/calculadoras/" onclick="closeMobileNav()">Calculadoras <span>→</span></a>
               <a class="siglep-shell-mobile-link" href="/expediente/" onclick="closeMobileNav()">Expediente <span>→</span></a>

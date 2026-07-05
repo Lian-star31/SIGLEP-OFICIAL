@@ -57,6 +57,15 @@
       .hero-inner h1{text-align:center;}
       .hero-inner .hero-btns{justify-content:center;}
     }
+    .cards-slider-wrap{position:relative;}
+    .cards-slider-hint{display:none;}
+    .cards-slider{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem;margin-top:2rem;}
+    @media (max-width:680px){
+      .cards-slider-hint{display:block;font-size:0.7rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(197,160,89,0.72);margin-top:1.2rem;margin-bottom:0;}
+      .cards-slider{display:flex;flex-wrap:nowrap;gap:0.85rem;margin-top:0.75rem;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:0.75rem;scrollbar-width:none;}
+      .cards-slider::-webkit-scrollbar{display:none;}
+      .cards-slider .card-link{flex:0 0 82vw;max-width:300px;scroll-snap-align:start;}
+    }
   </style>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Calculadoras SIGLEP | Áreas","url":"https://siglep.lat/calculadoras/","description":"Hub de calculadoras legales SIGLEP para Laboral, Familiar, Civil, Patrimonial y Seguridad Social."}</script>
   
@@ -426,129 +435,132 @@
     <section class="section" style="background:var(--gray-light);">
       <div class="section-inner">
         <h2>Calculadoras destacadas</h2>
-        <p class="lead">Todas las calculadoras nuevas están agrupadas por área para facilitar la navegación.</p>
-        <div class="cards">
-          
-        <a class="card-link" href="/calculadoras/laboral/liquidacion-laboral/">
-          <div class="card-kicker">Laboral</div>
-          <h3>Calculadora de Liquidación Laboral</h3>
-          <p>Calculadora orientativa de liquidación laboral en México con salario diario, antigüedad y tipo de terminación.</p>
-        </a>
-      
-        <a class="card-link" href="/calculadoras/laboral/finiquito/">
-          <div class="card-kicker">Laboral</div>
-          <h3>Calculadora de Finiquito</h3>
-          <p>Calculadora orientativa de finiquito laboral en México para revisar conceptos pendientes y proporcionales.</p>
-        </a>
-      
-        <a class="card-link" href="/calculadoras/laboral/despido-injustificado/">
-          <div class="card-kicker">Laboral</div>
-          <h3>Calculadora de Despido Injustificado</h3>
-          <p>Calculadora orientativa de despido injustificado en México con indemnización básica y proporcionales.</p>
-        </a>
-      
-        <a class="card-link" href="/calculadoras/laboral/horas-extras/">
-          <div class="card-kicker">Laboral</div>
-          <h3>Calculadora de Horas Extras</h3>
-          <p>Calculadora orientativa de horas extras laborales en México para revisar recargos y pagos pendientes.</p>
-        </a>
-      
-        <a class="card-link" href="/calculadoras/laboral/aguinaldo-prima-vacacional/">
-          <div class="card-kicker">Laboral</div>
-          <h3>Calculadora de Aguinaldo y Prima Vacacional</h3>
-          <p>Calculadora orientativa de aguinaldo y prima vacacional en México para estimar proporcionales.</p>
-        </a>
-      
-        <a class="card-link" href="/calculadoras/familiar/pension-alimenticia/">
-          <div class="card-kicker">Familiar</div>
-          <h3>Calculadora de Pensión Alimenticia</h3>
-          <p>Calculadora orientativa de pensión alimenticia en México para revisar proporción de ingresos y dependientes.</p>
-        </a>
-      
-        <a class="card-link" href="/calculadoras/familiar/divorcio/">
-          <div class="card-kicker">Familiar</div>
-          <h3>Calculadora de Divorcio</h3>
-          <p>Calculadora orientativa de divorcio en México con variables de hijos, bienes y acuerdos.</p>
-        </a>
-      
-        <a class="card-link" href="/calculadoras/familiar/custodia-menores/">
-          <div class="card-kicker">Familiar</div>
-          <h3>Calculadora de Custodia de Menores</h3>
-          <p>Calculadora orientativa de custodia de menores en México para revisar complejidad y urgencia.</p>
-        </a>
-      
-        <a class="card-link" href="/calculadoras/familiar/regimen-matrimonial/">
-          <div class="card-kicker">Familiar</div>
-          <h3>Calculadora de Régimen Matrimonial</h3>
-          <p>Calculadora orientativa de régimen matrimonial en México para estimar complejidad patrimonial.</p>
-        </a>
-      
-        <a class="card-link" href="/calculadoras/familiar/liquidacion-sociedad-conyugal/">
-          <div class="card-kicker">Familiar</div>
-          <h3>Calculadora de Liquidación de Sociedad Conyugal</h3>
-          <p>Calculadora orientativa de liquidación de sociedad conyugal en México para revisar bienes y pasivos.</p>
-        </a>
-      
-        <a class="card-link" href="/calculadoras/civil/dano-moral/">
-          <div class="card-kicker">Civil</div>
-          <h3>Calculadora de Daño Moral</h3>
-          <p>Calculadora orientativa de daño moral en México con enfoque en gravedad y exposición.</p>
-        </a>
-      
-        <a class="card-link" href="/calculadoras/civil/danos-perjuicios/">
-          <div class="card-kicker">Civil</div>
-          <h3>Calculadora de Daños y Perjuicios</h3>
-          <p>Calculadora orientativa de daños y perjuicios en México para revisar pérdidas y reparación.</p>
-        </a>
-      
-        <a class="card-link" href="/calculadoras/civil/responsabilidad-civil/">
-          <div class="card-kicker">Civil</div>
-          <h3>Calculadora de Responsabilidad Civil</h3>
-          <p>Calculadora orientativa de responsabilidad civil en México para dimensionar daño y cobertura.</p>
-        </a>
-      
-        <a class="card-link" href="/calculadoras/civil/intereses-moratorios/">
-          <div class="card-kicker">Civil</div>
-          <h3>Calculadora de Intereses Moratorios</h3>
-          <p>Calculadora orientativa de intereses moratorios en México para revisar capital, plazo y tasa.</p>
-        </a>
-      
-        <a class="card-link" href="/calculadoras/familiar/herencia-sucesion/">
-          <div class="card-kicker">Familiar</div>
-          <h3>Calculadora de Herencia y Sucesión</h3>
-          <p>Calculadora orientativa de herencia y sucesión en México para revisar tamaño del patrimonio y herederos.</p>
-        </a>
-      
-        <a class="card-link" href="/calculadoras/seguridad-social/pension-imss/">
-          <div class="card-kicker">Seguridad Social</div>
-          <h3>Calculadora de Pensión IMSS</h3>
-          <p>Calculadora orientativa de pensión IMSS en México para revisar edad, semanas y salario promedio.</p>
-        </a>
-      
-        <a class="card-link" href="/calculadoras/seguridad-social/modalidad-40/">
-          <div class="card-kicker">Seguridad Social</div>
-          <h3>Calculadora de Modalidad 40</h3>
-          <p>Calculadora orientativa de Modalidad 40 en México para revisar semanas, salario objetivo y aportación.</p>
-        </a>
-      
-        <a class="card-link" href="/calculadoras/seguridad-social/pension-issste/">
-          <div class="card-kicker">Seguridad Social</div>
-          <h3>Calculadora de Pensión ISSSTE</h3>
-          <p>Calculadora orientativa de pensión ISSSTE en México para revisar años de servicio y salario base.</p>
-        </a>
-      
-        <a class="card-link" href="/calculadoras/seguridad-social/pension-invalidez/">
-          <div class="card-kicker">Seguridad Social</div>
-          <h3>Calculadora de Pensión por Invalidez</h3>
-          <p>Calculadora orientativa de pensión por invalidez en México para revisar semanas, salario y grado de incapacidad.</p>
-        </a>
-      
-        <a class="card-link" href="/calculadoras/seguridad-social/pension-viudez/">
-          <div class="card-kicker">Seguridad Social</div>
-          <h3>Calculadora de Pensión por Viudez</h3>
-          <p>Calculadora orientativa de pensión por viudez en México para revisar base pensional y dependientes.</p>
-        </a>
-      
+        <p class="lead">Las calculadoras más utilizadas. Desliza para explorar todas las opciones.</p>
+        <div class="cards-slider-wrap">
+          <p class="cards-slider-hint">Desliza para ver más →</p>
+          <div class="cards-slider">
+
+            <a class="card-link" href="/calculadoras/laboral/liquidacion-laboral/">
+              <div class="card-kicker">Laboral</div>
+              <h3>Calculadora de Liquidación Laboral</h3>
+              <p>Salario diario, antigüedad y tipo de terminación.</p>
+            </a>
+
+            <a class="card-link" href="/calculadoras/laboral/despido-injustificado/">
+              <div class="card-kicker">Laboral</div>
+              <h3>Calculadora de Despido Injustificado</h3>
+              <p>Indemnización básica, 90 días y proporcionales.</p>
+            </a>
+
+            <a class="card-link" href="/calculadoras/familiar/pension-alimenticia/">
+              <div class="card-kicker">Familiar</div>
+              <h3>Calculadora de Pensión Alimenticia</h3>
+              <p>Proporción de ingresos y número de dependientes.</p>
+            </a>
+
+            <a class="card-link" href="/calculadoras/laboral/finiquito/">
+              <div class="card-kicker">Laboral</div>
+              <h3>Calculadora de Finiquito</h3>
+              <p>Conceptos pendientes y proporcionales al término.</p>
+            </a>
+
+            <a class="card-link" href="/calculadoras/laboral/horas-extras/">
+              <div class="card-kicker">Laboral</div>
+              <h3>Calculadora de Horas Extras</h3>
+              <p>Recargos dobles, triples y pagos pendientes.</p>
+            </a>
+
+            <a class="card-link" href="/calculadoras/laboral/aguinaldo-prima-vacacional/">
+              <div class="card-kicker">Laboral</div>
+              <h3>Aguinaldo y Prima Vacacional</h3>
+              <p>Proporcionales por días trabajados en el año.</p>
+            </a>
+
+            <a class="card-link" href="/calculadoras/familiar/divorcio/">
+              <div class="card-kicker">Familiar</div>
+              <h3>Calculadora de Divorcio</h3>
+              <p>Hijos, bienes y acuerdos patrimoniales.</p>
+            </a>
+
+            <a class="card-link" href="/calculadoras/familiar/custodia-menores/">
+              <div class="card-kicker">Familiar</div>
+              <h3>Custodia de Menores</h3>
+              <p>Complejidad del caso y urgencia procesal.</p>
+            </a>
+
+            <a class="card-link" href="/calculadoras/familiar/regimen-matrimonial/">
+              <div class="card-kicker">Familiar</div>
+              <h3>Régimen Matrimonial</h3>
+              <p>Complejidad patrimonial según el régimen.</p>
+            </a>
+
+            <a class="card-link" href="/calculadoras/familiar/liquidacion-sociedad-conyugal/">
+              <div class="card-kicker">Familiar</div>
+              <h3>Liquidación Sociedad Conyugal</h3>
+              <p>Bienes, pasivos y participación de cada cónyuge.</p>
+            </a>
+
+            <a class="card-link" href="/calculadoras/familiar/herencia-sucesion/">
+              <div class="card-kicker">Familiar</div>
+              <h3>Herencia y Sucesión</h3>
+              <p>Tamaño del patrimonio y número de herederos.</p>
+            </a>
+
+            <a class="card-link" href="/calculadoras/civil/dano-moral/">
+              <div class="card-kicker">Civil</div>
+              <h3>Calculadora de Daño Moral</h3>
+              <p>Gravedad, exposición y afectación personal.</p>
+            </a>
+
+            <a class="card-link" href="/calculadoras/civil/danos-perjuicios/">
+              <div class="card-kicker">Civil</div>
+              <h3>Daños y Perjuicios</h3>
+              <p>Pérdidas directas y lucro cesante estimado.</p>
+            </a>
+
+            <a class="card-link" href="/calculadoras/civil/responsabilidad-civil/">
+              <div class="card-kicker">Civil</div>
+              <h3>Responsabilidad Civil</h3>
+              <p>Daño causado y cobertura de reparación.</p>
+            </a>
+
+            <a class="card-link" href="/calculadoras/civil/intereses-moratorios/">
+              <div class="card-kicker">Civil</div>
+              <h3>Intereses Moratorios</h3>
+              <p>Capital, plazo y tasa aplicable.</p>
+            </a>
+
+            <a class="card-link" href="/calculadoras/seguridad-social/pension-imss/">
+              <div class="card-kicker">Seguridad Social</div>
+              <h3>Calculadora Pensión IMSS</h3>
+              <p>Edad, semanas cotizadas y salario promedio.</p>
+            </a>
+
+            <a class="card-link" href="/calculadoras/seguridad-social/modalidad-40/">
+              <div class="card-kicker">Seguridad Social</div>
+              <h3>Modalidad 40</h3>
+              <p>Semanas, salario objetivo y aportación mensual.</p>
+            </a>
+
+            <a class="card-link" href="/calculadoras/seguridad-social/pension-issste/">
+              <div class="card-kicker">Seguridad Social</div>
+              <h3>Calculadora Pensión ISSSTE</h3>
+              <p>Años de servicio y salario base de cotización.</p>
+            </a>
+
+            <a class="card-link" href="/calculadoras/seguridad-social/pension-invalidez/">
+              <div class="card-kicker">Seguridad Social</div>
+              <h3>Pensión por Invalidez</h3>
+              <p>Semanas, salario y grado de incapacidad.</p>
+            </a>
+
+            <a class="card-link" href="/calculadoras/seguridad-social/pension-viudez/">
+              <div class="card-kicker">Seguridad Social</div>
+              <h3>Pensión por Viudez</h3>
+              <p>Base pensional del titular y dependientes.</p>
+            </a>
+
+          </div>
         </div>
       </div>
     </section>

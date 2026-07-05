@@ -299,11 +299,18 @@
       }
       .siglep-shell-mobile-accordion[open] .siglep-shell-mobile-summary {
         border-color: rgba(197, 160, 89, 0.2);
+        background: rgba(197, 160, 89, 0.06);
       }
       .siglep-shell-mobile-accordion-body {
         display: grid;
         gap: 0.5rem;
-        padding-left: 0.2rem;
+        padding: 0.5rem 0 0 0.75rem;
+      }
+      .siglep-shell-mobile-accordion .accordion-icon::before {
+        content: '+';
+      }
+      .siglep-shell-mobile-accordion[open] .accordion-icon::before {
+        content: '−';
       }
       .siglep-shell-mobile-cta {
         width: 100%;
@@ -508,31 +515,27 @@
   }
 
   function createMobileNav() {
-    const quickLinks = `
-      <a class="siglep-shell-mobile-link" href="/calculadoras/" onclick="closeMobileNav()">Calculadoras <span>→</span></a>
-      <a class="siglep-shell-mobile-link" href="/expediente/" onclick="closeMobileNav()">Expediente <span>→</span></a>
-      <a class="siglep-shell-mobile-link" href="/nosotros/" onclick="closeMobileNav()">Nosotros <span>→</span></a>
-    `;
     return `
       <div class="siglep-shell-mobile" id="navMobile" aria-hidden="true">
         <div class="siglep-shell-mobile-panel">
-          <div class="siglep-shell-mobile-section">
-            <a class="siglep-shell-mobile-link" href="/" onclick="closeMobileNav()">Inicio <span>→</span></a>
-          </div>
+          <a class="siglep-shell-mobile-link" href="/" onclick="closeMobileNav()">Inicio <span>→</span></a>
 
-          <details class="siglep-shell-mobile-accordion" open>
-            <summary class="siglep-shell-mobile-summary">Servicios <span>−</span></summary>
+          <details class="siglep-shell-mobile-accordion">
+            <summary class="siglep-shell-mobile-summary">Servicios <span class="accordion-icon"></span></summary>
             <div class="siglep-shell-mobile-accordion-body">
               ${SERVICES.map(([label, href]) => `<a class="siglep-shell-mobile-link" href="${href}" onclick="closeMobileNav()">${escapeHtml(label)} <span>→</span></a>`).join('')}
             </div>
           </details>
 
-          <div class="siglep-shell-mobile-section">
-            <div class="siglep-shell-mobile-title">Accesos rápidos</div>
-            <div class="siglep-shell-mobile-list">
-              ${quickLinks}
+          <details class="siglep-shell-mobile-accordion">
+            <summary class="siglep-shell-mobile-summary">Gestión / Herramientas <span class="accordion-icon"></span></summary>
+            <div class="siglep-shell-mobile-accordion-body">
+              <a class="siglep-shell-mobile-link" href="/calculadoras/" onclick="closeMobileNav()">Calculadoras <span>→</span></a>
+              <a class="siglep-shell-mobile-link" href="/expediente/" onclick="closeMobileNav()">Expediente <span>→</span></a>
             </div>
-          </div>
+          </details>
+
+          <a class="siglep-shell-mobile-link" href="/nosotros/" onclick="closeMobileNav()">Nosotros <span>→</span></a>
 
           <a class="siglep-shell-cta siglep-shell-mobile-cta" href="${WA}?text=${encodeURIComponent('Hola SIGLEP, quiero una consulta gratuita')}" target="_blank" rel="noopener noreferrer">Consulta Gratis</a>
         </div>

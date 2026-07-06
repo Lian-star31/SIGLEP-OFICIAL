@@ -383,11 +383,12 @@
   .chat-header-info h4 { font-family: var(--font-display); font-size: 1.05rem; color: var(--gold); font-weight: 700; }
   .chat-header-info p { font-size: 0.65rem; color: rgba(255,255,255,0.45); letter-spacing: 0.05em; }
   .chat-status { width: 8px; height: 8px; border-radius: 50%; background: #2ecc71; flex-shrink: 0; }
-  .chat-messages { flex: 1; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: 0.8rem; max-height: 320px; scrollbar-width: thin; scrollbar-color: rgba(197,160,89,0.2) transparent; }
+  .chat-panel-body { flex: 1; overflow-y: auto; max-height: 380px; display: flex; flex-direction: column; scrollbar-width: thin; scrollbar-color: rgba(197,160,89,0.2) transparent; }
+  .chat-messages { padding: 1rem; display: flex; flex-direction: column; gap: 0.8rem; }
   .chat-msg { font-size: 0.82rem; line-height: 1.55; padding: 0.75rem 1rem; border-radius: 6px; max-width: 88%; animation: fadeUp 0.3s ease; }
   .chat-msg.bot { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.85); align-self: flex-start; }
   .chat-msg.user { background: var(--gold); color: var(--navy-deep); align-self: flex-end; font-weight: 600; }
-  .chat-options { padding: 0.75rem 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .chat-options { padding: 0 1rem 0.75rem; display: flex; flex-direction: column; gap: 0.5rem; }
   .chat-opt { background: rgba(197,160,89,0.1); border: 1px solid rgba(197,160,89,0.25); color: var(--gold); font-size: 0.75rem; font-weight: 600; padding: 0.6rem 1rem; border-radius: 4px; cursor: pointer; text-align: left; font-family: var(--font-body); transition: background 0.2s; letter-spacing: 0.04em; }
   .chat-opt:hover { background: rgba(197,160,89,0.2); }
   .chat-opt-wa { background: rgba(37,211,102,0.12) !important; border-color: rgba(37,211,102,0.4) !important; color: #2ecc71 !important; text-decoration: none; display: block; }
@@ -1001,8 +1002,10 @@
     <div class="chat-status"></div>
     <button class="chat-close" onclick="toggleChat()" aria-label="Cerrar chat">✕</button>
   </div>
-  <div class="chat-messages" id="chatMessages"></div>
-  <div class="chat-options" id="chatOptions"></div>
+  <div class="chat-panel-body" id="chatPanelBody">
+    <div class="chat-messages" id="chatMessages"></div>
+    <div class="chat-options" id="chatOptions"></div>
+  </div>
   <div class="chat-input-area">
     <input class="chat-input" id="chatInput" type="text" placeholder="Escribe tu pregunta aquí…" onkeydown="if(event.key==='Enter')sendMsg()">
     <button class="chat-send" onclick="sendMsg()" aria-label="Enviar">
@@ -1032,13 +1035,28 @@ function switchCalc(panel, btn) {
 const WA = 'https://wa.me/527352169503';
 
 // ── Utilidades ──
+function scrollChat() {
+  const body = document.getElementById('chatPanelBody');
+  if (!body) return;
+  const msgs = document.getElementById('chatMessages');
+  const lastMsg = msgs.lastElementChild;
+  if (lastMsg) {
+    const bodyRect = body.getBoundingClientRect();
+    const msgRect = lastMsg.getBoundingClientRect();
+    body.scrollTop = body.scrollTop + (msgRect.top - bodyRect.top);
+  } else {
+    body.scrollTop = body.scrollHeight;
+  }
+}
+
 function addMsg(html, type) {
   const msgs = document.getElementById('chatMessages');
   const d = document.createElement('div');
   d.className = 'chat-msg ' + type;
-  d.innerHTML = html;
+  if (type === 'user') d.textContent = html;
+  else d.innerHTML = html;
   msgs.appendChild(d);
-  msgs.scrollTop = msgs.scrollHeight;
+  scrollChat();
 }
 
 function showTyping() {
@@ -1048,7 +1066,7 @@ function showTyping() {
   t.id = 'owlTyping';
   t.innerHTML = '<span></span><span></span><span></span>';
   msgs.appendChild(t);
-  msgs.scrollTop = msgs.scrollHeight;
+  scrollChat();
 }
 
 function hideTyping() {
@@ -1063,15 +1081,20 @@ function setOpts(opts) {
       const txt = encodeURIComponent(o.wa);
       return `<a class="chat-opt chat-opt-wa" href="${WA}?text=${txt}" target="_blank" rel="noopener noreferrer">📲 ${o.label}</a>`;
     }
-    return `<button type="button" class="chat-opt" onclick="step('${o.k}')">${o.label}</button>`;
+    return `<button type="button" class="chat-opt" onclick="optSelected('${o.k}', this.textContent.trim())">${o.label}</button>`;
   }).join('');
-  const msgs = document.getElementById('chatMessages');
-  msgs.scrollTop = msgs.scrollHeight;
-  setTimeout(() => { el.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 60);
+  scrollChat();
 }
 
 function clearOpts() {
   document.getElementById('chatOptions').innerHTML = '';
+}
+
+function optSelected(k, label) {
+  clearOpts();
+  document.getElementById('chatMessages').innerHTML = '';
+  addMsg(label, 'user');
+  step(k);
 }
 
 function bot(html, delay, cb) {

@@ -39,7 +39,10 @@
     const style = document.createElement('style');
     style.id = SHELL_STYLE_ID;
     style.textContent = `
-      html, body {
+      html {
+        overflow-x: clip !important;
+      }
+      body {
         overflow-x: hidden !important;
         max-width: 100% !important;
       }

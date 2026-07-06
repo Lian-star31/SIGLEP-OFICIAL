@@ -62,7 +62,7 @@
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; overflow-x: hidden; }
+  html { scroll-behavior: smooth; overflow-x: clip; }
   body { font-family: var(--font-body); background: var(--white); color: var(--text-body); overflow-x: hidden; }
 
   /* ── HERO ── */
@@ -376,7 +376,7 @@
   @keyframes owlPulse { 0%, 100% { box-shadow: 0 4px 22px rgba(0,0,0,0.5); } 50% { box-shadow: 0 4px 28px rgba(197,160,89,0.4); } }
   .owl-badge { position: absolute; top: -4px; right: -4px; width: 18px; height: 18px; border-radius: 50%; background: var(--red); color: #fff; font-size: 0.55rem; font-weight: 700; display: flex; align-items: center; justify-content: center; border: 2px solid var(--black); }
   .chat-panel { position: fixed; bottom: 9.5rem; right: 1.5rem; z-index: 997; width: min(380px, calc(100vw - 2rem)); background: var(--navy-deep); border: 1px solid rgba(197,160,89,0.22); border-radius: 8px; box-shadow: 0 16px 60px rgba(0,0,0,0.6); display: none; flex-direction: column; overflow: hidden; }
-  .chat-panel.open { display: flex; animation: slideUp 0.3s ease both; }
+  .chat-panel.open { display: flex; animation: slideUp 0.3s ease both; z-index: 999; }
   @keyframes slideUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:none; } }
   .chat-header { background: rgba(197,160,89,0.08); border-bottom: 1px solid rgba(197,160,89,0.15); padding: 1rem 1.2rem; display: flex; align-items: center; gap: 0.8rem; }
   .chat-header-owl { font-size: 1.5rem; }
@@ -1065,6 +1065,9 @@ function setOpts(opts) {
     }
     return `<button type="button" class="chat-opt" onclick="step('${o.k}')">${o.label}</button>`;
   }).join('');
+  const msgs = document.getElementById('chatMessages');
+  msgs.scrollTop = msgs.scrollHeight;
+  setTimeout(() => { el.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 60);
 }
 
 function clearOpts() {
@@ -1479,7 +1482,6 @@ function sendMsg() {
     } else if (/(hola|buenas|buen dia|buenas tardes|buenas noches|buenos)/.test(t)) {
       step('__init__');
     } else {
-      addMsg('Entendido. Para orientarte de la mejor manera, dime en qué área legal está tu situación:', 'bot');
       step('__init__');
     }
   }, 600);

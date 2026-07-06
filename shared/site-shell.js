@@ -39,6 +39,10 @@
     const style = document.createElement('style');
     style.id = SHELL_STYLE_ID;
     style.textContent = `
+      html, body {
+        overflow-x: hidden !important;
+        max-width: 100% !important;
+      }
       nav.siglep-shell-nav {
         position: fixed;
         top: 0;

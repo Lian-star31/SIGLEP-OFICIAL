@@ -1081,6 +1081,9 @@ function setOpts(opts) {
       const txt = encodeURIComponent(o.wa);
       return `<a class="chat-opt chat-opt-wa" href="${WA}?text=${txt}" target="_blank" rel="noopener noreferrer">📲 ${o.label}</a>`;
     }
+    if (o.href) {
+      return `<a class="chat-opt" href="${o.href}">${o.label}</a>`;
+    }
     return `<button type="button" class="chat-opt" onclick="optSelected('${o.k}', this.textContent.trim())">${o.label}</button>`;
   }).join('');
   scrollChat();
@@ -1111,6 +1114,7 @@ function step(k) {
     hideTyping();
     addMsg('Hola, soy el asistente legal de <strong>SIGLEP</strong> 🦉. Estoy aquí para orientarte — sin importar dónde estés en México.<br><br>¿Sobre qué necesitas orientación hoy?', 'bot');
     setOpts([
+      { k: 'expediente', label: '🗂️ Diagnóstico gratuito de mi caso' },
       { k: 'laboral',    label: '⚖️ Asunto laboral' },
       { k: 'familiar',   label: '👨‍👩‍👧 Asunto familiar' },
       { k: 'penal',      label: '🔒 Asunto penal' },
@@ -1450,6 +1454,14 @@ function step(k) {
     ]));
   }
 
+  // ── EXPEDIENTE ──
+  else if (k === 'expediente') {
+    bot('Con el <strong>Expediente Inteligente SIGLEP</strong> obtienes un diagnóstico preliminar gratuito de tu caso en menos de 2 minutos — sin registrarte, sin compromisos.<br><br>Describes tu situación, el sistema la analiza y te dice qué tan viable es tu caso, qué acciones puedes tomar y con qué urgencia actuar.', 400, () => setOpts([
+      { href: '/expediente/', label: '🗂️ Iniciar mi diagnóstico gratuito' },
+      { k: '__init__', label: '↩ Volver al menú principal' },
+    ]));
+  }
+
   // ── COBERTURA ──
   else if (k === 'cobertura') {
     bot('SIGLEP atiende presencialmente en Ciudad de México, Cuernavaca, Cuautla y Yautepec.<br><br>Para otros estados, dependiendo del asunto, podemos ofrecer orientación remota, revisión documental digital y asesorías por videollamada.<br><br>El primer contacto siempre es por WhatsApp — sin costo y sin compromiso.', 500, () => setOpts([
@@ -1502,10 +1514,39 @@ function sendMsg() {
       step('cobertura');
     } else if (/(costo|precio|cobran|honorario|cuanto|cuánto|pago)/.test(t)) {
       step('costos');
+    } else if (/(expediente|diagnos|mi caso|situacion legal|situación legal|formulario|evalua|evalúa)/.test(t)) {
+      step('expediente');
     } else if (/(hola|buenas|buen dia|buenas tardes|buenas noches|buenos)/.test(t)) {
       step('__init__');
     } else {
-      step('__init__');
+      showTyping();
+      fetch('https://siglep-chat.lic-palafox31.workers.dev', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text }),
+      })
+        .then(r => r.json())
+        .then(d => {
+          hideTyping();
+          if (d.reply) {
+            addMsg(d.reply, 'bot');
+          } else {
+            addMsg('Para orientarte mejor, escríbenos directamente — la primera consulta es gratuita.', 'bot');
+          }
+          const waMsg = encodeURIComponent('Hola SIGLEP, ' + text.slice(0, 120));
+          setOpts([
+            { wa: 'Hola SIGLEP, quiero una consulta gratuita sobre mi caso', label: '📲 Consulta gratuita con SIGLEP' },
+            { k: 'expediente', label: '🗂️ Diagnóstico gratuito de mi caso' },
+          ]);
+        })
+        .catch(() => {
+          hideTyping();
+          addMsg('Para orientarte mejor, escríbenos directamente — la primera consulta es gratuita.', 'bot');
+          setOpts([
+            { wa: 'Hola SIGLEP, quiero una consulta gratuita sobre mi caso', label: '📲 Consulta gratuita con SIGLEP' },
+            { k: 'expediente', label: '🗂️ Diagnóstico gratuito de mi caso' },
+          ]);
+        });
     }
   }, 600);
 }

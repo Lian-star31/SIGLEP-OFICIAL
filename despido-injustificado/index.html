@@ -173,16 +173,15 @@
   .owl-trigger:hover { border-color: var(--gold); transform: scale(1.08); }
   @keyframes owlPulse { 0%, 100% { box-shadow: 0 4px 22px rgba(0,0,0,0.5); } 50% { box-shadow: 0 4px 28px rgba(197,160,89,0.4); } }
   .owl-badge { position: absolute; top: -4px; right: -4px; width: 18px; height: 18px; border-radius: 50%; background: var(--red); color: #fff; font-size: 0.55rem; font-weight: 700; display: flex; align-items: center; justify-content: center; border: 2px solid var(--black); }
-  .chat-panel { position: fixed; bottom: 9.5rem; right: 1.5rem; z-index: 997; width: min(380px, calc(100vw - 2rem)); background: var(--navy-deep); border: 1px solid rgba(197,160,89,0.22); border-radius: 8px; box-shadow: 0 16px 60px rgba(0,0,0,0.6); display: none; flex-direction: column; overflow: hidden; animation: slideUp 0.3s ease; max-height: min(72vh, 560px); }
+  .chat-panel { position: fixed; bottom: 9.5rem; right: 1.5rem; z-index: 997; width: min(380px, calc(100vw - 2rem)); background: var(--navy-deep); border: 1px solid rgba(197,160,89,0.22); border-radius: 8px; box-shadow: 0 16px 60px rgba(0,0,0,0.6); display: none; flex-direction: column; overflow: hidden; animation: slideUp 0.3s ease; }
   .chat-panel.open { display: flex; }
   @keyframes slideUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:none; } }
   .chat-header { background: rgba(197,160,89,0.08); border-bottom: 1px solid rgba(197,160,89,0.15); padding: 1rem 1.2rem; display: flex; align-items: center; gap: 0.8rem; }
-  .chat-header-owl { font-size: 1.5rem; display: inline-flex; align-items: center; justify-content: center; transform-origin: center 70%; animation: owlWing 4.8s ease-in-out infinite; will-change: transform; }
-  @keyframes owlWing { 0%, 100% { transform: translateY(0) rotate(0deg) scale(1); } 25% { transform: translateY(-1px) rotate(-4deg) scale(1.02); } 50% { transform: translateY(0) rotate(0deg) scale(1.03); } 75% { transform: translateY(-1px) rotate(4deg) scale(1.02); } }
+  .chat-header-owl { font-size: 1.5rem; }
   .chat-header-info h4 { font-family: var(--font-display); font-size: 1.05rem; color: var(--gold); font-weight: 700; }
   .chat-header-info p { font-size: 0.65rem; color: rgba(255,255,255,0.45); letter-spacing: 0.05em; }
   .chat-status { width: 8px; height: 8px; border-radius: 50%; background: #2ecc71; flex-shrink: 0; }
-  .chat-messages { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; padding: 1rem; display: flex; flex-direction: column; gap: 0.8rem; max-height: none; scrollbar-width: thin; scrollbar-color: rgba(197,160,89,0.2) transparent; }
+  .chat-messages { flex: 1; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: 0.8rem; max-height: 320px; scrollbar-width: thin; scrollbar-color: rgba(197,160,89,0.2) transparent; }
   .chat-msg { font-size: 0.82rem; line-height: 1.55; padding: 0.75rem 1rem; border-radius: 6px; max-width: 88%; animation: fadeUp 0.3s ease; }
   .chat-msg.bot { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.85); align-self: flex-start; }
   .chat-msg.user { background: var(--gold); color: var(--navy-deep); align-self: flex-end; font-weight: 600; }
@@ -726,24 +725,13 @@
 const WA = 'https://wa.me/527352169503';
 
 // ── Utilidades ──
-function scrollChatToBottom() {
-  const msgs = document.getElementById('chatMessages');
-  if (!msgs) return;
-  const run = () => { msgs.scrollTop = msgs.scrollHeight; };
-  if (typeof requestAnimationFrame === 'function') {
-    requestAnimationFrame(() => requestAnimationFrame(run));
-  } else {
-    setTimeout(run, 0);
-  }
-}
-
 function addMsg(html, type) {
   const msgs = document.getElementById('chatMessages');
   const d = document.createElement('div');
   d.className = 'chat-msg ' + type;
   d.innerHTML = html;
   msgs.appendChild(d);
-  scrollChatToBottom();
+  msgs.scrollTop = msgs.scrollHeight;
 }
 
 function showTyping() {
@@ -753,7 +741,7 @@ function showTyping() {
   t.id = 'owlTyping';
   t.innerHTML = '<span></span><span></span><span></span>';
   msgs.appendChild(t);
-  scrollChatToBottom();
+  msgs.scrollTop = msgs.scrollHeight;
 }
 
 function hideTyping() {

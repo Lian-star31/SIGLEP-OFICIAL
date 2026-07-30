@@ -577,10 +577,6 @@
     });
   }
 
-  window.addEventListener('pageshow', function () {
-    window.setTimeout(clearLaborForm, 0);
-  });
-
+  window.addEventListener('pageshow', clearLaborForm);
   clearLaborForm();
-  window.setTimeout(clearLaborForm, 0);
 })();

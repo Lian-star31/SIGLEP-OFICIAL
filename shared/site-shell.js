@@ -655,14 +655,6 @@
       menu.setAttribute('aria-hidden', 'true');
     };
 
-    document.addEventListener('click', function (event) {
-      const menu = document.getElementById('navMobile');
-      if (!menu || !menu.classList.contains('open')) return;
-      const nav = document.getElementById('navbar');
-      if (nav && !nav.contains(event.target)) {
-        window.closeMobileNav();
-      }
-    });
   }
 
   function addServicesDropdownHelpers() {
@@ -710,6 +702,13 @@
     }
 
     document.addEventListener('click', (event) => {
+      const menu = document.getElementById('navMobile');
+      if (menu && menu.classList.contains('open')) {
+        const nav = document.getElementById('navbar');
+        if (nav && !nav.contains(event.target)) {
+          window.closeMobileNav();
+        }
+      }
       if (!item.contains(event.target)) setOpen(false);
     });
 

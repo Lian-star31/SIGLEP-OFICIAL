@@ -1078,6 +1078,18 @@ function enviarContacto() {
     proceed();
   });
 
+  // 3. Respaldo: enviar a Google Forms (silencioso, sin bloquear)
+  const formData = new FormData();
+  formData.append('entry.348906672', nombre);
+  formData.append('entry.567632237', telefono);
+  formData.append('entry.2093539422', asunto);
+  formData.append('entry.839217136', mensaje);
+  fetch('https://docs.google.com/forms/d/e/1FAIpQLScdvQfX_Hpl5nvvQqEihnfWoERLNLnnBDIMYiiRsYC7pMJHiw/formResponse', {
+    method: 'POST',
+    body: formData,
+    mode: 'no-cors'
+  }).catch(() => {});
+
   function proceed() {
     // 3. Abrir WhatsApp
     const msg = encodeURIComponent(

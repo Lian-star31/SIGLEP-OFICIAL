@@ -918,10 +918,7 @@
     addServicesDropdownHelpers();
     markActiveLinks();
     ensureCalculatorAnchors();
-    injectGA4();
     injectCalcCTA();
-    attachCalcGA4Event();
-    attachResetGA4Event();
     loadCalcModules();
   }
 

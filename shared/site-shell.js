@@ -776,14 +776,21 @@
     document.head.appendChild(s);
   }
 
-  function attachResetGA4Event() {
-    var btn = document.getElementById('resetCalcButton');
-    if (!btn) return;
-    btn.addEventListener('click', function () {
-      if (typeof window.gtag === 'function') {
-        window.gtag('event', 'simulacion_reiniciada', {
-          tipo_calculo: (window.__SIGLEP_CALC_META__ || {}).formulaKey || 'desconocido',
-          page_location: location.href,
+  function attachGA4Events() {
+    document.addEventListener('click', function (event) {
+      var target = event.target.closest('a[href*="wa.me"], .btn-wa, .float-wa a');
+      if (target && typeof window.gtag === 'function') {
+        window.gtag('event', 'whatsapp_click', {
+          page_location: window.location.href,
+          page_title: document.title
+        });
+      }
+
+      var calTarget = event.target.closest('a[href*="calendly"]');
+      if (calTarget && typeof window.gtag === 'function') {
+        window.gtag('event', 'calendly_click', {
+          page_location: window.location.href,
+          page_title: document.title
         });
       }
     });
@@ -838,64 +845,8 @@
     return ctaEl;
   }
 
-  function getSalaryRange() {
-    var ids = ['salario_base', 'salario_mensual', 'salario_diario'];
-    var val = 0;
-    for (var i = 0; i < ids.length; i++) {
-      var el = document.getElementById(ids[i]);
-      if (el && el.value) {
-        val = parseFloat(String(el.value).replace(/[,$\s]/g, '')) || 0;
-        if (val > 0) break;
-      }
-    }
-    if (val <= 0) return 'desconocido';
-    if (val < 10000) return 'menos_10k';
-    if (val < 20000) return '10k_20k';
-    if (val < 40000) return '20k_40k';
-    return 'mas_40k';
-  }
-
-  function attachCalcGA4Event() {
-    var btn = document.getElementById('calcButton');
-    if (!btn) return;
-    var parts = location.pathname.replace(/\/$/, '').split('/');
-    var slug = parts[parts.length - 1];
-    var eventName = 'calcular_' + slug.replace(/-/g, '_');
-    btn.addEventListener('click', function () {
-      if (typeof window.gtag === 'function') {
-        window.gtag('event', eventName, {
-          page_location: location.href,
-          page_title: document.title,
-        });
-      }
-      var scrollTarget = document.querySelector('.result-box');
-      if (scrollTarget) {
-        setTimeout(function () {
-          window.scrollTo({
-            top: scrollTarget.getBoundingClientRect().top + window.scrollY - 40,
-            behavior: 'smooth'
-          });
-        }, 300);
-      }
-      setTimeout(function () {
-        var estado = window.__SIGLEP_ESTADO_ACTIVO__;
-        if (typeof window.gtag === 'function') {
-          window.gtag('event', 'calculo_ejecutado', {
-            accion:        'calcular',
-            tipo_calculo:  (window.__SIGLEP_CALC_META__ || {}).formulaKey || 'desconocido',
-            estado_clave:  estado ? estado.clave : 'no_seleccionado',
-            estado_nombre: estado ? estado.nombre : 'No seleccionado',
-            rango_salario: getSalaryRange(),
-          });
-        }
-        document.dispatchEvent(new CustomEvent('siglep:calc-done'));
-      }, 400);
-    }, true);
-  }
-
   function loadCalcModules() {
-    var parts = location.pathname.replace(/\/$/, '').split('/');
-    if (parts.length < 4 || parts[1] !== 'calculadoras') return;
+    if (!pageIs('/calculadoras/')) return;
     var s1 = document.createElement('script');
     s1.src = '/shared/estados-mexico.js';
     s1.onload = function () {
@@ -918,6 +869,8 @@
     addServicesDropdownHelpers();
     markActiveLinks();
     ensureCalculatorAnchors();
+    injectGA4();
+    attachGA4Events();
     injectCalcCTA();
     loadCalcModules();
   }

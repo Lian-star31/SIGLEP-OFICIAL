@@ -327,14 +327,14 @@
 
   function clearLaborForm() {
     form.reset();
-    Array.prototype.forEach.call(form.elements, function (element) {
-      if (!element || !element.tagName) return;
+    for (const element of form.elements) {
+      if (!element || !element.tagName) continue;
       if (element.tagName === 'INPUT') {
         element.value = '';
       } else if (element.tagName === 'SELECT') {
         element.selectedIndex = 0;
       }
-    });
+    }
     renderEmpty();
   }
 
@@ -551,8 +551,8 @@
     );
   }
 
-  Array.prototype.forEach.call(form.querySelectorAll('[data-date-input="true"]'), installDateMask);
-  Array.prototype.forEach.call(form.querySelectorAll('[data-money-input="true"]'), installMoneyMask);
+  form.querySelectorAll('[data-date-input="true"]').forEach(installDateMask);
+  form.querySelectorAll('[data-money-input="true"]').forEach(installMoneyMask);
 
   function runCalculation() {
     if (formulaKey === 'labor-hours') {

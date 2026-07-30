@@ -34,8 +34,7 @@
   }
 
   function injectStyles() {
-    if (document.getElementById(SHELL_STYLE_ID) || document.querySelector('style, link[rel="stylesheet"]')) {
-      // No inyectar si ya existe el shell style o si hay estilos presentes
+    if (document.getElementById(SHELL_STYLE_ID)) {
       return;
     }
 

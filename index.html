@@ -1028,7 +1028,10 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.08 });
 reveals.forEach(el => observer.observe(el));
 
-// ── CALCULADORA LIQUIDACIÓN ──
+// ── FORMULARIO DE CONTACTO ──
+function enviarContacto() {
+  const nombre   = document.getElementById('fc-nombre').value.trim();
+  const telefono = document.getElementById('fc-telefono').value.trim();
   const asunto   = document.getElementById('fc-asunto').value;
   const mensaje  = document.getElementById('fc-mensaje').value.trim();
   const errEl    = document.getElementById('fc-error');
@@ -1095,16 +1098,12 @@ reveals.forEach(el => observer.observe(el));
   }
 }
 
-</script>
-</body>
-</html>
-
 // ── Lazy load chat búho ──
 (function() {
   let chatScriptLoaded = false;
   const owlTrigger = document.getElementById('owlTrigger');
   const originalToggle = window.toggleChat;
-  
+
   window.toggleChat = function() {
     if (!chatScriptLoaded) {
       chatScriptLoaded = true;

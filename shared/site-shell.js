@@ -718,31 +718,6 @@
     });
   }
 
-  function normalizeCopy() {
-    const replacements = [
-      [/te responder[aá] en minutos\.?/gi, 'Respondemos a la brevedad posible en horario de atención.'],
-      [/te respondemos en minutos\.?/gi, 'Respondemos a la brevedad posible en horario de atención.'],
-      [/te respondemos con rapidez\.?/gi, 'Respondemos a la brevedad posible en horario de atención.'],
-      [/te contacta en menos de 24 horas\.?/gi, 'Respondemos a la brevedad posible en horario de atención.'],
-      [/te contactará en menos de 24 horas\.?/gi, 'Respondemos a la brevedad posible en horario de atención.'],
-      [/menos de 24 horas en días hábiles\.?/gi, 'a la brevedad posible en horario de atención.'],
-    ];
-
-    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-    const nodes = [];
-    while (walker.nextNode()) nodes.push(walker.currentNode);
-
-    nodes.forEach((node) => {
-      const original = node.nodeValue;
-      let next = original;
-      replacements.forEach(([pattern, replacement]) => {
-        next = next.replace(pattern, replacement);
-      });
-      if (next !== original) {
-        node.nodeValue = next;
-      }
-    });
-  }
 
   function markActiveLinks() {
     const path = location.pathname.replace(/\/+$/, '/') || '/';
@@ -941,7 +916,6 @@
     replaceNavAndFooter();
     addMobileHelpers();
     addServicesDropdownHelpers();
-    normalizeCopy();
     markActiveLinks();
     ensureCalculatorAnchors();
     injectGA4();

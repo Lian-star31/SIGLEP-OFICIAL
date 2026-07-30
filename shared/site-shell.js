@@ -34,7 +34,10 @@
   }
 
   function injectStyles() {
-    if (document.getElementById(SHELL_STYLE_ID)) return;
+    if (document.getElementById(SHELL_STYLE_ID) || document.querySelector('style, link[rel="stylesheet"]')) {
+      // No inyectar si ya existe el shell style o si hay estilos presentes
+      return;
+    }
 
     const style = document.createElement('style');
     style.id = SHELL_STYLE_ID;
@@ -596,15 +599,17 @@
     const isBlog = location.pathname.startsWith('/blog/');
     const nav = document.querySelector('nav') || document.body.querySelector('header');
     if (nav) {
-      nav.classList.add('siglep-shell-nav');
-      nav.id = 'navbar';
-      nav.innerHTML = `
-        <div class="siglep-shell-nav-inner">
-          ${createBrand()}
-          ${createDesktopNav()}
-        </div>
-        ${createMobileNav()}
-      `;
+      if (!nav.innerHTML.trim()) {
+        nav.classList.add('siglep-shell-nav');
+        nav.id = 'navbar';
+        nav.innerHTML = `
+          <div class="siglep-shell-nav-inner">
+            ${createBrand()}
+            ${createDesktopNav()}
+          </div>
+          ${createMobileNav()}
+        `;
+      }
     } else {
       const newNav = document.createElement('nav');
       newNav.className = 'siglep-shell-nav';
@@ -622,8 +627,10 @@
     if (!isBlog) {
       const footer = document.querySelector('footer');
       if (footer) {
-        footer.className = 'siglep-shell-footer';
-        footer.innerHTML = createFooter();
+        if (!footer.innerHTML.trim()) {
+          footer.className = 'siglep-shell-footer';
+          footer.innerHTML = createFooter();
+        }
       } else {
         const newFooter = document.createElement('footer');
         newFooter.className = 'siglep-shell-footer';

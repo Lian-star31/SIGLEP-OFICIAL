@@ -586,7 +586,7 @@
     <div class="hero-trust">
     <div class="hero-stat"><span class="num">2,400+</span><span class="label">Asuntos gestionados</span></div>
     <div class="hero-stat"><span class="num">México</span><span class="label">Atención en todo México</span></div>
-    <div class="hero-stat"><span class="num">Horario</span><span class="label">Primera respuesta en horario de atención</span></div>
+    <div class="hero-stat"><span class="num">Lun-Vie</span><span class="label">8:00 AM - 6:00 PM (Zona Centro)</span></div>
   </div>
 </div>
 </section>
@@ -718,7 +718,7 @@
       <div class="proceso-step">
         <div class="proceso-num">1</div>
         <h4>Primer contacto</h4>
-        <p>Nos escribes por WhatsApp y nos cuentas tu situación. Respondemos a la brevedad posible en horario de atención.</p>
+        <p>Nos escribes por WhatsApp y nos cuentas tu situación. Respondemos de lunes a viernes, 8:00 AM - 6:00 PM (Zona Centro).</p>
       </div>
       <div class="proceso-step">
         <div class="proceso-num">2</div>
@@ -823,13 +823,13 @@
     <div class="contacto-info reveal">
       <div class="section-tag" style="color:var(--gold);">Primer paso sin costo</div>
       <h2>Cuéntanos tu caso.<br>Te respondemos <em>hoy.</em></h2>
-      <p>La primera consulta es completamente gratuita. Sin compromiso, sin letra pequeña. Solo cuéntanos qué está pasando y respondemos a la brevedad posible en horario de atención.</p>
+      <p>La primera consulta es completamente gratuita. Sin compromiso, sin letra pequeña. Solo cuéntanos qué está pasando y respondemos de lunes a viernes, 8:00 AM - 6:00 PM (Zona Centro).</p>
       <div class="contacto-info-items">
         <div class="cii">
           <div class="cii-icon">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2.001c-5.514 0-9.998 4.484-9.998 9.998 0 1.761.462 3.413 1.27 4.847L2.005 22l5.273-1.381c1.378.748 2.954 1.179 4.721 1.179h.004c5.513 0 9.997-4.484 9.997-9.998 0-5.515-4.484-9.999-9.997-9.999H11.999zm0 1.8h.003c4.52 0 8.198 3.678 8.198 8.198 0 4.521-3.678 8.199-8.198 8.199h-.003c-1.584 0-3.072-.443-4.341-1.211l-.311-.185-3.129.82.834-3.047-.204-.323c-.839-1.313-1.316-2.85-1.316-4.455 0-4.52 3.678-8.197 8.197-8.197z"/></svg>
           </div>
-          <div><strong>WhatsApp directo</strong> — Respondemos a la brevedad posible en horario de atención</div>
+          <div><strong>WhatsApp directo</strong> — Respondemos lun-vie, 8:00 AM - 6:00 PM (Zona Centro)</div>
         </div>
         <div class="cii">
           <div class="cii-icon">
@@ -847,7 +847,7 @@
     </div>
     <div class="form-contacto reveal">
       <h3>Cuéntanos qué pasó</h3>
-      <p class="form-sub">Respondemos a la brevedad posible en horario de atención · Sin costo · Sin compromiso</p>
+      <p class="form-sub">Lun-Vie 8:00 AM - 6:00 PM (Zona Centro) · Sin costo · Sin compromiso</p>
       <div class="fc-group">
         <label>Nombre completo *</label>
         <input type="text" id="fc-nombre" placeholder="Tu nombre" required>
@@ -945,14 +945,13 @@
         <li><a href="https://wa.me/527352169503" target="_blank" rel="noopener noreferrer">📲 WhatsApp: +52 735 216 9503</a></li>
         <li><a href="mailto:hola@siglep.lat">✉ hola@siglep.lat</a></li>
         <li><a href="mailto:juridico@siglep.lat" style="opacity:0.7;font-size:0.9em;">✉ juridico@siglep.lat</a></li>
-        <li><a href="#">🌐 Atención Nacional</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
     <span>© 2026 SIGLEP — Sistemas Integrales de Gestión Legal. Todos los derechos reservados.</span>
     <span>
-      <a href="#">Aviso de Privacidad</a> · <a href="#">Términos de Servicio</a>
+      <a href="/privacidad/">Aviso de Privacidad</a> · <a href="/terminos/">Términos de Servicio</a>
     </span>
   </div>
 </footer>
@@ -1736,27 +1735,58 @@ function enviarContacto() {
   }
   errEl.classList.remove('visible');
 
-  // Armar mensaje para WhatsApp
-  const msg = encodeURIComponent(
-    `Hola SIGLEP, me llamo ${nombre}.
-` +
-    `Teléfono: ${telefono}
-` +
-    `Asunto: ${asunto}
-` +
-    (mensaje ? `Detalle: ${mensaje}
-` : '') +
-    `Solicito información sobre una consulta gratuita.`
-  );
-
   btn.disabled = true;
-  btn.textContent = 'Redirigiendo a WhatsApp...';
+  btn.textContent = 'Guardando tu consulta...';
 
-  // Redirigir a página de gracias y abrir WhatsApp
-  setTimeout(() => {
+  const leadData = {
+    timestamp: new Date().toISOString(),
+    nombre: nombre,
+    telefono: telefono,
+    asunto: asunto,
+    mensaje: mensaje,
+    source: 'index-form'
+  };
+
+  // 1. Guardar en localStorage como backup
+  const leads = JSON.parse(localStorage.getItem('siglep_leads') || '[]');
+  leads.push(leadData);
+  localStorage.setItem('siglep_leads', JSON.stringify(leads));
+
+  // 2. Enviar a webhook (FormSubmit)
+  fetch('https://formsubmit.co/ajax/hola@siglep.lat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      nombre: nombre,
+      telefono: telefono,
+      asunto: asunto,
+      mensaje: mensaje,
+      timestamp: new Date().toLocaleString('es-MX')
+    })
+  }).then(() => {
+    proceed();
+  }).catch(() => {
+    proceed();
+  });
+
+  function proceed() {
+    // 3. Abrir WhatsApp
+    const msg = encodeURIComponent(
+      `Hola SIGLEP, me llamo ${nombre}.
+` +
+      `Teléfono: ${telefono}
+` +
+      `Asunto: ${asunto}
+` +
+      (mensaje ? `Detalle: ${mensaje}
+` : '') +
+      `Solicito información sobre una consulta gratuita.`
+    );
     window.open(`https://wa.me/527352169503?text=${msg}`, '_blank');
-    window.location.href = '/gracias/';
-  }, 400);
+    setTimeout(() => {
+      window.location.href = '/gracias/';
+    }, 200);
+  }
 }
 
 </script>

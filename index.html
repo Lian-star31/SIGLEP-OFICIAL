@@ -8,7 +8,8 @@
 <link rel="apple-touch-icon" href="/favicon.svg">
 <meta name="description" content="SIGLEP: Defensa laboral, migratoria y patrimonial de alto impacto en México. Asesorías por videollamada y WhatsApp. Consulta gratuita.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap"></noscript>
 <style>
   :root {
     --navy: #1A365D;
@@ -1003,16 +1004,7 @@ const WA = 'https://wa.me/525661755112';
 // ── Utilidades ──
 function scrollChat() {
   const body = document.getElementById('chatPanelBody');
-  if (!body) return;
-  const msgs = document.getElementById('chatMessages');
-  const lastMsg = msgs.lastElementChild;
-  if (lastMsg) {
-    const bodyRect = body.getBoundingClientRect();
-    const msgRect = lastMsg.getBoundingClientRect();
-    body.scrollTop = body.scrollTop + (msgRect.top - bodyRect.top);
-  } else {
-    body.scrollTop = body.scrollHeight;
-  }
+  if (body) body.scrollTop = body.scrollHeight;
 }
 
 

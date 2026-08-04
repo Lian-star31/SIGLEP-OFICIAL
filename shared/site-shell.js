@@ -845,19 +845,11 @@
 
   function loadCalcModules() {
     if (!pageIs('/calculadoras/')) return;
-    var s1 = document.createElement('script');
-    s1.src = '/shared/estados-mexico.js';
-    s1.onload = function () {
-      var s2 = document.createElement('script');
-      s2.src = '/shared/estado-selector.js';
-      s2.onload = function () {
-        var s3 = document.createElement('script');
-        s3.src = '/shared/pdf-report.js';
-        document.head.appendChild(s3);
-      };
-      document.head.appendChild(s2);
-    };
-    document.head.appendChild(s1);
+    ['/shared/estados-mexico.js', '/shared/estado-selector.js', '/shared/pdf-report.js'].forEach(function(src) {
+      var s = document.createElement('script');
+      s.src = src;
+      document.head.appendChild(s);
+    });
   }
 
   function init() {

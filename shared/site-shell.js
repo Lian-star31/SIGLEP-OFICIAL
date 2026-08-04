@@ -16,7 +16,7 @@
     ['Seguridad Social', '/calculadoras/seguridad-social/'],
   ];
 
-  const PHONE = '527352169503';
+  const PHONE = '525661755112';
   const WA = `https://wa.me/${PHONE}`;
   const SHELL_STYLE_ID = 'siglep-shell-style';
 
@@ -580,7 +580,7 @@
         <div>
           <h5>Contacto</h5>
           <ul>
-            <li><a href="${WA}" target="_blank" rel="noopener noreferrer">+52 735 216 9503</a></li>
+            <li><a href="${WA}" target="_blank" rel="noopener noreferrer">+52 566 1755 112</a></li>
             <li><a href="mailto:hola@siglep.lat">hola@siglep.lat</a></li>
             <li><a href="mailto:juridico@siglep.lat">juridico@siglep.lat</a></li>
             <li><span>Atención nacional</span></li>

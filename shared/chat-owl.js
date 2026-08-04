@@ -1,4 +1,4 @@
-const WA = 'https://wa.me/527352169503';
+const WA = 'https://wa.me/525661755112';
 let chatOpened = false;
 
 function addMsg(html, type) {

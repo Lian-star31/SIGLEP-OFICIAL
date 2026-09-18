@@ -119,12 +119,28 @@
   .area-links{background:var(--gray-light);padding:4rem 2rem;}
   .area-links-inner{max-width:900px;margin:0 auto;}
   .area-links h3{font-family:var(--font-display);font-size:1.6rem;font-weight:700;color:var(--navy-deep);margin-bottom:2rem;}
-  .area-links-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;}
-  .area-link-card{background:var(--white);border:1px solid rgba(197,160,89,0.2);padding:1.5rem;border-radius:2px;text-decoration:none;display:flex;flex-direction:column;gap:0.5rem;transition:all 0.25s;}
+  .area-links-carousel{position:relative;}
+  .area-links-grid{display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+  .area-links-grid::-webkit-scrollbar{display:none;}
+  .area-link-card{background:var(--white);border:1px solid rgba(197,160,89,0.2);padding:1.5rem;border-radius:2px;text-decoration:none;display:flex;flex-direction:column;gap:0.5rem;transition:all 0.25s;flex:0 0 calc(33.333% - 0.67rem);scroll-snap-align:start;min-width:0;}
   .area-link-card:hover{background:var(--navy-deep);border-color:var(--gold);}
   .area-link-card:hover .alc-title{color:var(--gold);}
   .area-link-card:hover .alc-desc{color:rgba(255,255,255,0.5);}
-  .alc-icon{font-size:1.5rem;}
+  .alc-icon{color:var(--gold);}
+  .alc-icon svg{width:26px;height:26px;}
+  .area-links-arrow{position:absolute;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;background:var(--white);border:1px solid rgba(197,160,89,0.4);color:var(--navy-deep);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 14px rgba(26,54,93,0.15);transition:background 0.25s,color 0.25s,border-color 0.25s;z-index:5;}
+  .area-links-arrow:hover{background:var(--gold);color:var(--white);border-color:var(--gold);}
+  .area-links-arrow svg{width:18px;height:18px;}
+  .area-links-arrow-prev{left:-14px;}
+  .area-links-arrow-next{right:-14px;}
+  @media(max-width:900px){.area-link-card{flex-basis:calc(50% - 0.5rem);}}
+  @media(max-width:600px){
+    .area-link-card{flex-basis:86%;}
+    .area-links-arrow{width:34px;height:34px;}
+    .area-links-arrow svg{width:14px;height:14px;}
+    .area-links-arrow-prev{left:-6px;}
+    .area-links-arrow-next{right:-6px;}
+  }
   .alc-title{font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:var(--navy-deep);transition:color 0.25s;}
   .alc-desc{font-size:0.78rem;color:#6B7280;font-weight:300;transition:color 0.25s;}
 
@@ -174,7 +190,6 @@
   @media(max-width:600px){
     section{padding:3.5rem 1.2rem;}
     .service-grid{grid-template-columns:1fr;}
-    .area-links-grid{grid-template-columns:1fr;}
   }
   @media print{nav,.nav-mobile,.float-wa{display:none!important;}}
 
@@ -803,27 +818,35 @@
 <div class="area-links reveal">
   <div class="area-links-inner">
     <h3>Explora más en <em style="font-style:italic;color:var(--gold)">SIGLEP</em></h3>
-    <div class="area-links-grid">
+    <div class="area-links-carousel">
+    <button type="button" class="area-links-arrow area-links-arrow-prev" onclick="scrollAreaLinks(-1)" aria-label="Ver tarjetas anteriores">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </button>
+    <div class="area-links-grid" id="areaLinksGrid">
       <a href="/despido-injustificado/" class="area-link-card">
-        <div class="alc-icon">🚪</div>
+        <div class="alc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg></div>
         <div class="alc-title">Despido Injustificado</div>
         <div class="alc-desc">Guía completa: qué hacer si te despidieron y cuánto te corresponde.</div>
       </a>
       <a href="/liquidacion-laboral/" class="area-link-card">
-        <div class="alc-icon">💵</div>
+        <div class="alc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg></div>
         <div class="alc-title">Liquidación Laboral</div>
         <div class="alc-desc">Cómo se calcula tu liquidación y qué conceptos debe incluir.</div>
       </a>
       <a href="/familiar/" class="area-link-card">
-        <div class="alc-icon">👨‍👩‍👧</div>
+        <div class="alc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
         <div class="alc-title">Derecho Familiar</div>
         <div class="alc-desc">Divorcio, pensión alimentaria y custodia de menores.</div>
       </a>
       <a href="/patrimonial/" class="area-link-card">
-        <div class="alc-icon">🏛️</div>
+        <div class="alc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V9l7-5 7 5v12"/><path d="M9 21v-6h6v6"/></svg></div>
         <div class="alc-title">Derecho Patrimonial</div>
         <div class="alc-desc">Protección de bienes, contratos, herencias y negociación de deudas.</div>
       </a>
+    </div>
+    <button type="button" class="area-links-arrow area-links-arrow-next" onclick="scrollAreaLinks(1)" aria-label="Ver más tarjetas">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </button>
     </div>
   </div>
 </div>
@@ -876,6 +899,29 @@
 </a>
 
 <script>
+  // Carrusel "Explora más en SIGLEP"
+  function scrollAreaLinks(direction) {
+    const grid = document.getElementById('areaLinksGrid');
+    if (!grid) return;
+    grid.scrollBy({ left: direction * grid.clientWidth, behavior: 'smooth' });
+  }
+  (function initAreaLinksCarousel() {
+    const grid = document.getElementById('areaLinksGrid');
+    const prevBtn = document.querySelector('.area-links-arrow-prev');
+    const nextBtn = document.querySelector('.area-links-arrow-next');
+    if (!grid || !prevBtn || !nextBtn) return;
+    function updateArrows() {
+      const max = grid.scrollWidth - grid.clientWidth;
+      prevBtn.style.opacity = grid.scrollLeft <= 4 ? '0.35' : '1';
+      prevBtn.style.pointerEvents = grid.scrollLeft <= 4 ? 'none' : 'auto';
+      nextBtn.style.opacity = grid.scrollLeft >= max - 4 ? '0.35' : '1';
+      nextBtn.style.pointerEvents = grid.scrollLeft >= max - 4 ? 'none' : 'auto';
+    }
+    grid.addEventListener('scroll', updateArrows);
+    window.addEventListener('resize', updateArrows);
+    updateArrows();
+  })();
+
   // Reveal on scroll
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target); } });

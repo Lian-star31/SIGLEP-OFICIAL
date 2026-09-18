@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Expediente Inteligente SIGLEP — Diagnóstico Legal Gratuito en México</title>
-<meta name="description" content="Obtén un diagnóstico preliminar gratuito de tu caso legal. SIGLEP analiza tu situación con rapidez y te dice qué opciones tienes. Laboral, migratorio y patrimonial.">
+<meta name="description" content="Obtén un diagnóstico preliminar gratuito de tu caso legal. SIGLEP analiza tu situación con rapidez y te dice qué opciones tienes. Laboral, familiar, penal y patrimonial.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://siglep.lat/expediente/">
 <meta property="og:title" content="Expediente Inteligente SIGLEP — Diagnóstico Legal Gratuito">
@@ -167,7 +167,7 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:900;background:rgba(8,12,20,0
 @media print{nav,.nav-mobile,.float-wa{display:none!important;}}
 </style>
   <script defer src="/shared/site-shell.js"></script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Expediente Inteligente SIGLEP — Diagnóstico Legal Gratuito en México","url":"https://siglep.lat/expediente/","description":"Obtén un diagnóstico preliminar gratuito de tu caso legal. SIGLEP analiza tu situación con rapidez y te dice qué opciones tienes. Laboral, migratorio y patrimonial."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Expediente Inteligente SIGLEP — Diagnóstico Legal Gratuito en México","url":"https://siglep.lat/expediente/","description":"Obtén un diagnóstico preliminar gratuito de tu caso legal. SIGLEP analiza tu situación con rapidez y te dice qué opciones tienes. Laboral, familiar, penal y patrimonial."}</script>
 
   <style>
     nav.siglep-shell-nav {
@@ -443,11 +443,9 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:900;background:rgba(8,12,20,0
           <div class="siglep-shell-dropdown">
             <a href="/laboral/">Laboral <span>→</span></a>
             <a href="/familiar/">Familiar <span>→</span></a>
-            <a href="/civil/">Civil <span>→</span></a>
-            <a href="/migratorio/">Migratorio <span>→</span></a>
-            <a href="/patrimonial/">Patrimonial <span>→</span></a>
             <a href="/penal/">Penal <span>→</span></a>
-            <a href="/seguridad-social/">Seguridad Social <span>→</span></a>
+            <a href="/civil/">Civil <span>→</span></a>
+            <a href="/patrimonial/">Patrimonial <span>→</span></a>
           </div>
         </li>
         <li><a href="/calculadoras/" data-nav="calculadoras">Calculadoras</a></li>
@@ -471,11 +469,9 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:900;background:rgba(8,12,20,0
       <div class="siglep-shell-mobile-group">
         <a href="/laboral/" onclick="closeMobileNav()">Laboral</a>
         <a href="/familiar/" onclick="closeMobileNav()">Familiar</a>
-        <a href="/civil/" onclick="closeMobileNav()">Civil</a>
-        <a href="/migratorio/" onclick="closeMobileNav()">Migratorio</a>
-        <a href="/patrimonial/" onclick="closeMobileNav()">Patrimonial</a>
         <a href="/penal/" onclick="closeMobileNav()">Penal</a>
-        <a href="/seguridad-social/" onclick="closeMobileNav()">Seguridad Social</a>
+        <a href="/civil/" onclick="closeMobileNav()">Civil</a>
+        <a href="/patrimonial/" onclick="closeMobileNav()">Patrimonial</a>
       </div>
       <div class="siglep-shell-mobile-group">
         <a href="/calculadoras/" onclick="closeMobileNav()">Calculadoras</a>
@@ -518,20 +514,15 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:900;background:rgba(8,12,20,0
           <div class="ac-title">Laboral</div>
           <div class="ac-desc">Despidos, liquidaciones, acoso laboral, horas extra, conflictos con el patrón</div>
         </div>
-        <div class="area-card" onclick="seleccionarArea('migratorio', this)">
-          <div class="ac-icon">🌐</div>
-          <div class="ac-title">Migratorio</div>
-          <div class="ac-desc">Visas, pasaportes, regularización migratoria, trámites consulares</div>
+        <div class="area-card" onclick="seleccionarArea('familiar', this)">
+          <div class="ac-icon">👨‍👩‍👧</div>
+          <div class="ac-title">Familiar / Penal</div>
+          <div class="ac-desc">Divorcio, pensión, custodia, violencia familiar, denuncias penales</div>
         </div>
         <div class="area-card" onclick="seleccionarArea('patrimonial', this)">
           <div class="ac-icon">🏛️</div>
           <div class="ac-title">Patrimonial</div>
           <div class="ac-desc">Herencias, testamentos, contratos, deudas, protección de bienes</div>
-        </div>
-        <div class="area-card" onclick="seleccionarArea('familiar', this)">
-          <div class="ac-icon">👨‍👩‍👧</div>
-          <div class="ac-title">Familiar / Penal</div>
-          <div class="ac-desc">Divorcio, pensión, custodia, violencia familiar, denuncias penales</div>
         </div>
       </div>
       <button class="btn-next" id="btn-1" onclick="irPaso(2)" disabled>Continuar <span>→</span></button>
@@ -682,17 +673,6 @@ const preguntasPorArea = {
       { val: 'otro', txt: 'Otra situación laboral' },
     ]
   },
-  migratorio: {
-    titulo: '¿Cuál es tu necesidad migratoria?',
-    sub: 'Selecciona la opción que mejor describe tu situación.',
-    opciones: [
-      { val: 'visa', txt: 'Necesito tramitar o renovar una visa' },
-      { val: 'pasaporte', txt: 'Necesito tramitar o renovar mi pasaporte' },
-      { val: 'regularizacion', txt: 'Quiero regularizar mi situación migratoria' },
-      { val: 'familiar', txt: 'Trámite migratorio para un familiar' },
-      { val: 'otro', txt: 'Otro trámite migratorio' },
-    ]
-  },
   patrimonial: {
     titulo: '¿Cuál es tu situación patrimonial?',
     sub: 'Selecciona la opción que mejor describe tu caso.',
@@ -778,51 +758,6 @@ const diagnosticos = {
       area:'Derecho Laboral', sit:'Asunto laboral', viab:'Media-Alta',
       textos: {
         default: { u:'importante', gancho:'La Ley Federal del Trabajo protege al trabajador en más situaciones de las que la mayoría conoce. Sin analizar los detalles específicos de tu caso, es difícil decirte exactamente qué te corresponde — pero esa evaluación inicial es gratuita y frecuentemente revela derechos que el trabajador desconocía.', acciones:['Análisis de tu situación específica','Identificación de derechos aplicables','Orientación sobre las vías disponibles','Evaluación sin costo de tu caso'] },
-      }
-    },
-  },
-
-  migratorio: {
-    visa: {
-      area:'Derecho Migratorio', sit:'Trámite de visa', viab:'Alta',
-      textos: {
-        menos7: { u:'urgente', gancho:'Las visas tienen ventanas de solicitud muy específicas y los errores en el expediente resultan en rechazos que afectan solicitudes futuras. Un rechazo no es definitivo, pero sí complica el proceso. La diferencia entre un expediente bien armado y uno incompleto puede ser meses de espera. Esta semana importa.', acciones:['Revisión urgente del tipo de visa más adecuada','Armado correcto del expediente desde el inicio','Preparación para la entrevista consular','Estrategia para maximizar probabilidad de aprobación'] },
-        menos1mes: { u:'urgente', gancho:'Los consulados tienen citas limitadas y los errores documentales reinician el proceso. Saber exactamente qué presentar, en qué orden y con qué respaldo es la diferencia entre una solicitud aprobada y meses perdidos. Un expediente bien preparado eleva significativamente las probabilidades de éxito en el primer intento.', acciones:['Lista exacta de documentos requeridos para tu perfil','Verificación de vigencia y apostillas necesarias','Estrategia de presentación del expediente','Preparación para preguntas de la entrevista'] },
-        default: { u:'importante', gancho:'Los trámites de visa fallan principalmente por razones técnicas que son completamente evitables: documentación incompleta, orden incorrecto, o apostillas faltantes. Con el expediente correcto desde el inicio, el proceso es predecible. Lo que necesitas saber antes de tu próxima cita lo revisamos en consulta.', acciones:['Diagnóstico de tu perfil migratorio','Expediente completo para tu tipo de visa','Orientación sobre tiempos y citas','Acompañamiento durante el proceso'] },
-      }
-    },
-    pasaporte: {
-      area:'Derecho Migratorio', sit:'Trámite de pasaporte', viab:'Alta',
-      textos: {
-        menos7: { u:'urgente', gancho:'Si hay un viaje próximo, los tiempos son críticos. Existen procedimientos de trámite urgente ante la SRE pero tienen requisitos específicos. La diferencia entre saber exactamente cómo gestionarlo y no saberlo puede ser perder un vuelo o un trámite en el extranjero. Esta semana define todo.', acciones:['Gestión urgente de cita ante la SRE','Procedimiento de pasaporte urgente por viaje','Documentación necesaria para tu caso específico','Alternativas si el tiempo es muy limitado'] },
-        default: { u:'importante', gancho:'Las citas para pasaporte se agotan rápido y el sistema de la SRE tiene sus propios códigos. Saber cuándo y cómo buscar disponibilidad, y llegar con el expediente correcto, elimina las vueltas innecesarias. Un trámite bien gestionado desde el inicio ahorra semanas.', acciones:['Estrategia para obtener cita disponible','Documentación exacta requerida','Casos especiales: primer pasaporte, extravío, corrección de datos','Seguimiento hasta la obtención del documento'] },
-      }
-    },
-    regularizacion: {
-      area:'Derecho Migratorio', sit:'Regularización migratoria', viab:'Alta',
-      textos: {
-        menos7: { u:'urgente', gancho:'Las ventanas de regularización migratoria se abren y se cierran. Estar en situación irregular no solo genera multas — puede resultar en restricciones de entrada por años. Lo que muchas personas no saben: hay procedimientos específicos ante el INM según el tiempo de estancia y los vínculos con México. Actuar antes de que la situación se agrave es crítico.', acciones:['Diagnóstico urgente de tu situación migratoria actual','Identificación de la vía de regularización más viable','Procedimiento ante el INM paso a paso','Protección durante el proceso de regularización'] },
-        menos6meses: { u:'urgente', gancho:'La situación migratoria irregular tiene consecuencias que se acumulan con el tiempo. Cada mes que pasa puede cerrar opciones de regularización. Lo importante: hay más alternativas de las que la mayoría imagina, dependiendo de tus vínculos con México, tiempo de estancia y situación familiar. La evaluación inicial es el primer paso.', acciones:['Análisis de tu perfil migratorio y opciones disponibles','Identificación de vínculos que facilitan la regularización','Procedimiento correcto según tu situación','Acompañamiento durante todo el proceso ante el INM'] },
-        default: { u:'importante', gancho:'Regularizar la situación migratoria es posible en más casos de los que la gente cree. El proceso correcto depende de factores específicos: tiempo en México, vínculos familiares, antecedentes. Una evaluación inicial determina cuál es el camino más viable y más rápido para tu situación particular.', acciones:['Evaluación de tu situación migratoria actual','Opciones de regularización según tu perfil','Procedimiento ante el INM','Tiempos y costos aproximados'] },
-      }
-    },
-    residencia: {
-      area:'Derecho Migratorio', sit:'Residencia en México', viab:'Alta',
-      textos: {
-        default: { u:'importante', gancho:'Existen múltiples vías para obtener residencia en México y la más conveniente depende de tu situación: vínculos familiares, actividad económica, tiempo en el país. Elegir la vía incorrecta significa iniciar de nuevo. Con la estrategia correcta, el proceso es predecible y tiene plazos definidos.', acciones:['Análisis de la vía de residencia más adecuada para tu perfil','Expediente completo y en el orden correcto','Gestión ante el INM','Seguimiento hasta la resolución'] },
-      }
-    },
-    familiar: {
-      area:'Derecho Migratorio', sit:'Trámite familiar migratorio', viab:'Alta',
-      textos: {
-        menos7: { u:'urgente', gancho:'Los trámites migratorios familiares tienen complejidades adicionales que los individuales no tienen. Coordinar documentación de múltiples personas, especialmente menores, requiere un orden específico o el proceso se detiene. Esta semana es el momento de organizar correctamente para evitar retrasos costosos.', acciones:['Coordinación de documentación familiar completa','Trámites de menores: requisitos específicos','Reagrupación familiar: procedimiento correcto','Tiempos coordinados para toda la familia'] },
-        default: { u:'importante', gancho:'Los trámites migratorios para familias tienen requisitos adicionales que los procesos individuales no tienen — especialmente cuando hay menores involucrados. Coordinarlos incorrectamente duplica los tiempos. Con la estrategia correcta, los trámites de toda la familia pueden gestionarse de forma coordinada y eficiente.', acciones:['Mapa de trámites para cada miembro de la familia','Documentación específica por tipo de trámite','Coordinación de citas y procedimientos','Casos especiales: menores, cónyuge extranjero'] },
-      }
-    },
-    otro: {
-      area:'Derecho Migratorio', sit:'Asunto migratorio', viab:'Media-Alta',
-      textos: {
-        default: { u:'importante', gancho:'El derecho migratorio en México tiene procedimientos muy específicos y cambia con frecuencia. Lo que funcionó hace un año puede no aplicar hoy. Una evaluación inicial de tu situación concreta es la forma más eficiente de saber exactamente qué pasos seguir y en qué orden.', acciones:['Análisis de tu situación migratoria específica','Identificación de la ruta correcta','Orientación sobre tiempos y requisitos actualizados','Primera consulta gratuita'] },
       }
     },
   },

@@ -2,12 +2,14 @@
   const SERVICES = [
     ['Laboral', '/laboral/'],
     ['Familiar', '/familiar/'],
-    ['Civil', '/civil/'],
-    ['Migratorio', '/migratorio/'],
-    ['Patrimonial', '/patrimonial/'],
     ['Penal', '/penal/'],
+    ['Civil', '/civil/'],
+    ['Patrimonial', '/patrimonial/'],
     ['Seguridad Social', '/seguridad-social/'],
   ];
+
+  // Seguridad Social se mantiene en el sitio (footer/sitemap) pero fuera del menú principal.
+  const NAV_SERVICES = SERVICES.filter(([label]) => label !== 'Seguridad Social');
 
   const CALCULATOR_AREAS = [
     ['Laboral', '/calculadoras/laboral/'],
@@ -504,7 +506,7 @@
   }
 
   function createDesktopNav() {
-    const services = SERVICES.map(([label, href]) => `<a href="${href}">${escapeHtml(label)} <span>→</span></a>`).join('');
+    const services = NAV_SERVICES.map(([label, href]) => `<a href="${href}">${escapeHtml(label)} <span>→</span></a>`).join('');
     return `
       <ul class="siglep-shell-links">
         <li><a href="/" data-nav="home">Inicio</a></li>
@@ -538,7 +540,7 @@
           <details class="siglep-shell-mobile-accordion">
             <summary class="siglep-shell-mobile-summary">Servicios <span class="accordion-icon"></span></summary>
             <div class="siglep-shell-mobile-accordion-body">
-              ${SERVICES.map(([label, href]) => `<a class="siglep-shell-mobile-link" href="${href}" onclick="closeMobileNav()">${escapeHtml(label)} <span>→</span></a>`).join('')}
+              ${NAV_SERVICES.map(([label, href]) => `<a class="siglep-shell-mobile-link" href="${href}" onclick="closeMobileNav()">${escapeHtml(label)} <span>→</span></a>`).join('')}
             </div>
           </details>
 
@@ -728,10 +730,9 @@
       if (navKey === 'services') active = [
         '/laboral/',
         '/familiar/',
-        '/civil/',
-        '/migratorio/',
-        '/patrimonial/',
         '/penal/',
+        '/civil/',
+        '/patrimonial/',
         '/seguridad-social/',
       ].some((prefix) => path.startsWith(prefix));
       if (navKey === 'calculators') active = path.startsWith('/calculadoras/');

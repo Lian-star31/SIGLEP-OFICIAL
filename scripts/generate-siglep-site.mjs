@@ -283,11 +283,9 @@ const SHELL_NAV_HTML = `
           <div class="siglep-shell-dropdown">
             <a href="/laboral/">Laboral <span>→</span></a>
             <a href="/familiar/">Familiar <span>→</span></a>
-            <a href="/civil/">Civil <span>→</span></a>
-            <a href="/migratorio/">Migratorio <span>→</span></a>
-            <a href="/patrimonial/">Patrimonial <span>→</span></a>
             <a href="/penal/">Penal <span>→</span></a>
-            <a href="/seguridad-social/">Seguridad Social <span>→</span></a>
+            <a href="/civil/">Civil <span>→</span></a>
+            <a href="/patrimonial/">Patrimonial <span>→</span></a>
           </div>
         </li>
         <li><a href="/calculadoras/" data-nav="calculadoras">Calculadoras</a></li>
@@ -311,11 +309,9 @@ const SHELL_NAV_HTML = `
       <div class="siglep-shell-mobile-group">
         <a href="/laboral/" onclick="closeMobileNav()">Laboral</a>
         <a href="/familiar/" onclick="closeMobileNav()">Familiar</a>
-        <a href="/civil/" onclick="closeMobileNav()">Civil</a>
-        <a href="/migratorio/" onclick="closeMobileNav()">Migratorio</a>
-        <a href="/patrimonial/" onclick="closeMobileNav()">Patrimonial</a>
         <a href="/penal/" onclick="closeMobileNav()">Penal</a>
-        <a href="/seguridad-social/" onclick="closeMobileNav()">Seguridad Social</a>
+        <a href="/civil/" onclick="closeMobileNav()">Civil</a>
+        <a href="/patrimonial/" onclick="closeMobileNav()">Patrimonial</a>
       </div>
       <div class="siglep-shell-mobile-group">
         <a href="/calculadoras/" onclick="closeMobileNav()">Calculadoras</a>
@@ -331,7 +327,6 @@ const pagesToPatch = [
   'index.html',
   'laboral/index.html',
   'familiar/index.html',
-  'migratorio/index.html',
   'patrimonial/index.html',
   'penal/index.html',
   'liquidacion-laboral/index.html',
@@ -363,7 +358,6 @@ const seoOnlyPages = [
   { file: 'familiar/index.html' },
   { file: 'laboral/index.html' },
   { file: 'liquidacion-laboral/index.html' },
-  { file: 'migratorio/index.html' },
   { file: 'nosotros/index.html' },
   { file: 'patrimonial/index.html' },
   { file: 'penal/index.html' },
@@ -2569,10 +2563,11 @@ function updateSitemap() {
     '/',
     '/laboral/',
     '/familiar/',
-    '/civil/',
-    '/migratorio/',
-    '/patrimonial/',
+    '/divorcio/',
+    '/pension-alimenticia/',
     '/penal/',
+    '/civil/',
+    '/patrimonial/',
     '/seguridad-social/',
     '/calculadoras/',
     '/expediente/',

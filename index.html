@@ -61,8 +61,9 @@
     margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.8rem;
   }
   .hero-eyebrow::before { content: ''; display: block; width: 36px; height: 1px; background: var(--gold); }
-  .hero h1 { font-family: var(--font-display); font-size: clamp(2.1rem, 4vw, 3.2rem); font-weight: 700; line-height: 1.2; color: var(--white); margin-bottom: 1.3rem; }
+  .hero h1 { font-family: var(--font-display); font-size: clamp(2.1rem, 4vw, 3.2rem); font-weight: 700; line-height: 1.2; color: var(--white); margin: 0 0 1.3rem; max-width: min(680px, 100%); }
   .hero h1 em { font-style: italic; color: var(--gold); }
+  .hero h1 .hero-h1-gold { color: var(--gold); font-style: normal; }
   .hero-brand-tagline { font-family: var(--font-display); font-style: italic; font-size: clamp(1rem, 1.6vw, 1.2rem); color: var(--gold); margin-bottom: 1.2rem; }
   .hero-sub { font-size: clamp(0.9rem, 2vw, 1rem); line-height: 1.8; color: rgba(255,255,255,0.65); max-width: 580px; margin-bottom: 2.5rem; font-weight: 300; }
   .hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
@@ -563,7 +564,7 @@
   </div>
   <div class="hero-content">
     <div class="hero-eyebrow">Firma Legal · México · Estrategia Jurídica</div>
-    <h1>Abogados en México: Defensa Legal con Estrategia</h1>
+    <h1>Abogados en México: Defensa Legal con <span class="hero-h1-gold">Estrategia</span></h1>
     <p class="hero-brand-tagline">Defendemos lo que más te importa</p>
     <p class="hero-sub">
       Brindamos asesoría y representación jurídica a personas, familias y empresas en México. Atendemos asuntos laborales, familiares, penales, civiles y patrimoniales con una estrategia adaptada a las circunstancias de cada caso.

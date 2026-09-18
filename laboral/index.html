@@ -98,9 +98,17 @@
   .sc-tag{font-size:0.58rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);}
   .sc-title{font-family:var(--font-display);font-size:1.35rem;font-weight:700;color:var(--navy-deep);line-height:1.2;}
   .sc-body{font-size:0.85rem;line-height:1.75;color:#4A5568;font-weight:300;}
-  .sc-list{list-style:none;display:flex;flex-direction:column;gap:0.4rem;margin-top:0.3rem;}
+  .sc-list{list-style:none;display:flex;flex-direction:column;gap:0.4rem;margin-top:0.8rem;}
   .sc-list li{font-size:0.8rem;color:var(--text-body);display:flex;align-items:flex-start;gap:0.5rem;}
   .sc-list li::before{content:'→';color:var(--gold);font-size:0.7rem;margin-top:0.05rem;flex-shrink:0;}
+  .sc-details{margin-top:0.2rem;}
+  .sc-details summary{cursor:pointer;list-style:none;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:0.4rem;outline:none;-webkit-tap-highlight-color:transparent;}
+  .sc-details summary::-webkit-details-marker{display:none;}
+  .sc-details-caret{width:10px;height:10px;flex-shrink:0;transition:transform 0.25s ease;}
+  .sc-details[open] .sc-details-caret{transform:rotate(180deg);}
+  .sc-details-label-open{display:none;}
+  .sc-details[open] .sc-details-label-closed{display:none;}
+  .sc-details[open] .sc-details-label-open{display:inline;}
   .sc-cta{margin-top:auto;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);text-decoration:none;display:flex;align-items:center;gap:0.4rem;transition:gap 0.25s;background:none;border:none;cursor:pointer;}
   .sc-cta:hover{gap:0.8rem;}
 
@@ -484,13 +492,20 @@
         <div class="sc-tag">Despido Injustificado</div>
         <div class="sc-title">Cuando te despiden sin causa</div>
         <p class="sc-body">El despido injustificado es el más común y el más rentable para el patrón si el trabajador no se defiende. La ley federal del trabajo es clara: tienes derecho a indemnización constitucional completa.</p>
-        <ul class="sc-list">
-          <li>3 meses de salario integrado</li>
-          <li>20 días por año de servicio</li>
-          <li>Partes proporcionales de prestaciones</li>
-          <li>Prima de antigüedad (12 días por año)</li>
-          <li>Representación ante la Junta de Conciliación</li>
-        </ul>
+        <details class="sc-details">
+          <summary>
+            <span class="sc-details-label-closed">Ver detalle completo</span>
+            <span class="sc-details-label-open">Ocultar detalle</span>
+            <svg class="sc-details-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <ul class="sc-list">
+            <li>3 meses de salario integrado</li>
+            <li>20 días por año de servicio</li>
+            <li>Partes proporcionales de prestaciones</li>
+            <li>Prima de antigüedad (12 días por año)</li>
+            <li>Representación ante la Junta de Conciliación</li>
+          </ul>
+        </details>
         <a href="/despido-injustificado/" class="sc-cta">Ver guía completa de despido <span>→</span></a>
       </div>
 
@@ -500,13 +515,20 @@
         <div class="sc-tag">Liquidaciones</div>
         <div class="sc-title">Liquidación completa y correcta</div>
         <p class="sc-body">La liquidación legal no es solo "tres meses". Incluye integración salarial correcta, años de servicio, partes proporcionales y más. El error más caro que puede cometer un trabajador es firmar sin revisar.</p>
-        <ul class="sc-list">
-          <li>Revisión y cálculo de salario diario integrado</li>
-          <li>Verificación de partes proporcionales</li>
-          <li>Aguinaldo, vacaciones y prima vacacional</li>
-          <li>Análisis de beneficios adicionales del contrato</li>
-          <li>Negociación antes de firmar cualquier documento</li>
-        </ul>
+        <details class="sc-details">
+          <summary>
+            <span class="sc-details-label-closed">Ver detalle completo</span>
+            <span class="sc-details-label-open">Ocultar detalle</span>
+            <svg class="sc-details-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <ul class="sc-list">
+            <li>Revisión y cálculo de salario diario integrado</li>
+            <li>Verificación de partes proporcionales</li>
+            <li>Aguinaldo, vacaciones y prima vacacional</li>
+            <li>Análisis de beneficios adicionales del contrato</li>
+            <li>Negociación antes de firmar cualquier documento</li>
+          </ul>
+        </details>
         <a href="/liquidacion-laboral/" class="sc-cta">Ver guía completa de liquidación <span>→</span></a>
       </div>
 
@@ -516,13 +538,20 @@
         <div class="sc-tag">Finiquitos</div>
         <div class="sc-title">Finiquito: lo que es tuyo siempre lo es</div>
         <p class="sc-body">El finiquito aplica incluso en renuncias voluntarias. Muchos trabajadores desconocen que tienen derecho a pagos proporcionales sin importar cómo terminó la relación laboral. No dejes nada sobre la mesa.</p>
-        <ul class="sc-list">
-          <li>Días trabajados del período en curso</li>
-          <li>Vacaciones no gozadas y prima vacacional</li>
-          <li>Aguinaldo proporcional al tiempo trabajado</li>
-          <li>Comisiones o bonos pendientes de pago</li>
-          <li>Revisión de descuentos aplicados por el patrón</li>
-        </ul>
+        <details class="sc-details">
+          <summary>
+            <span class="sc-details-label-closed">Ver detalle completo</span>
+            <span class="sc-details-label-open">Ocultar detalle</span>
+            <svg class="sc-details-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <ul class="sc-list">
+            <li>Días trabajados del período en curso</li>
+            <li>Vacaciones no gozadas y prima vacacional</li>
+            <li>Aguinaldo proporcional al tiempo trabajado</li>
+            <li>Comisiones o bonos pendientes de pago</li>
+            <li>Revisión de descuentos aplicados por el patrón</li>
+          </ul>
+        </details>
         <a href="https://wa.me/525661755112?text=Hola%20SIGLEP%2C%20quiero%20revisar%20mi%20finiquito" class="sc-cta" target="_blank" rel="noopener noreferrer">Revisar mi finiquito <span>→</span></a>
       </div>
 
@@ -532,13 +561,20 @@
         <div class="sc-tag">Horas Extra</div>
         <div class="sc-title">Las horas extra tienen un precio legal</div>
         <p class="sc-body">En México, las primeras nueve horas extra por semana se pagan al doble. A partir de la décima, al triple. El patrón que no las registra ni las paga comete una violación laboral exigible ante autoridad.</p>
-        <ul class="sc-list">
-          <li>Cálculo retroactivo de horas extra no pagadas</li>
-          <li>Documentación y evidencia del tiempo trabajado</li>
-          <li>Reclamación ante la STPS o Junta de Conciliación</li>
-          <li>Negociación directa con el patrón</li>
-          <li>Inicio de demanda si no hay acuerdo</li>
-        </ul>
+        <details class="sc-details">
+          <summary>
+            <span class="sc-details-label-closed">Ver detalle completo</span>
+            <span class="sc-details-label-open">Ocultar detalle</span>
+            <svg class="sc-details-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <ul class="sc-list">
+            <li>Cálculo retroactivo de horas extra no pagadas</li>
+            <li>Documentación y evidencia del tiempo trabajado</li>
+            <li>Reclamación ante la STPS o Junta de Conciliación</li>
+            <li>Negociación directa con el patrón</li>
+            <li>Inicio de demanda si no hay acuerdo</li>
+          </ul>
+        </details>
         <a href="https://wa.me/525661755112?text=Hola%20SIGLEP%2C%20mi%20patr%C3%B3n%20no%20me%20paga%20las%20horas%20extra" class="sc-cta" target="_blank" rel="noopener noreferrer">Reclamar mis horas extra <span>→</span></a>
       </div>
 
@@ -548,13 +584,20 @@
         <div class="sc-tag">Acoso Laboral</div>
         <div class="sc-title">El hostigamiento también es delito</div>
         <p class="sc-body">El acoso laboral (mobbing) y el hostigamiento sexual en el trabajo son conductas prohibidas por la Ley Federal del Trabajo y tipificadas penalmente. Tienes derecho a denunciar y a exigir reparación del daño.</p>
-        <ul class="sc-list">
-          <li>Asesoría sobre derechos y vías de acción</li>
-          <li>Estrategia de documentación del acoso</li>
-          <li>Denuncia ante STPS, IMSS o autoridad penal</li>
-          <li>Representación en procedimiento disciplinario</li>
-          <li>Rescisión justificada imputable al patrón</li>
-        </ul>
+        <details class="sc-details">
+          <summary>
+            <span class="sc-details-label-closed">Ver detalle completo</span>
+            <span class="sc-details-label-open">Ocultar detalle</span>
+            <svg class="sc-details-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <ul class="sc-list">
+            <li>Asesoría sobre derechos y vías de acción</li>
+            <li>Estrategia de documentación del acoso</li>
+            <li>Denuncia ante STPS, IMSS o autoridad penal</li>
+            <li>Representación en procedimiento disciplinario</li>
+            <li>Rescisión justificada imputable al patrón</li>
+          </ul>
+        </details>
         <a href="https://wa.me/525661755112?text=Hola%20SIGLEP%2C%20estoy%20sufriendo%20acoso%20laboral%20y%20necesito%20orientaci%C3%B3n" class="sc-cta" target="_blank" rel="noopener noreferrer">Orientación sobre acoso <span>→</span></a>
       </div>
 
@@ -564,13 +607,20 @@
         <div class="sc-tag">Derechos del Trabajador</div>
         <div class="sc-title">Conoce lo que la ley te garantiza</div>
         <p class="sc-body">La Ley Federal del Trabajo protege al trabajador desde antes de que firme su primer contrato. Muchos derechos son irrenunciables — el patrón no puede eliminarte prestaciones aunque lo pongan por escrito.</p>
-        <ul class="sc-list">
-          <li>15 días de aguinaldo mínimo garantizado</li>
-          <li>Vacaciones y prima vacacional por ley</li>
-          <li>Seguridad social (IMSS, Infonavit, Afore)</li>
-          <li>Jornada máxima y días de descanso obligatorios</li>
-          <li>Contratos, cláusulas y condiciones laborales</li>
-        </ul>
+        <details class="sc-details">
+          <summary>
+            <span class="sc-details-label-closed">Ver detalle completo</span>
+            <span class="sc-details-label-open">Ocultar detalle</span>
+            <svg class="sc-details-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </summary>
+          <ul class="sc-list">
+            <li>15 días de aguinaldo mínimo garantizado</li>
+            <li>Vacaciones y prima vacacional por ley</li>
+            <li>Seguridad social (IMSS, Infonavit, Afore)</li>
+            <li>Jornada máxima y días de descanso obligatorios</li>
+            <li>Contratos, cláusulas y condiciones laborales</li>
+          </ul>
+        </details>
         <a href="https://wa.me/525661755112?text=Hola%20SIGLEP%2C%20quiero%20conocer%20mis%20derechos%20laborales" class="sc-cta" target="_blank" rel="noopener noreferrer">Conocer mis derechos <span>→</span></a>
       </div>
 

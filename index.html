@@ -130,12 +130,30 @@
   .poderes .section-title { color: var(--white); }
   .poderes .section-lead { color: rgba(255,255,255,0.55); }
   .poderes-header { margin-bottom: 3.5rem; }
+  .poderes-carousel { position: relative; }
   .poderes-grid {
     display: flex; gap: 1.5px; background: rgba(197,160,89,0.12); border: 1px solid rgba(197,160,89,0.12);
     overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
   }
   .poderes-grid::-webkit-scrollbar { display: none; }
+  .poderes-arrow {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 5;
+    width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    background: rgba(10,22,40,0.92); border: 1px solid rgba(197,160,89,0.4); color: var(--gold);
+    cursor: pointer; transition: background 0.25s, color 0.25s, border-color 0.25s, transform 0.25s;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  }
+  .poderes-arrow:hover { background: var(--gold); color: var(--navy-deep); border-color: var(--gold); }
+  .poderes-arrow svg { width: 20px; height: 20px; }
+  .poderes-arrow-prev { left: 14px; }
+  .poderes-arrow-next { right: 14px; }
+  @media (max-width: 600px) {
+    .poderes-arrow { width: 36px; height: 36px; }
+    .poderes-arrow svg { width: 16px; height: 16px; }
+    .poderes-arrow-prev { left: 6px; }
+    .poderes-arrow-next { right: 6px; }
+  }
   .poder-card {
     background: rgba(15,34,64,0.9); padding: 2.5rem 2rem;
     display: flex; flex-direction: column; gap: 1.2rem;
@@ -590,7 +608,11 @@
       <h2 class="section-title">Áreas de <em>práctica.</em></h2>
       <p class="section-lead">Soluciones jurídicas especializadas para personas, familias y organizaciones.</p>
     </div>
-    <div class="poderes-grid reveal">
+    <div class="poderes-carousel">
+    <button type="button" class="poderes-arrow poderes-arrow-prev" onclick="scrollAreas(-1)" aria-label="Ver áreas anteriores">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </button>
+    <div class="poderes-grid reveal" id="poderesGrid">
       <!-- Laboral -->
       <div class="poder-card">
         <span class="poder-num">01</span>
@@ -688,6 +710,10 @@
           <a href="/calculadoras/patrimonial/" class="poder-action-secondary">Ir a calculadoras patrimoniales <span>→</span></a>
         </div>
       </div>
+    </div>
+    <button type="button" class="poderes-arrow poderes-arrow-next" onclick="scrollAreas(1)" aria-label="Ver más áreas">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </button>
     </div>
   </div>
 </section>
@@ -1017,6 +1043,29 @@
 </div>
 
 <script>
+
+// ── CARRUSEL ÁREAS DE PRÁCTICA ──
+function scrollAreas(direction) {
+  const grid = document.getElementById('poderesGrid');
+  if (!grid) return;
+  grid.scrollBy({ left: direction * grid.clientWidth, behavior: 'smooth' });
+}
+(function initAreasCarousel() {
+  const grid = document.getElementById('poderesGrid');
+  const prevBtn = document.querySelector('.poderes-arrow-prev');
+  const nextBtn = document.querySelector('.poderes-arrow-next');
+  if (!grid || !prevBtn || !nextBtn) return;
+  function updateArrows() {
+    const max = grid.scrollWidth - grid.clientWidth;
+    prevBtn.style.opacity = grid.scrollLeft <= 4 ? '0.35' : '1';
+    prevBtn.style.pointerEvents = grid.scrollLeft <= 4 ? 'none' : 'auto';
+    nextBtn.style.opacity = grid.scrollLeft >= max - 4 ? '0.35' : '1';
+    nextBtn.style.pointerEvents = grid.scrollLeft >= max - 4 ? 'none' : 'auto';
+  }
+  grid.addEventListener('scroll', updateArrows);
+  window.addEventListener('resize', updateArrows);
+  updateArrows();
+})();
 
 // ── CALC TABS ──
 function switchCalc(panel, btn) {

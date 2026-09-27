@@ -448,9 +448,10 @@
     font-size: 0.88rem;
     color: rgba(74, 85, 104, 0.8);
   }
-  .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
-  .testi-card { background: var(--white); border: 1px solid rgba(197,160,89,0.15); border-radius: 2px; padding: 2rem 1.8rem; display: flex; flex-direction: column; gap: 1.1rem; position: relative; transition: box-shadow 0.3s, transform 0.3s; }
-  .testi-card:hover { box-shadow: 0 8px 32px rgba(26,54,93,0.1); transform: translateY(-4px); }
+  .testi-carousel-wrap { position: relative; margin-top: 3rem; }
+  .testi-carousel { overflow: hidden; }
+  .testi-track { display: flex; gap: 1.5rem; transition: transform 0.38s cubic-bezier(0.4,0,0.2,1); will-change: transform; }
+  .testi-card { background: var(--white); border: 1px solid rgba(197,160,89,0.15); border-radius: 2px; padding: 2rem 1.8rem; display: flex; flex-direction: column; gap: 1.1rem; position: relative; flex: 0 0 calc(50% - 0.75rem); min-width: 0; box-sizing: border-box; }
   .testi-quote-mark { font-family: var(--font-display); font-size: 3.5rem; line-height: 0.6; color: rgba(197,160,89,0.25); height: 1.4rem; }
   .testi-stars { color: var(--gold); font-size: 0.85rem; letter-spacing: 0.15em; }
   .testi-text { font-size: 0.88rem; line-height: 1.75; color: #3A4453; font-weight: 300; font-style: italic; }
@@ -459,6 +460,16 @@
   .testi-name { font-size: 0.82rem; font-weight: 600; color: var(--navy-deep); }
   .testi-meta { font-size: 0.68rem; color: #6B7280; letter-spacing: 0.04em; }
   .testi-disclaimer { font-size: 0.68rem; color: #8A92A0; font-weight: 300; margin-top: 2rem; text-align: center; font-style: italic; }
+  .testi-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: var(--white); border: 1px solid rgba(197,160,89,0.3); border-radius: 50%; width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 2; color: var(--navy-deep); transition: background 0.2s, box-shadow 0.2s; box-shadow: 0 2px 10px rgba(26,54,93,0.1); }
+  .testi-arrow:hover { background: var(--navy-deep); color: var(--gold); }
+  .testi-arrow svg { width: 18px; height: 18px; }
+  .testi-arrow-prev { left: -22px; }
+  .testi-arrow-next { right: -22px; }
+  @media (max-width: 768px) {
+    .testi-card { flex: 0 0 calc(100% - 0px); }
+    .testi-arrow-prev { left: 0; }
+    .testi-arrow-next { right: 0; }
+  }
 
   /* ── RESPONSIVE ── */
   @media (max-width: 768px) {
@@ -570,6 +581,7 @@
       Brindamos asesoría y representación jurídica a personas, familias y empresas en México. Atendemos asuntos laborales, familiares, penales, civiles y patrimoniales con una estrategia adaptada a las circunstancias de cada caso.
     </p>
     <div class="hero-actions">
+      <a href="/expediente/" class="btn-primary">Consulta Gratis</a>
       <a href="https://wa.me/525661755112?text=Hola%20SIGLEP%2C%20quiero%20una%20consulta%20gratuita" class="btn-wa" target="_blank" rel="noopener noreferrer">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2.001c-5.514 0-9.998 4.484-9.998 9.998 0 1.761.462 3.413 1.27 4.847L2.005 22l5.273-1.381c1.378.748 2.954 1.179 4.721 1.179h.004c5.513 0 9.997-4.484 9.997-9.998 0-5.515-4.484-9.999-9.997-9.999H11.999zm0 1.8h.003c4.52 0 8.198 3.678 8.198 8.198 0 4.521-3.678 8.199-8.198 8.199h-.003c-1.584 0-3.072-.443-4.341-1.211l-.311-.185-3.129.82.834-3.047-.204-.323c-.839-1.313-1.316-2.85-1.316-4.455 0-4.52 3.678-8.197 8.197-8.197z"/></svg>
         WhatsApp
@@ -804,25 +816,71 @@
       <div class="testi-summary-score">4.8/5</div>
       <div class="testi-summary-note">(reseñas verificadas)</div>
     </div>
-    <div class="testi-grid reveal">
-      <div class="testi-card">
-        <div class="testi-quote-mark">"</div>
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">Me iban a liquidar con mucho menos de lo que correspondía. En SIGLEP revisaron mi caso y me explicaron cada concepto con claridad. Al final negociaron una cantidad muy superior a la inicial.</p>
-        <div class="testi-author">
-          <div class="testi-avatar">R</div>
-          <div><div class="testi-name">Roberto M.</div><div class="testi-meta">Asunto laboral · Cuernavaca</div></div>
+    <div class="testi-carousel-wrap reveal">
+      <button class="testi-arrow testi-arrow-prev" aria-label="Anterior">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="testi-carousel">
+        <div class="testi-track">
+          <div class="testi-card">
+            <div class="testi-quote-mark">"</div>
+            <div class="testi-stars">★★★★★</div>
+            <p class="testi-text">Me iban a liquidar con mucho menos de lo que correspondía. En SIGLEP revisaron mi caso y me explicaron cada concepto con claridad. Al final negociaron una cantidad muy superior a la inicial.</p>
+            <div class="testi-author">
+              <div class="testi-avatar">R</div>
+              <div><div class="testi-name">Roberto M.</div><div class="testi-meta">Asunto laboral · Cuernavaca</div></div>
+            </div>
+          </div>
+          <div class="testi-card">
+            <div class="testi-quote-mark">"</div>
+            <div class="testi-stars">★★★★★</div>
+            <p class="testi-text">Buscaba proteger el patrimonio familiar y no sabía por dónde empezar. Me explicaron las opciones sin tecnicismos y sin presionarme a contratar. Quedé tranquilo con la asesoría que recibí.</p>
+            <div class="testi-author">
+              <div class="testi-avatar">J</div>
+              <div><div class="testi-name">Jorge T.</div><div class="testi-meta">Protección patrimonial · Cuautla</div></div>
+            </div>
+          </div>
+          <div class="testi-card">
+            <div class="testi-quote-mark">"</div>
+            <div class="testi-stars">★★★★★</div>
+            <p class="testi-text">Mi separación fue muy complicada. SIGLEP me ayudó a entender mis derechos sobre los bienes y la custodia. Me acompañaron en cada etapa y siempre supe qué esperar. Muy agradecida.</p>
+            <div class="testi-author">
+              <div class="testi-avatar">A</div>
+              <div><div class="testi-name">Ana L.</div><div class="testi-meta">Asunto familiar · Ciudad de México</div></div>
+            </div>
+          </div>
+          <div class="testi-card">
+            <div class="testi-quote-mark">"</div>
+            <div class="testi-stars">★★★★★</div>
+            <p class="testi-text">Enfrenté una acusación que me tomó por sorpresa. El equipo de SIGLEP revisó las pruebas con detalle y construyó una defensa sólida. El resultado superó lo que esperaba. Los recomiendo sin dudar.</p>
+            <div class="testi-author">
+              <div class="testi-avatar">M</div>
+              <div><div class="testi-name">Miguel R.</div><div class="testi-meta">Asunto penal · Morelos</div></div>
+            </div>
+          </div>
+          <div class="testi-card">
+            <div class="testi-quote-mark">"</div>
+            <div class="testi-stars">★★★★★</div>
+            <p class="testi-text">Necesitaba regularizar una propiedad con problemas de escrituración. SIGLEP llevó el proceso sin complicarme. Todo quedó en orden en menos tiempo del que pensaba y con total transparencia.</p>
+            <div class="testi-author">
+              <div class="testi-avatar">C</div>
+              <div><div class="testi-name">Carmen V.</div><div class="testi-meta">Asunto civil · Cuernavaca</div></div>
+            </div>
+          </div>
+          <div class="testi-card">
+            <div class="testi-quote-mark">"</div>
+            <div class="testi-stars">★★★★★</div>
+            <p class="testi-text">Me despidieron sin justificación y sin pagarme lo que me correspondía. SIGLEP presentó el caso ante la junta y lograron recuperar mis prestaciones completas. Profesionales y accesibles en todo momento.</p>
+            <div class="testi-author">
+              <div class="testi-avatar">L</div>
+              <div><div class="testi-name">Luis E.</div><div class="testi-meta">Asunto laboral · Jiutepec</div></div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="testi-card">
-        <div class="testi-quote-mark">"</div>
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">Buscaba proteger el patrimonio familiar y no sabía por dónde empezar. Me explicaron las opciones sin tecnicismos y sin presionarme a contratar. Quedé tranquilo con la asesoría que recibí.</p>
-        <div class="testi-author">
-          <div class="testi-avatar">J</div>
-          <div><div class="testi-name">Jorge T.</div><div class="testi-meta">Protección patrimonial · Cuautla</div></div>
-        </div>
-      </div>
+      <button class="testi-arrow testi-arrow-next" aria-label="Siguiente">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
     </div>
     <p class="testi-disclaimer">Testimonios de clientes reales. Se han abreviado y se omiten apellidos completos por confidencialidad. Cada caso es distinto; los resultados dependen de las circunstancias particulares.</p>
   </div>
@@ -1146,6 +1204,46 @@ function enviarContacto() {
       window.toggleChat();
     }
   };
+})();
+
+/* ── TESTIMONIALS CAROUSEL ── */
+(function() {
+  var track = document.querySelector('.testi-track');
+  if (!track) return;
+  var cards = track.querySelectorAll('.testi-card');
+  var total = cards.length;
+  var idx = 0;
+
+  function visibleCount() {
+    return window.innerWidth <= 768 ? 1 : 2;
+  }
+  function maxIdx() {
+    return total - visibleCount();
+  }
+  function getCardWidth() {
+    if (!cards[0]) return 0;
+    return cards[0].getBoundingClientRect().width + 24; /* 24px = 1.5rem gap */
+  }
+  function go(n) {
+    idx = Math.max(0, Math.min(n, maxIdx()));
+    track.style.transform = 'translateX(-' + (idx * getCardWidth()) + 'px)';
+    document.querySelector('.testi-arrow-prev').style.opacity = idx === 0 ? '0.35' : '1';
+    document.querySelector('.testi-arrow-next').style.opacity = idx >= maxIdx() ? '0.35' : '1';
+  }
+
+  document.querySelector('.testi-arrow-prev').addEventListener('click', function() { go(idx - 1); });
+  document.querySelector('.testi-arrow-next').addEventListener('click', function() { go(idx + 1); });
+
+  /* touch swipe */
+  var startX = 0;
+  track.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend', function(e) {
+    var dx = startX - e.changedTouches[0].clientX;
+    if (Math.abs(dx) > 40) go(dx > 0 ? idx + 1 : idx - 1);
+  });
+
+  window.addEventListener('resize', function() { go(idx); });
+  go(0);
 })();
 </script>
 </body>

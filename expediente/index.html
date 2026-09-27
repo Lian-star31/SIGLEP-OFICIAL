@@ -135,9 +135,18 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:900;background:rgba(8,12,20,0
 
 /* URGENCIA BADGE */
 .urgencia-badge{display:inline-flex;align-items:center;gap:0.4rem;padding:0.35rem 0.9rem;border-radius:40px;font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem;}
-.urgencia-alta{background:rgba(252,129,129,0.15);border:1px solid rgba(252,129,129,0.3);color:#FC8181;}
-.urgencia-media{background:rgba(246,173,85,0.15);border:1px solid rgba(246,173,85,0.3);color:#F6AD55;}
-.urgencia-baja{background:rgba(104,211,145,0.15);border:1px solid rgba(104,211,145,0.3);color:#68D391;}
+.urgencia-urgente,.urgencia-alta{background:rgba(252,129,129,0.15);border:1px solid rgba(252,129,129,0.35);color:#FC8181;}
+.urgencia-importante,.urgencia-media{background:rgba(246,173,85,0.15);border:1px solid rgba(246,173,85,0.35);color:#F6AD55;}
+.urgencia-atencion,.urgencia-baja{background:rgba(104,211,145,0.15);border:1px solid rgba(104,211,145,0.35);color:#68D391;}
+.diag-urgencia-urgente{color:#FC8181;}
+.diag-urgencia-importante{color:#F6AD55;}
+.diag-urgencia-atencion{color:#68D391;}
+/* Inputs/textareas inside dark diagnostico box */
+.diag-contacto-box input::placeholder,
+.diag-contacto-box textarea::placeholder{color:rgba(255,255,255,0.38);}
+/* Back button on dark background */
+.diagnostico .btn-secondary-full{color:rgba(255,255,255,0.72);border-color:rgba(255,255,255,0.2);}
+.diagnostico .btn-secondary-full:hover{color:#fff;border-color:rgba(255,255,255,0.55);}
 
   @keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
 
@@ -608,7 +617,7 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:900;background:rgba(8,12,20,0
           <div class="diag-contacto-header">
             <div class="diag-contacto-icon">📅</div>
             <h3>Agenda tu consulta gratuita.</h3>
-            <p>Tu diagnóstico está listo. El siguiente paso es una consulta gratuita de <strong>45 minutos</strong> con un especialista SIGLEP para revisar tu caso en detalle, sin costo y sin compromiso.</p>
+            <p>Tu orientación preliminar está lista. El siguiente paso es una consulta gratuita de <strong>45 minutos</strong> con un especialista SIGLEP para revisar tu caso en detalle, sin costo y sin compromiso.</p>
             <p class="diag-contacto-sub">Ingresa tu nombre y WhatsApp — te enviamos confirmación de tu cita.</p>
           </div>
           <div class="input-row" style="margin-top:1.2rem;">
@@ -629,7 +638,7 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:900;background:rgba(8,12,20,0
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
             Agendar consulta gratuita (45 min) — sin costo
           </a>
-          <a href="#" id="diag-wa-btn" style="display:none;margin-top:0.6rem;opacity:0.5;pointer-events:none;text-align:center;font-size:0.75rem;color:rgba(197,160,89,0.6);text-decoration:underline;" target="_blank" rel="noopener noreferrer">O continuar por WhatsApp</a>
+          <a href="#" id="diag-wa-btn" style="display:none;margin-top:0.6rem;opacity:0.5;pointer-events:none;text-align:center;font-size:0.75rem;color:rgba(197,160,89,0.88);text-decoration:underline;" target="_blank" rel="noopener noreferrer">O continuar por WhatsApp</a>
           <p style="font-size:0.68rem;color:rgba(255,255,255,0.6);text-align:center;margin-top:0.8rem;">Tus datos son confidenciales. SIGLEP los usa únicamente para confirmar tu consulta.</p>
         </div>
 

@@ -1024,12 +1024,20 @@ async function generarDiagnosticoIA() {
 }
 
 
+const placeholderPorArea = {
+  laboral:     'Ej: Me avisaron que ya no iba a trabajar ahí, sin ningún papel ni explicación. Llevaba 3 años en la empresa y solo me ofrecieron dos semanas...',
+  familiar:    'Ej: Mi pareja y yo decidimos separarnos. Tenemos dos hijos y una propiedad en común. No sé cómo proceder ni qué me corresponde...',
+  penal:       'Ej: Me citaron a comparecer ante el Ministerio Público. No sé de qué se trata ni qué derechos tengo en esta situación...',
+  civil:       'Ej: Falleció un familiar y dejó propiedades. Somos varios herederos y no sabemos cómo iniciar el proceso sucesorio...',
+};
+
 function seleccionarArea(area, el) {
   estado.area = area;
   document.querySelectorAll('.area-card').forEach(c => c.classList.remove('selected'));
   el.classList.add('selected');
   document.getElementById('btn-1').disabled = false;
-  // Renderizar preguntas
+  const ta = document.getElementById('inp-descripcion');
+  if (ta) ta.placeholder = placeholderPorArea[area] || placeholderPorArea.laboral;
   renderPreguntas(area);
 }
 

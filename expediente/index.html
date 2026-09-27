@@ -118,20 +118,20 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:900;background:rgba(8,12,20,0
 .diag-check{width:64px;height:64px;background:rgba(37,211,102,0.15);border:2px solid rgba(37,211,102,0.4);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;}
 .diag-header h2{font-family:var(--font-display);font-size:clamp(1.5rem,4vw,2.2rem);font-weight:700;color:var(--white);margin-bottom:0.5rem;}
 .diag-header h2 em{color:var(--gold);font-style:italic;}
-.diag-header p{font-size:0.85rem;color:rgba(255,255,255,0.5);font-weight:300;}
+.diag-header p{font-size:0.85rem;color:rgba(255,255,255,0.78);font-weight:300;line-height:1.65;}
 .diag-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem;}
-.diag-item{background:rgba(255,255,255,0.04);border:1px solid rgba(197,160,89,0.15);border-radius:4px;padding:1.2rem;}
-.diag-item-label{font-size:0.62rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(197,160,89,0.7);margin-bottom:0.4rem;}
+.diag-item{background:rgba(255,255,255,0.06);border:1px solid rgba(197,160,89,0.2);border-radius:4px;padding:1.2rem;}
+.diag-item-label{font-size:0.62rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(197,160,89,0.9);margin-bottom:0.4rem;}
 .diag-item-value{font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:var(--white);}
 .diag-urgencia-alta{color:#FC8181;}
 .diag-urgencia-media{color:#F6AD55;}
 .diag-urgencia-baja{color:#68D391;}
 .diag-acciones{background:rgba(197,160,89,0.08);border:1px solid rgba(197,160,89,0.2);border-radius:4px;padding:1.4rem;margin-bottom:1.5rem;}
 .diag-acciones h4{font-size:0.68rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
-.diag-accion{display:flex;align-items:flex-start;gap:0.6rem;margin-bottom:0.7rem;font-size:0.83rem;color:rgba(255,255,255,0.7);line-height:1.5;}
+.diag-accion{display:flex;align-items:flex-start;gap:0.6rem;margin-bottom:0.7rem;font-size:0.83rem;color:rgba(255,255,255,0.88);line-height:1.5;}
 .diag-accion::before{content:'→';color:var(--gold);flex-shrink:0;margin-top:0.05rem;}
-.diag-disclaimer{font-size:0.72rem;color:rgba(255,255,255,0.3);text-align:center;line-height:1.6;margin-bottom:1.5rem;font-style:italic;}
-.diag-cta-label{font-size:0.68rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(197,160,89,0.7);text-align:center;margin-bottom:1rem;}
+.diag-disclaimer{font-size:0.72rem;color:rgba(255,255,255,0.65);text-align:center;line-height:1.6;margin-bottom:1.5rem;font-style:italic;}
+.diag-cta-label{font-size:0.68rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(197,160,89,0.9);text-align:center;margin-bottom:1rem;}
 
 /* URGENCIA BADGE */
 .urgencia-badge{display:inline-flex;align-items:center;gap:0.4rem;padding:0.35rem 0.9rem;border-radius:40px;font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem;}
@@ -146,9 +146,9 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:900;background:rgba(8,12,20,0
 .diag-contacto-header{text-align:center;margin-bottom:0.8rem;}
 .diag-contacto-icon{font-size:2rem;margin-bottom:0.6rem;}
 .diag-contacto-header h3{font-family:var(--font-display);font-size:1.4rem;font-weight:700;color:var(--white);margin-bottom:0.6rem;}
-.diag-contacto-header p{font-size:0.85rem;color:rgba(255,255,255,0.6);line-height:1.7;font-weight:300;margin-bottom:0.4rem;}
+.diag-contacto-header p{font-size:0.85rem;color:rgba(255,255,255,0.82);line-height:1.7;font-weight:300;margin-bottom:0.4rem;}
 .diag-contacto-header strong{color:var(--white);font-weight:600;}
-.diag-contacto-sub{font-size:0.78rem!important;color:rgba(197,160,89,0.7)!important;}
+.diag-contacto-sub{font-size:0.78rem!important;color:rgba(197,160,89,0.9)!important;}
 
 /* FLOAT WA */
 .float-wa{position:fixed;bottom:2rem;right:1.5rem;z-index:999;display:flex;align-items:center;gap:0.6rem;padding:0.8rem 1.3rem;border-radius:40px;font-family:var(--font-body);font-size:0.76rem;font-weight:700;text-decoration:none;background:#25D366;color:#fff;box-shadow:0 4px 22px rgba(0,0,0,0.4);transition:transform 0.25s;}
@@ -543,7 +543,7 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:900;background:rgba(8,12,20,0
     <!-- PASO 3: TIEMPO Y URGENCIA -->
     <div class="step" id="step-3">
       <h2 class="step-title">¿Cuándo ocurrió?</h2>
-      <p class="step-sub">Esto nos ayuda a determinar si hay plazos legales que considerar.</p>
+      <p class="step-sub">Esto nos ayuda a conocer cuándo ocurrió el hecho principal de tu caso.</p>
       <div class="opciones" id="opciones-tiempo">
         <div class="opcion" onclick="seleccionarOpcion(this,'tiempo','menos7')"><div class="opcion-radio"></div>Hace menos de 7 días</div>
         <div class="opcion" onclick="seleccionarOpcion(this,'tiempo','menos1mes')"><div class="opcion-radio"></div>Entre 1 semana y 1 mes</div>
@@ -558,7 +558,7 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:900;background:rgba(8,12,20,0
     <!-- PASO 4: DESCRIPCIÓN LIBRE -->
     <div class="step" id="step-4">
       <h2 class="step-title">Cuéntanos qué pasó.</h2>
-      <p class="step-sub">Con tus propias palabras. No necesitas usar términos legales — solo describe tu situación. Esto nos permite darte un diagnóstico real, no genérico.</p>
+      <p class="step-sub">Describe brevemente lo ocurrido. No necesitas utilizar términos legales.</p>
       <div class="input-group">
         <textarea id="inp-descripcion" placeholder="Ej: Me avisaron que ya no iba a trabajar ahí, sin ningún papel ni explicación. Tenía 3 años ahí y me pagaron solo dos semanas..." rows="5" oninput="validarDescripcion()" style="border-radius:4px;padding:1rem;font-size:0.92rem;line-height:1.7;border:1.5px solid rgba(197,160,89,0.25);"></textarea>
         <div style="font-size:0.7rem;color:#9CA3AF;text-align:right;margin-top:0.3rem;" id="char-count">Mínimo 30 caracteres</div>
@@ -575,8 +575,8 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:900;background:rgba(8,12,20,0
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#25D366" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
           </div>
           <div id="diag-urgencia-badge"></div>
-          <h2>Tu diagnóstico <em>preliminar.</em></h2>
-          <p>Basado en la información que nos proporcionaste. Un especialista SIGLEP revisará tu caso personalmente.</p>
+          <h2>Orientación <em>inicial.</em></h2>
+          <p>Esta orientación es preliminar y se basa únicamente en lo que nos indicaste. No constituye asesoría jurídica. Un especialista SIGLEP revisará tu caso en la consulta.</p>
         </div>
 
         <div class="diag-grid">
@@ -592,20 +592,16 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:900;background:rgba(8,12,20,0
             <div class="diag-item-label">Situación identificada</div>
             <div class="diag-item-value" id="diag-situacion">—</div>
           </div>
-          <div class="diag-item">
-            <div class="diag-item-label">Viabilidad del caso</div>
-            <div class="diag-item-value" id="diag-viabilidad">—</div>
-          </div>
         </div>
 
         <div class="diag-acciones">
-          <h4>Lo que detectamos en tu caso</h4>
-          <p id="diag-gancho" style="font-size:0.88rem;line-height:1.75;color:rgba(255,255,255,0.75);font-weight:300;margin-bottom:1.2rem;font-style:italic;"></p>
-          <h4 style="margin-top:1rem;">Posibles acciones legales</h4>
+          <h4>Contexto general sobre tu situación</h4>
+          <p id="diag-gancho" style="font-size:0.88rem;line-height:1.75;color:rgba(255,255,255,0.82);font-weight:300;margin-bottom:1.2rem;"></p>
+          <h4 style="margin-top:1rem;">Aspectos que conviene explorar</h4>
           <div id="diag-acciones-lista"></div>
         </div>
 
-        <p class="diag-disclaimer">Este diagnóstico es orientativo y no constituye asesoría jurídica formal. Los resultados reales dependen del análisis completo de tu caso por parte de un especialista.</p>
+        <p class="diag-disclaimer">Esta orientación es preliminar, informativa y no constituye asesoría jurídica formal. Cada caso es distinto y solo puede evaluarse con un análisis completo por parte de un especialista.</p>
 
         <!-- FORMULARIO DE CONTACTO — aparece después del diagnóstico -->
         <div class="diag-contacto-box">
@@ -634,7 +630,7 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:900;background:rgba(8,12,20,0
             Agendar consulta gratuita (45 min) — sin costo
           </a>
           <a href="#" id="diag-wa-btn" style="display:none;margin-top:0.6rem;opacity:0.5;pointer-events:none;text-align:center;font-size:0.75rem;color:rgba(197,160,89,0.6);text-decoration:underline;" target="_blank" rel="noopener noreferrer">O continuar por WhatsApp</a>
-          <p style="font-size:0.68rem;color:rgba(255,255,255,0.25);text-align:center;margin-top:0.8rem;">Tus datos son confidenciales. SIGLEP los usa únicamente para confirmar tu consulta.</p>
+          <p style="font-size:0.68rem;color:rgba(255,255,255,0.6);text-align:center;margin-top:0.8rem;">Tus datos son confidenciales. SIGLEP los usa únicamente para confirmar tu consulta.</p>
         </div>
 
         <a href="/" class="btn-secondary-full" style="margin-top:1rem;">← Volver al inicio</a>
@@ -1005,7 +1001,6 @@ async function generarDiagnosticoIA() {
 
       document.getElementById('diag-area').textContent = cat?.area || '';
       document.getElementById('diag-situacion').textContent = cat?.sit || '';
-      document.getElementById('diag-viabilidad').textContent = cat?.viab || '';
       document.getElementById('diag-urgencia-text').innerHTML =
         `<span class="${urgCfg.textoColor}">${etiquetaUrgencia[urgenciaFinal]}</span>`;
       document.getElementById('diag-urgencia-badge').innerHTML =
@@ -1125,7 +1120,6 @@ function generarDiagnostico() {
 
   document.getElementById('diag-area').textContent = cat.area;
   document.getElementById('diag-situacion').textContent = cat.sit;
-  document.getElementById('diag-viabilidad').textContent = cat.viab;
   document.getElementById('diag-urgencia-text').innerHTML =
     `<span class="${urgCfg.textoColor}">${etiquetaUrgencia[urgenciaFinal]}</span>`;
   document.getElementById('diag-urgencia-badge').innerHTML =

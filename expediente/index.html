@@ -516,13 +516,18 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:900;background:rgba(8,12,20,0
         </div>
         <div class="area-card" onclick="seleccionarArea('familiar', this)">
           <div class="ac-icon">👨‍👩‍👧</div>
-          <div class="ac-title">Familiar / Penal</div>
-          <div class="ac-desc">Divorcio, pensión, custodia, violencia familiar, denuncias penales</div>
+          <div class="ac-title">Familiar</div>
+          <div class="ac-desc">Divorcio, pensión alimenticia, custodia de menores, violencia familiar</div>
         </div>
-        <div class="area-card" onclick="seleccionarArea('patrimonial', this)">
+        <div class="area-card" onclick="seleccionarArea('penal', this)">
+          <div class="ac-icon">🛡️</div>
+          <div class="ac-title">Penal</div>
+          <div class="ac-desc">Denuncias ante el MP, defensa penal, víctimas de delito, amparos</div>
+        </div>
+        <div class="area-card" onclick="seleccionarArea('civil', this)">
           <div class="ac-icon">🏛️</div>
-          <div class="ac-title">Patrimonial</div>
-          <div class="ac-desc">Herencias, testamentos, contratos, deudas, protección de bienes</div>
+          <div class="ac-title">Civil / Patrimonial</div>
+          <div class="ac-desc">Herencias, testamentos, contratos, daño moral, deudas, protección de bienes</div>
         </div>
       </div>
       <button class="btn-next" id="btn-1" onclick="irPaso(2)" disabled>Continuar <span>→</span></button>
@@ -605,15 +610,15 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:900;background:rgba(8,12,20,0
         <!-- FORMULARIO DE CONTACTO — aparece después del diagnóstico -->
         <div class="diag-contacto-box">
           <div class="diag-contacto-header">
-            <div class="diag-contacto-icon">⚖️</div>
-            <h3>Tu caso merece una revisión real.</h3>
-            <p>Este diagnóstico es el primer paso. Para saber exactamente qué opciones tienes <strong>en tu situación específica</strong>, un especialista SIGLEP lo revisa sin costo y sin compromiso.</p>
-            <p class="diag-contacto-sub">Solo necesitamos tu nombre y WhatsApp para contactarte — nada más.</p>
+            <div class="diag-contacto-icon">📅</div>
+            <h3>Agenda tu consulta gratuita.</h3>
+            <p>Tu diagnóstico está listo. El siguiente paso es una consulta gratuita de <strong>45 minutos</strong> con un especialista SIGLEP para revisar tu caso en detalle, sin costo y sin compromiso.</p>
+            <p class="diag-contacto-sub">Ingresa tu nombre y WhatsApp — te enviamos confirmación de tu cita.</p>
           </div>
           <div class="input-row" style="margin-top:1.2rem;">
             <div class="input-group">
               <label style="color:rgba(197,160,89,0.8);">Nombre *</label>
-              <input type="text" id="inp-nombre" placeholder="Tu nombre" oninput="validarContacto()" style="background:rgba(255,255,255,0.06);border-color:rgba(197,160,89,0.25);color:#fff;">
+              <input type="text" id="inp-nombre" placeholder="Tu nombre completo" oninput="validarContacto()" style="background:rgba(255,255,255,0.06);border-color:rgba(197,160,89,0.25);color:#fff;">
             </div>
             <div class="input-group">
               <label style="color:rgba(197,160,89,0.8);">WhatsApp *</label>
@@ -624,11 +629,12 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:900;background:rgba(8,12,20,0
             <label style="color:rgba(197,160,89,0.8);">¿Qué es lo más urgente que necesitas resolver? *</label>
             <textarea id="inp-detalle" placeholder="Ej: Necesito saber cuánto me corresponde antes de firmar / Quiero saber si puedo recuperar algo / No sé si aún estoy a tiempo..." oninput="validarContacto()" style="background:rgba(255,255,255,0.06);border-color:rgba(197,160,89,0.25);color:#fff;min-height:80px;"></textarea>
           </div>
-          <a href="#" class="btn-wa-big" id="diag-wa-btn" style="margin-top:1rem;opacity:0.5;pointer-events:none;" target="_blank" rel="noopener noreferrer">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2.001c-5.514 0-9.998 4.484-9.998 9.998 0 1.761.462 3.413 1.27 4.847L2.005 22l5.273-1.381c1.378.748 2.954 1.179 4.721 1.179h.004c5.513 0 9.997-4.484 9.997-9.998 0-5.515-4.484-9.999-9.997-9.999H11.999zm0 1.8h.003c4.52 0 8.198 3.678 8.198 8.198 0 4.521-3.678 8.199-8.198 8.199h-.003c-1.584 0-3.072-.443-4.341-1.211l-.311-.185-3.129.82.834-3.047-.204-.323c-.839-1.313-1.316-2.85-1.316-4.455 0-4.52 3.678-8.197 8.197-8.197z"/></svg>
-            Quiero que revisen mi caso — es gratis
+          <a href="#" class="btn-wa-big" id="diag-calendly-btn" style="margin-top:1rem;opacity:0.5;pointer-events:none;background:var(--navy-mid);box-shadow:0 4px 18px rgba(26,54,93,0.4);" target="_blank" rel="noopener noreferrer">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Agendar consulta gratuita (45 min) — sin costo
           </a>
-          <p style="font-size:0.68rem;color:rgba(255,255,255,0.25);text-align:center;margin-top:0.8rem;">Tus datos son confidenciales. Solo los usa SIGLEP para contactarte sobre tu caso.</p>
+          <a href="#" id="diag-wa-btn" style="display:none;margin-top:0.6rem;opacity:0.5;pointer-events:none;text-align:center;font-size:0.75rem;color:rgba(197,160,89,0.6);text-decoration:underline;" target="_blank" rel="noopener noreferrer">O continuar por WhatsApp</a>
+          <p style="font-size:0.68rem;color:rgba(255,255,255,0.25);text-align:center;margin-top:0.8rem;">Tus datos son confidenciales. SIGLEP los usa únicamente para confirmar tu consulta.</p>
         </div>
 
         <a href="/" class="btn-secondary-full" style="margin-top:1rem;">← Volver al inicio</a>
@@ -673,28 +679,40 @@ const preguntasPorArea = {
       { val: 'otro', txt: 'Otra situación laboral' },
     ]
   },
-  patrimonial: {
-    titulo: '¿Cuál es tu situación patrimonial?',
-    sub: 'Selecciona la opción que mejor describe tu caso.',
-    opciones: [
-      { val: 'herencia', txt: 'Hay una herencia o sucesión que necesito gestionar' },
-      { val: 'testamento', txt: 'Quiero hacer o actualizar mi testamento' },
-      { val: 'contrato', txt: 'Tengo un contrato que necesito revisar o redactar' },
-      { val: 'deuda', txt: 'Tengo una deuda bancaria que quiero negociar' },
-      { val: 'proteccion', txt: 'Quiero proteger mis bienes o propiedades' },
-      { val: 'otro', txt: 'Otra situación patrimonial' },
-    ]
-  },
   familiar: {
-    titulo: '¿Cuál es tu situación?',
+    titulo: '¿Cuál es tu situación familiar?',
     sub: 'Selecciona la opción que mejor describe tu caso.',
     opciones: [
       { val: 'divorcio', txt: 'Quiero tramitar un divorcio' },
       { val: 'pension', txt: 'Necesito establecer o modificar una pensión alimenticia' },
       { val: 'custodia', txt: 'Hay un conflicto de guarda y custodia de menores' },
       { val: 'violencia', txt: 'Hay una situación de violencia familiar' },
-      { val: 'penal', txt: 'Necesito interponer o responder a una denuncia penal' },
-      { val: 'otro', txt: 'Otra situación familiar o penal' },
+      { val: 'otro', txt: 'Otra situación de derecho familiar' },
+    ]
+  },
+  penal: {
+    titulo: '¿Cuál es tu situación penal?',
+    sub: 'Selecciona la opción que mejor describe tu caso.',
+    opciones: [
+      { val: 'denuncia', txt: 'Quiero interponer una denuncia ante el Ministerio Público' },
+      { val: 'defensa', txt: 'Me están investigando o me han imputado un delito' },
+      { val: 'detenido', txt: 'Fui detenido o me citaron a comparecer' },
+      { val: 'victima', txt: 'Soy víctima de un delito y no sé cómo proceder' },
+      { val: 'amparo', txt: 'Necesito un amparo en materia penal' },
+      { val: 'otro', txt: 'Otra situación de derecho penal' },
+    ]
+  },
+  civil: {
+    titulo: '¿Cuál es tu situación civil o patrimonial?',
+    sub: 'Selecciona la opción que mejor describe tu caso.',
+    opciones: [
+      { val: 'herencia', txt: 'Hay una herencia o sucesión que necesito gestionar' },
+      { val: 'testamento', txt: 'Quiero hacer o actualizar mi testamento' },
+      { val: 'contrato', txt: 'Tengo un contrato que necesito revisar, redactar o impugnar' },
+      { val: 'deuda', txt: 'Tengo una deuda bancaria que quiero negociar' },
+      { val: 'dano', txt: 'Sufrí daños (materiales, morales o perjuicios) y quiero reclamar' },
+      { val: 'proteccion', txt: 'Quiero proteger mis bienes o propiedades' },
+      { val: 'otro', txt: 'Otra situación civil o patrimonial' },
     ]
   }
 };
@@ -762,9 +780,9 @@ const diagnosticos = {
     },
   },
 
-  patrimonial: {
+  civil: {
     herencia: {
-      area:'Derecho Patrimonial', sit:'Herencia / sucesión', viab:'Alta',
+      area:'Derecho Civil / Patrimonial', sit:'Herencia / sucesión', viab:'Alta',
       textos: {
         menos7: { u:'urgente', gancho:'Los primeros días después de un fallecimiento son críticos en materia patrimonial. Los bienes sin gestión inmediata pueden ser objeto de disputas, acceso no autorizado o deterioro. Además, hay plazos fiscales relacionados con herencias que pocos conocen. Actuar en los primeros días protege el patrimonio y evita conflictos futuros.', acciones:['Medidas inmediatas de protección de bienes','Inicio del proceso sucesorio (con o sin testamento)','Identificación de bienes y posibles herederos','Estrategia para prevenir conflictos entre herederos'] },
         menos1mes: { u:'urgente', gancho:'El proceso sucesorio sin guía especializada puede convertirse en un conflicto familiar prolongado y costoso. Con testamento, el proceso es más predecible. Sin testamento, la ley determina quién hereda — pero la interpretación incorrecta genera disputas. Iniciar el proceso correctamente desde el principio ahorra años.', acciones:['Análisis del testamento si existe','Proceso de sucesión intestamentaria si no hay testamento','Inventario de bienes y documentos necesarios','Estrategia para llegar a acuerdo entre herederos'] },
@@ -772,20 +790,20 @@ const diagnosticos = {
       }
     },
     testamento: {
-      area:'Derecho Patrimonial', sit:'Testamento', viab:'Alta',
+      area:'Derecho Civil / Patrimonial', sit:'Testamento', viab:'Alta',
       textos: {
         default: { u:'atencion', gancho:'El 80% de los conflictos familiares por herencias son completamente evitables con un testamento bien redactado. Lo que muchas personas no saben: un testamento no es solo para cuando ya eres mayor — es para cuando tienes algo que proteger. Sin testamento, la ley decide por ti quién hereda y en qué proporción, y eso frecuentemente no coincide con lo que querías.', acciones:['Asesoría sobre el tipo de testamento más conveniente','Cláusulas de protección para situaciones específicas','Coordinación con notario','Actualización de testamento existente si ya tienes uno'] },
       }
     },
     contrato: {
-      area:'Derecho Patrimonial', sit:'Contrato o acuerdo legal', viab:'Alta',
+      area:'Derecho Civil / Patrimonial', sit:'Contrato o acuerdo legal', viab:'Alta',
       textos: {
         menos7: { u:'urgente', gancho:'Un contrato mal revisado puede tener consecuencias que duran años. Lo que parece "estándar" frecuentemente contiene cláusulas que favorecen desproporcionadamente a la otra parte. Antes de firmar cualquier documento con implicaciones patrimoniales, una revisión especializada es la mejor inversión que puedes hacer.', acciones:['Revisión urgente del contrato antes de firmar','Identificación de cláusulas problemáticas o abusivas','Negociación de modificaciones','Alternativa: redacción de contrato que sí te proteja'] },
         default: { u:'importante', gancho:'Los contratos sin revisión legal son la causa número uno de conflictos patrimoniales evitables. Las cláusulas ambiguas, los derechos mal definidos y los incumplimientos sin consecuencias son problemas que aparecen meses o años después de firmar. Revisarlo antes cuesta una fracción de lo que costaría resolverlo después.', acciones:['Revisión de cláusulas y riesgos','Identificación de derechos y obligaciones reales','Negociación de términos si procede','Redacción de contrato alternativo si es necesario'] },
       }
     },
     deuda: {
-      area:'Derecho Patrimonial', sit:'Negociación de deuda bancaria', viab:'Alta',
+      area:'Derecho Civil / Patrimonial', sit:'Negociación de deuda bancaria', viab:'Alta',
       textos: {
         menos6meses: { u:'importante', gancho:'Con menos de 6 meses de mora, la posición negociadora es moderada pero existe. Los bancos prefieren una reestructura a un crédito en cartera vencida. Lo que pocas personas saben: hay límites legales a los intereses y cargos que los bancos pueden cobrar — y muchas veces los exceden. Una revisión puede revelar cobros que no proceden legalmente.', acciones:['Revisión de intereses y cargos aplicados vs límites legales','Estrategia de reestructura o acuerdo de pago','Negociación directa con respaldo jurídico','Protección de bienes durante el proceso'] },
         menos2anios: { u:'importante', gancho:'Con más de 6 meses de mora, tu posición negociadora mejora considerablemente. Los bancos saben que una cuenta en cartera vencida vale menos que un acuerdo. El 78% de las personas acepta la primera oferta sin saber que había margen para negociar mejor. Con asesoría especializada, los resultados son sistemáticamente superiores.', acciones:['Análisis de tu posición negociadora real','Estrategia de quita o reestructura','Negociación directa con la institución','Defensa ante posible embargo o demanda'] },
@@ -793,16 +811,66 @@ const diagnosticos = {
         default: { u:'importante', gancho:'Los bancos calculan que la mayoría de personas acepta su primera oferta. Con representación legal, los resultados de negociación son sistemáticamente mejores. Lo que te corresponde negociar depende del tipo de deuda, tiempo de mora y tu capacidad de pago — todo eso lo evaluamos en la primera consulta.', acciones:['Diagnóstico de tu posición negociadora','Estrategia según tipo de deuda y mora','Negociación con respaldo legal','Protección durante el proceso'] },
       }
     },
+    dano: {
+      area:'Derecho Civil', sit:'Daño moral / Daños y perjuicios', viab:'Alta',
+      textos: {
+        menos7: { u:'urgente', gancho:'Los daños morales y materiales recientes son más fáciles de documentar y acreditar. Conservar evidencias, testigos y registros desde ahora es fundamental para cuantificar correctamente el daño sufrido. En derecho civil, quien demanda tiene la carga de probar — y la evidencia más fresca es la más poderosa.', acciones:['Identificación y aseguramiento urgente de evidencias','Cuantificación del daño moral, material y perjuicios','Estrategia: negociación extrajudicial o demanda civil','Cálculo de intereses y daños accesorios'] },
+        default: { u:'importante', gancho:'Los daños civiles — morales, materiales y perjuicios — son recuperables legalmente siempre que se acrediten correctamente. La clave está en la documentación y en la cuantificación adecuada. Muchas personas reciben mucho menos de lo que les corresponde porque no conocen todos los conceptos que pueden reclamar.', acciones:['Evaluación de todos los conceptos reclamables','Documentación de los daños sufridos','Estrategia de reclamación: negociación o demanda','Cuantificación correcta incluyendo daño moral'] },
+      }
+    },
     proteccion: {
-      area:'Derecho Patrimonial', sit:'Protección de bienes', viab:'Alta',
+      area:'Derecho Civil / Patrimonial', sit:'Protección de bienes', viab:'Alta',
       textos: {
         default: { u:'atencion', gancho:'El patrimonio no protegido es patrimonio vulnerable. Las deudas de terceros, los conflictos laborales, las separaciones y los embargos afectan con frecuencia a personas que creyeron que "eso no les pasaría a ellos". Las estructuras de protección patrimonial son más accesibles de lo que parece y funcionan mejor cuando se implementan antes de que surja el problema.', acciones:['Diagnóstico de vulnerabilidades patrimoniales actuales','Estructuras de protección según tu situación','Fideicomisos, donaciones y otras figuras disponibles','Costo-beneficio de cada opción'] },
       }
     },
     otro: {
-      area:'Derecho Patrimonial', sit:'Asunto patrimonial', viab:'Media-Alta',
+      area:'Derecho Civil / Patrimonial', sit:'Asunto civil o patrimonial', viab:'Media-Alta',
       textos: {
-        default: { u:'importante', gancho:'El derecho patrimonial abarca más situaciones de las que la mayoría imagina. Desde la protección preventiva hasta la defensa activa ante conflictos, hay opciones legales para casi cualquier situación. Una evaluación inicial gratuita determina exactamente qué aplica a tu caso y cuál es la estrategia más eficiente.', acciones:['Análisis de tu situación patrimonial específica','Identificación de riesgos y oportunidades','Estrategia legal a medida','Primera consulta sin costo'] },
+        default: { u:'importante', gancho:'El derecho civil y patrimonial abarca más situaciones de las que la mayoría imagina. Desde la protección preventiva hasta la defensa activa ante conflictos, hay opciones legales para casi cualquier situación. Una evaluación inicial gratuita determina exactamente qué aplica a tu caso y cuál es la estrategia más eficiente.', acciones:['Análisis de tu situación específica','Identificación de riesgos y oportunidades','Estrategia legal a medida','Primera consulta sin costo'] },
+      }
+    },
+  },
+
+  penal: {
+    denuncia: {
+      area:'Derecho Penal', sit:'Denuncia ante el MP', viab:'Alta',
+      textos: {
+        menos7: { u:'urgente', gancho:'Los primeros días después de un hecho delictivo son críticos para la investigación. Las evidencias, testigos y registros son más accesibles ahora que en semanas. Una denuncia bien presentada desde el inicio orienta la investigación a tu favor y evita que el imputado tenga tiempo de preparar su defensa.', acciones:['Asesoría urgente sobre cómo presentar la denuncia correctamente','Reunión de evidencias antes de que se pierdan','Estrategia de denuncia ante el MP','Derechos de la víctima en el proceso penal'] },
+        default: { u:'importante', gancho:'Presentar una denuncia penal correctamente marcará la diferencia entre una investigación efectiva y un expediente que no avanza. El Ministerio Público tiene la obligación de recibirla, pero la forma en que se presenta y la evidencia que la acompaña define el resultado. Una evaluación inicial determina la estrategia correcta.', acciones:['Análisis de los hechos y delito aplicable','Preparación de la denuncia con evidencias','Acompañamiento ante el Ministerio Público','Derechos que tienes como víctima o denunciante'] },
+      }
+    },
+    defensa: {
+      area:'Derecho Penal', sit:'Defensa penal', viab:'Alta',
+      textos: {
+        menos7: { u:'urgente', gancho:'Estar bajo investigación o imputado en un proceso penal requiere actuación inmediata. En el sistema acusatorio mexicano los plazos son estrictos: hay audiencias que deben atenderse en horas o días. Cada momento sin defensa profesional puede traducirse en restricciones a tu libertad o pérdida de oportunidades procesales.', acciones:['Análisis urgente de tu situación procesal','Designación de defensor antes de la próxima audiencia','Estrategia de defensa desde la audiencia inicial','Protección de tu libertad y derechos procesales'] },
+        default: { u:'urgente', gancho:'La defensa penal efectiva comienza cuanto antes. Conocer los cargos, las evidencias en tu contra y las opciones procesales disponibles es fundamental para construir una defensa sólida. El sistema acusatorio mexicano ofrece salidas alternativas y figuras de defensa que muchas personas desconocen.', acciones:['Diagnóstico de tu situación procesal actual','Revisión de las evidencias y cargos','Estrategia de defensa: salidas alternas, acuerdo reparatorio o juicio','Protección de tus derechos en cada etapa'] },
+      }
+    },
+    detenido: {
+      area:'Derecho Penal', sit:'Detención o comparecencia', viab:'Alta',
+      textos: {
+        menos7: { u:'urgente', gancho:'Si fuiste detenido o citado a comparecer, los plazos constitucionales son de horas. El derecho a no declarar sin abogado es fundamental — cualquier declaración sin asesoría puede usarse en tu contra. Actuar en las próximas horas es crítico para proteger tu libertad.', acciones:['Intervención urgente en la audiencia de control de detención','Derecho a guardar silencio — estrategia para la declaración','Análisis de legalidad de la detención','Medidas cautelares y opciones para recuperar la libertad'] },
+        default: { u:'urgente', gancho:'Una citación del Ministerio Público o una detención cambia completamente la situación procesal. Saber exactamente qué derechos tienes y cómo ejercerlos en ese momento es la diferencia entre una defensa efectiva y una que llega tarde. No vayas solo a ninguna audiencia.', acciones:['Análisis de la citación o detención','Acompañamiento a la comparecencia o audiencia','Estrategia de defensa desde el primer momento','Opciones de libertad: fianza, sustitutivos, medidas cautelares'] },
+      }
+    },
+    victima: {
+      area:'Derecho Penal', sit:'Víctima de delito', viab:'Alta',
+      textos: {
+        menos7: { u:'urgente', gancho:'Como víctima de un delito, tienes derechos procesales específicos que van mucho más allá de solo denunciar. El derecho a la reparación del daño, a la coadyuvancia en el proceso y a medidas de protección son herramientas que pocas víctimas conocen o ejercen efectivamente. Actuar pronto conserva la evidencia y fortalece tu caso.', acciones:['Asesoría sobre derechos de víctimas en el proceso penal','Estrategia para la denuncia y la investigación','Medidas de protección disponibles','Reparación del daño: qué te corresponde y cómo reclamarlo'] },
+        default: { u:'importante', gancho:'Las víctimas de delitos en México tienen derechos reconocidos constitucionalmente, pero ejercerlos requiere conocerlos y actuar correctamente. La reparación del daño, el seguimiento de la investigación y la protección frente al imputado son parte de lo que te corresponde. Una evaluación inicial define la estrategia más efectiva.', acciones:['Análisis de derechos como víctima del delito específico','Acompañamiento en el proceso ante el MP','Estrategia para la reparación del daño','Medidas de protección y seguimiento del caso'] },
+      }
+    },
+    amparo: {
+      area:'Derecho Penal', sit:'Amparo penal', viab:'Alta',
+      textos: {
+        default: { u:'urgente', gancho:'El amparo en materia penal tiene plazos muy cortos: en muchos casos la demanda debe presentarse en 15 días o incluso menos. Es uno de los instrumentos de defensa más poderosos del sistema jurídico mexicano, pero su efectividad depende completamente de que se interponga en tiempo y con los argumentos correctos.', acciones:['Análisis urgente de procedencia y plazo del amparo','Identificación del acto reclamado y autoridad responsable','Redacción y presentación de la demanda de amparo','Seguimiento hasta la resolución'] },
+      }
+    },
+    otro: {
+      area:'Derecho Penal', sit:'Asunto penal', viab:'Media-Alta',
+      textos: {
+        default: { u:'importante', gancho:'El sistema penal acusatorio mexicano tiene procedimientos y plazos muy específicos. Conocer exactamente en qué posición te encuentras — ya sea como víctima, denunciante, imputado o tercero — define completamente las acciones disponibles. Una evaluación inicial gratuita aclara el panorama.', acciones:['Diagnóstico de tu situación procesal actual','Derechos y opciones disponibles en tu caso','Estrategia de defensa o de denuncia','Proceso ante el Ministerio Público o juzgado'] },
       }
     },
   },
@@ -836,17 +904,10 @@ const diagnosticos = {
         default: { u:'urgente', gancho:'La violencia familiar es un delito en México y tiene procedimientos específicos tanto en el ámbito familiar como en el penal. Hay medidas de protección disponibles independientemente del tiempo transcurrido. Lo más importante es actuar — hay un camino legal claro y no tienes que enfrentarlo sin acompañamiento.', acciones:['Evaluación de opciones de protección disponibles','Denuncia penal y proceso ante el MP','Medidas cautelares y órdenes de protección','Proceso integral de protección legal'] },
       }
     },
-    penal: {
-      area:'Derecho Penal', sit:'Asunto penal', viab:'Media-Alta',
-      textos: {
-        menos7: { u:'urgente', gancho:'En materia penal, los primeros días son determinantes. Los plazos procesales en el sistema acusatorio mexicano son estrictos y las oportunidades de defensa o de presentar una denuncia efectiva se concentran al inicio. Lo que hagas o dejes de hacer esta semana puede definir el resultado del proceso.', acciones:['Análisis urgente de tu posición procesal','Estrategia de defensa o denuncia según tu caso','Derechos que tienes en este momento del proceso','Acción inmediata antes de que los plazos cierren'] },
-        default: { u:'importante', gancho:'El sistema penal acusatorio mexicano tiene plazos y procedimientos muy específicos. Conocer tus derechos procesales — ya sea como denunciante o como imputado — es fundamental para que el proceso funcione a tu favor. Una evaluación inicial determina exactamente en qué punto estás y cuáles son las acciones más efectivas.', acciones:['Diagnóstico de tu situación procesal actual','Derechos y opciones disponibles en tu caso','Estrategia de defensa o de denuncia','Proceso ante el Ministerio Público o juzgado'] },
-      }
-    },
     otro: {
-      area:'Derecho Familiar / Penal', sit:'Asunto familiar o penal', viab:'Media-Alta',
+      area:'Derecho Familiar', sit:'Asunto de derecho familiar', viab:'Media-Alta',
       textos: {
-        default: { u:'importante', gancho:'Los asuntos de derecho familiar y penal afectan directamente la vida cotidiana y los derechos más fundamentales. Sin conocer los detalles de tu caso es difícil ser específico, pero en casi todos los escenarios hay más opciones de las que la persona imagina al inicio. Una evaluación inicial gratuita abre el panorama.', acciones:['Análisis de tu situación específica','Identificación de derechos aplicables','Opciones legales disponibles en tu caso','Primera consulta sin costo ni compromiso'] },
+        default: { u:'importante', gancho:'Los asuntos de derecho familiar afectan directamente la vida cotidiana y los vínculos más importantes. Sin conocer los detalles de tu caso es difícil ser específico, pero en casi todos los escenarios hay más opciones de las que la persona imagina al inicio. Una evaluación inicial gratuita abre el panorama.', acciones:['Análisis de tu situación específica','Identificación de derechos aplicables','Opciones legales disponibles en tu caso','Primera consulta sin costo ni compromiso'] },
       }
     },
   }
@@ -1000,15 +1061,24 @@ function seleccionarOpcion(el, campo, val) {
   if (campo === 'tiempo') document.getElementById('btn-3').disabled = false;
 }
 
+// URL del evento Calendly de consulta gratuita 45 min — actualizar si cambia
+const CALENDLY_URL = 'https://calendly.com/hola-siglep/consulta-gratuita-45min';
+
 function validarContacto() {
   const nombre = document.getElementById('inp-nombre').value.trim();
   const tel = document.getElementById('inp-tel').value.trim();
   const detalle = document.getElementById('inp-detalle')?.value.trim() || '';
-  const btn = document.getElementById('diag-wa-btn');
+  const calBtn = document.getElementById('diag-calendly-btn');
+  const waBtn = document.getElementById('diag-wa-btn');
+
   if (nombre && tel && detalle) {
-    btn.style.opacity = '1';
-    btn.style.pointerEvents = 'auto';
-    // Armar mensaje WA dinámico con los datos
+    // Activar botón Calendly con prefill
+    const calendlyUrl = CALENDLY_URL + '?name=' + encodeURIComponent(nombre);
+    calBtn.href = calendlyUrl;
+    calBtn.style.opacity = '1';
+    calBtn.style.pointerEvents = 'auto';
+
+    // Armar mensaje WA para opción secundaria
     const cat = diagnosticos[estado.area]?.[estado.respuesta2] || diagnosticos[estado.area]?.otro;
     const tiempoLabels = {
       menos7:'hace menos de 7 días', menos1mes:'hace entre 1 semana y 1 mes',
@@ -1016,7 +1086,6 @@ function validarContacto() {
       mas2anios:'hace más de 2 años'
     };
     const descripcion = document.getElementById('inp-descripcion')?.value.trim() || '';
-    const detalle = document.getElementById('inp-detalle')?.value.trim() || '';
     const msg = encodeURIComponent(
       `Hola SIGLEP, soy ${nombre}.\n` +
       `Completé el Expediente Inteligente.\n` +
@@ -1025,12 +1094,16 @@ function validarContacto() {
       (descripcion ? `Mi situación: ${descripcion}.\n` : '') +
       (detalle ? `Lo más urgente: ${detalle}.\n` : '') +
       `WhatsApp: ${tel}.\n` +
-      `Quiero una consulta gratuita.`
+      `Quiero agendar una consulta gratuita.`
     );
-    btn.href = `https://wa.me/525661755112?text=${msg}`;
+    waBtn.href = `https://wa.me/525661755112?text=${msg}`;
+    waBtn.style.opacity = '1';
+    waBtn.style.pointerEvents = 'auto';
+    waBtn.style.display = 'block';
   } else {
-    btn.style.opacity = '0.4';
-    btn.style.pointerEvents = 'none';
+    calBtn.style.opacity = '0.5';
+    calBtn.style.pointerEvents = 'none';
+    waBtn.style.display = 'none';
   }
 }
 

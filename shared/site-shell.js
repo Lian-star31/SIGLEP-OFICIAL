@@ -519,7 +519,7 @@
         <li><a href="/calculadoras/" data-nav="calculadoras">Calculadoras</a></li>
         <li><a href="/expediente/" data-nav="expediente">Expediente</a></li>
         <li><a href="/nosotros/" data-nav="nosotros">Nosotros</a></li>
-        <li><a class="siglep-shell-cta" href="${WA}?text=${encodeURIComponent('Hola SIGLEP, quiero una consulta gratuita')}" target="_blank" rel="noopener noreferrer">Consulta Gratis</a></li>
+        <li><a class="siglep-shell-cta" href="/expediente/">Consulta Gratis</a></li>
       </ul>
       <button type="button" class="siglep-shell-burger" aria-label="Abrir menú" onclick="toggleMobileNav()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
@@ -554,7 +554,7 @@
 
           <a class="siglep-shell-mobile-link" href="/nosotros/" onclick="closeMobileNav()">Nosotros <span>→</span></a>
 
-          <a class="siglep-shell-cta siglep-shell-mobile-cta" href="${WA}?text=${encodeURIComponent('Hola SIGLEP, quiero una consulta gratuita')}" target="_blank" rel="noopener noreferrer">Consulta Gratis</a>
+          <a class="siglep-shell-cta siglep-shell-mobile-cta" href="/expediente/">Consulta Gratis</a>
         </div>
       </div>
     `;

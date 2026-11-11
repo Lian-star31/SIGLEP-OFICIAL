@@ -276,6 +276,8 @@
   .testi-disclaimer{font-size:0.68rem;color:#8A92A0;font-weight:300;margin-top:2rem;text-align:center;font-style:italic;}
 
   .calculadora { background: var(--white); }
+  .calc-card{display:block;padding:1.5rem 1.75rem;border-radius:14px;border:1px solid rgba(197,160,89,0.22);background:var(--white);text-decoration:none;color:inherit;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;}
+  .calc-card:hover{transform:translateY(-3px);border-color:rgba(197,160,89,0.5);box-shadow:0 8px 28px rgba(15,34,64,0.1);}
   /* ── URGENCIA ── */
   .urgencia { background: var(--navy-deep); padding: 5rem 2rem; text-align: center; position: relative; overflow: hidden; }
   .urgencia::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 80% at 50% 50%, rgba(197,160,89,0.06) 0%, transparent 70%); pointer-events: none; }
@@ -409,7 +411,7 @@
     <p class="page-hero-sub">En México, la mayoría de los trabajadores reciben liquidaciones calculadas con el mínimo legal — esperando que no sepas lo que realmente te corresponde. En SIGLEP revisamos cada centavo. Si hay diferencia, la recuperamos.</p>
     <div class="hero-actions">
       <a href="/expediente/?area=laboral" class="btn-primary">Consulta Gratis — Expediente Inteligente →</a>
-      <a href="#calculadora" class="btn-secondary">Calcular mi Liquidación</a>
+      <a href="#calculadora" class="btn-secondary">Ver Calculadoras</a>
     </div>
   </div>
 </div>
@@ -575,13 +577,13 @@
       <p class="section-lead">Dos simuladores para que llegues informado a tu consulta. Sin registro, sin compromisos.</p>
     </div>
     <div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;max-width:800px;">
-      <a href="/calculadoras/laboral/liquidacion-laboral/" style="display:block;padding:1.5rem 1.75rem;border-radius:14px;border:1px solid rgba(197,160,89,0.22);background:var(--white);text-decoration:none;color:inherit;transition:transform .2s ease,border-color .2s ease;">
+      <a href="/calculadoras/laboral/liquidacion-laboral/" class="calc-card">
         <div style="font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:700;color:var(--gold);margin-bottom:0.6rem;">Laboral</div>
         <div style="font-family:var(--font-display);font-size:1.4rem;color:var(--navy-deep);margin-bottom:0.5rem;">Calculadora de Liquidación</div>
         <p style="font-size:0.84rem;line-height:1.65;color:#4A5568;margin-bottom:1rem;">Estima tu liquidación por despido injustificado: indemnización, prima de antigüedad y partes proporcionales.</p>
         <span style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);">Ir a la calculadora →</span>
       </a>
-      <a href="/calculadoras/laboral/deuda-bancaria/" style="display:block;padding:1.5rem 1.75rem;border-radius:14px;border:1px solid rgba(197,160,89,0.22);background:var(--white);text-decoration:none;color:inherit;transition:transform .2s ease,border-color .2s ease;">
+      <a href="/calculadoras/laboral/deuda-bancaria/" class="calc-card">
         <div style="font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:700;color:var(--gold);margin-bottom:0.6rem;">Patrimonial</div>
         <div style="font-family:var(--font-display);font-size:1.4rem;color:var(--navy-deep);margin-bottom:0.5rem;">Negociación de Deuda Bancaria</div>
         <p style="font-size:0.84rem;line-height:1.65;color:#4A5568;margin-bottom:1rem;">Estima quitas y planes de pago según tipo de deuda, tiempo de mora y capacidad de pago.</p>
@@ -598,7 +600,7 @@
     <p>Una firma puede hacerte perder derechos que jamás podrás recuperar. Antes de aceptar cualquier cantidad, habla con un especialista SIGLEP. La revisión inicial es gratuita y sin compromisos.</p>
     <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
       <a href="/expediente/?area=laboral" class="btn-primary">Consulta Gratis — Expediente Inteligente →</a>
-      <a href="#calculadora" class="btn-secondary">Calcular mi Liquidación</a>
+      <a href="#calculadora" class="btn-secondary">Ver Calculadoras</a>
     </div>
   </div>
 </div>

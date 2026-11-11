@@ -275,54 +275,9 @@
   .testi-meta{font-size:0.68rem;color:#6B7280;letter-spacing:0.04em;}
   .testi-disclaimer{font-size:0.68rem;color:#8A92A0;font-weight:300;margin-top:2rem;text-align:center;font-style:italic;}
 
-  /* ── CALCULADORA (inyectada) ── */
-  /* ── CALCULADORA DOBLE ── */
   .calculadora { background: var(--white); }
-  .calc-tabs { display: flex; gap: 0; border: 1px solid rgba(197,160,89,0.25); border-radius: 4px; overflow: hidden; margin-bottom: 2.5rem; width: fit-content; }
-  .calc-tab {
-    padding: 0.7rem 1.6rem; font-family: var(--font-body); font-size: 0.72rem; font-weight: 700;
-    letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; border: none;
-    background: transparent; color: rgba(255,255,255,0.45); transition: all 0.2s;
-    border-right: 1px solid rgba(197,160,89,0.2);
-  }
-  .calc-tab:last-child { border-right: none; }
-  .calc-tab.active { background: var(--gold); color: var(--navy-deep); }
-  .calc-tab-wrapper { background: var(--navy-deep); padding: 0.4rem; border-radius: 6px; margin-bottom: 2.5rem; display: inline-flex; gap: 0; }
-  .calc-tab-wrapper .calc-tab { border-radius: 3px; border: none; padding: 0.65rem 1.4rem; }
-  .calc-tab-wrapper .calc-tab.active { background: var(--gold); color: var(--navy-deep); }
-  .calc-panel { display: none; }
-  .calc-panel.active { display: block; }
-  .calc-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
-  @media (max-width: 768px) { .calc-wrapper { grid-template-columns: 1fr; gap: 2.5rem; } }
-  .calc-form { background: var(--navy-deep); padding: 2.5rem 2rem; border-radius: 2px; border: 1px solid rgba(197,160,89,0.18); }
-  .calc-form h3 { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--white); margin-bottom: 0.4rem; }
-  .calc-form .sub { font-size: 0.78rem; color: rgba(255,255,255,0.45); margin-bottom: 2rem; font-weight: 300; }
-  .form-group { margin-bottom: 1.2rem; }
-  .form-group label { display: block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.45rem; }
-  .form-group input, .form-group select { width: 100%; background: rgba(255,255,255,0.06); border: 1px solid rgba(197,160,89,0.22); border-radius: 2px; padding: 0.75rem 1rem; color: var(--white); font-family: var(--font-body); font-size: 0.88rem; outline: none; transition: border-color 0.25s; appearance: none; }
-  .form-group input::placeholder { color: rgba(255,255,255,0.28); }
-  .form-group input:focus, .form-group select:focus { border-color: var(--gold); }
-  .form-group select option { background: var(--navy-deep); color: var(--white); }
-  .calc-btn { width: 100%; background: var(--red); color: #fff; border: none; padding: 1rem; font-family: var(--font-body); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; border-radius: 2px; cursor: pointer; transition: background 0.25s; margin-top: 0.5rem; }
-  .calc-btn:hover { background: var(--red-dark); }
-  .calc-result { background: var(--gray-light); border: 1px solid rgba(197,160,89,0.18); border-radius: 2px; padding: 2rem 1.8rem; display: none; animation: fadeUp 0.4s ease; }
-  .calc-result.visible { display: block; }
-  .result-tag { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
-  .result-amount { font-family: var(--font-display); font-size: 3rem; font-weight: 700; color: var(--navy-deep); line-height: 1; margin-bottom: 1rem; }
-  .result-breakdown { display: flex; flex-direction: column; gap: 0.55rem; border-top: 1px solid rgba(197,160,89,0.18); padding-top: 1rem; margin-bottom: 1.5rem; }
-  .breakdown-row { display: flex; justify-content: space-between; align-items: center; }
-  .breakdown-row .name { font-size: 0.78rem; color: #4A5568; }
-  .breakdown-row .val { font-size: 0.85rem; font-weight: 600; color: var(--navy-deep); }
-  .result-note { font-size: 0.73rem; line-height: 1.6; color: #718096; font-style: italic; }
-  .result-savings { background: rgba(37,211,102,0.1); border: 1px solid rgba(37,211,102,0.25); border-radius: 4px; padding: 1rem 1.2rem; margin-bottom: 1rem; }
-  .result-savings .savings-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #2ecc71; margin-bottom: 0.25rem; }
-  .result-savings .savings-amount { font-family: var(--font-display); font-size: 2.2rem; font-weight: 700; color: #2ecc71; line-height: 1; }
-  .calc-info h4 { font-family: var(--font-display); font-size: 1.65rem; font-weight: 700; color: var(--navy-deep); line-height: 1.2; margin-bottom: 1rem; }
-  .calc-info p { font-size: 0.88rem; line-height: 1.8; color: #4A5568; margin-bottom: 1.5rem; font-weight: 300; }
-  .calc-info ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; margin-bottom: 2rem; }
-  .calc-info ul li { font-size: 0.83rem; color: var(--navy); display: flex; align-items: flex-start; gap: 0.7rem; line-height: 1.5; }
-  .calc-info ul li::before { content: '✓'; color: var(--gold); font-weight: 700; flex-shrink: 0; }
-
+  .calc-card{display:block;padding:1.5rem 1.75rem;border-radius:14px;border:1px solid rgba(197,160,89,0.22);background:var(--white);text-decoration:none;color:inherit;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;}
+  .calc-card:hover{transform:translateY(-3px);border-color:rgba(197,160,89,0.5);box-shadow:0 8px 28px rgba(15,34,64,0.1);}
   /* ── URGENCIA ── */
   .urgencia { background: var(--navy-deep); padding: 5rem 2rem; text-align: center; position: relative; overflow: hidden; }
   .urgencia::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 80% at 50% 50%, rgba(197,160,89,0.06) 0%, transparent 70%); pointer-events: none; }
@@ -374,20 +329,6 @@
   .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
   .reveal.visible { opacity: 1; transform: none; }
 
-  /* ── INLINE ERROR MESSAGE ── */
-  .calc-error {
-    display: none; background: rgba(192,57,43,0.12); border: 1px solid rgba(192,57,43,0.4);
-    color: #e05c4a; font-size: 0.78rem; font-weight: 600; padding: 0.7rem 1rem;
-    border-radius: 2px; margin-top: 0.6rem; letter-spacing: 0.02em;
-  }
-  .calc-error.visible { display: block; }
-
-
-  /* ── CALC CTA BOX ── */
-  .calc-cta-box{margin-top:1.4rem;background:var(--navy-deep);border-radius:2px;padding:1.5rem 1.4rem;display:flex;flex-direction:column;gap:1rem;}
-  .calc-cta-msg{font-family:var(--font-display);font-size:1.1rem;color:var(--white);line-height:1.4;font-weight:600;}
-  .calc-cta-btn{background:#25D366!important;color:#fff!important;padding:0.9rem 1.4rem!important;font-size:0.8rem!important;font-weight:700!important;letter-spacing:0.08em!important;text-transform:uppercase!important;border:none!important;cursor:pointer!important;border-radius:2px!important;text-decoration:none!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:0.6rem!important;transition:all 0.25s!important;box-shadow:0 4px 18px rgba(37,211,102,0.3)!important;}
-  .calc-cta-btn:hover{background:#1da853!important;transform:translateY(-2px)!important;}
 </style>
   <script defer src="/shared/site-shell.js"></script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Derecho Laboral México – Despidos, Liquidaciones y Defensa Obrera | SIGLEP","url":"https://siglep.lat/laboral/","description":"SIGLEP: Abogados laborales en México. Despido injustificado, liquidaciones, finiquitos, acoso laboral y derechos del trabajador. Consulta gratuita por WhatsApp."}</script>
@@ -470,7 +411,7 @@
     <p class="page-hero-sub">En México, la mayoría de los trabajadores reciben liquidaciones calculadas con el mínimo legal — esperando que no sepas lo que realmente te corresponde. En SIGLEP revisamos cada centavo. Si hay diferencia, la recuperamos.</p>
     <div class="hero-actions">
       <a href="/expediente/?area=laboral" class="btn-primary">Consulta Gratis — Expediente Inteligente →</a>
-      <a href="#calculadora" class="btn-secondary">Calcular mi Liquidación</a>
+      <a href="#calculadora" class="btn-secondary">Ver Calculadoras</a>
     </div>
   </div>
 </div>
@@ -627,152 +568,30 @@
   </div>
 </section>
 
-<!-- CALCULADORA -->
+<!-- CALCULADORAS -->
 <section class="calculadora" id="calculadora">
   <div class="container">
     <div style="margin-bottom:3rem;" class="reveal">
       <div class="section-tag">Herramientas Gratuitas</div>
       <h2 class="section-title">Conoce tus <em>números reales.</em></h2>
-      <p class="section-lead">Dos calculadoras para que llegues informado a tu consulta. Sin registro, sin compromisos.</p>
+      <p class="section-lead">Dos simuladores para que llegues informado a tu consulta. Sin registro, sin compromisos.</p>
     </div>
-
-    <!-- TABS -->
-    <div class="reveal">
-      <div class="calc-tab-wrapper">
-        <button class="calc-tab active" onclick="switchCalc('liquidacion', this)">⚖️ Mi Liquidación Laboral</button>
-        <button class="calc-tab" onclick="switchCalc('deuda', this)">🏦 Negociar mi Deuda Bancaria</button>
-      </div>
+    <div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;max-width:800px;">
+      <a href="/calculadoras/laboral/liquidacion-laboral/" class="calc-card">
+        <div style="font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:700;color:var(--gold);margin-bottom:0.6rem;">Laboral</div>
+        <div style="font-family:var(--font-display);font-size:1.4rem;color:var(--navy-deep);margin-bottom:0.5rem;">Calculadora de Liquidación</div>
+        <p style="font-size:0.84rem;line-height:1.65;color:#4A5568;margin-bottom:1rem;">Estima tu liquidación por despido injustificado: indemnización, prima de antigüedad y partes proporcionales.</p>
+        <span style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);">Ir a la calculadora →</span>
+      </a>
+      <a href="/calculadoras/laboral/deuda-bancaria/" class="calc-card">
+        <div style="font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:700;color:var(--gold);margin-bottom:0.6rem;">Patrimonial</div>
+        <div style="font-family:var(--font-display);font-size:1.4rem;color:var(--navy-deep);margin-bottom:0.5rem;">Negociación de Deuda Bancaria</div>
+        <p style="font-size:0.84rem;line-height:1.65;color:#4A5568;margin-bottom:1rem;">Estima quitas y planes de pago según tipo de deuda, tiempo de mora y capacidad de pago.</p>
+        <span style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);">Ir a la calculadora →</span>
+      </a>
     </div>
-
-    <!-- PANEL 1: LIQUIDACIÓN -->
-    <div class="calc-panel active" id="panel-liquidacion">
-      <div class="calc-wrapper reveal">
-        <div class="calc-form">
-          <h3>Simulador de Liquidación</h3>
-          <p class="sub">Datos básicos para calcular tu estimación</p>
-          <div class="form-group">
-            <label>Salario Diario (MXN)</label>
-            <input type="number" id="salario" placeholder="Ej: 450" min="0">
-          </div>
-          <div class="form-group">
-            <label>Años de Servicio</label>
-            <input type="number" id="anios" placeholder="Ej: 5" min="0" max="50">
-          </div>
-          <div class="form-group">
-            <label>Tipo de Separación</label>
-            <select id="tipo">
-              <option value="injustificado">Despido Injustificado</option>
-              <option value="voluntario">Renuncia Voluntaria</option>
-              <option value="mutuo">Rescisión por Mutuo Acuerdo</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Días de Vacaciones No Disfrutados</label>
-            <input type="number" id="vacaciones" placeholder="Ej: 12" min="0">
-          </div>
-          <button class="calc-btn" onclick="calcularLiquidacion()">→ Calcular mi Liquidación</button>
-          <div class="calc-error" id="liq-error"></div>
-        </div>
-        <div class="calc-info">
-          <div id="calc-placeholder">
-            <h4>La ley es clara.<br>Lo que falta es que alguien te la explique.</h4>
-            <p>La Ley Federal del Trabajo establece montos mínimos que los empleadores están obligados a pagar. El problema es que "mínimo" no significa "justo". Con nosotros, calculas el mínimo — y negociamos el máximo.</p>
-            <ul>
-              <li>3 meses de salario por despido injustificado</li>
-              <li>20 días de salario por año trabajado</li>
-              <li>Aguinaldo proporcional al tiempo laborado</li>
-              <li>Partes proporcionales de vacaciones y prima vacacional</li>
-              <li>Posibles salarios caídos en caso de juicio</li>
-            </ul>
-            <p style="font-style:italic; color:#718096; font-size:0.8rem;">Esta calculadora es orientativa. Los montos reales pueden variar. Consulta gratis para tu caso específico.</p>
-          </div>
-          <div class="calc-result" id="calc-result">
-            <div class="result-tag">Tu Estimación de Liquidación</div>
-            <div class="result-amount" id="result-total">$0.00</div>
-            <div class="result-breakdown" id="result-breakdown"></div>
-            <div class="calc-cta-box">
-              <p class="calc-cta-msg" id="calc-cta-msg">Esta es la estimación mínima de ley. Con asesoría especializada el monto real puede ser mayor.</p>
-              <a href="#" class="btn-wa calc-cta-btn" id="calc-wa-btn" target="_blank" rel="noopener noreferrer">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2.001c-5.514 0-9.998 4.484-9.998 9.998 0 1.761.462 3.413 1.27 4.847L2.005 22l5.273-1.381c1.378.748 2.954 1.179 4.721 1.179h.004c5.513 0 9.997-4.484 9.997-9.998 0-5.515-4.484-9.999-9.997-9.999H11.999zm0 1.8h.003c4.52 0 8.198 3.678 8.198 8.198 0 4.521-3.678 8.199-8.198 8.199h-.003c-1.584 0-3.072-.443-4.341-1.211l-.311-.185-3.129.82.834-3.047-.204-.323c-.839-1.313-1.316-2.85-1.316-4.455 0-4.52 3.678-8.197 8.197-8.197z"/></svg>
-                Quiero saber si me corresponde más → Consulta gratis
-              </a>
-              <p class="result-note">⚠ Estimación basada en mínimos de ley. Los montos reales pueden ser significativamente mayores con asesoría especializada. Consulta sin costo ni compromiso.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PANEL 2: DEUDA BANCARIA -->
-    <div class="calc-panel" id="panel-deuda">
-      <div class="calc-wrapper reveal">
-        <div class="calc-form">
-          <h3>Simulador de Negociación de Deuda</h3>
-          <p class="sub">¿Cuánto podrías pagar realmente?</p>
-          <div class="form-group">
-            <label>Deuda Total Actual (MXN)</label>
-            <input type="number" id="deuda-total" placeholder="Ej: 50000" min="0">
-          </div>
-          <div class="form-group">
-            <label>Tiempo sin pagar (meses)</label>
-            <input type="number" id="meses-mora" placeholder="Ej: 6" min="0" max="120">
-          </div>
-          <div class="form-group">
-            <label>Tipo de Deuda</label>
-            <select id="tipo-deuda">
-              <option value="tarjeta">Tarjeta de Crédito</option>
-              <option value="personal">Crédito Personal</option>
-              <option value="hipotecario">Crédito Hipotecario</option>
-              <option value="automotriz">Crédito Automotriz</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>¿Tienes capacidad de pago mensual?</label>
-            <select id="capacidad-pago">
-              <option value="si">Sí, pero reducida</option>
-              <option value="nula">En este momento no</option>
-              <option value="liquidar">Puedo liquidar en una sola exhibición</option>
-            </select>
-          </div>
-          <button class="calc-btn" onclick="calcularDeuda()">→ Simular Negociación</button>
-          <div class="calc-error" id="deuda-error"></div>
-        </div>
-        <div class="calc-info">
-          <div id="deuda-placeholder">
-            <h4>Las deudas bancarias <br>tienen solución legal.</h4>
-            <p>Los bancos prefieren recuperar algo a no recuperar nada. Eso te da poder de negociación — si sabes cómo usarlo. En SIGLEP negociamos quitas, reestructuras y planes reales adaptados a tu situación.</p>
-            <ul>
-              <li>Negociación directa con área de cobranza bancaria</li>
-              <li>Quitas de hasta el 65% en casos calificados</li>
-              <li>Planes de pago que sí puedes cumplir</li>
-              <li>Sin arruinar tu historial de forma definitiva</li>
-              <li>Asesoría antes de hablar con el banco</li>
-            </ul>
-            <p style="font-style:italic; color:#718096; font-size:0.8rem;">La simulación es referencial. Los resultados reales dependen del banco, la deuda y tu situación. Consulta gratis.</p>
-          </div>
-          <div class="calc-result" id="deuda-result">
-            <div class="result-tag">Estimación de Negociación</div>
-            <div class="result-breakdown" id="deuda-breakdown"></div>
-            <div class="result-savings" id="deuda-savings">
-              <div class="savings-label">Ahorro Potencial Estimado</div>
-              <div class="savings-amount" id="savings-amount">$0.00</div>
-            </div>
-            <div class="calc-cta-box">
-              <p class="calc-cta-msg" id="deuda-cta-msg">Con asesoría legal la negociación es significativamente más favorable. Cuéntanos tu caso.</p>
-              <a href="#" class="btn-wa calc-cta-btn" id="deuda-wa-btn" target="_blank" rel="noopener noreferrer">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2.001c-5.514 0-9.998 4.484-9.998 9.998 0 1.761.462 3.413 1.27 4.847L2.005 22l5.273-1.381c1.378.748 2.954 1.179 4.721 1.179h.004c5.513 0 9.997-4.484 9.997-9.998 0-5.515-4.484-9.999-9.997-9.999H11.999zm0 1.8h.003c4.52 0 8.198 3.678 8.198 8.198 0 4.521-3.678 8.199-8.198 8.199h-.003c-1.584 0-3.072-.443-4.341-1.211l-.311-.185-3.129.82.834-3.047-.204-.323c-.839-1.313-1.316-2.85-1.316-4.455 0-4.52 3.678-8.197 8.197-8.197z"/></svg>
-                Negociar mi deuda con asesoría → Consulta gratis
-              </a>
-              <p class="result-note">⚠ Estimación referencial. Los resultados reales varían según el banco y tu historial.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
   </div>
 </section>
-
 
 <!-- HIGHLIGHT CTA -->
 <div class="highlight-band reveal">
@@ -781,7 +600,7 @@
     <p>Una firma puede hacerte perder derechos que jamás podrás recuperar. Antes de aceptar cualquier cantidad, habla con un especialista SIGLEP. La revisión inicial es gratuita y sin compromisos.</p>
     <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
       <a href="/expediente/?area=laboral" class="btn-primary">Consulta Gratis — Expediente Inteligente →</a>
-      <a href="#calculadora" class="btn-secondary">Calcular mi Liquidación</a>
+      <a href="#calculadora" class="btn-secondary">Ver Calculadoras</a>
     </div>
   </div>
 </div>
@@ -992,174 +811,7 @@
 
 
 
-// ── CALC TABS ──
-function switchCalc(panel, btn) {
-  document.querySelectorAll('.calc-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.calc-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('panel-' + panel).classList.add('active');
-  btn.classList.add('active');
-}
-
 // ══════════════════════════════════════════
-
-function fmt(n) {
-  return new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(n);
-}
-
-function calcularLiquidacion() {
-  // GA4: calculator_used
-  gtag('event', 'calculator_used', {
-    calculator_type: 'liquidacion',
-    page_location: window.location.href
-  });
-  const salario = parseFloat(document.getElementById('salario').value) || 0;
-  const anios   = parseFloat(document.getElementById('anios').value) || 0;
-  const tipo    = document.getElementById('tipo').value;
-  const vacDias = parseFloat(document.getElementById('vacaciones').value) || 0;
-
-  if (salario <= 0 || anios <= 0) {
-    const errEl = document.getElementById('liq-error');
-    errEl.textContent = '⚠ Por favor ingresa tu salario diario y años de servicio.';
-    errEl.classList.add('visible');
-    return;
-  }
-  document.getElementById('liq-error').classList.remove('visible');
-
-  const tresMeses   = salario * 90;
-  const veinteXAnio = salario * 20 * anios;
-  const aguinaldo   = salario * 15 * anios;
-  const primaVac    = salario * vacDias * 0.25;
-  const vacaciones  = salario * vacDias;
-  const partes      = aguinaldo + primaVac + vacaciones;
-
-  let total = 0, desglose = [];
-
-  if (tipo === 'injustificado') {
-    total = tresMeses + veinteXAnio + partes;
-    desglose = [
-      { name: '3 meses de indemnización', val: tresMeses },
-      { name: '20 días × año trabajado', val: veinteXAnio },
-      { name: 'Aguinaldo proporcional', val: aguinaldo },
-      { name: 'Vacaciones no disfrutadas', val: vacaciones },
-      { name: 'Prima vacacional (25%)', val: primaVac },
-    ];
-  } else if (tipo === 'voluntario') {
-    total = partes;
-    desglose = [
-      { name: 'Aguinaldo proporcional', val: aguinaldo },
-      { name: 'Vacaciones no disfrutadas', val: vacaciones },
-      { name: 'Prima vacacional (25%)', val: primaVac },
-    ];
-  } else {
-    total = (veinteXAnio * 0.5) + partes;
-    desglose = [
-      { name: 'Indemnización acordada', val: veinteXAnio * 0.5 },
-      { name: 'Aguinaldo proporcional', val: aguinaldo },
-      { name: 'Vacaciones no disfrutadas', val: vacaciones },
-      { name: 'Prima vacacional (25%)', val: primaVac },
-    ];
-  }
-
-  document.getElementById('result-total').textContent = fmt(total);
-  document.getElementById('result-breakdown').innerHTML = desglose.map(r =>
-    `<div class="breakdown-row"><span class="name">${r.name}</span><span class="val">${fmt(r.val)}</span></div>`
-  ).join('');
-
-  // CTA dinámico con monto real pre-escrito en WhatsApp
-  const montoTexto = fmt(total);
-  const msgWA = encodeURIComponent(
-    `Hola SIGLEP, calculé mi estimación de liquidación y me da ${montoTexto}. ` +
-    `Quiero saber si me corresponde más. ¿Podemos agendar una consulta gratuita?`
-  );
-  const btnWA = document.getElementById('calc-wa-btn');
-  if (btnWA) btnWA.href = `https://wa.me/525661755112?text=${msgWA}`;
-  const msgEl = document.getElementById('calc-cta-msg');
-  if (msgEl) msgEl.textContent = `Tu estimación es ${montoTexto}. Con asesoría especializada podrías recibir más. Hablemos sin costo.`;
-
-  document.getElementById('calc-placeholder').style.display = 'none';
-  const resultEl = document.getElementById('calc-result');
-  resultEl.classList.add('visible');
-  resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-}
-
-// ── CALCULADORA DEUDA BANCARIA ──
-function calcularDeuda() {
-  // GA4: calculator_used
-  gtag('event', 'calculator_used', {
-    calculator_type: 'deuda',
-    page_location: window.location.href
-  });
-  const deudaTotal = parseFloat(document.getElementById('deuda-total').value) || 0;
-  const mesesMora  = parseFloat(document.getElementById('meses-mora').value) || 0;
-  const tipoDeuda  = document.getElementById('tipo-deuda').value;
-  const capacidad  = document.getElementById('capacidad-pago').value;
-
-  if (deudaTotal <= 0) {
-    const errEl = document.getElementById('deuda-error');
-    errEl.textContent = '⚠ Por favor ingresa el monto de tu deuda.';
-    errEl.classList.add('visible');
-    return;
-  }
-  document.getElementById('deuda-error').classList.remove('visible');
-
-  // Lógica de negociación estimada
-  let porcentajeQuita = 0;
-  let estrategia = '';
-  let plazo = '';
-
-  if (mesesMora >= 12) {
-    porcentajeQuita = 0.55;
-    estrategia = 'Alta posibilidad de quita significativa';
-  } else if (mesesMora >= 6) {
-    porcentajeQuita = 0.40;
-    estrategia = 'Buena posición para negociar quita';
-  } else if (mesesMora >= 3) {
-    porcentajeQuita = 0.25;
-    estrategia = 'Posible reestructura o quita parcial';
-  } else {
-    porcentajeQuita = 0.15;
-    estrategia = 'Reestructura de pagos como primera opción';
-  }
-
-  if (tipoDeuda === 'tarjeta') porcentajeQuita = Math.min(porcentajeQuita + 0.1, 0.65);
-  if (tipoDeuda === 'personal') porcentajeQuita = Math.min(porcentajeQuita + 0.05, 0.60);
-  if (capacidad === 'liquidar') porcentajeQuita = Math.min(porcentajeQuita + 0.1, 0.65);
-
-  const montoNegociado = deudaTotal * (1 - porcentajeQuita);
-  const ahorroPotencial = deudaTotal - montoNegociado;
-
-  const desglose = [
-    { name: 'Deuda total actual', displayValue: fmt(deudaTotal) },
-    { name: 'Monto estimado a pagar (negociado)', displayValue: fmt(montoNegociado) },
-    { name: '% de quita estimada', displayValue: Math.round(porcentajeQuita * 100) + '%' },
-    { name: 'Estrategia recomendada', displayValue: estrategia },
-  ];
-
-  document.getElementById('deuda-breakdown').innerHTML = desglose.map(r =>
-    `<div class="breakdown-row">
-      <span class="name">${r.name}</span>
-      <span class="val">${r.displayValue}</span>
-    </div>`
-  ).join('');
-  document.getElementById('savings-amount').textContent = fmt(ahorroPotencial);
-
-  // CTA dinámico deuda con monto real
-  const ahorroTexto = fmt(ahorroPotencial);
-  const deudaTexto  = fmt(deudaTotal);
-  const msgDeuda = encodeURIComponent(
-    `Hola SIGLEP, simulé mi deuda de ${deudaTexto} y el estimado de ahorro es ${ahorroTexto}. ` +
-    `Quiero asesoría para negociar con el banco. ¿Podemos hablar?`
-  );
-  const btnDeuda = document.getElementById('deuda-wa-btn');
-  if (btnDeuda) btnDeuda.href = `https://wa.me/525661755112?text=${msgDeuda}`;
-  const msgDeudaEl = document.getElementById('deuda-cta-msg');
-  if (msgDeudaEl) msgDeudaEl.textContent = `Tu ahorro potencial estimado es ${ahorroTexto}. Con asesoría legal la negociación puede ser aún más favorable.`;
-
-  document.getElementById('deuda-placeholder').style.display = 'none';
-  const resultEl = document.getElementById('deuda-result');
-  resultEl.classList.add('visible');
-  resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-}
 
 // ── SMOOTH ANCHORS ──
 document.querySelectorAll('a[href^="#"]').forEach(a => {

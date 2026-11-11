@@ -1,5 +1,49 @@
 /* ── SIGLEP Mobile-First Overrides ── shared/mobile.css ── */
 
+/* === MENÚ MÓVIL: links sin clase .siglep-shell-mobile-link (estructura antigua) === */
+/* Root cause: 40 páginas tienen nav HTML con <a> sin clase, hereda azul del browser */
+.siglep-shell-mobile a:not(.siglep-shell-cta) {
+  color: rgba(255,255,255,0.84) !important;
+  text-decoration: none !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-height: 2.75rem;
+  padding: 0.75rem 0.95rem;
+  border-radius: 10px;
+  border: 1px solid rgba(197,160,89,0.12);
+  background: rgba(255,255,255,0.025);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: border-color 0.2s, background 0.2s;
+  font-family: 'Montserrat', sans-serif;
+}
+.siglep-shell-mobile a:not(.siglep-shell-cta):hover {
+  border-color: rgba(197,160,89,0.28);
+  background: rgba(197,160,89,0.07);
+  color: #c5a059 !important;
+}
+.siglep-shell-mobile-group {
+  display: grid;
+  gap: 0.5rem;
+}
+.siglep-shell-mobile-title {
+  font-size: 0.56rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(197,160,89,0.72);
+  padding: 0.4rem 0.2rem 0.1rem;
+  font-family: 'Montserrat', sans-serif;
+}
+/* Panel wrapper: space between groups */
+.siglep-shell-mobile > div:not(:last-child) {
+  margin-bottom: 0.5rem;
+}
+
 /* === FLOATING BUTTONS: evitar que tapen contenido === */
 @media (max-width: 767px) {
   .float-wa {

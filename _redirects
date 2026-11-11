@@ -1,5 +1,8 @@
 # Netlify sirve automáticamente cada carpeta/index.html como URL limpia con barra final.
 # Área de Migratorio descontinuada: se redirige tráfico/backlinks existentes a Laboral.
 /migratorio/*    /laboral/    301
+# Calculadoras reclasificadas a Patrimonial:
+/calculadoras/familiar/herencia-sucesion/    /calculadoras/patrimonial/herencia-sucesion/    301
+/calculadoras/laboral/deuda-bancaria/    /calculadoras/patrimonial/deuda-bancaria/    301
 # Solo definimos el fallback 404 para rutas inexistentes.
 /*    /index.html    404

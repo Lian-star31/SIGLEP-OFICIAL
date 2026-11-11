@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Negociación de Deuda Bancaria | SIGLEP</title>
+  <meta name="description" content="Estima cuánto podrías pagar en una negociación de deuda bancaria: quitas, reestructuras y planes de pago según tu situación.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://siglep.lat/calculadoras/patrimonial/deuda-bancaria/">
+  <meta property="og:title" content="Calculadora de Negociación de Deuda Bancaria | SIGLEP">
+  <meta property="og:description" content="Estima cuánto podrías pagar en una negociación de deuda bancaria: quitas, reestructuras y planes de pago según tu situación.">
+  <meta property="og:url" content="https://siglep.lat/calculadoras/patrimonial/deuda-bancaria/">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://siglep.lat/img/og-siglep.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap"></noscript>
+  <style>
+    :root {
+      --navy:#1A365D;--navy-deep:#0F2240;--gold:#C5A059;--gold-light:#D4B878;--red:#C0392B;--red-dark:#96281B;
+      --black:#080C14;--white:#FAFAF8;--gray-light:#F0EEE8;--text-body:#2D3748;--font-display:'Cormorant Garamond',serif;--font-body:'Montserrat',sans-serif;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--font-body);background:var(--white);color:var(--text-body);overflow-x:hidden;}
+    main{display:block;}
+    .hero{min-height:72vh;padding:8rem 1.25rem 4rem;background:linear-gradient(145deg,#050810 0%,#0A1628 40%,#0F2240 70%,#111B30 100%);position:relative;overflow:hidden;}
+    .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 55% at 75% 45%,rgba(197,160,89,0.07) 0%,transparent 65%),radial-gradient(ellipse 35% 50% at 10% 85%,rgba(192,57,43,0.07) 0%,transparent 60%);pointer-events:none;}
+    .hero-inner,.section-inner,.footer-inner,.footer-bottom{max-width:1180px;margin:0 auto;position:relative;z-index:1;}
+    .eyebrow{font-size:0.66rem;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:flex;align-items:center;gap:0.7rem;}
+    .eyebrow::before{content:'';width:34px;height:1px;background:var(--gold);display:block;}
+    h1{font-family:var(--font-display);font-size:clamp(2.4rem,5.8vw,4.6rem);line-height:1.05;color:var(--white);margin-bottom:1rem;}
+    h1 em{font-style:italic;color:var(--gold);}
+    .lead{max-width:760px;font-size:1rem;line-height:1.85;color:#E2E8F0;font-weight:300;margin-bottom:2rem;}
+    .breadcrumbs{display:flex;flex-wrap:wrap;gap:0.55rem;align-items:center;font-size:0.65rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:1.5rem;}
+    .breadcrumbs a{color:rgba(197,160,89,0.75);text-decoration:none;}
+    .breadcrumbs span.sep{color:rgba(255,255,255,0.18);}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:0.9rem;align-items:center;}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:0.95rem 1.35rem;border-radius:2px;text-decoration:none;font-size:0.78rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;transition:transform .2s ease,background .2s ease,color .2s ease;border:1px solid transparent;}
+    .btn-primary{background:var(--red);color:#fff;box-shadow:0 4px 18px rgba(192,57,43,0.35);}
+    .btn-primary:hover{background:var(--red-dark);transform:translateY(-2px);}
+    .btn-secondary{background:transparent;border-color:rgba(197,160,89,0.5);color:var(--gold);}
+    .btn-secondary:hover{background:var(--gold);color:var(--navy-deep);transform:translateY(-2px);}
+    .section{padding:5rem 1.25rem;}
+    .section h2{font-family:var(--font-display);font-size:clamp(1.9rem,4vw,3rem);line-height:1.1;color:var(--navy-deep);margin-bottom:0.9rem;}
+    .section h2 em{font-style:italic;color:var(--gold);}
+    .section p.lead{color:#4A5568;max-width:800px;margin-bottom:0;}
+    .calc-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:1.5rem;margin-top:2.5rem;align-items:start;}
+    .panel{background:var(--white);border:1px solid rgba(197,160,89,0.16);border-radius:14px;box-shadow:0 12px 40px rgba(15,34,64,0.08);overflow:hidden;}
+    .panel.dark{background:linear-gradient(180deg,#0F2240 0%,#08111f 100%);border-color:rgba(197,160,89,0.18);}
+    .panel-head{padding:1.35rem 1.35rem 1rem;border-bottom:1px solid rgba(197,160,89,0.12);}
+    .panel-head .kicker{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:700;color:var(--gold);}
+    .panel-head h3{font-family:var(--font-display);font-size:1.6rem;line-height:1.1;color:inherit;margin-top:0.4rem;}
+    .panel-head p{color:inherit;font-size:0.86rem;line-height:1.7;font-weight:300;opacity:0.86;margin-top:0.55rem;}
+    .panel.dark .panel-head p,.panel.dark .help,.panel.dark .note{color:#E2E8F0;opacity:0.96;}
+    .panel-body{padding:1.35rem;}
+    .field{display:grid;gap:0.45rem;margin-bottom:1rem;}
+    .field label{font-size:0.66rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);}
+    .field input,.field select{width:100%;padding:0.92rem 0.95rem;border-radius:10px;border:1px solid rgba(197,160,89,0.22);background:rgba(255,255,255,0.08);color:inherit;font-family:var(--font-body);font-size:0.92rem;outline:none;}
+    .panel.dark .field input,.panel.dark .field select{color:var(--white);-webkit-text-fill-color:var(--white);caret-color:var(--gold);background:rgba(255,255,255,0.06);}
+    .panel.dark .field input::placeholder{color:rgba(250,250,248,0.55);}
+    .panel.dark .field select option{color:var(--navy-deep);}
+    .field select{appearance:none;}
+    .help{font-size:0.72rem;line-height:1.55;color:#718096;}
+    .calc-button{width:100%;margin-top:0.4rem;padding:0.95rem 1rem;border:0;border-radius:10px;background:var(--red);color:#fff;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:transform .2s ease,background .2s ease;}
+    .calc-button:hover{background:var(--red-dark);transform:translateY(-1px);}
+    .calc-actions{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:0.8rem;align-items:center;}
+    .calc-button-secondary{width:auto;background:transparent;border:1px solid rgba(197,160,89,0.45);color:var(--gold);padding-inline:1.1rem;}
+    .calc-button-secondary:hover{background:rgba(197,160,89,0.12);color:var(--white);}
+    .result{display:grid;gap:1rem;}
+    .result-box{padding:1.3rem;border-radius:14px;background:rgba(197,160,89,0.06);border:1px solid rgba(197,160,89,0.16);}
+    .result-kicker{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:700;color:var(--gold);margin-bottom:0.6rem;}
+    .result-amount{font-family:var(--font-display);font-size:clamp(2.2rem,5vw,3.6rem);line-height:1;color:var(--navy-deep);}
+    .result-note{font-size:0.78rem;line-height:1.7;color:#4A5568;margin-top:0.8rem;}
+    .breakdown{display:grid;gap:0.55rem;margin-top:1rem;}
+    .breakdown-row{display:flex;justify-content:space-between;gap:1rem;font-size:0.84rem;color:#334155;border-top:1px solid rgba(197,160,89,0.12);padding-top:0.55rem;}
+    .breakdown-row strong{color:var(--navy-deep);}
+    .savings-highlight{margin-top:0.6rem;padding:0.8rem;border-radius:10px;background:rgba(197,160,89,0.09);border:1px solid rgba(197,160,89,0.22);}
+    .savings-label{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:var(--gold);margin-bottom:0.3rem;}
+    .savings-amount{font-family:var(--font-display);font-size:clamp(1.8rem,3.5vw,2.8rem);line-height:1;color:var(--navy-deep);}
+    .info-list{list-style:none;display:grid;gap:0.6rem;margin:0.8rem 0;}
+    .info-list li{font-size:0.84rem;line-height:1.65;color:rgba(255,255,255,0.78);padding-left:1.2rem;position:relative;}
+    .info-list li::before{content:'✓';position:absolute;left:0;color:var(--gold);}
+    .faq-grid{display:grid;gap:0.85rem;margin-top:2rem;}
+    .faq-item{border:1px solid rgba(197,160,89,0.16);border-radius:14px;background:var(--white);overflow:hidden;}
+    .faq-item summary{cursor:pointer;list-style:none;padding:1rem 1.1rem;font-weight:600;color:var(--navy-deep);}
+    .faq-item summary::-webkit-details-marker{display:none;}
+    .faq-item p{padding:0 1.1rem 1.1rem;color:#4A5568;font-size:0.86rem;line-height:1.75;}
+    .cta-band{padding:4rem 1.25rem;background:linear-gradient(135deg,#0a1628 0%,#0f2240 55%,#0a1628 100%);border-top:1px solid rgba(197,160,89,0.15);border-bottom:1px solid rgba(197,160,89,0.15);text-align:center;}
+    .cta-band h2{color:var(--white);}
+    .cta-band p{margin:0 auto 1.8rem;color:rgba(255,255,255,0.62);max-width:760px;}
+    .note{font-size:0.8rem;line-height:1.7;color:#718096;margin-top:1rem;}
+    .footer-space{height:1px;}
+    #result-panel{display:none;}
+    #result-panel.visible{display:block;}
+    .error-msg{font-size:0.8rem;color:#C0392B;margin-top:0.5rem;display:none;}
+    .error-msg.visible{display:block;}
+    .btn-wa{display:inline-flex;align-items:center;gap:0.6rem;background:#25D366;color:#fff;padding:0.9rem 1.35rem;border-radius:2px;font-size:0.78rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:background .2s ease,transform .2s ease;}
+    .btn-wa:hover{background:#1da851;transform:translateY(-2px);}
+    @media (max-width: 900px){.calc-grid{grid-template-columns:1fr}.calc-actions{grid-template-columns:1fr}.hero{padding-top:7.6rem}}
+  </style>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Calculadora de Negociación de Deuda Bancaria | SIGLEP","url":"https://siglep.lat/calculadoras/patrimonial/deuda-bancaria/","description":"Estima cuánto podrías pagar en una negociación de deuda bancaria.","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://siglep.lat/"},{"@type":"ListItem","position":2,"name":"Calculadoras","item":"https://siglep.lat/calculadoras/"},{"@type":"ListItem","position":3,"name":"Patrimonial","item":"https://siglep.lat/calculadoras/patrimonial/"},{"@type":"ListItem","position":4,"name":"Negociación de Deuda","item":"https://siglep.lat/calculadoras/patrimonial/deuda-bancaria/"}]}}</script>
+  <script defer src="/shared/site-shell.js"></script>
+<link rel="stylesheet" href="/shared/mobile.css">
+</head>
+<body>
+  <nav class="siglep-shell-nav" id="navbar"></nav>
+
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="breadcrumbs">
+          <a href="/calculadoras/">Calculadoras</a>
+          <span class="sep">›</span>
+          <a href="/calculadoras/patrimonial/">Patrimonial</a>
+          <span class="sep">›</span>
+          <span>Negociación de Deuda</span>
+        </div>
+        <div class="eyebrow">Calculadora Patrimonial</div>
+        <h1>NEGOCIACIÓN DE <em>DEUDA BANCARIA</em></h1>
+        <p class="lead">Los bancos prefieren recuperar algo a no recuperar nada. Estima cuánto podrías pagar en una negociación — antes de hablar con tu acreedor.</p>
+        <div class="hero-actions">
+          <a href="https://wa.me/525661755112" class="btn btn-primary">Consulta Gratuita por WhatsApp</a>
+          <a href="/calculadoras/patrimonial/" class="btn btn-secondary">Ver más calculadoras</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-inner">
+        <h2>Simulador de <em>Negociación</em></h2>
+        <p class="lead">Ingresa los datos de tu deuda para obtener una estimación orientativa del monto negociable y el ahorro potencial.</p>
+
+        <div class="calc-grid">
+          <!-- Formulario -->
+          <div class="panel dark">
+            <div class="panel-head">
+              <div class="kicker">Simulador</div>
+              <h3>Negociación de Deuda</h3>
+              <p>¿Cuánto podrías pagar realmente?</p>
+            </div>
+            <div class="panel-body">
+              <div class="field">
+                <label>Deuda Total Actual (MXN)</label>
+                <input type="number" id="deuda-total" placeholder="Ej: 50,000" min="0">
+              </div>
+              <div class="field">
+                <label>Tiempo sin pagar (meses)</label>
+                <input type="number" id="meses-mora" placeholder="Ej: 6" min="0" max="120">
+                <span class="help">Meses desde el último pago realizado.</span>
+              </div>
+              <div class="field">
+                <label>Tipo de Deuda</label>
+                <select id="tipo-deuda">
+                  <option value="tarjeta">Tarjeta de Crédito</option>
+                  <option value="personal">Crédito Personal</option>
+                  <option value="hipotecario">Crédito Hipotecario</option>
+                  <option value="automotriz">Crédito Automotriz</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>¿Tienes capacidad de pago?</label>
+                <select id="capacidad-pago">
+                  <option value="si">Sí, pero reducida</option>
+                  <option value="nula">En este momento no</option>
+                  <option value="liquidar">Puedo liquidar en una sola exhibición</option>
+                </select>
+              </div>
+              <div class="calc-actions">
+                <button class="calc-button" onclick="calcularDeuda()">→ Simular Negociación</button>
+                <button class="calc-button calc-button-secondary" onclick="resetCalc()">Limpiar</button>
+              </div>
+              <div class="error-msg" id="error-msg">Por favor, ingresa la deuda total y los meses sin pagar.</div>
+            </div>
+          </div>
+
+          <!-- Panel de resultado -->
+          <div>
+            <!-- Estado inicial -->
+            <div class="panel" id="initial-panel">
+              <div class="panel-head">
+                <div class="kicker">¿Cómo funciona?</div>
+                <h3>Las deudas bancarias tienen solución legal.</h3>
+              </div>
+              <div class="panel-body">
+                <ul class="info-list" style="margin-top:0;">
+                  <li style="color:#4A5568;">Negociación directa con el área de cobranza bancaria</li>
+                  <li style="color:#4A5568;">Quitas de hasta el 65% en casos calificados</li>
+                  <li style="color:#4A5568;">Planes de pago que sí puedes cumplir</li>
+                  <li style="color:#4A5568;">Sin arruinar tu historial de forma definitiva</li>
+                  <li style="color:#4A5568;">Asesoría antes de hablar con el banco</li>
+                </ul>
+                <p class="note">La simulación es referencial. Los resultados reales dependen del banco, el tipo de deuda y tu situación particular.</p>
+              </div>
+            </div>
+
+            <!-- Resultado -->
+            <div id="result-panel">
+              <div class="result">
+                <div class="result-box">
+                  <div class="result-kicker">Estimación de Negociación</div>
+                  <div class="breakdown" id="result-breakdown"></div>
+                  <div class="savings-highlight">
+                    <div class="savings-label">Ahorro Potencial Estimado</div>
+                    <div class="savings-amount" id="savings-amount">$0.00</div>
+                  </div>
+                  <p class="result-note" id="estrategia-text"></p>
+                </div>
+                <div style="margin-top:0.5rem;">
+                  <a href="#" class="btn-wa" id="wa-btn" target="_blank" rel="noopener noreferrer">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2.001c-5.514 0-9.998 4.484-9.998 9.998 0 1.761.462 3.413 1.27 4.847L2.005 22l5.273-1.381c1.378.748 2.954 1.179 4.721 1.179h.004c5.513 0 9.997-4.484 9.997-9.998 0-5.515-4.484-9.999-9.997-9.999H11.999zm0 1.8h.003c4.52 0 8.198 3.678 8.198 8.198 0 4.521-3.678 8.199-8.198 8.199h-.003c-1.584 0-3.072-.443-4.341-1.211l-.311-.185-3.129.82.834-3.047-.204-.323c-.839-1.313-1.316-2.85-1.316-4.455 0-4.52 3.678-8.197 8.197-8.197z"/></svg>
+                    Negociar mi deuda con asesoría
+                  </a>
+                  <p class="note">⚠ Estimación referencial. Los resultados reales varían según el banco, el historial y la estrategia de negociación. Consulta sin costo ni compromiso.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background:var(--gray-light);padding-top:3rem;padding-bottom:3rem;">
+      <div class="section-inner">
+        <h2>Preguntas <em>frecuentes</em></h2>
+        <div class="faq-grid">
+          <details class="faq-item">
+            <summary>¿El banco realmente acepta quitas?</summary>
+            <p>Sí. Los bancos prefieren recuperar una parte a no recuperar nada. Cuando una deuda lleva varios meses sin pago, el área de cobranza tiene margen para negociar quitas, reestructuras o planes de pago especiales. La clave es saber cuándo y cómo negociar.</p>
+          </details>
+          <details class="faq-item">
+            <summary>¿Negociar afecta mi historial crediticio?</summary>
+            <p>La deuda sin pagar ya afecta tu historial. Una negociación bien llevada puede cerrar el adeudo y evitar que siga dañándolo. En muchos casos es mejor negociar que dejar la deuda en mora indefinidamente.</p>
+          </details>
+          <details class="faq-item">
+            <summary>¿Puedo negociar aunque ya me demandaron?</summary>
+            <p>En muchos casos sí. Incluso con un juicio en curso puede haber margen para un convenio judicial. Lo importante es no ignorar las notificaciones y buscar asesoría antes de que se dicte sentencia.</p>
+          </details>
+          <details class="faq-item">
+            <summary>¿La calculadora aplica a deudas con cualquier banco?</summary>
+            <p>La simulación es orientativa y aplica a deudas bancarias en general. Los porcentajes reales dependen del banco, el tipo de producto, el tiempo de mora y las políticas internas de cobranza de cada institución.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="section-inner">
+        <h2>¿La cifra te parece alcanzable?</h2>
+        <p>Cuéntanos tu caso. Revisamos los términos reales y negociamos por ti — sin que tengas que hablar directamente con el banco.</p>
+        <a href="https://wa.me/525661755112" class="btn btn-primary">Consulta Gratuita por WhatsApp</a>
+      </div>
+    </section>
+  </main>
+
+  <footer></footer>
+
+  <script>
+  function fmt(n) {
+    return new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(n);
+  }
+
+  function calcularDeuda() {
+    const deuda = parseFloat(document.getElementById('deuda-total').value);
+    const meses = parseFloat(document.getElementById('meses-mora').value);
+    const tipo  = document.getElementById('tipo-deuda').value;
+    const cap   = document.getElementById('capacidad-pago').value;
+    const errEl = document.getElementById('error-msg');
+
+    if (!deuda || deuda <= 0 || !meses || meses < 0) {
+      errEl.classList.add('visible');
+      return;
+    }
+    errEl.classList.remove('visible');
+
+    let pct = 0;
+    let estrategia = '';
+    if (meses >= 12) {
+      pct = 0.55; estrategia = 'Alta posibilidad de quita significativa';
+    } else if (meses >= 6) {
+      pct = 0.40; estrategia = 'Buena posición para negociar quita';
+    } else if (meses >= 3) {
+      pct = 0.25; estrategia = 'Posible reestructura o quita parcial';
+    } else {
+      pct = 0.15; estrategia = 'Reestructura o plan de pagos más probable';
+    }
+
+    if (tipo === 'tarjeta')   pct = Math.min(pct + 0.10, 0.65);
+    if (tipo === 'personal')  pct = Math.min(pct + 0.05, 0.60);
+    if (cap  === 'liquidar')  pct = Math.min(pct + 0.10, 0.65);
+
+    const ahorro   = deuda * pct;
+    const apagarr  = deuda - ahorro;
+
+    const breakdown = document.getElementById('result-breakdown');
+    breakdown.innerHTML = `
+      <div class="breakdown-row"><span>Deuda original</span><strong>${fmt(deuda)}</strong></div>
+      <div class="breakdown-row"><span>Quita estimada (${Math.round(pct * 100)}%)</span><strong style="color:var(--gold);">- ${fmt(ahorro)}</strong></div>
+      <div class="breakdown-row"><span>Pago estimado negociado</span><strong style="color:var(--navy-deep);">${fmt(apagarr)}</strong></div>
+    `;
+
+    document.getElementById('savings-amount').textContent = fmt(ahorro);
+    document.getElementById('estrategia-text').textContent = estrategia + '. Esta es una referencia orientativa — el monto real depende del banco, el tipo de deuda y tu historial.';
+
+    const msg = encodeURIComponent(`Hola SIGLEP, quiero negociar una deuda de ${fmt(deuda)} (${meses} meses sin pagar). La simulación estima un pago de ${fmt(apagarr)}. ¿Me pueden asesorar?`);
+    document.getElementById('wa-btn').href = `https://wa.me/525661755112?text=${msg}`;
+
+    document.getElementById('initial-panel').style.display = 'none';
+    document.getElementById('result-panel').classList.add('visible');
+  }
+
+  function resetCalc() {
+    document.getElementById('deuda-total').value = '';
+    document.getElementById('meses-mora').value = '';
+    document.getElementById('tipo-deuda').value = 'tarjeta';
+    document.getElementById('capacidad-pago').value = 'si';
+    document.getElementById('error-msg').classList.remove('visible');
+    document.getElementById('initial-panel').style.display = '';
+    document.getElementById('result-panel').classList.remove('visible');
+  }
+  </script>
+</body>
+</html>

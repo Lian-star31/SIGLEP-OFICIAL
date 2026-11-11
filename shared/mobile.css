@@ -1,0 +1,259 @@
+/* ── SIGLEP Mobile-First Overrides ── shared/mobile.css ── */
+
+/* === FLOATING BUTTONS: evitar que tapen contenido === */
+@media (max-width: 767px) {
+  .float-wa {
+    bottom: 1rem;
+    right: 1rem;
+    padding: 0.85rem;
+    border-radius: 50%;
+    gap: 0;
+  }
+  .float-wa .btn-text { display: none; }
+  .float-wa svg { width: 22px; height: 22px; }
+
+  .owl-trigger {
+    bottom: 4.6rem;
+    right: 1rem;
+    width: 50px;
+    height: 50px;
+  }
+  .chat-panel {
+    bottom: 8.2rem;
+    right: 0.75rem;
+    width: calc(100vw - 1.5rem);
+  }
+}
+
+/* === HERO HOME PAGE (.hero) === */
+@media (max-width: 767px) {
+  .hero {
+    padding: 5.5rem 1.2rem 3rem;
+    min-height: auto;
+  }
+  .hero h1 {
+    font-size: clamp(1.9rem, 7vw, 2.8rem);
+    line-height: 1.12;
+    margin-bottom: 0.9rem;
+  }
+  .hero-brand-tagline {
+    font-size: 1rem;
+    margin-bottom: 0.9rem;
+  }
+  .hero-sub {
+    font-size: 0.95rem;
+    line-height: 1.72;
+    margin-bottom: 1.8rem;
+  }
+  .hero-trust {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    gap: 1.5rem 2rem;
+  }
+  .hero-stat .num { font-size: 1.75rem; }
+  .hero-stat .label { font-size: 0.63rem; }
+}
+
+/* === PAGE HERO INTERIOR (.page-hero) === */
+@media (max-width: 767px) {
+  .page-hero {
+    padding: 5.5rem 1.2rem 2.5rem;
+  }
+  .page-hero h1 {
+    font-size: clamp(1.9rem, 7.5vw, 3rem);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+  .page-hero-sub {
+    font-size: 0.95rem;
+    line-height: 1.72;
+    margin-bottom: 1.5rem;
+  }
+  .breadcrumb { margin-bottom: 0.9rem; }
+  .page-eyebrow { margin-bottom: 0.8rem; }
+}
+
+/* === SECCIONES: reducir padding vertical === */
+@media (max-width: 767px) {
+  section { padding: 2.5rem 1rem; }
+  .dark-section { padding: 2.5rem 1rem; }
+  .faq-section { padding: 2.5rem 1rem; }
+  .testimonios { padding: 2.5rem 1rem; }
+  .area-links { padding: 2.5rem 1rem; }
+  .highlight-band { padding: 2.5rem 1rem; }
+  .contact-band { padding: 1.8rem 1rem; }
+  footer { padding: 2.5rem 1rem 5rem; }
+  .urgencia { padding: 2.5rem 1rem; }
+  .calculadora { padding: 2.5rem 1rem; }
+}
+
+/* === TIPOGRAFÍA: legibilidad móvil === */
+@media (max-width: 767px) {
+  .section-title {
+    font-size: clamp(1.6rem, 6vw, 2.5rem);
+    line-height: 1.15;
+    margin-bottom: 0.75rem;
+  }
+  .highlight-band h2 {
+    font-size: clamp(1.5rem, 6vw, 2.4rem);
+    margin-bottom: 0.75rem;
+  }
+  .urgencia h2 {
+    font-size: clamp(1.6rem, 6.5vw, 2.6rem);
+    margin-bottom: 0.75rem;
+  }
+  .section-tag { font-size: 0.7rem; margin-bottom: 0.6rem; }
+  .section-lead {
+    font-size: 0.95rem;
+    line-height: 1.72;
+  }
+  .gold-divider { margin: 0.9rem 0; }
+  .urgencia p { font-size: 0.95rem; margin-bottom: 1.8rem; }
+  .highlight-band p { font-size: 0.95rem; margin-bottom: 1.8rem; }
+  .area-links h3 { font-size: 1.3rem; margin-bottom: 1.2rem; }
+  .alc-desc { font-size: 0.8rem; }
+}
+
+/* === BOTONES: tap target ≥ 48px === */
+@media (max-width: 767px) {
+  .btn-primary,
+  .btn-secondary,
+  .btn-wa {
+    min-height: 48px;
+    font-size: 0.84rem;
+    padding: 0.9rem 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .hero-actions,
+  .urgencia-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+  }
+}
+
+/* === TARJETAS DE SERVICIO === */
+@media (max-width: 767px) {
+  .service-grid { gap: 0.9rem; margin-top: 1.5rem; }
+  .service-card { padding: 1.4rem 1.2rem; gap: 0.75rem; }
+  .sc-title { font-size: 1.2rem; }
+  .sc-list li { font-size: 0.83rem; }
+  .sc-cta { font-size: 0.74rem; }
+}
+
+/* === TARJETAS CALCULADORAS (.calc-card) === */
+@media (max-width: 767px) {
+  .calc-card { padding: 1.3rem 1.1rem; border-radius: 8px; }
+  .calc-card h3 { font-size: 1.1rem; }
+  .calc-card p { font-size: 0.88rem; }
+}
+
+/* === TESTIMONIOS === */
+@media (max-width: 767px) {
+  .testi-grid { gap: 0.9rem; margin-top: 1.5rem; }
+  .testi-card { padding: 1.4rem 1.2rem; }
+  .testi-text { font-size: 0.86rem; }
+  .testi-name { font-size: 0.82rem; }
+}
+
+/* === FAQ === */
+@media (max-width: 767px) {
+  .faq-grid { margin-top: 1.5rem; }
+  .faq-q { padding: 1rem 1.2rem; font-size: 0.9rem; }
+  .faq-a { padding: 0 1.2rem 1rem; font-size: 0.85rem; line-height: 1.72; }
+}
+
+/* === BANDA DE CONTACTO === */
+@media (max-width: 767px) {
+  .contact-band-inner {
+    gap: 1.2rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .contact-item .ci-value { font-size: 0.9rem; }
+  .contact-item .ci-label { font-size: 0.62rem; }
+}
+
+/* === FOOTER === */
+@media (max-width: 767px) {
+  .footer-inner { gap: 1.5rem; padding-bottom: 1.5rem; }
+  .footer-brand .logo { font-size: 1.4rem; }
+  .footer-brand p { font-size: 0.76rem; line-height: 1.6; }
+  .footer-col h5 { font-size: 0.65rem; margin-bottom: 0.75rem; }
+  .footer-col ul li a { font-size: 0.8rem; }
+  .footer-bottom { font-size: 0.7rem; }
+}
+
+/* === CALCULADORAS: hero y formulario === */
+@media (max-width: 767px) {
+  .calc-hero { padding: 5.5rem 1.2rem 2.5rem; }
+  .calc-form-wrap { padding: 1.5rem 1rem; }
+  .result-box { padding: 1.2rem 1rem; }
+  .result-value { font-size: clamp(1.8rem, 7vw, 2.5rem); }
+}
+
+/* === NOSOTROS: ajustes específicos === */
+@media (max-width: 767px) {
+  .team-grid { gap: 1rem; }
+  .team-card { padding: 1.4rem 1.2rem; }
+}
+
+/* === BLOG === */
+@media (max-width: 767px) {
+  .blog-grid { gap: 1rem; }
+  .blog-card-body { padding: 1.2rem; }
+  .blog-card-title { font-size: 1.1rem; }
+}
+
+/* === HIGHLIGHT BAND: botones en columna en móvil === */
+@media (max-width: 767px) {
+  /* Wrapper de botones sin clase (inline style display:flex) */
+  .highlight-band .container > div {
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+    width: 100% !important;
+    align-items: stretch !important;
+  }
+  .highlight-band .container > div .btn-primary,
+  .highlight-band .container > div .btn-secondary,
+  .highlight-band .container > div .btn-wa {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+/* === ARTICLE BLOG: hero y cuerpo === */
+@media (max-width: 767px) {
+  .article-hero { padding: 5.5rem 1.2rem 2.5rem; }
+  .article-hero h1 { font-size: clamp(1.8rem, 7vw, 2.8rem); line-height: 1.1; }
+  .article-body { padding: 2.5rem 1rem; }
+  .article-container h2 { font-size: 1.5rem; margin: 2rem 0 0.75rem; }
+  .article-container h3 { font-size: 1.15rem; margin: 1.5rem 0 0.6rem; }
+  .article-container p { font-size: 0.93rem; line-height: 1.8; }
+  .cta-article { padding: 2rem 1.2rem; }
+  .cta-article h3 { font-size: 1.5rem; }
+  .related-posts { padding: 2rem 1rem; }
+  .related-grid { gap: 0.9rem; }
+}
+
+/* === HOME: hero-trust stats 2 columnas === */
+@media (max-width: 767px) {
+  .hero-trust {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* === VERY SMALL (<400px) === */
+@media (max-width: 400px) {
+  .page-hero h1,
+  .hero h1 { font-size: 1.85rem; }
+  .section-title { font-size: 1.5rem; }
+  .btn-primary, .btn-secondary, .btn-wa { font-size: 0.78rem; }
+  section { padding: 2rem 0.9rem; }
+}

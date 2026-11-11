@@ -201,6 +201,17 @@
     section{padding:3.5rem 1.2rem;}
     .service-grid{grid-template-columns:1fr;}
   }
+  @media(max-width:767px){
+    .sc-hidden-mobile{display:none;}
+    .sc-hidden-mobile.sc-revealed{display:flex!important;}
+    .sc-show-more{display:flex;align-items:center;justify-content:center;gap:0.5rem;width:100%;margin-top:1.2rem;padding:0.85rem 1.2rem;background:transparent;border:1px solid rgba(197,160,89,0.45);color:var(--gold);font-family:var(--font-body);font-size:0.78rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;border-radius:2px;cursor:pointer;transition:background .2s,color .2s;}
+    .sc-show-more:hover{background:rgba(197,160,89,0.08);}
+    .service-card .sc-body{display:none;}
+  }
+  @media(min-width:768px){
+    .sc-hidden-mobile{display:flex;}
+    .sc-show-more{display:none;}
+  }
   @media print{nav,.nav-mobile,.float-wa{display:none!important;}}
 
   /* ── AI CHATBOT (OWL) — inyectado ── */
@@ -495,7 +506,7 @@
         <a href="https://wa.me/525661755112?text=Hola%20SIGLEP%2C%20quiero%20revisar%20mi%20finiquito" class="sc-cta" target="_blank" rel="noopener noreferrer">Revisar mi finiquito <span>→</span></a>
       </div>
 
-      <div class="service-card">
+      <div class="service-card sc-hidden-mobile">
         <span class="sc-num">04</span>
         <div class="sc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
         <div class="sc-tag">Horas Extra</div>
@@ -518,7 +529,7 @@
         <a href="https://wa.me/525661755112?text=Hola%20SIGLEP%2C%20mi%20patr%C3%B3n%20no%20me%20paga%20las%20horas%20extra" class="sc-cta" target="_blank" rel="noopener noreferrer">Reclamar mis horas extra <span>→</span></a>
       </div>
 
-      <div class="service-card">
+      <div class="service-card sc-hidden-mobile">
         <span class="sc-num">05</span>
         <div class="sc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
         <div class="sc-tag">Acoso Laboral</div>
@@ -541,7 +552,7 @@
         <a href="https://wa.me/525661755112?text=Hola%20SIGLEP%2C%20estoy%20sufriendo%20acoso%20laboral%20y%20necesito%20orientaci%C3%B3n" class="sc-cta" target="_blank" rel="noopener noreferrer">Orientación sobre acoso <span>→</span></a>
       </div>
 
-      <div class="service-card">
+      <div class="service-card sc-hidden-mobile">
         <span class="sc-num">06</span>
         <div class="sc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg></div>
         <div class="sc-tag">Derechos del Trabajador</div>
@@ -565,6 +576,7 @@
       </div>
 
     </div>
+    <button class="sc-show-more" id="scShowMore" onclick="toggleServices()">Ver 3 servicios más ↓</button>
   </div>
 </section>
 
@@ -812,6 +824,15 @@
 
 
 // ══════════════════════════════════════════
+
+// ── SERVICIOS MÓVIL — mostrar/ocultar ──
+function toggleServices() {
+  const hidden = document.querySelectorAll('.sc-hidden-mobile');
+  const btn = document.getElementById('scShowMore');
+  const expanded = hidden[0] && hidden[0].classList.contains('sc-revealed');
+  hidden.forEach(el => el.classList.toggle('sc-revealed', !expanded));
+  if (btn) btn.textContent = expanded ? 'Ver 3 servicios más ↓' : 'Ver menos ↑';
+}
 
 // ── SMOOTH ANCHORS ──
 document.querySelectorAll('a[href^="#"]').forEach(a => {

@@ -18,6 +18,10 @@
     ['Seguridad Social', '/calculadoras/seguridad-social/'],
   ];
 
+  // SIGLEP VISA: línea de asesoría y gestión de citas (visa americana y pasaporte).
+  // Va como pestaña propia, fuera del desplegable de áreas legales.
+  const VISA = ['Visa y Pasaporte', '/visa/'];
+
   const PHONE = '525661755112';
   const WA = `https://wa.me/${PHONE}`;
   const SHELL_STYLE_ID = 'siglep-shell-style';
@@ -516,6 +520,7 @@
             ${services}
           </div>
         </li>
+        <li><a href="${VISA[1]}" data-nav="visa">${escapeHtml(VISA[0])}</a></li>
         <li><a href="/calculadoras/" data-nav="calculadoras">Calculadoras</a></li>
         <li><a href="/expediente/" data-nav="expediente">Expediente</a></li>
         <li><a href="/nosotros/" data-nav="nosotros">Nosotros</a></li>
@@ -544,6 +549,8 @@
             </div>
           </details>
 
+          <a class="siglep-shell-mobile-link" href="${VISA[1]}" onclick="closeMobileNav()">${escapeHtml(VISA[0])} <span>→</span></a>
+
           <details class="siglep-shell-mobile-accordion">
             <summary class="siglep-shell-mobile-summary">Herramientas <span class="accordion-icon"></span></summary>
             <div class="siglep-shell-mobile-accordion-body">
@@ -571,6 +578,7 @@
           <h5>Áreas</h5>
           <ul>
             ${SERVICES.map(([label, href]) => `<li><a href="${href}">${escapeHtml(label)}</a></li>`).join('')}
+            <li><a href="${VISA[1]}">${escapeHtml(VISA[0])}</a></li>
           </ul>
         </div>
         <div>
@@ -736,6 +744,7 @@
         '/seguridad-social/',
       ].some((prefix) => path.startsWith(prefix));
       if (navKey === 'calculators') active = path.startsWith('/calculadoras/');
+      if (navKey === 'visa') active = path.startsWith('/visa/');
       if (active) {
         el.setAttribute('aria-current', 'page');
       }
@@ -853,9 +862,52 @@
     });
   }
 
+  // Las páginas antiguas traen su propio menú escrito en el HTML, así que el
+  // shell no lo reemplaza. Insertamos ahí la pestaña de SIGLEP VISA para que
+  // aparezca en todo el sitio sin tocar archivo por archivo.
+  function ensureVisaLink() {
+    const href = VISA[1];
+    const list = document.querySelector('ul.siglep-shell-links');
+    if (list && !list.querySelector('a[href="' + href + '"]')) {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = href;
+      a.textContent = VISA[0];
+      a.setAttribute('data-nav', 'visa');
+      li.appendChild(a);
+      // Mismo lugar que en el menú generado: justo después de "Servicios".
+      const servicesItem = list.querySelector('li.siglep-shell-services');
+      const ctaItem = list.querySelector('.siglep-shell-cta');
+      const beforeCta = ctaItem ? ctaItem.closest('li') : null;
+      if (servicesItem) {
+        servicesItem.insertAdjacentElement('afterend', li);
+      } else if (beforeCta) {
+        list.insertBefore(li, beforeCta);
+      } else {
+        list.appendChild(li);
+      }
+    }
+
+    const mobile = document.querySelector('.siglep-shell-mobile');
+    if (mobile && !mobile.querySelector('a[href="' + href + '"]')) {
+      const link = document.createElement('a');
+      link.href = href;
+      link.textContent = VISA[0];
+      link.setAttribute('onclick', 'closeMobileNav()');
+      const mobileCta = mobile.querySelector('.siglep-shell-cta');
+      if (mobileCta && mobileCta.parentNode) {
+        mobileCta.parentNode.insertBefore(link, mobileCta);
+      } else {
+        const group = mobile.querySelector('.siglep-shell-mobile-group, .siglep-shell-mobile-panel');
+        if (group) group.appendChild(link);
+      }
+    }
+  }
+
   function init() {
     injectStyles();
     replaceNavAndFooter();
+    ensureVisaLink();
     addMobileHelpers();
     addServicesDropdownHelpers();
     markActiveLinks();

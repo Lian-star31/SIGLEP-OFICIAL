@@ -44,6 +44,7 @@
   margin-bottom: 0.5rem;
 }
 
+
 /* === FLOATING BUTTONS: evitar que tapen contenido === */
 @media (max-width: 767px) {
   .float-wa {

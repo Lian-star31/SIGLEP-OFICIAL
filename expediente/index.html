@@ -77,6 +77,8 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:900;background:rgba(8,12,20,0
 .area-card{border:2px solid rgba(197,160,89,0.2);border-radius:4px;padding:1.8rem 1.4rem;cursor:pointer;transition:all 0.25s;text-align:center;background:var(--white);}
 .area-card:hover,.area-card.selected{border-color:var(--gold);background:rgba(197,160,89,0.05);}
 .area-card.selected{box-shadow:0 0 0 3px rgba(197,160,89,0.2);}
+a.area-card{display:block;text-decoration:none;color:inherit;}
+.ac-nota{font-size:0.66rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-top:0.7rem;}
 .ac-icon{font-size:2rem;margin-bottom:0.8rem;}
 .ac-title{font-family:var(--font-display);font-size:1.2rem;font-weight:700;color:var(--navy-deep);margin-bottom:0.4rem;}
 .ac-desc{font-size:0.75rem;color:#6B7280;line-height:1.5;font-weight:300;}
@@ -516,7 +518,7 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:900;background:rgba(8,12,20,0
     <!-- PASO 1: ÁREA -->
     <div class="step active" id="step-1">
       <h2 class="step-title">¿Cuál es tu situación?</h2>
-      <p class="step-sub">Selecciona el área que mejor describe tu caso. Esto nos ayuda a hacerte las preguntas correctas.</p>
+      <p class="step-sub">Selecciona el área que mejor describe tu caso. Esto nos ayuda a hacerte las preguntas correctas. Si lo tuyo es un trámite de visa o pasaporte, te llevamos a la sección que lo atiende.</p>
       <div class="area-cards">
         <div class="area-card" onclick="seleccionarArea('laboral', this)">
           <div class="ac-icon">⚖️</div>
@@ -538,6 +540,14 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:900;background:rgba(8,12,20,0
           <div class="ac-title">Civil / Patrimonial</div>
           <div class="ac-desc">Herencias, testamentos, contratos, daño moral, deudas, protección de bienes</div>
         </div>
+        <!-- Visa y pasaporte no es un caso legal: no pasa por el diagnóstico.
+             Lleva a su propia sección, donde se capta con sus propias preguntas. -->
+        <a class="area-card" href="/visa/" data-area="visa">
+          <div class="ac-icon">🛂</div>
+          <div class="ac-title">Visa y Pasaporte</div>
+          <div class="ac-desc">Citas para visa americana B1/B2 y pasaporte mexicano, preparación del DS-160</div>
+          <div class="ac-nota">Ir a la sección →</div>
+        </a>
       </div>
       <button class="btn-next" id="btn-1" onclick="irPaso(2)" disabled>Continuar <span>→</span></button>
     </div>

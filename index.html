@@ -219,6 +219,19 @@
 
   /* ── CONFIANZA ── */
   .confianza { background: var(--gray-light); }
+  /* Bloque SIGLEP VISA: línea de gestión de citas, distinta de las áreas legales */
+  .visa-band { background: linear-gradient(150deg, var(--navy-deep) 0%, var(--navy) 60%, var(--navy-mid) 100%); color: rgba(255,255,255,0.78); }
+  .visa-band-inner { display: flex; flex-wrap: wrap; gap: 3rem; align-items: center; }
+  .visa-band .left { flex: 1.1; min-width: 280px; }
+  .visa-band .right { flex: 0.9; min-width: 260px; }
+  .visa-band .section-title { color: #fff; }
+  .visa-band .section-title em { color: var(--gold-light, #D4B878); }
+  .visa-band .section-lead { color: rgba(255,255,255,0.72); }
+  .visa-band-list { list-style: none; display: flex; flex-direction: column; gap: 0.9rem; }
+  .visa-band-list li { display: flex; gap: 0.7rem; align-items: flex-start; font-size: 0.86rem; font-weight: 300; line-height: 1.6; color: rgba(255,255,255,0.8); }
+  .visa-band-list li::before { content: "✓"; color: var(--gold); font-weight: 700; flex: 0 0 auto; }
+  .visa-band-note { font-size: 0.72rem; line-height: 1.6; color: rgba(255,255,255,0.45); margin-top: 1.4rem; border-left: 2px solid rgba(197,160,89,0.5); padding-left: 0.9rem; }
+  .visa-band .btn-secondary { margin-top: 1.6rem; display: inline-block; }
   .confianza-intro { display: flex; flex-wrap: wrap; gap: 3rem; align-items: flex-start; margin-bottom: 4rem; }
   .confianza-intro .left { flex: 1; min-width: 260px; }
   .confianza-intro .right { flex: 1; min-width: 260px; font-family: var(--font-display); font-size: 1.2rem; font-style: italic; line-height: 1.7; border-left: 2px solid var(--gold); padding-left: 1.5rem; color: var(--navy); }
@@ -726,6 +739,30 @@
     <button type="button" class="poderes-arrow poderes-arrow-next" onclick="scrollAreas(1)" aria-label="Ver más áreas">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
     </button>
+    </div>
+  </div>
+</section>
+
+<!-- SIGLEP VISA -->
+<section class="visa-band" id="visa">
+  <div class="container">
+    <div class="visa-band-inner reveal">
+      <div class="left">
+        <div class="section-tag">SIGLEP VISA</div>
+        <h2 class="section-title">Citas para <em>visa americana</em><br>y pasaporte mexicano.</h2>
+        <div class="gold-divider"></div>
+        <p class="section-lead">Además de los servicios jurídicos, SIGLEP atiende trámites migratorios: asesoría y gestión de citas para la visa estadounidense B1/B2 y el pasaporte mexicano, con acompañamiento para preparar el formulario DS-160 y la entrevista consular.</p>
+        <a href="/visa/" class="btn-secondary">Ver asesoría de visa y pasaporte →</a>
+      </div>
+      <div class="right">
+        <ul class="visa-band-list">
+          <li>Revisión de requisitos y documentación antes de pagar cuotas oficiales</li>
+          <li>Gestión y seguimiento de la programación de tu cita</li>
+          <li>Orientación campo por campo para el DS-160</li>
+          <li>Preparación para la entrevista consular</li>
+        </ul>
+        <p class="visa-band-note">SIGLEP VISA es un servicio privado de asesoría y gestión. No es una dependencia gubernamental y no garantiza la aprobación de visas ni la disponibilidad de citas.</p>
+      </div>
     </div>
   </div>
 </section>

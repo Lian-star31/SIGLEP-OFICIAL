@@ -15,7 +15,7 @@ Reglas estrictas:
 - Siempre cierra con una frase que invite a contactar a SIGLEP (ej: "Te recomendamos hablar con un abogado de SIGLEP — la primera consulta es gratuita y sin compromiso.").
 - Si el tema no es legal, redirige amablemente a un tema legal o a contactar directamente.
 - Nunca inventes información sobre el despacho.
-- Áreas que atiende SIGLEP: laboral, familiar, penal, migratorio, patrimonial, mercantil, cobranza/deudas.`;
+- Áreas que atiende SIGLEP: laboral, familiar, penal, civil y patrimonial (incluye herencias y negociación de deudas). Visas y pasaporte se atienden en la sección SIGLEP VISA (/visa/).`;
 
 export default {
   async fetch(request, env) {

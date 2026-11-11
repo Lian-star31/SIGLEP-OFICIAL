@@ -11,7 +11,14 @@
   <meta property="og:description" content="Calculadora orientativa de herencia y sucesión en México para revisar tamaño del patrimonio y herederos.">
   <meta property="og:url" content="https://siglep.lat/calculadoras/patrimonial/herencia-sucesion/">
   <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_MX">
+  <meta property="og:site_name" content="SIGLEP">
   <meta property="og:image" content="https://siglep.lat/img/og-siglep.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+  <meta property="og:image:alt" content="SIGLEP — Abogados en México">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://siglep.lat/img/og-siglep.png">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="apple-touch-icon" href="/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -183,6 +190,18 @@
     </div>
 
       <div class="field">
+        <label for="mortuorias">Deudas mortuorias (opcional, MXN)</label>
+        <input id="mortuorias" type="number" inputmode="decimal" placeholder="Ej. 35000" min="0" step="any" oninput="runCalc()">
+        <span class="help">Gastos del funeral y relacionados con el fallecimiento. Se pagan en primer lugar (art. 1754 CCF). Si lo dejas vacío se usa una estimación orientativa.</span>
+      </div>
+
+      <div class="field">
+        <label for="notariales">Gastos notariales o judiciales (opcional, MXN)</label>
+        <input id="notariales" type="number" inputmode="decimal" placeholder="Según cotización del notario" min="0" step="any" oninput="runCalc()">
+        <span class="help">Los honorarios dependen del arancel de cada estado y del valor de los bienes. Si tienes cotización, captúrala; si no, se usa una estimación orientativa.</span>
+      </div>
+
+      <div class="field">
         <label for="testamento">¿Existe testamento notarial?</label>
         <select id="testamento" onchange="runCalc()">
           <option value="si">Sí — testamento ante notario</option><option value="no">No — sucesión intestada</option><option value="duda">No lo sé</option>
@@ -215,9 +234,11 @@
           <li>Art. 1281 CCF: la herencia comprende bienes, derechos y obligaciones no extinguibles.</li>
           <li>Art. 1602 CCF: intestado → heredan en orden: descendientes, cónyuge, ascendientes, colaterales.</li>
           <li>Art. 1368 CCF: el testador debe dejar alimentos a cónyuge, descendientes y ascendientes en necesidad.</li>
-          <li>Art. 93 fr. XXII LISR: herencia exenta de ISR (informar si supera $500,000, Art. 150 LISR).</li>
-          <li>ISAI sobre inmuebles heredados: varía entre 2% y 4.5% según entidad federativa.</li>
-          <li>Honorarios notariales orientativos: ~2.5% del patrimonio (mín. $15,000).</li>
+          <li>Art. 1754 CCF: al liquidar la herencia se pagan en primer lugar las deudas mortuorias, que pueden pagarse incluso antes de formar el inventario.</li>
+          <li>Art. 93 fr. XXII LISR: los ingresos por herencia o legado están exentos de ISR.</li>
+          <li>Art. 150 LISR, tercer párrafo (y su reglamento): si la suma de tus ingresos del año, incluidos los exentos, supera $500,000, debes informar la herencia en tu declaración anual. Según el último párrafo del art. 93, si estás obligado y no la informas, la exención no se aplica.</li>
+          <li>Inmuebles: la adjudicación puede causar impuestos y derechos locales (por ejemplo, ISAI) según el estado; algunos prevén tasas reducidas o exenciones para herencias.</li>
+          <li>Honorarios notariales: los fija el arancel de cada entidad; la cifra automática de esta calculadora es solo una estimación de SIGLEP.</li>
         </ul>
       </div>
 
@@ -277,12 +298,14 @@
       const herederos  = Math.max(1, parseInt(document.getElementById('herederos').value) || 1);
       const testamento = document.getElementById('testamento').value;
 
-      // Gastos de administración sucesoria (Art. 1754 CCF)
-      const gastosFunerarios = Math.min(patrimonio * 0.005, 20000);
-      // Honorarios notariales ~2.5% (arancel federal/local orientativo, mín $15,000)
-      const gastosNotariales = Math.max(patrimonio * 0.025, 15000);
-      // ISR: línea directa exenta (Art. 93 fr. XXII LISR)
-      const isr = 0;
+      // Art. 1754 CCF: las deudas mortuorias se pagan en primer lugar.
+      const mortIn = parseFloat(document.getElementById('mortuorias').value);
+      const notIn  = parseFloat(document.getElementById('notariales').value);
+      const mortEstimada = !(mortIn >= 0);
+      const notEstimada  = !(notIn >= 0);
+      // Estimaciones orientativas SIGLEP (no son arancel ni tarifa oficial) cuando no se capturan
+      const gastosFunerarios = mortEstimada ? (patrimonio > 0 ? Math.min(patrimonio * 0.005, 20000) : 0) : mortIn;
+      const gastosNotariales = notEstimada ? (patrimonio > 0 ? Math.max(patrimonio * 0.025, 15000) : 0) : notIn;
 
       const masaNeta = Math.max(patrimonio - gastosFunerarios - gastosNotariales, 0);
 
@@ -291,17 +314,17 @@
       const partePorHeredero = masaNeta / herederos;
 
       // Costo extra si intestado (trámite sucesorio más largo y costoso)
-      const costoAdicional = testamento === 'no' ? Math.max(patrimonio * 0.01, 8000) : 0;
+      const costoAdicional = (testamento === 'no' && patrimonio > 0) ? Math.max(patrimonio * 0.01, 8000) : 0;
 
       document.getElementById('resultAmount').textContent = money.format(Math.round(partePorHeredero));
       const rows = [
         ['Masa hereditaria bruta', money.format(Math.round(patrimonio))],
-        ['Gastos funerarios (Art. 1754 CCF)', money.format(Math.round(gastosFunerarios))],
-        ['Honorarios notariales (~2.5%)', money.format(Math.round(gastosNotariales))],
+        ['Deudas mortuorias (art. 1754 CCF)' + (mortEstimada ? ' — estimación' : ''), money.format(Math.round(gastosFunerarios))],
+        ['Gastos notariales o judiciales' + (notEstimada ? ' — estimación' : ''), money.format(Math.round(gastosNotariales))],
         ['Masa neta a distribuir', money.format(Math.round(masaNeta))],
         ['Porción por heredero (' + herederos + ')', money.format(Math.round(partePorHeredero))],
-        ['ISR (Art. 93 fr. XXII LISR)', 'Exento'],
-        ...(costoAdicional > 0 ? [['Costo adicional intestado', money.format(Math.round(costoAdicional))]] : []),
+        ['ISR (art. 93 fr. XXII LISR)', 'Exento; informar si tus ingresos del año superan $500,000 (art. 150)'],
+        ...(costoAdicional > 0 ? [['Costo adicional estimado por intestado (no descontado)', money.format(Math.round(costoAdicional))]] : []),
       ];
       document.getElementById('resultBreakdown').innerHTML = rows
         .map(([l, v]) => '<div class="breakdown-row"><span>' + l + '</span><strong>' + v + '</strong></div>')

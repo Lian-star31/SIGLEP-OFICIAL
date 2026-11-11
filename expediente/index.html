@@ -11,6 +11,14 @@
 <meta property="og:title" content="Expediente Inteligente SIGLEP — Diagnóstico Legal Gratuito">
 <meta property="og:description" content="Describe tu caso y recibe un diagnóstico preliminar gratuito. Sin compromisos, sin tecnicismos.">
 <meta property="og:url" content="https://siglep.lat/expediente/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_MX">
+  <meta property="og:site_name" content="SIGLEP">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+  <meta property="og:image:alt" content="SIGLEP — Abogados en México">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://siglep.lat/img/og-siglep.png">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -539,8 +547,13 @@ a.area-card{display:block;text-decoration:none;color:inherit;}
         </div>
         <div class="area-card" onclick="seleccionarArea('civil', this)">
           <div class="ac-icon">🏛️</div>
-          <div class="ac-title">Civil / Patrimonial</div>
-          <div class="ac-desc">Herencias, testamentos, contratos, daño moral, deudas, protección de bienes</div>
+          <div class="ac-title">Civil</div>
+          <div class="ac-desc">Contratos, incumplimientos, daño moral, daños y perjuicios, cobro de dinero</div>
+        </div>
+        <div class="area-card" onclick="seleccionarArea('patrimonial', this)">
+          <div class="ac-icon">🏠</div>
+          <div class="ac-title">Patrimonial</div>
+          <div class="ac-desc">Herencias, testamentos, negociación de deudas, protección de bienes</div>
         </div>
         <!-- Visa y pasaporte no es un caso legal: no pasa por el diagnóstico.
              Lleva a su propia sección, donde se capta con sus propias preguntas. -->
@@ -673,7 +686,7 @@ a.area-card{display:block;text-decoration:none;color:inherit;}
 // ══════════════════════════════════════════
 const estado = {
   area: null,
-  respuesta2: null,
+  resp2: null,
   tiempo: null,
   nombre: '',
   telefono: '',
@@ -720,16 +733,23 @@ const preguntasPorArea = {
     ]
   },
   civil: {
-    titulo: '¿Cuál es tu situación civil o patrimonial?',
+    titulo: '¿Cuál es tu situación civil?',
+    sub: 'Selecciona la opción que mejor describe tu caso.',
+    opciones: [
+      { val: 'contrato', txt: 'Tengo un contrato que necesito revisar, redactar o impugnar' },
+      { val: 'dano', txt: 'Sufrí daños (materiales, morales o perjuicios) y quiero reclamar' },
+      { val: 'otro', txt: 'Otra situación civil' },
+    ]
+  },
+  patrimonial: {
+    titulo: '¿Cuál es tu situación patrimonial?',
     sub: 'Selecciona la opción que mejor describe tu caso.',
     opciones: [
       { val: 'herencia', txt: 'Hay una herencia o sucesión que necesito gestionar' },
       { val: 'testamento', txt: 'Quiero hacer o actualizar mi testamento' },
-      { val: 'contrato', txt: 'Tengo un contrato que necesito revisar, redactar o impugnar' },
       { val: 'deuda', txt: 'Tengo una deuda bancaria que quiero negociar' },
-      { val: 'dano', txt: 'Sufrí daños (materiales, morales o perjuicios) y quiero reclamar' },
       { val: 'proteccion', txt: 'Quiero proteger mis bienes o propiedades' },
-      { val: 'otro', txt: 'Otra situación civil o patrimonial' },
+      { val: 'otro', txt: 'Otra situación patrimonial' },
     ]
   }
 };
@@ -750,7 +770,7 @@ const diagnosticos = {
     despido: {
       area:'Derecho Laboral', sit:'Despido injustificado', viab:'Alta',
       textos: {
-        menos7: { u:'urgente', gancho:'Tienes una ventana crítica. En los primeros días el patrón aún no ha "limpiado" registros ni ajustado documentos internos — eso juega completamente a tu favor. La indemnización mínima incluye 3 meses de salario integrado más 20 días por año trabajado, pero el salario integrado casi nunca es el que aparece en tu recibo. La diferencia puede ser importante. Actuar esta semana marca la diferencia.', acciones:['Revisión urgente de todos los documentos laborales','Cálculo exacto de tu salario diario integrado','Estrategia antes de que el patrón se organice','No firmes nada sin revisión previa'] },
+        menos7: { u:'urgente', gancho:'Tienes una ventana crítica. En los primeros días el patrón aún no ha "limpiado" registros ni ajustado documentos internos — eso juega completamente a tu favor. La indemnización incluye 3 meses de salario integrado y prima de antigüedad, pero el salario integrado casi nunca es el que aparece en tu recibo. La diferencia puede ser importante. Actuar esta semana marca la diferencia.', acciones:['Revisión urgente de todos los documentos laborales','Cálculo exacto de tu salario diario integrado','Estrategia antes de que el patrón se organice','No firmes nada sin revisión previa'] },
         menos1mes: { u:'urgente', gancho:'Estás en el momento ideal para actuar. El patrón aún no ha archivado el caso y la negociación extrajudicial es más efectiva ahora. Lo que muchos no saben: tu liquidación debe calcularse con salario integrado, no el salario base — esa diferencia sola puede representar miles de pesos adicionales que te corresponden.', acciones:['Análisis del salario integrado vs lo que te ofrecieron','Revisión de partes proporcionales incluidas','Negociación antes de que escale a demanda','Orientación sobre qué documentos necesitas'] },
         menos6meses: { u:'urgente', gancho:'Todavía estás en tiempo, pero el reloj corre. En México el plazo para reclamar prestaciones laborales es de 2 años, pero entre más esperas, más difícil es reconstruir la evidencia. El patrón calculó que no ibas a reclamar — sorpréndelo. Lo que te corresponde puede ser significativamente mayor a lo que te ofrecieron.', acciones:['Evaluación de lo que te corresponde vs lo recibido','Identificación de documentos clave aún recuperables','Estrategia de negociación o demanda','Análisis de prescripción aplicable a tu caso'] },
         menos2anios: { u:'importante', gancho:'Tienes opciones, pero el tiempo trabaja en tu contra. Los plazos legales en materia laboral son de 2 años — estás dentro, pero cada mes que pasa complica la documentación. Lo positivo: si firmaste algo bajo presión o con información incompleta, eso puede impugnarse. Vale la pena revisar antes de que prescriba tu derecho.', acciones:['Revisión de documentos que firmaste al salir','Análisis de posible impugnación si hubo presión','Cálculo de lo que aún puedes recuperar','Evaluación de viabilidad antes de que prescriba'] },
@@ -760,8 +780,8 @@ const diagnosticos = {
     liquidacion: {
       area:'Derecho Laboral', sit:'Revisión de liquidación', viab:'Alta',
       textos: {
-        menos7: { u:'urgente', gancho:'No firmes nada todavía. Una firma es permanente y los patrones lo saben. El error más común: aceptar una cantidad calculada con el salario base cuando la ley exige el salario integrado — que incluye proporcionales de aguinaldo, vacaciones y prima. La diferencia puede ser del 15 al 40% adicional. En este momento tienes todo el poder de negociación.', acciones:['Revisión urgente de la oferta antes de firmar','Cálculo correcto del salario diario integrado','Verificación de todos los conceptos incluidos','Negociación de diferencias con respaldo legal'] },
-        menos1mes: { u:'urgente', gancho:'Si aún no has firmado, el poder de negociación sigue siendo tuyo. Si ya firmaste hace menos de un mes, dependiendo de las circunstancias puede haber opciones. Lo que importa saber: los patrones sistemáticamente calculan la liquidación con el mínimo esperando que aceptes. Con revisión especializada, la mayoría de nuestros casos resultan en montos superiores a la oferta original.', acciones:['Análisis de la oferta vs lo que corresponde por ley','Cálculo de salario integrado y partes proporcionales','Revisión de prima de antigüedad incluida','Orientación sobre qué hacer si ya firmaste'] },
+        menos7: { u:'urgente', gancho:'No firmes nada todavía. Una firma es permanente y los patrones lo saben. El error más común: aceptar una cantidad calculada con el salario base cuando la ley exige el salario integrado — que incluye proporcionales de aguinaldo, vacaciones y prima. La diferencia puede ser importante. En este momento tienes todo el poder de negociación.', acciones:['Revisión urgente de la oferta antes de firmar','Cálculo correcto del salario diario integrado','Verificación de todos los conceptos incluidos','Negociación de diferencias con respaldo legal'] },
+        menos1mes: { u:'urgente', gancho:'Si aún no has firmado, el poder de negociación sigue siendo tuyo. Si ya firmaste hace menos de un mes, dependiendo de las circunstancias puede haber opciones. Lo que importa saber: es frecuente que la oferta se calcule sobre el salario base y omita conceptos. Una revisión especializada permite comparar la oferta con lo que marca la ley.', acciones:['Análisis de la oferta vs lo que corresponde por ley','Cálculo de salario integrado y partes proporcionales','Revisión de prima de antigüedad incluida','Orientación sobre qué hacer si ya firmaste'] },
         menos6meses: { u:'importante', gancho:'Si recibiste menos de lo que te correspondía y ya firmaste, no necesariamente está todo perdido. Existen figuras legales para reclamar diferencias cuando hubo error o información incompleta. Y si aún no has firmado — detente. El tiempo que tienes aún permite una negociación efectiva.', acciones:['Evaluación de lo que firmaste y bajo qué condiciones','Análisis de posibles diferencias reclamables','Revisión de si hubo presión o información incompleta','Estrategia para cada escenario'] },
         default: { u:'importante', gancho:'Las liquidaciones calculadas incorrectamente son el caso más frecuente que atendemos. El patrón apuesta a que no revisarás. Una revisión profesional tarda menos de lo que imaginas y puede revelar diferencias significativas a tu favor.', acciones:['Revisión completa del cálculo recibido','Comparación con lo que establece la ley','Identificación de conceptos omitidos','Plan de acción según tu situación'] },
       }
@@ -798,34 +818,11 @@ const diagnosticos = {
   },
 
   civil: {
-    herencia: {
-      area:'Derecho Civil / Patrimonial', sit:'Herencia / sucesión', viab:'Alta',
-      textos: {
-        menos7: { u:'urgente', gancho:'Los primeros días después de un fallecimiento son críticos en materia patrimonial. Los bienes sin gestión inmediata pueden ser objeto de disputas, acceso no autorizado o deterioro. Además, hay plazos fiscales relacionados con herencias que pocos conocen. Actuar en los primeros días protege el patrimonio y evita conflictos futuros.', acciones:['Medidas inmediatas de protección de bienes','Inicio del proceso sucesorio (con o sin testamento)','Identificación de bienes y posibles herederos','Estrategia para prevenir conflictos entre herederos'] },
-        menos1mes: { u:'urgente', gancho:'El proceso sucesorio sin guía especializada puede convertirse en un conflicto familiar prolongado y costoso. Con testamento, el proceso es más predecible. Sin testamento, la ley determina quién hereda — pero la interpretación incorrecta genera disputas. Iniciar el proceso correctamente desde el principio ahorra años.', acciones:['Análisis del testamento si existe','Proceso de sucesión intestamentaria si no hay testamento','Inventario de bienes y documentos necesarios','Estrategia para llegar a acuerdo entre herederos'] },
-        default: { u:'importante', gancho:'El proceso sucesorio en México puede resolverse en meses o convertirse en un litigio de años — la diferencia está en cómo se inicia y gestiona. Con los documentos correctos y la estrategia adecuada, la mayoría de las sucesiones se resuelven sin llegar a juicio. La evaluación inicial es gratuita.', acciones:['Diagnóstico del proceso sucesorio','Documentación necesaria para iniciar','Opciones: amigable o contencioso','Tiempos y costos aproximados'] },
-      }
-    },
-    testamento: {
-      area:'Derecho Civil / Patrimonial', sit:'Testamento', viab:'Alta',
-      textos: {
-        default: { u:'atencion', gancho:'El 80% de los conflictos familiares por herencias son completamente evitables con un testamento bien redactado. Lo que muchas personas no saben: un testamento no es solo para cuando ya eres mayor — es para cuando tienes algo que proteger. Sin testamento, la ley decide por ti quién hereda y en qué proporción, y eso frecuentemente no coincide con lo que querías.', acciones:['Asesoría sobre el tipo de testamento más conveniente','Cláusulas de protección para situaciones específicas','Coordinación con notario','Actualización de testamento existente si ya tienes uno'] },
-      }
-    },
     contrato: {
-      area:'Derecho Civil / Patrimonial', sit:'Contrato o acuerdo legal', viab:'Alta',
+      area:'Derecho Civil', sit:'Contrato o acuerdo legal', viab:'Alta',
       textos: {
         menos7: { u:'urgente', gancho:'Un contrato mal revisado puede tener consecuencias que duran años. Lo que parece "estándar" frecuentemente contiene cláusulas que favorecen desproporcionadamente a la otra parte. Antes de firmar cualquier documento con implicaciones patrimoniales, una revisión especializada es la mejor inversión que puedes hacer.', acciones:['Revisión urgente del contrato antes de firmar','Identificación de cláusulas problemáticas o abusivas','Negociación de modificaciones','Alternativa: redacción de contrato que sí te proteja'] },
         default: { u:'importante', gancho:'Los contratos sin revisión legal son la causa número uno de conflictos patrimoniales evitables. Las cláusulas ambiguas, los derechos mal definidos y los incumplimientos sin consecuencias son problemas que aparecen meses o años después de firmar. Revisarlo antes cuesta una fracción de lo que costaría resolverlo después.', acciones:['Revisión de cláusulas y riesgos','Identificación de derechos y obligaciones reales','Negociación de términos si procede','Redacción de contrato alternativo si es necesario'] },
-      }
-    },
-    deuda: {
-      area:'Derecho Civil / Patrimonial', sit:'Negociación de deuda bancaria', viab:'Alta',
-      textos: {
-        menos6meses: { u:'importante', gancho:'Con menos de 6 meses de mora, la posición negociadora es moderada pero existe. Los bancos prefieren una reestructura a un crédito en cartera vencida. Lo que pocas personas saben: hay límites legales a los intereses y cargos que los bancos pueden cobrar — y muchas veces los exceden. Una revisión puede revelar cobros que no proceden legalmente.', acciones:['Revisión de intereses y cargos aplicados vs límites legales','Estrategia de reestructura o acuerdo de pago','Negociación directa con respaldo jurídico','Protección de bienes durante el proceso'] },
-        menos2anios: { u:'importante', gancho:'Con más de 6 meses de mora, tu posición negociadora mejora considerablemente. Los bancos saben que una cuenta en cartera vencida vale menos que un acuerdo. El 78% de las personas acepta la primera oferta sin saber que había margen para negociar mejor. Con asesoría especializada, los resultados son sistemáticamente superiores.', acciones:['Análisis de tu posición negociadora real','Estrategia de quita o reestructura','Negociación directa con la institución','Defensa ante posible embargo o demanda'] },
-        mas2anios: { u:'importante', gancho:'Con más de 2 años de mora, la cuenta probablemente ya está en despacho de cobranza. Eso en realidad mejora tu posición: los despachos compran la cartera con descuento y tienen más flexibilidad para negociar. Además, hay límites legales a las prácticas de cobranza que frecuentemente se violan — y eso también es negociable.', acciones:['Verificación del estado actual de la deuda','Identificación de prácticas de cobranza ilegales','Estrategia de negociación con despacho o banco','Acuerdo de pago con quita significativa'] },
-        default: { u:'importante', gancho:'Los bancos calculan que la mayoría de personas acepta su primera oferta. Con representación legal, los resultados de negociación son sistemáticamente mejores. Lo que te corresponde negociar depende del tipo de deuda, tiempo de mora y tu capacidad de pago — todo eso lo evaluamos en la primera consulta.', acciones:['Diagnóstico de tu posición negociadora','Estrategia según tipo de deuda y mora','Negociación con respaldo legal','Protección durante el proceso'] },
       }
     },
     dano: {
@@ -835,16 +832,48 @@ const diagnosticos = {
         default: { u:'importante', gancho:'Los daños civiles — morales, materiales y perjuicios — son recuperables legalmente siempre que se acrediten correctamente. La clave está en la documentación y en la cuantificación adecuada. Muchas personas reciben mucho menos de lo que les corresponde porque no conocen todos los conceptos que pueden reclamar.', acciones:['Evaluación de todos los conceptos reclamables','Documentación de los daños sufridos','Estrategia de reclamación: negociación o demanda','Cuantificación correcta incluyendo daño moral'] },
       }
     },
+    otro: {
+      area:'Derecho Civil', sit:'Asunto civil', viab:'Media-Alta',
+      textos: {
+        default: { u:'importante', gancho:'El derecho civil abarca más situaciones de las que la mayoría imagina. Desde la protección preventiva hasta la defensa activa ante conflictos, hay opciones legales para casi cualquier situación. Una evaluación inicial gratuita determina exactamente qué aplica a tu caso y cuál es la estrategia más eficiente.', acciones:['Análisis de tu situación específica','Identificación de riesgos y oportunidades','Estrategia legal a medida','Primera consulta sin costo'] },
+      }
+    },
+  },
+
+  patrimonial: {
+    herencia: {
+      area:'Derecho Patrimonial', sit:'Herencia / sucesión', viab:'Alta',
+      textos: {
+        menos7: { u:'urgente', gancho:'Los primeros días después de un fallecimiento son críticos en materia patrimonial. Los bienes sin gestión inmediata pueden ser objeto de disputas, acceso no autorizado o deterioro. Además, hay plazos fiscales relacionados con herencias que pocos conocen. Actuar en los primeros días protege el patrimonio y evita conflictos futuros.', acciones:['Medidas inmediatas de protección de bienes','Inicio del proceso sucesorio (con o sin testamento)','Identificación de bienes y posibles herederos','Estrategia para prevenir conflictos entre herederos'] },
+        menos1mes: { u:'urgente', gancho:'El proceso sucesorio sin guía especializada puede convertirse en un conflicto familiar prolongado y costoso. Con testamento, el proceso es más predecible. Sin testamento, la ley determina quién hereda — pero la interpretación incorrecta genera disputas. Iniciar el proceso correctamente desde el principio ahorra años.', acciones:['Análisis del testamento si existe','Proceso de sucesión intestamentaria si no hay testamento','Inventario de bienes y documentos necesarios','Estrategia para llegar a acuerdo entre herederos'] },
+        default: { u:'importante', gancho:'El proceso sucesorio en México puede resolverse en meses o convertirse en un litigio de años — la diferencia está en cómo se inicia y gestiona. Con los documentos correctos y la estrategia adecuada, la mayoría de las sucesiones se resuelven sin llegar a juicio. La evaluación inicial es gratuita.', acciones:['Diagnóstico del proceso sucesorio','Documentación necesaria para iniciar','Opciones: amigable o contencioso','Tiempos y costos aproximados'] },
+      }
+    },
+    testamento: {
+      area:'Derecho Patrimonial', sit:'Testamento', viab:'Alta',
+      textos: {
+        default: { u:'atencion', gancho:'Muchos conflictos familiares por herencias pueden evitarse con un testamento bien redactado. Lo que muchas personas no saben: un testamento no es solo para cuando ya eres mayor — es para cuando tienes algo que proteger. Sin testamento, la ley decide por ti quién hereda y en qué proporción, y eso frecuentemente no coincide con lo que querías.', acciones:['Asesoría sobre el tipo de testamento más conveniente','Cláusulas de protección para situaciones específicas','Coordinación con notario','Actualización de testamento existente si ya tienes uno'] },
+      }
+    },
+    deuda: {
+      area:'Derecho Patrimonial', sit:'Negociación de deuda bancaria', viab:'Alta',
+      textos: {
+        menos6meses: { u:'importante', gancho:'Con menos de 6 meses de mora, la posición negociadora es moderada pero existe. Los bancos prefieren una reestructura a un crédito en cartera vencida. Lo que pocas personas saben: hay límites legales a los intereses y cargos que los bancos pueden cobrar — y muchas veces los exceden. Una revisión puede revelar cobros que no proceden legalmente.', acciones:['Revisión de intereses y cargos aplicados vs límites legales','Estrategia de reestructura o acuerdo de pago','Negociación directa con respaldo jurídico','Protección de bienes durante el proceso'] },
+        menos2anios: { u:'importante', gancho:'Con más de 6 meses de mora, tu posición negociadora mejora considerablemente. Los bancos saben que una cuenta en cartera vencida vale menos que un acuerdo. Es frecuente aceptar la primera oferta sin saber que había margen para negociar. Una revisión previa te permite negociar con información.', acciones:['Análisis de tu posición negociadora real','Estrategia de quita o reestructura','Negociación directa con la institución','Defensa ante posible embargo o demanda'] },
+        mas2anios: { u:'importante', gancho:'Con más de 2 años de mora, la cuenta probablemente ya está en despacho de cobranza. Eso en realidad mejora tu posición: los despachos compran la cartera con descuento y tienen más flexibilidad para negociar. Además, hay límites legales a las prácticas de cobranza que frecuentemente se violan — y eso también es negociable.', acciones:['Verificación del estado actual de la deuda','Identificación de prácticas de cobranza ilegales','Estrategia de negociación con despacho o banco','Acuerdo de pago con quita significativa'] },
+        default: { u:'importante', gancho:'Antes de aceptar una propuesta del banco conviene revisar el saldo, los intereses y tu situación procesal. Lo que te corresponde negociar depende del tipo de deuda, tiempo de mora y tu capacidad de pago — todo eso lo evaluamos en la primera consulta.', acciones:['Diagnóstico de tu posición negociadora','Estrategia según tipo de deuda y mora','Negociación con respaldo legal','Protección durante el proceso'] },
+      }
+    },
     proteccion: {
-      area:'Derecho Civil / Patrimonial', sit:'Protección de bienes', viab:'Alta',
+      area:'Derecho Patrimonial', sit:'Protección de bienes', viab:'Alta',
       textos: {
         default: { u:'atencion', gancho:'El patrimonio no protegido es patrimonio vulnerable. Las deudas de terceros, los conflictos laborales, las separaciones y los embargos afectan con frecuencia a personas que creyeron que "eso no les pasaría a ellos". Las estructuras de protección patrimonial son más accesibles de lo que parece y funcionan mejor cuando se implementan antes de que surja el problema.', acciones:['Diagnóstico de vulnerabilidades patrimoniales actuales','Estructuras de protección según tu situación','Fideicomisos, donaciones y otras figuras disponibles','Costo-beneficio de cada opción'] },
       }
     },
     otro: {
-      area:'Derecho Civil / Patrimonial', sit:'Asunto civil o patrimonial', viab:'Media-Alta',
+      area:'Derecho Patrimonial', sit:'Asunto patrimonial', viab:'Media-Alta',
       textos: {
-        default: { u:'importante', gancho:'El derecho civil y patrimonial abarca más situaciones de las que la mayoría imagina. Desde la protección preventiva hasta la defensa activa ante conflictos, hay opciones legales para casi cualquier situación. Una evaluación inicial gratuita determina exactamente qué aplica a tu caso y cuál es la estrategia más eficiente.', acciones:['Análisis de tu situación específica','Identificación de riesgos y oportunidades','Estrategia legal a medida','Primera consulta sin costo'] },
+        default: { u:'importante', gancho:'El derecho patrimonial abarca más situaciones de las que la mayoría imagina. Desde la protección preventiva hasta la defensa activa ante conflictos, hay opciones legales para casi cualquier situación. Una evaluación inicial gratuita determina exactamente qué aplica a tu caso y cuál es la estrategia más eficiente.', acciones:['Análisis de tu situación específica','Identificación de riesgos y oportunidades','Estrategia legal a medida','Primera consulta sin costo'] },
       }
     },
   },
@@ -939,7 +968,7 @@ function obtenerTexto(area, resp, tiempo) {
 
 function ajustarUrgencia(u, tiempo) {
   // Violencia siempre urgente
-  if (estado.respuesta2 === 'violencia') return 'urgente';
+  if (estado.resp2 === 'violencia') return 'urgente';
   // Más de 2 años: bajar un nivel (pero nunca menos que atencion)
   if (tiempo === 'mas2anios') {
     if (u === 'urgente') return 'importante';
@@ -990,7 +1019,7 @@ function validarDescripcion() {
 async function generarDiagnosticoIA() {
   const descripcion = document.getElementById('inp-descripcion').value.trim();
   const btn = document.getElementById('btn-4');
-  const cat = diagnosticos[estado.area]?.[estado.respuesta2] || diagnosticos[estado.area]?.otro;
+  const cat = diagnosticos[estado.area]?.[estado.resp2] || diagnosticos[estado.area]?.otro;
 
   // Mostrar loading
   btn.disabled = true;
@@ -1002,7 +1031,7 @@ async function generarDiagnosticoIA() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         area: cat?.area || estado.area,
-        situacion: cat?.sit || estado.respuesta2,
+        situacion: cat?.sit || estado.resp2,
         tiempo: estado.tiempo,
         descripcion
       })
@@ -1015,7 +1044,7 @@ async function generarDiagnosticoIA() {
       document.getElementById('diag-gancho').textContent = data.diagnostico;
 
       // Rellenar resto con datos del estado
-      const txt = obtenerTexto(estado.area, estado.respuesta2, estado.tiempo);
+      const txt = obtenerTexto(estado.area, estado.resp2, estado.tiempo);
       const urgenciaFinal = ajustarUrgencia(txt.u || 'importante', estado.tiempo);
       const urgCfg = urgenciaConfig[urgenciaFinal];
       const etiquetaUrgencia = { urgente:'Urgente', importante:'Importante', atencion:'Atención' };
@@ -1049,7 +1078,8 @@ const placeholderPorArea = {
   laboral:     'Ej: Me avisaron que ya no iba a trabajar ahí, sin ningún papel ni explicación. Llevaba 3 años en la empresa y solo me ofrecieron dos semanas...',
   familiar:    'Ej: Mi pareja y yo decidimos separarnos. Tenemos dos hijos y una propiedad en común. No sé cómo proceder ni qué me corresponde...',
   penal:       'Ej: Me citaron a comparecer ante el Ministerio Público. No sé de qué se trata ni qué derechos tengo en esta situación...',
-  civil:       'Ej: Falleció un familiar y dejó propiedades. Somos varios herederos y no sabemos cómo iniciar el proceso sucesorio...',
+  civil:       'Ej: Pagué un anticipo por una obra que nunca se terminó y el contratista ya no responde. Tengo el contrato y los comprobantes...',
+  patrimonial: 'Ej: Falleció un familiar y dejó propiedades. Somos varios herederos y no sabemos cómo iniciar el proceso sucesorio...',
 };
 
 function seleccionarArea(area, el) {
@@ -1072,7 +1102,7 @@ function renderPreguntas(area) {
     <p class="step-sub">${cfg.sub}</p>
     <div class="opciones">${opcionesHTML}</div>
   `;
-  estado.respuesta2 = null;
+  estado.resp2 = null;
   document.getElementById('btn-2').disabled = true;
 }
 
@@ -1103,7 +1133,7 @@ function validarContacto() {
     calBtn.style.pointerEvents = 'auto';
 
     // Armar mensaje WA para opción secundaria
-    const cat = diagnosticos[estado.area]?.[estado.respuesta2] || diagnosticos[estado.area]?.otro;
+    const cat = diagnosticos[estado.area]?.[estado.resp2] || diagnosticos[estado.area]?.otro;
     const tiempoLabels = {
       menos7:'hace menos de 7 días', menos1mes:'hace entre 1 semana y 1 mes',
       menos6meses:'hace entre 1 y 6 meses', menos2anios:'hace entre 6 meses y 2 años',
@@ -1141,8 +1171,8 @@ function generarDiagnostico() {
     page_location: window.location.href,
     page_title: document.title
   });
-  const cat = diagnosticos[estado.area]?.[estado.respuesta2] || diagnosticos[estado.area]?.otro;
-  const txt = obtenerTexto(estado.area, estado.respuesta2, estado.tiempo);
+  const cat = diagnosticos[estado.area]?.[estado.resp2] || diagnosticos[estado.area]?.otro;
+  const txt = obtenerTexto(estado.area, estado.resp2, estado.tiempo);
   const urgenciaFinal = ajustarUrgencia(txt.u || 'importante', estado.tiempo);
   const urgCfg = urgenciaConfig[urgenciaFinal];
   const etiquetaUrgencia = { urgente:'Urgente', importante:'Importante', atencion:'Atención' };

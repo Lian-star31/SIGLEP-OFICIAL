@@ -4,14 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculadora de Modalidad 40 | SIGLEP</title>
-  <meta name="description" content="Calculadora orientativa de Modalidad 40 en México para revisar semanas, salario objetivo y aportación.">
+  <meta name="description" content="Calculadora de Modalidad 40 del IMSS 2026: cuota por tramo salarial y tope de salario conforme al acuerdo publicado en el DOF el 21 de octubre de 2026.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://siglep.lat/calculadoras/seguridad-social/modalidad-40/">
   <meta property="og:title" content="Calculadora de Modalidad 40 | SIGLEP">
-  <meta property="og:description" content="Calculadora orientativa de Modalidad 40 en México para revisar semanas, salario objetivo y aportación.">
+  <meta property="og:description" content="Calculadora de Modalidad 40 del IMSS 2026: cuota por tramo salarial y tope de salario conforme al acuerdo publicado en el DOF el 21 de octubre de 2026.">
   <meta property="og:url" content="https://siglep.lat/calculadoras/seguridad-social/modalidad-40/">
   <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_MX">
+  <meta property="og:site_name" content="SIGLEP">
   <meta property="og:image" content="https://siglep.lat/img/og-siglep.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+  <meta property="og:image:alt" content="SIGLEP — Abogados en México">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://siglep.lat/img/og-siglep.png">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="apple-touch-icon" href="/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -133,7 +140,7 @@
     .footer-space{height:1px;}
     @media (max-width: 900px){.calc-grid{grid-template-columns:1fr}.hero{padding-top:7.6rem}}
   </style>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Calculadora de Modalidad 40 | SIGLEP","url":"https://siglep.lat/calculadoras/seguridad-social/modalidad-40/","description":"Calculadora orientativa de Modalidad 40 en México para revisar semanas, salario objetivo y aportación.","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://siglep.lat/"},{"@type":"ListItem","position":2,"name":"Calculadoras","item":"https://siglep.lat/calculadoras/"},{"@type":"ListItem","position":3,"name":"Seguridad social","item":"https://siglep.lat/calculadoras/seguridad-social/"},{"@type":"ListItem","position":4,"name":"Modalidad 40","item":"https://siglep.lat/calculadoras/seguridad-social/modalidad-40/"}]}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Calculadora de Modalidad 40 | SIGLEP","url":"https://siglep.lat/calculadoras/seguridad-social/modalidad-40/","description":"Calculadora de Modalidad 40 del IMSS 2026: cuota por tramo salarial y tope de salario conforme al acuerdo publicado en el DOF el 21 de octubre de 2026.","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://siglep.lat/"},{"@type":"ListItem","position":2,"name":"Calculadoras","item":"https://siglep.lat/calculadoras/"},{"@type":"ListItem","position":3,"name":"Seguridad social","item":"https://siglep.lat/calculadoras/seguridad-social/"},{"@type":"ListItem","position":4,"name":"Modalidad 40","item":"https://siglep.lat/calculadoras/seguridad-social/modalidad-40/"}]}}</script>
   
   <style>
     nav.siglep-shell-nav {
@@ -484,9 +491,14 @@
                   <span class="help">Mínimo 52 semanas previas para ingresar a Modalidad 40 (Art. 218 LSS). Consúltalas en mi.imss.digital.gob.mx.</span>
                 </div>
                 <div class="field">
-                  <label for="salario_objetivo">Salario diario objetivo (MXN)</label>
+                  <label for="sbc_baja">Último salario base de cotización al causar baja (MXN diarios)</label>
+                  <input id="sbc_baja" type="number" inputmode="decimal" placeholder="Ej. 550" min="0" step="any" oninput="runCalc()">
+                  <span class="help">Aparece en tu constancia de semanas cotizadas. Desde el 22 de octubre de 2026 es la base del tope para nuevas inscripciones.</span>
+                </div>
+                <div class="field">
+                  <label for="salario_objetivo">Salario diario con el que quieres cotizar (MXN)</label>
                   <input id="salario_objetivo" type="number" inputmode="decimal" placeholder="Ej. 600" min="0" step="any" oninput="runCalc()">
-                  <span class="help">Debe ser ≥ tu último SBC registrado. Tope máximo 2026: $2,932.75/día (25 × UMA $117.31). No puedes reducirlo una vez registrado.</span>
+                  <span class="help">Para nuevas inscripciones: máximo tu último SBC más una UMA ($117.31) y mínimo un salario mínimo ($315.04). Si capturas más, la calculadora usa el tope.</span>
                 </div>
                 <div class="field">
                   <label for="periodo">Meses a cotizar en Modalidad 40</label>
@@ -515,8 +527,10 @@
         <div class="legal-basis-kicker">Sustento legal 2026</div>
         <ul>
           <li>LSS Art. 218-220: Continuación Voluntaria al Régimen Obligatorio (Modalidad 40).</li>
-          <li>Tasa 2026: 14.438% del SBC elegido (incrementa hasta 18.8% en 2030).</li>
-          <li>Tope máximo SBC: 25 UMAs/día = $2,932.75 (UMA 2026: $117.31/día).</li>
+          <li>ACDO.AS2.HCT.101026/302.P.DG (DOF 21/10/2026, vigente desde el día hábil siguiente): medida temporal para nuevas inscripciones. El salario será el último SBC al causar baja, o hasta ese importe, más una UMA, sin ser inferior a un salario mínimo general; el aseguramiento rige solo desde la fecha de la solicitud (sin pagos retroactivos) y la inscripción es por medios digitales.</li>
+          <li>Quienes ya estaban inscritos al entrar en vigor el acuerdo permanecen en las condiciones actuales hasta concluir el periodo contratado y conservan las semanas y salarios efectivamente pagados.</li>
+          <li>Cuota 2026: el asegurado paga cuotas obrera y patronal de Invalidez y Vida (2.375%), Gastos médicos de pensionados (1.425%), Retiro (2%) y Cesantía y Vejez (1.125% + cuota patronal según tramo salarial: de 3.150% a 7.513%). Total entre 10.075% y 14.438%.</li>
+          <li>Tope general de cotización: 25 UMA diarias = $2,932.75 (UMA 2026: $117.31).</li>
           <li>Mínimo 52 semanas cotizadas previas para inscribirse (Art. 218 LSS).</li>
           <li>Cubre solo ramos IV (Invalidez y Vida) y RCV (Retiro, Cesantía, Vejez).</li>
         </ul>
@@ -552,6 +566,11 @@
           <p>Sí, para comparar escenarios de aportación.</p>
         </details>
       
+        <details class="faq-item">
+          <summary>¿Qué cambió en octubre de 2026?</summary>
+          <p>El acuerdo ACDO.AS2.HCT.101026/302.P.DG del Consejo Técnico del IMSS, publicado en el DOF el 21 de octubre de 2026, es una medida temporal: las nuevas inscripciones solo pueden cotizar hasta su último salario base de cotización más una UMA, sin pagos retroactivos, y quienes ya estaban inscritos conservan sus condiciones hasta terminar el periodo contratado. El IMSS debe analizar el esquema y proponer cambios normativos, así que conviene confirmar las reglas vigentes antes de inscribirte.</p>
+        </details>
+      
         </div>
       </div>
     </section>
@@ -570,38 +589,52 @@
   </main>
   <footer></footer>
   <script>
-    /* ── MODALIDAD 40 ── LSS Art. 218-220 ── Tasa 14.438% · UMA 2026 ── */
+    /* ── MODALIDAD 40 ── LSS Art. 218 · ACDO.AS2.HCT.101026/302.P.DG (DOF 21/10/2026) · cuotas 2026 ── */
     const UMA_DIARIA  = 117.31;
-    const TASA_M40    = 0.14438;  // 2026; sube hasta 18.8% en 2030
-    const TOPE_DIARIO = UMA_DIARIA * 25; // $2,932.75/día
+    const SM_DIARIO   = 315.04;           // salario mínimo general 2026 (resto del país)
+    const TOPE_LSS    = UMA_DIARIA * 25;  // $2,932.75/día
     const DIAS_MES    = 30.4;
+    // Cuota fija: IV 2.375% + GMP 1.425% + Retiro 2% + CEAV obrera 1.125% = 6.925%
+    const TASA_FIJA   = 0.02375 + 0.01425 + 0.02 + 0.01125;
+    // CEAV patronal 2026 por tramo (SBC en veces UMA; primer tramo = 1 salario mínimo)
+    function ceavPatronal(sbc) {
+      if (sbc <= SM_DIARIO) return 0.03150;
+      const v = sbc / UMA_DIARIA;
+      if (v <= 1.50) return 0.03676;
+      if (v <= 2.00) return 0.04851;
+      if (v <= 2.50) return 0.05556;
+      if (v <= 3.00) return 0.06026;
+      if (v <= 3.50) return 0.06361;
+      if (v <= 4.00) return 0.06613;
+      return 0.07513;
+    }
     const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
+    const pct = (x) => (x * 100).toFixed(3).replace(/0+$/, '').replace(/\.$/, '') + '%';
 
     function runCalc() {
-      const semanas      = parseInt(document.getElementById('semanas').value) || 0;
-      const salObjetivo  = Math.min(parseFloat(document.getElementById('salario_objetivo').value) || 0, TOPE_DIARIO);
-      const periodo      = parseInt(document.getElementById('periodo').value) || 0;
+      const semanas   = parseInt(document.getElementById('semanas').value) || 0;
+      const sbcBaja   = parseFloat(document.getElementById('sbc_baja').value) || 0;
+      const solicitado= parseFloat(document.getElementById('salario_objetivo').value) || 0;
+      const periodo   = parseInt(document.getElementById('periodo').value) || 0;
 
-      // Cuota mensual = SBC_diario × días_mes × tasa
-      const cuotaMensual = salObjetivo * DIAS_MES * TASA_M40;
+      const topeAcuerdo = sbcBaja > 0 ? Math.min(sbcBaja + UMA_DIARIA, TOPE_LSS) : TOPE_LSS;
+      let sbc = Math.min(solicitado, topeAcuerdo);
+      if (sbc > 0) sbc = Math.max(sbc, SM_DIARIO);
+      const ajustado = solicitado > 0 && Math.abs(sbc - solicitado) > 0.005;
+
+      const tasa = sbc > 0 ? TASA_FIJA + ceavPatronal(sbc) : 0;
+      const cuotaMensual = sbc * DIAS_MES * tasa;
       const totalPagar   = cuotaMensual * periodo;
       const semanasGanadas = periodo * (DIAS_MES / 7);
-      const semanasFinales = semanas + semanasGanadas;
-
-      // Pensión orientativa resultante (usando fórmula Ley 73 simplificada)
-      const semExtra = Math.max(0, semanasFinales - 500);
-      const pctExtra = Math.min(Math.floor(semExtra / 52) * 0.0125, 0.65);
-      const pctPension = 0.35 + pctExtra;
-      const pensionMensualEst = salObjetivo * DIAS_MES * pctPension * 1.0; // edad 65+
 
       document.getElementById('resultAmount').textContent = money.format(Math.round(totalPagar));
       const rows = [
-        ['SBC diario elegido', money.format(Math.round(salObjetivo)) + '/día'],
-        ['Tope máximo 2026 (25 UMAs)', money.format(Math.round(TOPE_DIARIO)) + '/día'],
-        ['Cuota mensual (14.438%)', money.format(Math.round(cuotaMensual))],
+        ['Tope para nueva inscripción', sbcBaja > 0 ? money.format(Math.round(topeAcuerdo)) + '/día (último SBC + 1 UMA)' : 'Captura tu último SBC'],
+        ['SBC diario aplicado', money.format(Math.round(sbc)) + '/día' + (ajustado ? ' (ajustado al tope o mínimo)' : '')],
+        ['Cuota total 2026', pct(tasa)],
+        ['Cuota mensual', money.format(Math.round(cuotaMensual))],
         ['Total a pagar (' + periodo + ' meses)', money.format(Math.round(totalPagar))],
-        ['Semanas ganadas', Math.round(semanasGanadas) + ' → total ' + Math.round(semanasFinales)],
-        ['Pensión estimada Ley 73 (' + Math.round(pctPension * 100) + '%)', money.format(Math.round(pensionMensualEst)) + '/mes'],
+        ['Semanas que se suman', Math.round(semanasGanadas) + ' → total ' + Math.round(semanas + semanasGanadas)],
       ];
       document.getElementById('resultBreakdown').innerHTML = rows
         .map(([l, v]) => '<div class="breakdown-row"><span>' + l + '</span><strong>' + v + '</strong></div>')

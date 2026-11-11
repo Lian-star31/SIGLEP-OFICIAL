@@ -94,7 +94,7 @@
       ]); });
 
     } else if (k === 'lab_despido') {
-      bot('Un despido injustificado te da derecho a <strong>liquidación completa: 3 meses de salario + 20 días por año trabajado + partes proporcionales</strong>. También puedes demandar ante la Junta de Conciliación.<br><br>⚠️ El plazo para actuar es de <strong>2 meses</strong> — después, prescribe el derecho.', 500, function() { setOpts([
+      bot('Un despido injustificado te da derecho a <strong>indemnización de 3 meses de salario + prima de antigüedad + partes proporcionales</strong> (los 20 días por año aplican si el patrón se niega a reinstalarte). Primero se solicita la conciliación ante el Centro de Conciliación Laboral y, si no hay acuerdo, se demanda ante el Tribunal Laboral.<br><br>⚠️ El plazo para actuar es de <strong>2 meses</strong> — después, prescribe el derecho.', 500, function() { setOpts([
         { wa: 'Hola SIGLEP, me despidieron y quiero asesoría sobre mi liquidación', label: '📲 Revisar mi caso gratis' },
         { k: '__init__', label: '↩ Volver al menú' },
       ]); });

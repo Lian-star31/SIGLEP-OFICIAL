@@ -11,7 +11,14 @@
   <meta property="og:description" content="Calculadora orientativa de pensión por invalidez en México para revisar semanas, salario y grado de incapacidad.">
   <meta property="og:url" content="https://siglep.lat/calculadoras/seguridad-social/pension-invalidez/">
   <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_MX">
+  <meta property="og:site_name" content="SIGLEP">
   <meta property="og:image" content="https://siglep.lat/img/og-siglep.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="600">
+  <meta property="og:image:alt" content="SIGLEP — Abogados en México">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://siglep.lat/img/og-siglep.png">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="apple-touch-icon" href="/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -518,7 +525,7 @@
         <div class="legal-basis-kicker">Sustento legal 2026</div>
         <ul>
           <li>LSS Art. 119: mín. 250 semanas cotizadas; o 150 si grado ≥75% de invalidez.</li>
-          <li>LSS Art. 141: cuantía básica = 35% del SBC + 1.25% por cada 52 sem. sobre 500.</li>
+          <li>LSS Art. 141: cuantía básica = 35% del promedio de los salarios de las últimas 500 semanas cotizadas (o las que tenga, si son menos).</li>
           <li>LSS Art. 165-168: asignaciones familiares — cónyuge +15%, cada hijo +10%.</li>
           <li>Grado parcial (25–74%): pensión proporcional al grado certificado por el IMSS.</li>
           <li>UMA mensual 2026: $3,566.22 — pensión mínima garantizada orientativa.</li>
@@ -591,10 +598,8 @@
         return;
       }
 
-      // Cuantía básica Art. 141: 35% base + 1.25% por cada 52 sem. sobre 500
-      const semExtra = Math.max(0, semanas - 500);
-      const pctExtra = Math.min(Math.floor(semExtra / 52) * 0.0125, 0.65);
-      const pctBase  = 0.35 + pctExtra;
+      // Cuantía básica Art. 141 LSS: 35% del salario promedio (sin incrementos por semanas)
+      const pctBase  = 0.35;
       const pensionBase = salario * pctBase;
 
       // Factor grado invalidez

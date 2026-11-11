@@ -15,6 +15,7 @@
     ['Laboral', '/calculadoras/laboral/'],
     ['Familiar', '/calculadoras/familiar/'],
     ['Civil', '/calculadoras/civil/'],
+    ['Patrimonial', '/calculadoras/patrimonial/'],
     ['Seguridad Social', '/calculadoras/seguridad-social/'],
   ];
 
@@ -246,6 +247,29 @@
       .siglep-shell-mobile.open {
         display: block;
       }
+      /* El estilo base de los enlaces del menú móvil heredado vive en /shared/mobile.css. */
+      .siglep-shell-mobile a[aria-current="page"]:not(.siglep-shell-cta) {
+        border-color: rgba(197, 160, 89, 0.3);
+        background: rgba(197, 160, 89, 0.07);
+        color: #c5a059 !important;
+      }
+      .siglep-shell-mobile .siglep-shell-cta,
+      .siglep-shell-mobile .siglep-shell-cta:visited {
+        text-decoration: none !important;
+      }
+      .siglep-shell-mobile-group > .siglep-shell-cta {
+        width: 100%;
+        min-height: 3.1rem;
+        border-radius: 12px;
+        text-decoration: none !important;
+        font-size: 0.74rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      body.siglep-nav-open {
+        overflow: hidden;
+      }
       .siglep-shell-mobile-panel {
         max-width: 1240px;
         margin: 0 auto;
@@ -350,7 +374,7 @@
         max-width: 1240px;
         margin: 0 auto;
         display: grid;
-        grid-template-columns: 1.6fr 1fr 1fr 1fr;
+        grid-template-columns: 1.6fr repeat(3, minmax(0, 1fr));
         gap: 2.25rem;
       }
       .siglep-shell-footer-brand .siglep-shell-mark {
@@ -526,7 +550,7 @@
         <li><a href="/nosotros/" data-nav="nosotros">Nosotros</a></li>
         <li><a class="siglep-shell-cta" href="/expediente/">Consulta Gratis</a></li>
       </ul>
-      <button type="button" class="siglep-shell-burger" aria-label="Abrir menú" onclick="toggleMobileNav()">
+      <button type="button" class="siglep-shell-burger" aria-label="Abrir menú" aria-controls="navMobile" aria-expanded="false" onclick="toggleMobileNav()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
           <path d="M4 6h16"></path>
           <path d="M4 12h16"></path>
@@ -653,8 +677,13 @@
     window.toggleMobileNav = function () {
       const menu = document.getElementById('navMobile');
       if (!menu) return;
-      menu.classList.toggle('open');
-      menu.setAttribute('aria-hidden', menu.classList.contains('open') ? 'false' : 'true');
+      const isOpen = menu.classList.toggle('open');
+      menu.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+      document.body.classList.toggle('siglep-nav-open', isOpen);
+      document.querySelectorAll('.siglep-shell-burger').forEach((b) => {
+        b.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        b.setAttribute('aria-label', isOpen ? 'Cerrar menú' : 'Abrir menú');
+      });
     };
 
     window.closeMobileNav = function () {
@@ -662,6 +691,11 @@
       if (!menu) return;
       menu.classList.remove('open');
       menu.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('siglep-nav-open');
+      document.querySelectorAll('.siglep-shell-burger').forEach((b) => {
+        b.setAttribute('aria-expanded', 'false');
+        b.setAttribute('aria-label', 'Abrir menú');
+      });
     };
 
   }
@@ -722,7 +756,10 @@
     });
 
     document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') setOpen(false);
+      if (event.key === 'Escape') {
+        setOpen(false);
+        if (typeof window.closeMobileNav === 'function') window.closeMobileNav();
+      }
     });
   }
 
@@ -743,11 +780,15 @@
         '/patrimonial/',
         '/seguridad-social/',
       ].some((prefix) => path.startsWith(prefix));
-      if (navKey === 'calculators') active = path.startsWith('/calculadoras/');
+      if (navKey === 'calculadoras') active = path.startsWith('/calculadoras/');
       if (navKey === 'visa') active = path.startsWith('/visa/');
       if (active) {
         el.setAttribute('aria-current', 'page');
       }
+    });
+    document.querySelectorAll('.siglep-shell-mobile a[href^="/"]').forEach((a) => {
+      const href = a.getAttribute('href');
+      if (href === '/' ? path === '/' : path.startsWith(href)) a.setAttribute('aria-current', 'page');
     });
   }
 
@@ -820,9 +861,9 @@
         disclaimer: 'Aproximado referencial basado en criterios del Código Civil. La determinación final corresponde a un juez de lo familiar. Solicite evaluación detallada para blindar a su familia.',
       },
       patrimonial: {
-        cta: 'Iniciar trámite de pensión / divorcio formal aquí',
-        href: '/familiar/',
-        disclaimer: 'Aproximado referencial basado en criterios del Código Civil. La determinación final corresponde a un juez de lo familiar. Solicite evaluación detallada para blindar a su familia.',
+        cta: 'Revisar mi caso patrimonial con un abogado',
+        href: '/patrimonial/',
+        disclaimer: 'Estimación orientativa. El resultado real depende de documentos, avalúos, acuerdos entre las partes y, en su caso, de la resolución del notario, juez o acreedor. No constituye asesoría jurídica vinculante.',
       },
       civil: {
         cta: 'Evaluar mi demanda por daños con un abogado',
@@ -894,6 +935,7 @@
       link.href = href;
       link.textContent = VISA[0];
       link.setAttribute('onclick', 'closeMobileNav()');
+      if (mobile.querySelector('.siglep-shell-mobile-panel')) link.className = 'siglep-shell-mobile-link';
       const mobileCta = mobile.querySelector('.siglep-shell-cta');
       if (mobileCta && mobileCta.parentNode) {
         mobileCta.parentNode.insertBefore(link, mobileCta);

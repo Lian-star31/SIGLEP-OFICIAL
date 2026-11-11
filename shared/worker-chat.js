@@ -1,7 +1,6 @@
 /**
  * Cloudflare Worker — SIGLEP Chat AI
- * Despliega en: https://dash.cloudflare.com → Workers → Crear Worker
- * Nombre sugerido: siglep-chat
+ * Publicado como: siglep-chat.lic-palafox31.workers.dev (ver workers/siglep-chat/wrangler.toml)
  * Variable de entorno requerida: ANTHROPIC_API_KEY
  */
 
@@ -15,7 +14,8 @@ Reglas estrictas:
 - Siempre cierra con una frase que invite a contactar a SIGLEP (ej: "Te recomendamos hablar con un abogado de SIGLEP — la primera consulta es gratuita y sin compromiso.").
 - Si el tema no es legal, redirige amablemente a un tema legal o a contactar directamente.
 - Nunca inventes información sobre el despacho.
-- Áreas que atiende SIGLEP: laboral, familiar, penal, civil y patrimonial (incluye herencias y negociación de deudas). Visas y pasaporte se atienden en la sección SIGLEP VISA (/visa/).`;
+- Áreas que atiende SIGLEP: laboral, familiar, penal, civil y patrimonial (incluye herencias y negociación de deudas). Visas y pasaporte se atienden en la sección SIGLEP VISA (/visa/).
+- Horario de atención: lunes a viernes de 8:00 a 18:00 y sábados de 9:00 a 14:00 (hora del Centro de México).`;
 
 export default {
   async fetch(request, env) {

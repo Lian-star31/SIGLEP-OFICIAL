@@ -1,0 +1,8 @@
+name = "siglep-chat"
+main = "../../shared/worker-chat.js"
+compatibility_date = "2026-07-06"
+workers_dev = true
+
+[observability]
+enabled = true
+head_sampling_rate = 1

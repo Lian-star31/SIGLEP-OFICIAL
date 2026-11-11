@@ -209,6 +209,46 @@
   .blog-card-title { font-size: 1.1rem; }
 }
 
+/* === HIGHLIGHT BAND: botones en columna en móvil === */
+@media (max-width: 767px) {
+  /* Wrapper de botones sin clase (inline style display:flex) */
+  .highlight-band .container > div {
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+    width: 100% !important;
+    align-items: stretch !important;
+  }
+  .highlight-band .container > div .btn-primary,
+  .highlight-band .container > div .btn-secondary,
+  .highlight-band .container > div .btn-wa {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+/* === ARTICLE BLOG: hero y cuerpo === */
+@media (max-width: 767px) {
+  .article-hero { padding: 5.5rem 1.2rem 2.5rem; }
+  .article-hero h1 { font-size: clamp(1.8rem, 7vw, 2.8rem); line-height: 1.1; }
+  .article-body { padding: 2.5rem 1rem; }
+  .article-container h2 { font-size: 1.5rem; margin: 2rem 0 0.75rem; }
+  .article-container h3 { font-size: 1.15rem; margin: 1.5rem 0 0.6rem; }
+  .article-container p { font-size: 0.93rem; line-height: 1.8; }
+  .cta-article { padding: 2rem 1.2rem; }
+  .cta-article h3 { font-size: 1.5rem; }
+  .related-posts { padding: 2rem 1rem; }
+  .related-grid { gap: 0.9rem; }
+}
+
+/* === HOME: hero-trust stats 2 columnas === */
+@media (max-width: 767px) {
+  .hero-trust {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 /* === VERY SMALL (<400px) === */
 @media (max-width: 400px) {
   .page-hero h1,

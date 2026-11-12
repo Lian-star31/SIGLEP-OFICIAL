@@ -80,7 +80,7 @@
     var estado    = window.__SIGLEP_ESTADO_ACTIVO__;
     var monto     = (document.getElementById('resultAmount') || {}).textContent || '—';
     var title     = CALC_TITLES[meta.formulaKey] || 'Estimación Legal';
-    var estadoTxt = estado ? estado.nombre : 'No especificado';
+    var estadoTxt = estado ? ((estado.municipio ? estado.municipio + ', ' : '') + estado.nombre) : 'No especificado';
     var fecha     = new Date().toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' });
     var rows      = buildBreakdownRows();
     var legal     = buildLegalItems();

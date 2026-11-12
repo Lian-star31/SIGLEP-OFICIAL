@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculadora de Pensión IMSS | SIGLEP</title>
-  <meta name="description" content="Calculadora de pensión IMSS 2026: Ley 73 con la tabla del art. 167, factor por edad y asignaciones familiares; Ley 97 con requisitos y pensión garantizada.">
+  <meta name="description" content="Calculadora de pensión IMSS 2026: Ley 73 con la tabla del art. 167, factor por edad y asignaciones familiares; Ley 97 con la tabla de pensión garantizada del art. 170.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://siglep.lat/calculadoras/seguridad-social/pension-imss/">
   <meta property="og:title" content="Calculadora de Pensión IMSS | SIGLEP">
-  <meta property="og:description" content="Calculadora de pensión IMSS 2026: Ley 73 con la tabla del art. 167, factor por edad y asignaciones familiares; Ley 97 con requisitos y pensión garantizada.">
+  <meta property="og:description" content="Calculadora de pensión IMSS 2026: Ley 73 con la tabla del art. 167, factor por edad y asignaciones familiares; Ley 97 con la tabla de pensión garantizada del art. 170.">
   <meta property="og:url" content="https://siglep.lat/calculadoras/seguridad-social/pension-imss/">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_MX">
@@ -140,7 +140,7 @@
     .footer-space{height:1px;}
     @media (max-width: 900px){.calc-grid{grid-template-columns:1fr}.hero{padding-top:7.6rem}}
   </style>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Calculadora de Pensión IMSS | SIGLEP","url":"https://siglep.lat/calculadoras/seguridad-social/pension-imss/","description":"Calculadora de pensión IMSS 2026: Ley 73 con la tabla del art. 167, factor por edad y asignaciones familiares; Ley 97 con requisitos y pensión garantizada.","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://siglep.lat/"},{"@type":"ListItem","position":2,"name":"Calculadoras","item":"https://siglep.lat/calculadoras/"},{"@type":"ListItem","position":3,"name":"Seguridad social","item":"https://siglep.lat/calculadoras/seguridad-social/"},{"@type":"ListItem","position":4,"name":"Pensión IMSS","item":"https://siglep.lat/calculadoras/seguridad-social/pension-imss/"}]}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Calculadora de Pensión IMSS | SIGLEP","url":"https://siglep.lat/calculadoras/seguridad-social/pension-imss/","description":"Calculadora de pensión IMSS 2026: Ley 73 con la tabla del art. 167, factor por edad y asignaciones familiares; Ley 97 con la tabla de pensión garantizada del art. 170.","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://siglep.lat/"},{"@type":"ListItem","position":2,"name":"Calculadoras","item":"https://siglep.lat/calculadoras/"},{"@type":"ListItem","position":3,"name":"Seguridad social","item":"https://siglep.lat/calculadoras/seguridad-social/"},{"@type":"ListItem","position":4,"name":"Pensión IMSS","item":"https://siglep.lat/calculadoras/seguridad-social/pension-imss/"}]}}</script>
   
   <style>
     nav.siglep-shell-nav {
@@ -496,7 +496,15 @@
                 <div class="field">
                   <label for="edad">Edad actual</label>
                   <input id="edad" type="number" inputmode="decimal" placeholder="Ej. 60" min="0" max="100" step="1" oninput="runCalc()">
-                  <span class="help">Cesantía: mín. 60 años. Vejez: mín. 65 años (LSS Art. 154/162).</span>
+                  <span class="help">Cesantía: mín. 60 años. Vejez: mín. 65 años.</span>
+                </div>
+                <div class="field">
+                  <label for="edad_meses">Meses cumplidos después de esa edad</label>
+                  <select id="edad_meses" onchange="runCalc()">
+                    <option value="0">Menos de 6 meses</option>
+                    <option value="6">6 meses o más</option>
+                  </select>
+                  <span class="help">Ley 73, art. 171: se suma un año cuando la edad excede en seis meses.</span>
                 </div>
                 <div class="field">
                   <label for="semanas">Semanas cotizadas</label>
@@ -519,12 +527,12 @@
                 <div class="field" data-ley73>
                   <label for="hijos">Hijos dependientes</label>
                   <input id="hijos" type="number" inputmode="numeric" placeholder="Ej. 0" min="0" max="10" step="1" oninput="runCalc()">
-                  <span class="help">Menores de 16 años, o hasta 25 si estudian. 10% por cada uno (art. 164).</span>
+                  <span class="help">Menores de 16 años, o hasta 25 si estudian (arts. 164 y 156). 10% por cada uno.</span>
                 </div>
                 <div class="field" data-ley73>
                   <label for="padres">Padres que dependen económicamente de ti</label>
                   <input id="padres" type="number" inputmode="numeric" placeholder="Ej. 0" min="0" max="2" step="1" oninput="runCalc()">
-                  <span class="help">Solo cuentan si no hay esposa(o) ni hijos: 10% por cada uno (art. 164).</span>
+                  <span class="help">Solo cuentan si no hay esposa(o) ni hijos: 10% por cada uno; con un solo padre se suma 10% de ayuda asistencial (art. 164, fr. III y V).</span>
                 </div>
                 <button class="calc-button" type="button" id="calcButton">Calcular estimación</button>
               </form>
@@ -547,13 +555,11 @@
       <div class="legal-basis">
         <div class="legal-basis-kicker">Sustento legal 2026</div>
         <ul>
-          <li>Ley 1973: cesantía desde 60 años y vejez desde 65, con mínimo de 500 semanas cotizadas.</li>
-          <li>LSS 1973 art. 167: cuantía básica e incremento anual por cada 52 semanas cotizadas después de las primeras 500, según el grupo de salario promedio (en veces el salario mínimo). Un remanente de 13 a 26 semanas da medio incremento y uno mayor a 26 semanas, un incremento completo.</li>
-          <li>Art. 171: cesantía en edad avanzada = 75% a los 60 años, 80% a los 61, 85% a los 62, 90% a los 63, 95% a los 64 y 100% a los 65 (vejez).</li>
-          <li>Arts. 164 y 166: asignaciones familiares (15% cónyuge, 10% por hijo, 10% por padre dependiente si no hay cónyuge ni hijos) o ayuda asistencial del 15% si no hay beneficiarios.</li>
-          <li>Referencia del grupo salarial: se muestra con salario mínimo 2026 ($315.04) y, como comparación, con UMA 2026 ($117.31), porque la referencia aplicable está en disputa judicial.</li>
-          <li>Pensión mínima Ley 73: no puede ser inferior al salario mínimo general. Salario mínimo 2026: $315.04 diarios, equivalente mensual de $9,577.22 (× 30.4), que esta calculadora usa como piso. Las pensiones ya otorgadas se actualizan cada febrero conforme al INPC, por lo que el monto que efectivamente paga el IMSS a quien recibe la mínima puede ser mayor (medios reportan $10,636.54 en 2026; confírmalo con el IMSS).</li>
-          <li>Ley 1997: mín. 875 semanas en 2026 (incrementa 25/año hasta 1,000 en 2031). El monto depende del saldo de tu AFORE (renta vitalicia o retiro programado); si no alcanza, aplica la pensión garantizada del art. 170, cuya tabla 2026 va de $3,540.56 a $11,128.01 mensuales según salario, edad y semanas.</li>
+          <li>LSS 1973, art. 167 (DOF 27-12-1990): cuantía básica e incremento anual según el grupo del salario promedio de las últimas 250 semanas, expresado en veces el salario mínimo general vigente al pensionarse; remanente de 13 a 26 semanas = 50% del incremento y más de 26 = 100%.</li>
+          <li>Art. 164 (DOF 12-03-1973): asignaciones familiares de 15% por esposa(o) o concubina(o) y 10% por hijo; 10% por padre dependiente si no hay esposa ni hijos; ayuda asistencial de 15% sin beneficiarios o de 10% si solo hay un ascendiente.</li>
+          <li>Art. 169: la pensión con asignaciones no excede del 100% del salario promedio (salvo derechos por semanas y pensión mínima). Art. 171: cesantía = 75% a los 60 años, 80% a los 61, 85% a los 62, 90% a los 63 y 95% a los 64.</li>
+          <li>Transitorio Décimo Cuarto del decreto DOF 20-12-2001 (reformado DOF 05-01-2004): la pensión menor a un salario mínimo se eleva a ese monto y la de pensionados de 60 años o más se multiplica por 1.11. Con salario mínimo 2026 de $315.04, el mínimo resulta en $10,636.54 mensuales.</li>
+          <li>LSS vigente (DOF 15-01-2026), art. 170 y transitorio Cuarto del decreto DOF 16-12-2020: pensión garantizada Ley 97 por rango de salario, edad y semanas (875 semanas en 2026), en pesos de la tabla legal actualizados por INPC cada febrero (factor 143.042 / 105.934 con INPC de INEGI de dic-2025 y dic-2019).</li>
           <li>UMA 2026: $117.31/día · $3,566.22/mes (vigente desde 1-feb-2026, DOF 09-01-2026).</li>
         </ul>
       </div>
@@ -613,9 +619,9 @@
     const DIAS_MES     = 30.4;
     const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
 
-    const SM_DIARIO = 315.04;           // salario mínimo general 2026
-    const PMG97_MIN = 3540.56, PMG97_MAX = 11128.01; // art. 170 LSS, montos 2026
-    // LSS 1973 art. 167: [hasta veces el salario mínimo, % cuantía básica, % incremento anual]
+    const SM_DIARIO = 315.04;            // salario mínimo general 2026 (CONASAMI)
+    const DIAS_MES_PENSION = 365 / 12;   // las pensiones del art. 167 son anuales
+    // LSS 1973 art. 167 (DOF 27-12-1990): [hasta veces SM, % cuantía básica, % incremento anual]
     const TABLA_167 = [
       [1.00, 80.00, 0.563], [1.25, 77.11, 0.814], [1.50, 58.18, 1.178], [1.75, 49.23, 1.430],
       [2.00, 42.67, 1.615], [2.25, 37.65, 1.756], [2.50, 33.68, 1.868], [2.75, 30.48, 1.958],
@@ -625,38 +631,67 @@
       [6.00, 13.62, 2.433], [Infinity, 13.00, 2.450]
     ];
     const FACTOR_EDAD = { 60: 0.75, 61: 0.80, 62: 0.85, 63: 0.90, 64: 0.95 }; // art. 171
+    // LSS art. 170 / transitorio Cuarto DOF 16-12-2020 — pensión garantizada mensual (pesos de la tabla legal)
+    // filas: rango SBC en UMA; edad 60..65+; columnas: 11 escalones de semanas
+    const TABLA_170 = {
+      r1: [[2622,2716,2809,2903,2997,3090,3184,3278,3371,3465,3559],[2660,2753,2847,2941,3034,3128,3221,3315,3409,3502,3596],[2697,2791,2884,2978,3072,3165,3259,3353,3446,3540,3634],[2734,2828,2922,3015,3109,3203,3296,3390,3484,3577,3671],[2772,2866,2959,3053,3147,3240,3334,3427,3521,3615,3708],[2809,2903,2997,3090,3184,3278,3371,3465,3559,3652,3746]],
+      r2: [[3409,3530,3652,3774,3896,4017,4139,4261,4383,4504,4626],[3457,3579,3701,3823,3944,4066,4188,4310,4431,4553,4675],[3506,3628,3750,3871,3993,4115,4237,4358,4480,4602,4724],[3555,3677,3798,3920,4042,4164,4285,4407,4529,4651,4772],[3604,3725,3847,3969,4091,4212,4334,4456,4577,4699,4821],[3652,3774,3896,4017,4139,4261,4383,4504,4626,4748,4870]],
+      r3: [[4195,4345,4495,4645,4795,4945,5094,5244,5394,5544,5694],[4255,4405,4555,4705,4855,5005,5154,5304,5454,5604,5754],[4315,4465,4615,4765,4915,5064,5214,5364,5514,5664,5814],[4375,4525,4675,4825,4975,5124,5274,5424,5574,5724,5874],[4435,4585,4735,4885,5034,5184,5334,5484,5634,5784,5933],[4495,4645,4795,4945,5094,5244,5394,5544,5694,5844,5993]],
+      r4: [[4982,5160,5338,5516,5694,5872,6050,6228,6405,6583,6761],[5053,5231,5409,5587,5765,5943,6121,6299,6477,6655,6832],[5124,5302,5480,5658,5836,6014,6192,6370,6548,6726,6904],[5196,5373,5551,5729,5907,6085,6263,6441,6619,6797,6975],[5267,5445,5623,5801,5978,6156,6334,6512,6690,6868,7046],[5338,5516,5694,5872,6050,6228,6405,6583,6761,6939,7117]],
+      r5: [[5769,5975,6181,6387,6593,6799,7005,7211,7417,7623,7829],[5851,6057,6263,6469,6675,6881,7087,7293,7499,7705,7911],[5933,6140,6346,6552,6758,6964,7170,7376,7582,7788,7994],[6016,6222,6428,6634,6840,7046,7252,7458,7664,7870,8076],[6098,6304,6510,6716,6922,7128,7334,7540,7746,7953,8159],[6181,6387,6593,6799,7005,7211,7417,7623,7829,8035,8241]]
+    };
+    const SEMANAS_BASE_2026 = 875;              // transitorio Cuarto: 750 en 2021 + 25 por año
+    const FACTOR_INPC_2026 = 143.042 / 105.934; // INPC dic-2025 / dic-2019 (INEGI)
 
     function grupo167(veces) {
       const v = Math.round(veces * 100) / 100;
       return TABLA_167.find(([hasta]) => v <= hasta);
     }
-
-    // Número de incrementos anuales (art. 167): 52 semanas = 1; remanente 13-26 = 0.5; >26 = 1
+    // Número de incrementos anuales (art. 167)
     function incrementos(semanas) {
       const extra = Math.max(0, semanas - 500);
       const anios = Math.floor(extra / 52);
       const resto = extra % 52;
       return anios + (resto > 26 ? 1 : resto >= 13 ? 0.5 : 0);
     }
+    function edadEfectiva(edad, meses) { return edad + (meses >= 6 ? 1 : 0); } // art. 171
 
-    function pensionLey73(salDia, semanas, edad, ref, conyuge, hijos, padres) {
+    function pensionLey73(salDia, semanas, edad, conyuge, hijos, padres) {
       const sal = Math.min(salDia, TOPE_DIARIO);
-      const [, pctBase, pctInc] = grupo167(sal / ref);
+      const [, pctBase, pctInc] = grupo167(sal / SM_DIARIO);
       const nInc = incrementos(semanas);
       const cuantia = sal * (pctBase / 100) + sal * (pctInc / 100) * nInc;
-      let pctAsig = 0;
-      if (conyuge) pctAsig += 0.15;
-      pctAsig += 0.10 * hijos;
-      if (!conyuge && hijos === 0) pctAsig += 0.10 * padres;
-      const ayuda = pctAsig === 0 ? 0.15 : 0; // art. 166: sin beneficiarios
+      let asig = 0, ayuda = 0;
+      if (conyuge) asig += 0.15;
+      asig += 0.10 * hijos;
+      if (!conyuge && hijos === 0) {
+        if (padres >= 2) asig += 0.20;
+        else if (padres === 1) { asig += 0.10; ayuda = 0.10; }
+        else ayuda = 0.15;
+      }
+      const conAsig = cuantia * (1 + asig + ayuda);
+      const tope = Math.max(sal, cuantia);            // art. 169
+      const vejez = Math.min(conAsig, tope);
       const factor = edad >= 65 ? 1 : (FACTOR_EDAD[edad] || 0);
-      const diaria = cuantia * (1 + pctAsig + ayuda) * factor;
-      return { sal, pctBase, pctInc, nInc, cuantia, pctAsig, ayuda, factor, mensual: diaria * DIAS_MES };
+      const mensualCalc = vejez * factor * DIAS_MES_PENSION;
+      const piso = SM_DIARIO * DIAS_MES_PENSION;
+      const conPiso = Math.max(mensualCalc, piso);    // transitorio Décimo Cuarto, inciso a)
+      return { sal, pctBase, pctInc, nInc, cuantia, asig, ayuda, factor, topado: conAsig > tope, mensualCalc, piso, final: conPiso * 1.11 };
+    }
+
+    function pensionGarantizada97(salDia, semanas, edad) {
+      const v = salDia / UMA_DIARIA;
+      const fila = v < 2 ? 'r1' : v < 3 ? 'r2' : v < 4 ? 'r3' : v < 5 ? 'r4' : 'r5';
+      const col = Math.min(10, Math.max(0, Math.floor((semanas - SEMANAS_BASE_2026) / 25)));
+      const e = Math.min(65, edad) - 60;
+      const base = TABLA_170[fila][e][col];
+      return { fila, col, base, monto: base * FACTOR_INPC_2026, veces: v };
     }
 
     function runCalc() {
       const ley     = document.getElementById('ley').value;
-      const edad    = parseInt(document.getElementById('edad').value) || 0;
+      const edadIn  = parseInt(document.getElementById('edad').value) || 0;
+      const meses   = parseInt(document.getElementById('edad_meses').value) || 0;
       const semanas = parseInt(document.getElementById('semanas').value) || 0;
       const salDia  = parseFloat(document.getElementById('salario').value) || 0;
       const conyuge = document.getElementById('conyuge').value === 'si';
@@ -664,39 +699,44 @@
       const padres  = Math.min(2, Math.max(0, parseInt(document.getElementById('padres').value) || 0));
       document.querySelectorAll('[data-ley73]').forEach(el => { el.style.display = ley === '73' ? '' : 'none'; });
 
+      const edad = ley === '73' ? edadEfectiva(edadIn, meses) : edadIn;
       const rows = [];
-      const minSem = ley === '73' ? 500 : 875;
-      const cumple = semanas >= minSem && edad >= 60;
+      const minSem = ley === '73' ? 500 : SEMANAS_BASE_2026;
       const out = document.getElementById('resultAmount');
+      const pinta = () => { document.getElementById('resultBreakdown').innerHTML = rows
+        .map(([l, v]) => '<div class="breakdown-row"><span>' + l + '</span><strong>' + v + '</strong></div>').join('')
+        + '<p class="result-note" style="margin-top:0.8rem;">Estimación con las tablas legales. El IMSS resuelve con tu historial oficial de semanas y salarios; las pensiones en curso se actualizan cada febrero conforme al INPC.</p>'; };
 
-      if (!cumple) {
+      if (semanas < minSem || edad < 60) {
         out.textContent = '— requisitos no cumplidos';
         rows.push(['Semanas mínimas 2026', minSem + ' (capturaste ' + semanas + ')']);
-        rows.push(['Edad mínima', '60 años cesantía · 65 vejez (capturaste ' + edad + ')']);
-      } else if (ley === '73') {
-        if (salDia <= 0) { out.textContent = 'Captura tu salario promedio'; document.getElementById('resultBreakdown').innerHTML = ''; return; }
-        const a = pensionLey73(salDia, semanas, edad, SM_DIARIO, conyuge, hijos, padres);
-        const b = pensionLey73(salDia, semanas, edad, UMA_DIARIA, conyuge, hijos, padres);
-        const piso = SM_DIARIO * DIAS_MES;
-        const final = Math.max(a.mensual, piso);
-        out.textContent = money.format(Math.round(final)) + '/mes';
-        rows.push(['Salario promedio usado', money.format(a.sal) + '/día' + (salDia > TOPE_DIARIO ? ' (tope 25 UMA)' : '')]);
-        rows.push(['Grupo (salario mínimo): cuantía básica', a.pctBase.toFixed(2) + '% + ' + a.pctInc.toFixed(3) + '% × ' + a.nInc + ' incrementos']);
-        rows.push(['Cuantía diaria (cuantía básica + incrementos)', money.format(a.cuantia)]);
-        rows.push([a.ayuda ? 'Ayuda asistencial (art. 166)' : 'Asignaciones familiares (art. 164)', Math.round((a.pctAsig + a.ayuda) * 100) + '%']);
-        rows.push(['Factor por edad (art. 171)', Math.round(a.factor * 100) + '%']);
-        rows.push(['Pensión calculada', money.format(Math.round(a.mensual)) + '/mes']);
-        rows.push(['Piso: 1 salario mínimo mensual', money.format(Math.round(piso)) + '/mes']);
-        rows.push(['Comparación con grupo en UMA', money.format(Math.round(Math.max(b.mensual, piso))) + '/mes (' + b.pctBase.toFixed(2) + '% base)']);
-      } else {
-        out.textContent = money.format(PMG97_MIN) + ' – ' + money.format(PMG97_MAX) + '/mes';
-        rows.push(['Requisitos 2026', 'Cumplidos (' + semanas + ' semanas, ' + edad + ' años)']);
-        rows.push(['Pensión garantizada (art. 170)', 'Rango 2026 según salario, edad y semanas']);
-        rows.push(['Monto real', 'Depende del saldo de tu AFORE; si es mayor, recibes renta vitalicia o retiro programado']);
+        rows.push(['Edad mínima', '60 años cesantía · 65 vejez (capturaste ' + edadIn + ')']);
+        return pinta();
       }
-      document.getElementById('resultBreakdown').innerHTML = rows
-        .map(([l, v]) => '<div class="breakdown-row"><span>' + l + '</span><strong>' + v + '</strong></div>')
-        .join('') + '<p class="result-note" style="margin-top:0.8rem;">Estimación orientativa. No incluye actualizaciones por INPC posteriores al otorgamiento ni revisiones del IMSS; confirma con tu constancia de semanas y salarios.</p>';
+      if (salDia <= 0) { out.textContent = 'Captura tu salario promedio'; document.getElementById('resultBreakdown').innerHTML = ''; return; }
+
+      if (ley === '73') {
+        const a = pensionLey73(salDia, semanas, edad, conyuge, hijos, padres);
+        out.textContent = money.format(Math.round(a.final)) + '/mes';
+        rows.push(['Salario promedio', money.format(a.sal) + '/día (' + (a.sal / SM_DIARIO).toFixed(2) + ' veces el salario mínimo)']);
+        rows.push(['Cuantía básica (art. 167)', a.pctBase.toFixed(2) + '% + ' + a.pctInc.toFixed(3) + '% × ' + a.nInc + ' incrementos']);
+        rows.push(['Cuantía diaria', money.format(a.cuantia)]);
+        rows.push([a.ayuda && !a.asig ? 'Ayuda asistencial (art. 164)' : 'Asignaciones y ayudas (art. 164)', Math.round((a.asig + a.ayuda) * 100) + '%' + (a.topado ? ' (topado al 100% del salario, art. 169)' : '')]);
+        rows.push(['Edad considerada / factor (art. 171)', edad + ' años · ' + Math.round(a.factor * 100) + '%']);
+        rows.push(['Pensión según tabla', money.format(Math.round(a.mensualCalc)) + '/mes']);
+        if (a.mensualCalc < a.piso) rows.push(['Elevada al salario mínimo', money.format(Math.round(a.piso)) + '/mes']);
+        rows.push(['Factor 1.11 (60 años o más)', money.format(Math.round(a.final)) + '/mes']);
+      } else {
+        const g = pensionGarantizada97(salDia, semanas, edad);
+        out.textContent = money.format(Math.round(g.monto)) + '/mes';
+        rows.push(['Salario promedio', g.veces.toFixed(2) + ' UMA']);
+        rows.push(['Semanas (escalón 2026)', semanas + ' → columna ' + (SEMANAS_BASE_2026 + g.col * 25) + (g.col === 10 ? ' o más' : '')]);
+        rows.push(['Edad', Math.min(65, edad) + (edad >= 65 ? ' o más' : '') + ' años']);
+        rows.push(['Tabla legal (pesos base)', money.format(g.base)]);
+        rows.push(['Pensión garantizada 2026 (INPC)', money.format(Math.round(g.monto)) + '/mes']);
+        rows.push(['Si tu AFORE alcanza más', 'Recibes renta vitalicia o retiro programado mayor']);
+      }
+      pinta();
     }
 
     document.getElementById('calcButton').addEventListener('click', runCalc);

@@ -896,7 +896,7 @@
 
   function loadCalcModules() {
     if (!pageIs('/calculadoras/')) return;
-    ['/shared/estados-mexico.js', '/shared/estado-selector.js', '/shared/pdf-report.js'].forEach(function(src) {
+    ['/shared/territorio.js', '/shared/pdf-report.js'].forEach(function(src) {
       var s = document.createElement('script');
       s.src = src;
       document.head.appendChild(s);

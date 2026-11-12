@@ -393,7 +393,7 @@
     }
   </style>
 
-  <script defer src="/shared/site-shell.js?v=20261112a"></script>
+  <script defer src="/shared/site-shell.js?v=20261112b"></script>
 <link rel="stylesheet" href="/shared/mobile.css?v=20261112a">
 </head>
 <body>
@@ -492,7 +492,7 @@
                 </div>
                 <div class="field">
                   <label for="salario">Salario diario promedio (MXN)</label>
-                  <input id="salario" type="number" inputmode="decimal" placeholder="Ej. 600" min="0" step="any">
+                  <input id="salario" type="text" inputmode="decimal" placeholder="Ej. 600" autocomplete="off" data-money-input="true">
                   <span class="help">Ley 73: promedio de las últimas 250 semanas (art. 167 LSS 1973). Ley 97: promedio de las últimas 500 semanas actualizado con el INPC (art. 141 LSS).</span>
                 </div>
                 <div class="field">
@@ -608,7 +608,7 @@
     const L = window.__SIGLEP_LOCAL__;
     const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2, maximumFractionDigits: 2 });
     const $ = id => document.getElementById(id);
-    const num = id => { const el = $(id); const v = el ? parseFloat(el.value) : NaN; return isFinite(v) ? v : 0; };
+    const num = id => { const el = $(id); const v = el ? parseFloat(String(el.value).replace(/[$,\s]/g, '')) : NaN; return isFinite(v) ? v : 0; };
     const val = id => { const el = $(id); return el ? el.value : ''; };
     function lugarActual() {
       const l = window.__SIGLEP_ESTADO_ACTIVO__;

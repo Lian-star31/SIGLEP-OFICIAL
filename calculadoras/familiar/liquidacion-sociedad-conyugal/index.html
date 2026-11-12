@@ -393,7 +393,7 @@
     }
   </style>
 
-  <script defer src="/shared/site-shell.js?v=20261112a"></script>
+  <script defer src="/shared/site-shell.js?v=20261112b"></script>
 <link rel="stylesheet" href="/shared/mobile.css?v=20261112a">
 </head>
 <body>
@@ -487,21 +487,21 @@
               <form id="calc-form" onsubmit="return false;">
                 <div class="field">
                   <label for="bienes">Activo social: bienes inventariados de la sociedad (MXN)</label>
-                  <input id="bienes" type="number" inputmode="decimal" placeholder="Ej. 900000" min="0" step="any">
+                  <input id="bienes" type="text" inputmode="decimal" placeholder="Ej. 900000" autocomplete="off" data-money-input="true">
                   <span class="help">No se incluyen el lecho, la ropa ordinaria ni los objetos de uso personal (art. 203 CCF).</span>
                 </div>
                 <div class="field">
                   <label for="deudas">Créditos contra el fondo social (MXN)</label>
-                  <input id="deudas" type="number" inputmode="decimal" placeholder="Ej. 160000" min="0" step="any">
+                  <input id="deudas" type="text" inputmode="decimal" placeholder="Ej. 160000" autocomplete="off" data-money-input="true">
                 </div>
                 <div class="field">
                   <label for="aporte_a">Lo que el cónyuge A llevó al matrimonio (MXN)</label>
-                  <input id="aporte_a" type="number" inputmode="decimal" placeholder="Ej. 0" min="0" step="any">
+                  <input id="aporte_a" type="text" inputmode="decimal" placeholder="Ej. 0" autocomplete="off" data-money-input="true">
                   <span class="help">Se le devuelve antes de repartir el sobrante (art. 204 CCF).</span>
                 </div>
                 <div class="field">
                   <label for="aporte_b">Lo que el cónyuge B llevó al matrimonio (MXN)</label>
-                  <input id="aporte_b" type="number" inputmode="decimal" placeholder="Ej. 0" min="0" step="any">
+                  <input id="aporte_b" type="text" inputmode="decimal" placeholder="Ej. 0" autocomplete="off" data-money-input="true">
                 </div>
                 <div class="field">
                   <label for="pct">Porcentaje del sobrante para el cónyuge A según lo convenido (%)</label>
@@ -589,7 +589,7 @@
     const L = window.__SIGLEP_LOCAL__;
     const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2, maximumFractionDigits: 2 });
     const $ = id => document.getElementById(id);
-    const num = id => { const el = $(id); const v = el ? parseFloat(el.value) : NaN; return isFinite(v) ? v : 0; };
+    const num = id => { const el = $(id); const v = el ? parseFloat(String(el.value).replace(/[$,\s]/g, '')) : NaN; return isFinite(v) ? v : 0; };
     const val = id => { const el = $(id); return el ? el.value : ''; };
     function lugarActual() {
       const l = window.__SIGLEP_ESTADO_ACTIVO__;

@@ -393,7 +393,7 @@
     }
   </style>
 
-  <script defer src="/shared/site-shell.js?v=20261112a"></script>
+  <script defer src="/shared/site-shell.js?v=20261112b"></script>
 <link rel="stylesheet" href="/shared/mobile.css?v=20261112a">
 </head>
 <body>
@@ -487,12 +487,12 @@
               <form id="calc-form" onsubmit="return false;">
                 <div class="field">
                   <label for="material">Daño material comprobado (MXN)</label>
-                  <input id="material" type="number" inputmode="decimal" placeholder="Ej. 20000" min="0" step="any">
+                  <input id="material" type="text" inputmode="decimal" placeholder="Ej. 20000" autocomplete="off" data-money-input="true">
                   <span class="help">Gastos y pérdidas que puedes acreditar con documentos (daño emergente y perjuicios). Se reclaman con independencia del daño moral.</span>
                 </div>
                 <div class="field">
                   <label for="rc_total">Monto de la responsabilidad civil determinada (MXN, opcional)</label>
-                  <input id="rc_total" type="number" inputmode="decimal" placeholder="Ej. 300000" min="0" step="any">
+                  <input id="rc_total" type="text" inputmode="decimal" placeholder="Ej. 300000" autocomplete="off" data-money-input="true">
                   <span class="help">Sólo se usa en las entidades que limitan la reparación moral a una proporción de la responsabilidad civil (Chiapas y Zacatecas: una tercera parte).</span>
                 </div>
                 <div class="field">
@@ -586,7 +586,7 @@
     const L = window.__SIGLEP_LOCAL__;
     const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2, maximumFractionDigits: 2 });
     const $ = id => document.getElementById(id);
-    const num = id => { const el = $(id); const v = el ? parseFloat(el.value) : NaN; return isFinite(v) ? v : 0; };
+    const num = id => { const el = $(id); const v = el ? parseFloat(String(el.value).replace(/[$,\s]/g, '')) : NaN; return isFinite(v) ? v : 0; };
     const val = id => { const el = $(id); return el ? el.value : ''; };
     function lugarActual() {
       const l = window.__SIGLEP_ESTADO_ACTIVO__;

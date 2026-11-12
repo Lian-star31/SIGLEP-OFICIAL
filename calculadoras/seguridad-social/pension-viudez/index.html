@@ -393,7 +393,7 @@
     }
   </style>
 
-  <script defer src="/shared/site-shell.js?v=20261112a"></script>
+  <script defer src="/shared/site-shell.js?v=20261112b"></script>
 <link rel="stylesheet" href="/shared/mobile.css?v=20261112a">
 </head>
 <body>
@@ -491,7 +491,7 @@
                 </div>
                 <div class="field">
                   <label for="pension_base">Pensión mensual del fallecido, sin asignaciones familiares (MXN)</label>
-                  <input id="pension_base" type="number" inputmode="decimal" placeholder="Ej. 13000" min="0" step="any">
+                  <input id="pension_base" type="text" inputmode="decimal" placeholder="Ej. 13000" autocomplete="off" data-money-input="true">
                   <span class="help">La que disfrutaba (invalidez, vejez o cesantía en Ley 73; invalidez en Ley 97) o la de invalidez que le habría correspondido. Las asignaciones familiares no cuentan (art. 165 LSS 1973; art. 139 LSS).</span>
                 </div>
                 <div class="field">
@@ -593,7 +593,7 @@
     const L = window.__SIGLEP_LOCAL__;
     const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2, maximumFractionDigits: 2 });
     const $ = id => document.getElementById(id);
-    const num = id => { const el = $(id); const v = el ? parseFloat(el.value) : NaN; return isFinite(v) ? v : 0; };
+    const num = id => { const el = $(id); const v = el ? parseFloat(String(el.value).replace(/[$,\s]/g, '')) : NaN; return isFinite(v) ? v : 0; };
     const val = id => { const el = $(id); return el ? el.value : ''; };
     function lugarActual() {
       const l = window.__SIGLEP_ESTADO_ACTIVO__;

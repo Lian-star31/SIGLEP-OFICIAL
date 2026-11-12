@@ -393,7 +393,7 @@
     }
   </style>
 
-  <script defer src="/shared/site-shell.js?v=20261112a"></script>
+  <script defer src="/shared/site-shell.js?v=20261112b"></script>
 <link rel="stylesheet" href="/shared/mobile.css?v=20261112a">
 </head>
 <body>
@@ -492,16 +492,16 @@
                 </div>
                 <div class="field">
                   <label for="perdida">Daño emergente: pérdida patrimonial comprobada (MXN)</label>
-                  <input id="perdida" type="number" inputmode="decimal" placeholder="Ej. 30000" min="0" step="any">
+                  <input id="perdida" type="text" inputmode="decimal" placeholder="Ej. 30000" autocomplete="off" data-money-input="true">
                   <span class="help">Pérdida o menoscabo sufrido en el patrimonio (art. 2108 CCF).</span>
                 </div>
                 <div class="field">
                   <label for="reparacion">Costo de reparación o reposición comprobado (MXN)</label>
-                  <input id="reparacion" type="number" inputmode="decimal" placeholder="Ej. 18000" min="0" step="any">
+                  <input id="reparacion" type="text" inputmode="decimal" placeholder="Ej. 18000" autocomplete="off" data-money-input="true">
                 </div>
                 <div class="field">
                   <label for="lucro_cesante">Ganancia lícita dejada de obtener por mes (MXN)</label>
-                  <input id="lucro_cesante" type="number" inputmode="decimal" placeholder="Ej. 15000" min="0" step="any">
+                  <input id="lucro_cesante" type="text" inputmode="decimal" placeholder="Ej. 15000" autocomplete="off" data-money-input="true">
                   <span class="help">Perjuicio (art. 2109 CCF). Debe ser consecuencia inmediata y directa del incumplimiento (art. 2110 CCF).</span>
                 </div>
                 <div class="field">
@@ -510,7 +510,7 @@
                 </div>
                 <div class="field">
                   <label for="capital">Cantidad de dinero adeudada (MXN)</label>
-                  <input id="capital" type="number" inputmode="decimal" placeholder="Ej. 100000" min="0" step="any">
+                  <input id="capital" type="text" inputmode="decimal" placeholder="Ej. 100000" autocomplete="off" data-money-input="true">
                   <span class="help">Sólo si la obligación era pagar dinero.</span>
                 </div>
                 <div class="field">
@@ -605,7 +605,7 @@
     const L = window.__SIGLEP_LOCAL__;
     const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2, maximumFractionDigits: 2 });
     const $ = id => document.getElementById(id);
-    const num = id => { const el = $(id); const v = el ? parseFloat(el.value) : NaN; return isFinite(v) ? v : 0; };
+    const num = id => { const el = $(id); const v = el ? parseFloat(String(el.value).replace(/[$,\s]/g, '')) : NaN; return isFinite(v) ? v : 0; };
     const val = id => { const el = $(id); return el ? el.value : ''; };
     function lugarActual() {
       const l = window.__SIGLEP_ESTADO_ACTIVO__;

@@ -106,7 +106,7 @@
     @media (max-width: 900px){.calc-grid{grid-template-columns:1fr}.calc-actions{grid-template-columns:1fr}.hero{padding-top:7.6rem}}
   </style>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Calculadora de Negociación de Deuda Bancaria | SIGLEP","url":"https://siglep.lat/calculadoras/patrimonial/deuda-bancaria/","description":"Estima cuánto podrías pagar en una negociación de deuda bancaria.","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://siglep.lat/"},{"@type":"ListItem","position":2,"name":"Calculadoras","item":"https://siglep.lat/calculadoras/"},{"@type":"ListItem","position":3,"name":"Patrimonial","item":"https://siglep.lat/calculadoras/patrimonial/"},{"@type":"ListItem","position":4,"name":"Negociación de Deuda","item":"https://siglep.lat/calculadoras/patrimonial/deuda-bancaria/"}]}}</script>
-  <script defer src="/shared/site-shell.js?v=20261112a"></script>
+  <script defer src="/shared/site-shell.js?v=20261112b"></script>
 <link rel="stylesheet" href="/shared/mobile.css?v=20261112a">
 </head>
 <body>
@@ -148,7 +148,7 @@
               <form id="calc-form" onsubmit="return false;">
                 <div class="field">
                   <label for="saldo">Saldo vencido (MXN)</label>
-                  <input id="saldo" type="number" inputmode="decimal" placeholder="Ej. 50000" min="0" step="any">
+                  <input id="saldo" type="text" inputmode="decimal" placeholder="Ej. 50000" autocomplete="off" data-money-input="true">
                 </div>
                 <div class="field">
                   <label for="documento">Documento en que consta la deuda</label>
@@ -260,7 +260,7 @@
       return Object.assign(out, { dias, intereses, total: saldo + intereses, prescribe, prescrita: hoy >= prescribe, restante: Math.ceil((prescribe - hoy) / 86400000) });
     }
     function runCalc() {
-      const saldo = parseFloat($('saldo').value) || 0;
+      const saldo = parseFloat($('saldo').value.replace(/[$,\s]/g, '')) || 0;
       const hoy = new Date().toISOString().slice(0, 10);
       const r = analizar(saldo, $('documento').value, $('fecha').value, parseFloat($('tasa').value) || 0, hoy);
       const fmt = d => d.toLocaleDateString('es-MX', { timeZone: 'UTC', day: '2-digit', month: 'long', year: 'numeric' });

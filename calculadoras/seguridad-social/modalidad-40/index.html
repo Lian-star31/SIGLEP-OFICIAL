@@ -393,7 +393,7 @@
     }
   </style>
 
-  <script defer src="/shared/site-shell.js?v=20261112a"></script>
+  <script defer src="/shared/site-shell.js?v=20261112b"></script>
 <link rel="stylesheet" href="/shared/mobile.css?v=20261112a">
 </head>
 <body>
@@ -492,12 +492,12 @@
                 </div>
                 <div class="field">
                   <label for="sbc_baja">Último salario base de cotización al causar baja (MXN diarios)</label>
-                  <input id="sbc_baja" type="number" inputmode="decimal" placeholder="Ej. 550" min="0" step="any" oninput="runCalc()">
+                  <input id="sbc_baja" type="text" inputmode="decimal" placeholder="Ej. 550" oninput="runCalc()" autocomplete="off" data-money-input="true">
                   <span class="help">Aparece en tu constancia de semanas cotizadas. Desde el 22 de octubre de 2026 es la base del tope para nuevas inscripciones.</span>
                 </div>
                 <div class="field">
                   <label for="salario_objetivo">Salario diario con el que quieres cotizar (MXN)</label>
-                  <input id="salario_objetivo" type="number" inputmode="decimal" placeholder="Ej. 600" min="0" step="any" oninput="runCalc()">
+                  <input id="salario_objetivo" type="text" inputmode="decimal" placeholder="Ej. 600" oninput="runCalc()" autocomplete="off" data-money-input="true">
                   <span class="help">Para nuevas inscripciones: máximo tu último SBC más una UMA ($117.31) y mínimo un salario mínimo ($315.04). Si capturas más, la calculadora usa el tope.</span>
                 </div>
                 <div class="field">
@@ -613,8 +613,8 @@
 
     function runCalc() {
       const semanas   = parseInt(document.getElementById('semanas').value) || 0;
-      const sbcBaja   = parseFloat(document.getElementById('sbc_baja').value) || 0;
-      const solicitado= parseFloat(document.getElementById('salario_objetivo').value) || 0;
+      const sbcBaja   = parseFloat(document.getElementById('sbc_baja').value.replace(/[$,\s]/g, '')) || 0;
+      const solicitado= parseFloat(document.getElementById('salario_objetivo').value.replace(/[$,\s]/g, '')) || 0;
       const periodo   = parseInt(document.getElementById('periodo').value) || 0;
 
       const topeAcuerdo = sbcBaja > 0 ? Math.min(sbcBaja + UMA_DIARIA, TOPE_LSS) : TOPE_LSS;

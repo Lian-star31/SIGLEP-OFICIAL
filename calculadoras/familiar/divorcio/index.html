@@ -393,7 +393,7 @@
     }
   </style>
 
-  <script defer src="/shared/site-shell.js?v=20261112a"></script>
+  <script defer src="/shared/site-shell.js?v=20261112b"></script>
 <link rel="stylesheet" href="/shared/mobile.css?v=20261112a">
 </head>
 <body>
@@ -492,12 +492,12 @@
                 </div>
                 <div class="field">
                   <label for="bienes">Bienes de la sociedad conyugal (MXN)</label>
-                  <input id="bienes" type="number" inputmode="decimal" placeholder="Ej. 500000" min="0" step="any">
+                  <input id="bienes" type="text" inputmode="decimal" placeholder="Ej. 500000" autocomplete="off" data-money-input="true">
                   <span class="help">Valor de los bienes que forman parte de la sociedad, según capitulaciones.</span>
                 </div>
                 <div class="field">
                   <label for="deudas">Deudas a cargo de la sociedad (MXN)</label>
-                  <input id="deudas" type="number" inputmode="decimal" placeholder="Ej. 80000" min="0" step="any">
+                  <input id="deudas" type="text" inputmode="decimal" placeholder="Ej. 80000" autocomplete="off" data-money-input="true">
                 </div>
                 <div class="field">
                   <label for="pct">Porcentaje que corresponde al cónyuge A según capitulaciones (%)</label>
@@ -506,7 +506,7 @@
                 </div>
                 <div class="field">
                   <label for="bienes_otro">Separación de bienes: valor de lo que adquirió el otro cónyuge durante el matrimonio (MXN)</label>
-                  <input id="bienes_otro" type="number" inputmode="decimal" placeholder="Ej. 1200000" min="0" step="any">
+                  <input id="bienes_otro" type="text" inputmode="decimal" placeholder="Ej. 1200000" autocomplete="off" data-money-input="true">
                 </div>
                 <div class="field">
                   <label for="pct_comp">Separación de bienes: compensación que se reclamará (% de esos bienes)</label>
@@ -593,7 +593,7 @@
     const L = window.__SIGLEP_LOCAL__;
     const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2, maximumFractionDigits: 2 });
     const $ = id => document.getElementById(id);
-    const num = id => { const el = $(id); const v = el ? parseFloat(el.value) : NaN; return isFinite(v) ? v : 0; };
+    const num = id => { const el = $(id); const v = el ? parseFloat(String(el.value).replace(/[$,\s]/g, '')) : NaN; return isFinite(v) ? v : 0; };
     const val = id => { const el = $(id); return el ? el.value : ''; };
     function lugarActual() {
       const l = window.__SIGLEP_ESTADO_ACTIVO__;

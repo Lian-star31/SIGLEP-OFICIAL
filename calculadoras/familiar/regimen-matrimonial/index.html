@@ -393,7 +393,7 @@
     }
   </style>
 
-  <script defer src="/shared/site-shell.js?v=20261112a"></script>
+  <script defer src="/shared/site-shell.js?v=20261112b"></script>
 <link rel="stylesheet" href="/shared/mobile.css?v=20261112a">
 </head>
 <body>
@@ -487,15 +487,15 @@
               <form id="calc-form" onsubmit="return false;">
                 <div class="field">
                   <label for="bienes_a">Bienes adquiridos durante el matrimonio a nombre del cónyuge A (MXN)</label>
-                  <input id="bienes_a" type="number" inputmode="decimal" placeholder="Ej. 300000" min="0" step="any">
+                  <input id="bienes_a" type="text" inputmode="decimal" placeholder="Ej. 300000" autocomplete="off" data-money-input="true">
                 </div>
                 <div class="field">
                   <label for="bienes_b">Bienes adquiridos durante el matrimonio a nombre del cónyuge B (MXN)</label>
-                  <input id="bienes_b" type="number" inputmode="decimal" placeholder="Ej. 900000" min="0" step="any">
+                  <input id="bienes_b" type="text" inputmode="decimal" placeholder="Ej. 900000" autocomplete="off" data-money-input="true">
                 </div>
                 <div class="field">
                   <label for="deudas">Deudas comunes (MXN)</label>
-                  <input id="deudas" type="number" inputmode="decimal" placeholder="Ej. 120000" min="0" step="any">
+                  <input id="deudas" type="text" inputmode="decimal" placeholder="Ej. 120000" autocomplete="off" data-money-input="true">
                 </div>
                 <div class="field">
                   <label for="pct">Sociedad conyugal: porcentaje del cónyuge A según capitulaciones (%)</label>
@@ -582,7 +582,7 @@
     const L = window.__SIGLEP_LOCAL__;
     const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2, maximumFractionDigits: 2 });
     const $ = id => document.getElementById(id);
-    const num = id => { const el = $(id); const v = el ? parseFloat(el.value) : NaN; return isFinite(v) ? v : 0; };
+    const num = id => { const el = $(id); const v = el ? parseFloat(String(el.value).replace(/[$,\s]/g, '')) : NaN; return isFinite(v) ? v : 0; };
     const val = id => { const el = $(id); return el ? el.value : ''; };
     function lugarActual() {
       const l = window.__SIGLEP_ESTADO_ACTIVO__;

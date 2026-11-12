@@ -393,7 +393,7 @@
     }
   </style>
 
-  <script defer src="/shared/site-shell.js?v=20261112a"></script>
+  <script defer src="/shared/site-shell.js?v=20261112b"></script>
 <link rel="stylesheet" href="/shared/mobile.css?v=20261112a">
 </head>
 <body>
@@ -501,7 +501,7 @@
                 </div>
                 <div class="field">
                   <label for="salario">Ingreso diario de la víctima (MXN, opcional)</label>
-                  <input id="salario" type="number" inputmode="decimal" placeholder="Ej. 450" min="0" step="any">
+                  <input id="salario" type="text" inputmode="decimal" placeholder="Ej. 450" autocomplete="off" data-money-input="true">
                   <span class="help">Varios códigos estatales calculan sobre el salario o utilidad de la víctima, con mínimos y topes en salarios mínimos. Déjalo vacío si no tenía ingresos o no se puede acreditar.</span>
                 </div>
                 <div class="field">
@@ -511,7 +511,7 @@
                 </div>
                 <div class="field">
                   <label for="gastos">Gastos médicos, hospitalarios y funerarios comprobados (MXN)</label>
-                  <input id="gastos" type="number" inputmode="decimal" placeholder="Ej. 38000" min="0" step="any">
+                  <input id="gastos" type="text" inputmode="decimal" placeholder="Ej. 38000" autocomplete="off" data-money-input="true">
                   <span class="help">Se suman a la indemnización: la reparación comprende los gastos de curación (art. 487 LFT y códigos locales).</span>
                 </div>
                 <button class="calc-button" type="button" id="calcButton">Calcular</button>
@@ -597,7 +597,7 @@
     const L = window.__SIGLEP_LOCAL__;
     const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2, maximumFractionDigits: 2 });
     const $ = id => document.getElementById(id);
-    const num = id => { const el = $(id); const v = el ? parseFloat(el.value) : NaN; return isFinite(v) ? v : 0; };
+    const num = id => { const el = $(id); const v = el ? parseFloat(String(el.value).replace(/[$,\s]/g, '')) : NaN; return isFinite(v) ? v : 0; };
     const val = id => { const el = $(id); return el ? el.value : ''; };
     function lugarActual() {
       const l = window.__SIGLEP_ESTADO_ACTIVO__;

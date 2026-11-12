@@ -393,7 +393,7 @@
     }
   </style>
 
-  <script defer src="/shared/site-shell.js?v=20261112a"></script>
+  <script defer src="/shared/site-shell.js?v=20261112b"></script>
 <link rel="stylesheet" href="/shared/mobile.css?v=20261112a">
 </head>
 <body>
@@ -513,7 +513,7 @@
                 </div>
                 <div class="field">
                   <label for="salario">Salario diario promedio (MXN)</label>
-                  <input id="salario" type="number" inputmode="decimal" placeholder="Ej. 400" min="0" step="any" oninput="runCalc()">
+                  <input id="salario" type="text" inputmode="decimal" placeholder="Ej. 400" oninput="runCalc()" autocomplete="off" data-money-input="true">
                   <span class="help">Ley 73: promedio de las últimas 250 semanas cotizadas. Usa tu CESI o constancia de semanas del IMSS.</span>
                 </div>
                 <div class="field" data-ley73>
@@ -539,7 +539,7 @@
                 </div>
                 <div class="field" data-ley97>
                   <label for="saldo_afore">Saldo de tu cuenta individual AFORE (MXN, opcional)</label>
-                  <input id="saldo_afore" type="number" inputmode="decimal" placeholder="Ej. 850000" min="0" step="any" oninput="runCalc()">
+                  <input id="saldo_afore" type="text" inputmode="decimal" placeholder="Ej. 850000" oninput="runCalc()" autocomplete="off" data-money-input="true">
                   <span class="help">Saldo de retiro, cesantía y vejez que reporta tu estado de cuenta. Con este dato se calcula el retiro programado.</span>
                 </div>
                 <div class="field" data-ley97>
@@ -552,7 +552,7 @@
                 </div>
                 <div class="field" data-ley97 data-benef>
                   <label for="mcss">Monto constitutivo del seguro de sobrevivencia (MXN)</label>
-                  <input id="mcss" type="number" inputmode="decimal" placeholder="Según la cotización de la aseguradora" min="0" step="any" oninput="runCalc()">
+                  <input id="mcss" type="text" inputmode="decimal" placeholder="Según la cotización de la aseguradora" oninput="runCalc()" autocomplete="off" data-money-input="true">
                   <span class="help">Lo calcula la aseguradora que elijas con base en tus beneficiarios (Anexo C de las disposiciones de CONSAR). Sin este dato no se puede calcular el retiro programado.</span>
                 </div>
                 <div class="field" data-ley97>
@@ -741,15 +741,15 @@
       const edadIn  = parseInt(document.getElementById('edad').value) || 0;
       const meses   = parseInt(document.getElementById('edad_meses').value) || 0;
       const semanas = parseInt(document.getElementById('semanas').value) || 0;
-      const salDia  = parseFloat(document.getElementById('salario').value) || 0;
+      const salDia  = parseFloat(document.getElementById('salario').value.replace(/[$,\s]/g, '')) || 0;
       const conyuge = document.getElementById('conyuge').value === 'si';
       const hijos   = Math.max(0, parseInt(document.getElementById('hijos').value) || 0);
       const padres  = Math.min(2, Math.max(0, parseInt(document.getElementById('padres').value) || 0));
       const asistencia = document.getElementById('asistencia').value === 'si';
-      const saldo   = Math.max(0, parseFloat(document.getElementById('saldo_afore').value) || 0);
+      const saldo   = Math.max(0, parseFloat(document.getElementById('saldo_afore').value.replace(/[$,\s]/g, '')) || 0);
       const sexo    = document.getElementById('sexo').value;
       const conBenef = document.getElementById('beneficiarios').value === 'si';
-      const mcssIn  = parseFloat(document.getElementById('mcss').value);
+      const mcssIn  = parseFloat(document.getElementById('mcss').value.replace(/[$,\s]/g, ''));
       document.querySelectorAll('[data-benef]').forEach(el => { el.style.display = ley === '97' && conBenef ? '' : 'none'; });
       document.querySelectorAll('[data-ley97]').forEach(el => { el.style.display = ley === '97' ? '' : 'none'; });
       document.querySelectorAll('[data-ley73]').forEach(el => { el.style.display = ley === '73' ? '' : 'none'; });

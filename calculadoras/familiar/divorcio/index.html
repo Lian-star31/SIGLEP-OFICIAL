@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculadora de Divorcio | SIGLEP</title>
-  <meta name="description" content="Calculadora orientativa de divorcio en México con variables de hijos, bienes y acuerdos.">
+  <meta name="description" content="Calculadora de divorcio: liquidación de la sociedad conyugal y compensación en separación de bienes con el tope legal de cada estado.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://siglep.lat/calculadoras/familiar/divorcio/">
   <meta property="og:title" content="Calculadora de Divorcio | SIGLEP">
-  <meta property="og:description" content="Calculadora orientativa de divorcio en México con variables de hijos, bienes y acuerdos.">
+  <meta property="og:description" content="Calculadora de divorcio: liquidación de la sociedad conyugal y compensación en separación de bienes con el tope legal de cada estado.">
   <meta property="og:url" content="https://siglep.lat/calculadoras/familiar/divorcio/">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_MX">
@@ -140,7 +140,7 @@
     .footer-space{height:1px;}
     @media (max-width: 900px){.calc-grid{grid-template-columns:1fr}.hero{padding-top:7.6rem}}
   </style>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Calculadora de Divorcio | SIGLEP","url":"https://siglep.lat/calculadoras/familiar/divorcio/","description":"Calculadora orientativa de divorcio en México con variables de hijos, bienes y acuerdos.","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://siglep.lat/"},{"@type":"ListItem","position":2,"name":"Calculadoras","item":"https://siglep.lat/calculadoras/"},{"@type":"ListItem","position":3,"name":"Familiar","item":"https://siglep.lat/calculadoras/familiar/"},{"@type":"ListItem","position":4,"name":"Divorcio","item":"https://siglep.lat/calculadoras/familiar/divorcio/"}]}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Calculadora de Divorcio | SIGLEP","url":"https://siglep.lat/calculadoras/familiar/divorcio/","description":"Calculadora de divorcio: liquidación de la sociedad conyugal y compensación en separación de bienes con el tope legal de cada estado.","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://siglep.lat/"},{"@type":"ListItem","position":2,"name":"Calculadoras","item":"https://siglep.lat/calculadoras/"},{"@type":"ListItem","position":3,"name":"Familiar","item":"https://siglep.lat/calculadoras/familiar/"},{"@type":"ListItem","position":4,"name":"Divorcio","item":"https://siglep.lat/calculadoras/familiar/divorcio/"}]}}</script>
   
   <style>
     nav.siglep-shell-nav {
@@ -393,7 +393,7 @@
     }
   </style>
 
-  <script defer src="/shared/site-shell.js?v=20261111d"></script>
+  <script defer src="/shared/site-shell.js?v=20261111e"></script>
 <link rel="stylesheet" href="/shared/mobile.css?v=20261111d">
 </head>
 <body>
@@ -475,45 +475,51 @@
     <section class="section">
       <div class="section-inner">
         <h2>Escenario de divorcio</h2>
-        <p class="lead">Una referencia general puede ayudarte a entender el nivel de conflicto y negociación.</p>
+        <p class="lead">El reparto depende del régimen patrimonial y, en separación de bienes, de la compensación que prevea el código de tu estado.</p>
         <div class="calc-grid">
           <div class="panel dark">
             <div class="panel-head">
               <div class="kicker">Variables familiares</div>
-              <h3>Cálculo orientativo</h3>
+              <h3>Régimen y bienes</h3>
               <p>Estimamos a partir de patrimonio, hijos y cooperación de las partes.</p>
             </div>
             <div class="panel-body">
               <form id="calc-form" onsubmit="return false;">
                 <div class="field">
-                  <label for="bienes">Valor de bienes comunes (MXN)</label>
-                  <input id="bienes" type="number" inputmode="decimal" placeholder="Ej. 500000" min="0" step="any" oninput="runCalc()">
-                  <span class="help">Usa el avalúo comercial vigente de cada bien (inmuebles, vehículos, cuentas, inversiones). No uses valor catastral ni precio de compra original.</span>
+                  <label for="regimen">Régimen patrimonial del matrimonio</label>
+                  <select id="regimen"><option value="sociedad">Sociedad conyugal</option><option value="separacion">Separación de bienes</option></select>
+                  <span class="help">Consta en el acta de matrimonio y, en su caso, en las capitulaciones matrimoniales.</span>
                 </div>
                 <div class="field">
-                  <label for="deudas">Deudas comunes (MXN)</label>
-                  <input id="deudas" type="number" inputmode="decimal" placeholder="Ej. 80000" min="0" step="any" oninput="runCalc()">
-                  <span class="help">Incluye créditos hipotecarios, préstamos bancarios y deudas contraídas durante el matrimonio con saldo vigente comprobable.</span>
+                  <label for="bienes">Bienes de la sociedad conyugal (MXN)</label>
+                  <input id="bienes" type="number" inputmode="decimal" placeholder="Ej. 500000" min="0" step="any">
+                  <span class="help">Valor de los bienes que forman parte de la sociedad, según capitulaciones.</span>
                 </div>
                 <div class="field">
-                  <label for="hijos">Número de hijos menores de edad</label>
-                  <input id="hijos" type="number" inputmode="decimal" placeholder="Ej. 2" min="0" max="10" step="1" oninput="runCalc()">
+                  <label for="deudas">Deudas a cargo de la sociedad (MXN)</label>
+                  <input id="deudas" type="number" inputmode="decimal" placeholder="Ej. 80000" min="0" step="any">
                 </div>
                 <div class="field">
-                  <label for="acuerdo">Tipo de divorcio</label>
-                  <select id="acuerdo" onchange="runCalc()">
-                    <option value="mutuo">Mutuo acuerdo (Art. 266 CCF)</option>
-                    <option value="parcial">Acuerdo parcial</option>
-                    <option value="contencioso">Contencioso (juicio)</option>
-                  </select>
+                  <label for="pct">Porcentaje que corresponde al cónyuge A según capitulaciones (%)</label>
+                  <input id="pct" type="number" inputmode="decimal" placeholder="50" min="0" step="any" value="50" max="100">
+                  <span class="help">Si las capitulaciones no establecen una proporción distinta, captura 50.</span>
                 </div>
-                <button class="calc-button" type="button" id="calcButton">Calcular estimación</button>
+                <div class="field">
+                  <label for="bienes_otro">Separación de bienes: valor de lo que adquirió el otro cónyuge durante el matrimonio (MXN)</label>
+                  <input id="bienes_otro" type="number" inputmode="decimal" placeholder="Ej. 1200000" min="0" step="any">
+                </div>
+                <div class="field">
+                  <label for="pct_comp">Separación de bienes: compensación que se reclamará (% de esos bienes)</label>
+                  <input id="pct_comp" type="number" inputmode="decimal" placeholder="Ej. 50" min="0" step="any">
+                  <span class="help">Para quien se dedicó preponderantemente al hogar o al cuidado de los hijos. El tope legal depende de la entidad.</span>
+                </div>
+                <button class="calc-button" type="button" id="calcButton">Calcular</button>
               </form>
             </div>
           </div>
           <div class="panel">
             <div class="panel-head">
-              <div class="kicker">Resultado orientativo</div>
+              <div class="kicker">Resultado</div>
               <h3>Escenario estimado</h3>
               <p>Úsalo para entender la complejidad del asunto.</p>
             </div>
@@ -523,14 +529,15 @@
                   <div class="result-kicker">Escenario de divorcio</div>
                   <div class="result-amount" id="resultAmount">$0 MXN</div>
                   <div class="breakdown" id="resultBreakdown"></div>
-                  <p class="result-note">La estimación no sustituye el análisis de convenio, custodia y reparto de bienes.</p>
+                  <p class="result-note" id="resultNote"></p>
                   
       <div class="legal-basis">
-        <div class="legal-basis-kicker">Sustento legal 2026</div>
+        <div class="legal-basis-kicker">Fundamento legal vigente (revisado 11-11-2026)</div>
         <ul>
-          <li>Art. 266-289 CCF: divorcio incausado; liquidación de la sociedad conyugal.</li>
-          <li>Art. 288 CCF: pensión compensatoria si hay disparidad de ingresos.</li>
-          <li>Costo orientativo: mutuo 3%, parcial 5.5%, contencioso 9% del valor de bienes.</li>
+          <li>Art. 178 CCF y equivalentes: el matrimonio se celebra bajo sociedad conyugal o separación de bienes.</li>
+          <li>Arts. 183 y 189 CCF: la sociedad conyugal se rige por sus capitulaciones, que determinan los bienes que comprende y las bases para liquidarla.</li>
+          <li>Compensación en separación de bienes: hasta el 50% del valor de los bienes adquiridos durante el matrimonio en Aguascalientes, Baja California, Chiapas, Ciudad de México (art. 267 fr. VI), Colima, Durango, Guanajuato, Michoacán, Nayarit, Nuevo León, Puebla, Quintana Roo, San Luis Potosí, Sinaloa y Veracruz, según sus códigos.</li>
+          <li>La pensión alimenticia de los hijos y, en su caso, entre cónyuges se determina por separado.</li>
         </ul>
       </div>
     
@@ -556,7 +563,7 @@
       
         <details class="faq-item">
           <summary>¿La calculadora sustituye al convenio?</summary>
-          <p>No. Solo orienta sobre el escenario general.</p>
+          <p>No. El convenio debe detallar bienes, alimentos, custodia y convivencia; la calculadora sólo aplica las reglas de reparto y compensación.</p>
         </details>
       
         <details class="faq-item">
@@ -581,51 +588,61 @@
     <div class="footer-space"></div>
   </main>
   <footer></footer>
+  <script src="/shared/parametros-locales.js?v=20261111e"></script>
   <script>
-    /* ── DIVORCIO ── Art. 266-289 CCF ── Liquidación sociedad conyugal ── */
-    const FACTOR_NETO = 0.82;
-    const INGRESO_REF = 22000; // ingreso de referencia 2026 si no se captura
-    const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
+    const L = window.__SIGLEP_LOCAL__;
+    const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const $ = id => document.getElementById(id);
+    const num = id => { const el = $(id); const v = el ? parseFloat(el.value) : NaN; return isFinite(v) ? v : 0; };
+    const val = id => { const el = $(id); return el ? el.value : ''; };
+    function lugarActual() {
+      const l = window.__SIGLEP_ESTADO_ACTIVO__;
+      return l ? { clave: l.clave, sm: l.salario_minimo, nombre: l.nombre } : { clave: 'FED', sm: L.SM_GENERAL, nombre: null };
+    }
+    function pintar(monto, rows, nota) {
+      $('resultAmount').textContent = typeof monto === 'number' ? money.format(monto) : monto;
+      $('resultBreakdown').innerHTML = rows.map(([l, v]) => '<div class="breakdown-row"><span>' + l + '</span><strong>' + v + '</strong></div>').join('');
+      if (nota !== undefined && $('resultNote')) $('resultNote').textContent = nota;
+    }
 
-    function pctPorHijos(n) {
-      if (n <= 0) return 0;
-      if (n === 1) return 0.20;
-      if (n === 2) return 0.30;
-      if (n === 3) return 0.40;
-      return 0.50;
+    // Sociedad conyugal: el haber social (activo − pasivo) se reparte conforme a las capitulaciones (arts. 183 y 189 CCF).
+    function liquidarSociedad(activo, pasivo, pct) {
+      const haber = Math.max(activo - pasivo, 0);
+      const p = Math.min(Math.max(pct, 0), 100) / 100;
+      return { haber, a: haber * p, b: haber * (1 - p), deficit: Math.max(pasivo - activo, 0) };
+    }
+    // Separación de bienes: compensación al cónyuge dedicado al hogar, con el tope que fije el código local.
+    function compensacion(clave, bienesOtro, pctSolicitado) {
+      const c = L.COMPENSACION[clave];
+      if (!c) return { aplica: false };
+      const tope = bienesOtro * c.max;
+      const pedido = bienesOtro * Math.max(pctSolicitado, 0) / 100;
+      return { aplica: true, tope, monto: Math.min(pedido, tope), art: c.art, max: c.max };
     }
 
     function runCalc() {
-      const bienes  = parseFloat(document.getElementById('bienes').value) || 0;
-      const deudas  = parseFloat(document.getElementById('deudas').value) || 0;
-      const hijos   = Math.max(0, parseInt(document.getElementById('hijos').value) || 0);
-      const acuerdo = document.getElementById('acuerdo').value;
-
-      // Art. 266-289 CCF: liquidación de la sociedad conyugal al 50/50
-      const haberSocial     = Math.max(bienes - deudas, 0);
-      const partePorConyuge = haberSocial / 2;
-
-      // Pensión orientativa mensual (Art. 308-311 CCF, ingreso de referencia)
-      const pensionMensual = INGRESO_REF * FACTOR_NETO * pctPorHijos(hijos);
-
-      // Costo del proceso (honorarios + gastos judiciales orientativos)
-      const pctCostoMap = { mutuo: 0.030, parcial: 0.055, contencioso: 0.090 };
-      const minimoMap   = { mutuo: 18000, parcial: 35000, contencioso: 70000 };
-      const costo = Math.max(bienes * (pctCostoMap[acuerdo] || 0.03), minimoMap[acuerdo] || 18000);
-
-      document.getElementById('resultAmount').textContent = money.format(Math.round(partePorConyuge));
-      const rows = [
-        ['Activo neto común (bienes − deudas)', money.format(Math.round(haberSocial))],
-        ['Parte por cónyuge (50% Art. 194)', money.format(Math.round(partePorConyuge))],
-        ['Pensión est. mensual por hijos', hijos > 0 ? money.format(Math.round(pensionMensual)) : '—'],
-        ['Costo proceso estimado', money.format(Math.round(costo))],
-      ];
-      document.getElementById('resultBreakdown').innerHTML = rows
-        .map(([l, v]) => '<div class="breakdown-row"><span>' + l + '</span><strong>' + v + '</strong></div>')
-        .join('');
+      const lugar = lugarActual();
+      if (val('regimen') === 'sociedad') {
+        const s = liquidarSociedad(num('bienes'), num('deudas'), $('pct').value === '' ? 50 : num('pct'));
+        const rows = [['Haber social (bienes − deudas)', money.format(s.haber)], ['Cónyuge A', money.format(s.a)], ['Cónyuge B', money.format(s.b)]];
+        if (s.deficit) rows.push(['Déficit', 'Las deudas superan los bienes por ' + money.format(s.deficit)]);
+        pintar(s.a, rows, 'Reparto del haber social conforme al porcentaje de las capitulaciones.');
+        return;
+      }
+      const c = compensacion(lugar.clave, num('bienes_otro'), num('pct_comp'));
+      if (!c.aplica) {
+        pintar('Sin tope localizado', [['Compensación', lugar.nombre ? 'No se localizó en el código civil o familiar consultado de ' + lugar.nombre + ' una compensación con tope porcentual.' : 'Elige tu entidad: la compensación y su tope dependen del código local.']], 'Cada cónyuge conserva sus bienes propios.');
+        return;
+      }
+      pintar(c.monto, [
+        ['Bienes adquiridos por el otro cónyuge', money.format(num('bienes_otro'))],
+        ['Tope legal en ' + lugar.nombre + ' (art. ' + c.art + ')', (c.max * 100) + '% = ' + money.format(c.tope)],
+        ['Compensación reclamada', money.format(c.monto)],
+      ], 'El juez fija la compensación dentro del tope legal según las circunstancias del caso.');
     }
-
-    document.getElementById('calcButton').addEventListener('click', runCalc);
+    $('calcButton').addEventListener('click', runCalc);
+    document.querySelectorAll('#calc-form input, #calc-form select').forEach(el => el.addEventListener('input', runCalc));
+    document.addEventListener('siglep:estado-change', runCalc);
     runCalc();
   </script>
 </body>

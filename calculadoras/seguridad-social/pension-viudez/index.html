@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculadora de Pensión por Viudez | SIGLEP</title>
-  <meta name="description" content="Calculadora orientativa de pensión por viudez en México para revisar base pensional y dependientes.">
+  <meta name="description" content="Calculadora de pensión de viudez y orfandad del IMSS, Ley 73 y Ley 97, con los porcentajes, topes y ajustes de la Ley del Seguro Social.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://siglep.lat/calculadoras/seguridad-social/pension-viudez/">
   <meta property="og:title" content="Calculadora de Pensión por Viudez | SIGLEP">
-  <meta property="og:description" content="Calculadora orientativa de pensión por viudez en México para revisar base pensional y dependientes.">
+  <meta property="og:description" content="Calculadora de pensión de viudez y orfandad del IMSS, Ley 73 y Ley 97, con los porcentajes, topes y ajustes de la Ley del Seguro Social.">
   <meta property="og:url" content="https://siglep.lat/calculadoras/seguridad-social/pension-viudez/">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_MX">
@@ -140,7 +140,7 @@
     .footer-space{height:1px;}
     @media (max-width: 900px){.calc-grid{grid-template-columns:1fr}.hero{padding-top:7.6rem}}
   </style>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Calculadora de Pensión por Viudez | SIGLEP","url":"https://siglep.lat/calculadoras/seguridad-social/pension-viudez/","description":"Calculadora orientativa de pensión por viudez en México para revisar base pensional y dependientes.","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://siglep.lat/"},{"@type":"ListItem","position":2,"name":"Calculadoras","item":"https://siglep.lat/calculadoras/"},{"@type":"ListItem","position":3,"name":"Seguridad social","item":"https://siglep.lat/calculadoras/seguridad-social/"},{"@type":"ListItem","position":4,"name":"Pensión por viudez","item":"https://siglep.lat/calculadoras/seguridad-social/pension-viudez/"}]}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Calculadora de Pensión por Viudez | SIGLEP","url":"https://siglep.lat/calculadoras/seguridad-social/pension-viudez/","description":"Calculadora de pensión de viudez y orfandad del IMSS, Ley 73 y Ley 97, con los porcentajes, topes y ajustes de la Ley del Seguro Social.","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://siglep.lat/"},{"@type":"ListItem","position":2,"name":"Calculadoras","item":"https://siglep.lat/calculadoras/"},{"@type":"ListItem","position":3,"name":"Seguridad social","item":"https://siglep.lat/calculadoras/seguridad-social/"},{"@type":"ListItem","position":4,"name":"Pensión por viudez","item":"https://siglep.lat/calculadoras/seguridad-social/pension-viudez/"}]}}</script>
   
   <style>
     nav.siglep-shell-nav {
@@ -393,7 +393,7 @@
     }
   </style>
 
-  <script defer src="/shared/site-shell.js?v=20261111d"></script>
+  <script defer src="/shared/site-shell.js?v=20261111e"></script>
 <link rel="stylesheet" href="/shared/mobile.css?v=20261111d">
 </head>
 <body>
@@ -464,7 +464,7 @@
         </div>
         <div class="eyebrow">Calculadora de Seguridad Social</div>
         <h1>Pensión por viudez <em>con visión clara.</em></h1>
-        <p class="lead">Calcula una referencia del escenario de viudez con base en la pensión original y dependientes.</p>
+        <p class="lead">Calcula la pensión de viudez y orfandad con los porcentajes y topes de la Ley del Seguro Social.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="/seguridad-social/">Ir al Área de Seguridad Social</a>
           <a class="btn btn-secondary" href="https://calendly.com/hola-siglep/30min" target="_blank" rel="noopener noreferrer">Agendar Consulta</a>
@@ -474,39 +474,52 @@
 
     <section class="section">
       <div class="section-inner">
-        <h2>Referencia de viudez</h2>
+        <h2>Pensión de viudez y orfandad</h2>
         <p class="lead">La base pensional y el número de dependientes cambian el escenario.</p>
         <div class="calc-grid">
           <div class="panel dark">
             <div class="panel-head">
               <div class="kicker">Base de pensión</div>
-              <h3>Cálculo orientativo</h3>
+              <h3>Datos de la familia</h3>
               <p>Revisa pensión base, dependientes y edad del beneficiario.</p>
             </div>
             <div class="panel-body">
               <form id="calc-form" onsubmit="return false;">
                 <div class="field">
-                  <label for="pension_base">Pensión mensual del asegurado fallecido (MXN)</label>
-                  <input id="pension_base" type="number" inputmode="decimal" placeholder="Ej. 13000" min="0" step="any" oninput="runCalc()">
-                  <span class="help">Monto que recibía o habría recibido el asegurado. Si no estaba pensionado, usa la calculadora de Pensión IMSS para estimarlo. Verifica en resolución IMSS o AFORE.</span>
+                  <label for="regimen">Régimen del asegurado o pensionado fallecido</label>
+                  <select id="regimen"><option value="73">Ley 73 — cotizó antes del 1 de julio de 1997</option><option value="97">Ley 97 — empezó a cotizar desde el 1 de julio de 1997</option></select>
                 </div>
                 <div class="field">
-                  <label for="dependientes">Hijos huérfanos menores de 16 años</label>
-                  <input id="dependientes" type="number" inputmode="decimal" placeholder="Ej. 2" min="0" max="5" step="1" oninput="runCalc()">
-                  <span class="help">Cada hijo suma 20% de la pensión base (orfandad, Art. 134 LSS). Máximo 5 huérfanos.</span>
+                  <label for="pension_base">Pensión mensual del fallecido, sin asignaciones familiares (MXN)</label>
+                  <input id="pension_base" type="number" inputmode="decimal" placeholder="Ej. 13000" min="0" step="any">
+                  <span class="help">La que disfrutaba (invalidez, vejez o cesantía en Ley 73; invalidez en Ley 97) o la de invalidez que le habría correspondido. Las asignaciones familiares no cuentan (art. 165 LSS 1973; art. 139 LSS).</span>
                 </div>
                 <div class="field">
-                  <label for="edad">Edad del cónyuge beneficiario</label>
-                  <input id="edad" type="number" inputmode="decimal" placeholder="Ej. 45" min="0" max="100" step="1" oninput="runCalc()">
-                  <span class="help">La pensión de viudez es vitalicia. Si el beneficiario contrae nuevo matrimonio, cesa la pensión (Art. 131 LSS).</span>
+                  <label for="huerfanos">Huérfanos de padre o de madre</label>
+                  <input id="huerfanos" type="number" inputmode="decimal" placeholder="Ej. 2" min="0" step="any">
+                  <span class="help">Menores de 16 años, o hasta 25 si estudian en el sistema educativo nacional.</span>
                 </div>
-                <button class="calc-button" type="button" id="calcButton">Calcular estimación</button>
+                <div class="field">
+                  <label for="huerfanos_dobles">Huérfanos de padre y madre</label>
+                  <input id="huerfanos_dobles" type="number" inputmode="decimal" placeholder="Ej. 0" min="0" step="any">
+                </div>
+                <div class="field">
+                  <label for="edad">Edad de la persona viuda</label>
+                  <input id="edad" type="number" inputmode="decimal" placeholder="Ej. 58" min="0" step="any">
+                  <span class="help">En Ley 73, el factor de 1.11 del transitorio Décimo Cuarto aplica a pensionados de 60 años o más.</span>
+                </div>
+                <div class="field">
+                  <label for="asistencia">¿La persona viuda requiere asistencia permanente de otra persona?</label>
+                  <select id="asistencia"><option value="no">No</option><option value="si">Sí — dictamen médico</option></select>
+                  <span class="help">Ayuda asistencial de hasta 20% (art. 166 LSS 1973; art. 140 LSS).</span>
+                </div>
+                <button class="calc-button" type="button" id="calcButton">Calcular</button>
               </form>
             </div>
           </div>
           <div class="panel">
             <div class="panel-head">
-              <div class="kicker">Resultado orientativo</div>
+              <div class="kicker">Resultado</div>
               <h3>Pensión estimada</h3>
               <p>Útil para preparar el expediente con más claridad.</p>
             </div>
@@ -516,16 +529,16 @@
                   <div class="result-kicker">Pensión por viudez</div>
                   <div class="result-amount" id="resultAmount">$0 MXN</div>
                   <div class="breakdown" id="resultBreakdown"></div>
-                  <p class="result-note">La cifra final depende del régimen, del expediente y de la documentación disponible.</p>
+                  <p class="result-note" id="resultNote"></p>
                   
       <div class="legal-basis">
-        <div class="legal-basis-kicker">Sustento legal 2026</div>
+        <div class="legal-basis-kicker">Fundamento legal vigente (revisado 11-11-2026)</div>
         <ul>
-          <li>LSS Art. 130: viuda/o = 90% de la pensión que recibía o hubiera recibido el asegurado.</li>
-          <li>LSS Art. 134: orfandad = 20% de la pensión base por cada hijo huérfano (máx. 5).</li>
-          <li>LSS Art. 131: pensión vitalicia; cesa si el beneficiario contrae nuevo matrimonio.</li>
-          <li>LSS Art. 168: ayuda asistencial +15% si no hay otros beneficiarios sin ingresos.</li>
-          <li>UMA mensual 2026: $3,566.22 — pensión mínima garantizada orientativa.</li>
+          <li>Ley 73: viudez del 90% de la pensión del fallecido (art. 153 LSS 1973, en los términos aplicados por la SCJN en el ADR 2745/2023); orfandad de 20%, o 30% si es de padre y madre (art. 157); requisito de 150 semanas o ser pensionado (art. 150); el total no puede exceder la pensión del fallecido (art. 170).</li>
+          <li>Transitorio Décimo Cuarto (DOF 20-12-2001, reformado DOF 05-01-2004): la pensión de Ley 73 menor a un salario mínimo se eleva a ese monto; la de pensionados de 60 años o más se multiplica por 1.11; las de orfandad y ascendientes se multiplican por 1.11.</li>
+          <li>Ley 97 (LSS vigente): viudez del 90% de la pensión de invalidez (art. 131); orfandad de 20% o 30% (art. 135); requisito de 150 semanas o ser pensionado por invalidez (art. 128); el total no puede exceder la pensión de invalidez (art. 144).</li>
+          <li>Art. 133 LSS: la pensión de viudez no se suspende porque la persona viuda trabaje.</li>
+          <li>Salario mínimo 2026: $315.04 diarios (CONASAMI, DOF 09-12-2025).</li>
         </ul>
       </div>
 
@@ -551,7 +564,7 @@
       
         <details class="faq-item">
           <summary>¿Sirve para preparar documentos?</summary>
-          <p>Sí, ayuda a ver qué tan fuerte es el escenario.</p>
+          <p>Sí: indica el monto de viudez y orfandad que corresponde según el régimen y los requisitos de semanas.</p>
         </details>
       
         <details class="faq-item">
@@ -577,40 +590,57 @@
   </main>
   <footer></footer>
   <script>
-    /* ── PENSIÓN POR VIUDEZ ── LSS Art. 130-135/168 · UMA 2026 ── */
-    const UMA_MENSUAL = 3566.22;
-    const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
-
-    function runCalc() {
-      const pensionBase  = parseFloat(document.getElementById('pension_base').value) || 0;
-      const dependientes = Math.min(parseInt(document.getElementById('dependientes').value) || 0, 5);
-
-      // Art. 130 LSS: 90% de la pensión del asegurado
-      const pensionViudez = pensionBase * 0.90;
-
-      // Art. 134 LSS: orfandad 20% por huérfano (máx. 5)
-      const pensionOrfandad = pensionBase * 0.20 * dependientes;
-
-      // Art. 168 LSS: ayuda asistencial +15% si beneficiario sin otros ingresos
-      const ayudaAsistencial = pensionViudez * 0.15;
-
-      const pensionTotal = Math.max(pensionViudez + pensionOrfandad, UMA_MENSUAL);
-
-      document.getElementById('resultAmount').textContent = money.format(Math.round(pensionTotal));
-      const rows = [
-        ['Pensión base del asegurado', money.format(Math.round(pensionBase))],
-        ['Pensión viudez (90% — Art. 130 LSS)', money.format(Math.round(pensionViudez))],
-        ['Orfandad (' + dependientes + ' hijo/s × 20% — Art. 134)', money.format(Math.round(pensionOrfandad))],
-        ['Ayuda asistencial (+15% — Art. 168)', money.format(Math.round(ayudaAsistencial))],
-        ['Mínimo garantizado (1 UMA mensual)', money.format(Math.round(UMA_MENSUAL))],
-      ];
-      document.getElementById('resultBreakdown').innerHTML = rows
-        .map(([l, v]) => '<div class="breakdown-row"><span>' + l + '</span><strong>' + v + '</strong></div>')
-        .join('');
+    const L = window.__SIGLEP_LOCAL__;
+    const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const $ = id => document.getElementById(id);
+    const num = id => { const el = $(id); const v = el ? parseFloat(el.value) : NaN; return isFinite(v) ? v : 0; };
+    const val = id => { const el = $(id); return el ? el.value : ''; };
+    function lugarActual() {
+      const l = window.__SIGLEP_ESTADO_ACTIVO__;
+      return l ? { clave: l.clave, sm: l.salario_minimo, nombre: l.nombre } : { clave: 'FED', sm: L.SM_GENERAL, nombre: null };
+    }
+    function pintar(monto, rows, nota) {
+      $('resultAmount').textContent = typeof monto === 'number' ? money.format(monto) : monto;
+      $('resultBreakdown').innerHTML = rows.map(([l, v]) => '<div class="breakdown-row"><span>' + l + '</span><strong>' + v + '</strong></div>').join('');
+      if (nota !== undefined && $('resultNote')) $('resultNote').textContent = nota;
     }
 
-    document.getElementById('calcButton').addEventListener('click', runCalc);
+    const SM = 315.04, M = 365 / 12;
+    function sobrevivencia(reg, base, n1, n2, edad, asistencia) {
+      let viudez = 0.9 * base, orfandad1 = 0.2 * base, orfandad2 = 0.3 * base;
+      const total = viudez + orfandad1 * n1 + orfandad2 * n2;
+      let factor = 1;
+      if (total > base && total > 0) { factor = base / total; viudez *= factor; orfandad1 *= factor; orfandad2 *= factor; } // art. 170 LSS 1973 / art. 144 LSS
+      const ayuda = asistencia ? viudez * 0.20 : 0; // hasta 20%
+      let viudezFinal = viudez, elevada = false, x111 = false, o1 = orfandad1, o2 = orfandad2;
+      if (reg === '73') {
+        if (viudezFinal < SM * M) { viudezFinal = SM * M; elevada = true; } // Décimo Cuarto a)
+        if (edad >= 60) { viudezFinal *= 1.11; x111 = true; }               // Décimo Cuarto b)
+        o1 *= 1.11; o2 *= 1.11;                                              // Décimo Cuarto c)
+      }
+      return { viudez, viudezFinal, ayuda, o1, o2, factor, elevada, x111, totalFamilia: viudezFinal + ayuda + o1 * n1 + o2 * n2 };
+    }
+    function runCalc() {
+      const reg = val('regimen'), base = num('pension_base');
+      const n1 = Math.floor(num('huerfanos')), n2 = Math.floor(num('huerfanos_dobles'));
+      const r = sobrevivencia(reg, base, n1, n2, num('edad'), val('asistencia') === 'si');
+      const rows = [
+        ['Pensión de viudez: 90% (' + (reg === '73' ? 'art. 153 LSS 1973' : 'art. 131 LSS') + ')', money.format(r.viudez)],
+      ];
+      if (r.factor < 1) rows.push(['Reducción proporcional por exceder la pensión del fallecido', (r.factor * 100).toFixed(2) + '%']);
+      if (reg === '73') {
+        rows.push(['Elevación a un salario mínimo (Décimo Cuarto a)', r.elevada ? 'Aplica' : 'No aplica']);
+        rows.push(['Factor 1.11 por 60 años o más (Décimo Cuarto b)', r.x111 ? 'Aplica' : 'No aplica']);
+      }
+      if (r.ayuda) rows.push(['Ayuda asistencial (hasta 20%)', money.format(r.ayuda)]);
+      if (n1) rows.push(['Orfandad 20% × ' + n1 + (reg === '73' ? ' (con factor 1.11)' : ''), money.format(r.o1 * n1)]);
+      if (n2) rows.push(['Orfandad 30% × ' + n2 + (reg === '73' ? ' (con factor 1.11)' : ''), money.format(r.o2 * n2)]);
+      rows.push(['Total mensual de la familia', money.format(r.totalFamilia)]);
+      pintar(r.viudezFinal + r.ayuda, rows, reg === '97' ? 'En Ley 97 la pensión se paga mediante renta vitalicia con la aseguradora que elijan los beneficiarios (art. 127).' : 'El IMSS determina la cuantía definitiva con el expediente del asegurado.');
+    }
+    $('calcButton').addEventListener('click', runCalc);
     document.querySelectorAll('#calc-form input, #calc-form select').forEach(el => el.addEventListener('input', runCalc));
+    document.addEventListener('siglep:estado-change', runCalc);
     runCalc();
   </script>
 </body>

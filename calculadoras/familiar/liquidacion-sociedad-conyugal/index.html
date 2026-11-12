@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculadora de Liquidación de Sociedad Conyugal | SIGLEP</title>
-  <meta name="description" content="Calculadora orientativa de liquidación de sociedad conyugal en México para revisar bienes y pasivos.">
+  <meta name="description" content="Calculadora de liquidación de sociedad conyugal conforme a los arts. 203 y 204 del Código Civil Federal: créditos, devolución de aportaciones y reparto del sobrante.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://siglep.lat/calculadoras/familiar/liquidacion-sociedad-conyugal/">
   <meta property="og:title" content="Calculadora de Liquidación de Sociedad Conyugal | SIGLEP">
-  <meta property="og:description" content="Calculadora orientativa de liquidación de sociedad conyugal en México para revisar bienes y pasivos.">
+  <meta property="og:description" content="Calculadora de liquidación de sociedad conyugal conforme a los arts. 203 y 204 del Código Civil Federal: créditos, devolución de aportaciones y reparto del sobrante.">
   <meta property="og:url" content="https://siglep.lat/calculadoras/familiar/liquidacion-sociedad-conyugal/">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_MX">
@@ -140,7 +140,7 @@
     .footer-space{height:1px;}
     @media (max-width: 900px){.calc-grid{grid-template-columns:1fr}.hero{padding-top:7.6rem}}
   </style>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Calculadora de Liquidación de Sociedad Conyugal | SIGLEP","url":"https://siglep.lat/calculadoras/familiar/liquidacion-sociedad-conyugal/","description":"Calculadora orientativa de liquidación de sociedad conyugal en México para revisar bienes y pasivos.","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://siglep.lat/"},{"@type":"ListItem","position":2,"name":"Calculadoras","item":"https://siglep.lat/calculadoras/"},{"@type":"ListItem","position":3,"name":"Familiar","item":"https://siglep.lat/calculadoras/familiar/"},{"@type":"ListItem","position":4,"name":"Liquidación de sociedad conyugal","item":"https://siglep.lat/calculadoras/familiar/liquidacion-sociedad-conyugal/"}]}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Calculadora de Liquidación de Sociedad Conyugal | SIGLEP","url":"https://siglep.lat/calculadoras/familiar/liquidacion-sociedad-conyugal/","description":"Calculadora de liquidación de sociedad conyugal conforme a los arts. 203 y 204 del Código Civil Federal: créditos, devolución de aportaciones y reparto del sobrante.","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://siglep.lat/"},{"@type":"ListItem","position":2,"name":"Calculadoras","item":"https://siglep.lat/calculadoras/"},{"@type":"ListItem","position":3,"name":"Familiar","item":"https://siglep.lat/calculadoras/familiar/"},{"@type":"ListItem","position":4,"name":"Liquidación de sociedad conyugal","item":"https://siglep.lat/calculadoras/familiar/liquidacion-sociedad-conyugal/"}]}}</script>
   
   <style>
     nav.siglep-shell-nav {
@@ -393,7 +393,7 @@
     }
   </style>
 
-  <script defer src="/shared/site-shell.js?v=20261111d"></script>
+  <script defer src="/shared/site-shell.js?v=20261111e"></script>
 <link rel="stylesheet" href="/shared/mobile.css?v=20261111d">
 </head>
 <body>
@@ -480,42 +480,43 @@
           <div class="panel dark">
             <div class="panel-head">
               <div class="kicker">Bienes y pasivos</div>
-              <h3>Cálculo orientativo</h3>
+              <h3>Inventario de la sociedad</h3>
               <p>Combina valor de bienes, deudas y tipo de reparto.</p>
             </div>
             <div class="panel-body">
               <form id="calc-form" onsubmit="return false;">
-                
-    <div class="field">
-      <label for="bienes">Activo social — valor total de bienes comunes (MXN)</label>
-      <input id="bienes" type="number" inputmode="decimal" placeholder="Ej. 900000" min="0" step="any" oninput="runCalc()">
-      <span class="help">Suma el avalúo comercial vigente de todos los bienes del inventario: inmuebles, vehículos, cuentas bancarias, acciones. No uses precio de compra ni valor catastral.</span>
-    </div>
-
-    <div class="field">
-      <label for="deudas">Pasivo social — deudas comunes (MXN)</label>
-      <input id="deudas" type="number" inputmode="decimal" placeholder="Ej. 160000" min="0" step="any" oninput="runCalc()">
-      <span class="help">Saldo vigente comprobable de hipotecas, créditos y obligaciones contraídas en nombre de la sociedad conyugal (Art. 188 CCF).</span>
-    </div>
-
-      <div class="field">
-        <label for="reparto">Tipo de liquidación</label>
-        <select id="reparto" onchange="runCalc()">
-          <option value="igualitario">Igualitario — 50/50 por convenio</option><option value="negociado">Negociado — acuerdo entre partes</option><option value="litigioso">Litigioso — resolución judicial</option>
-        </select>
-        <span class="help">Si hay desacuerdo, el juez aplica 50/50 por defecto conforme a los Art. 183-193 CCF.</span>
-        
-      </div>
-    
-                <button class="calc-button" type="button" id="calcButton">Calcular estimación</button>
+                <div class="field">
+                  <label for="bienes">Activo social: bienes inventariados de la sociedad (MXN)</label>
+                  <input id="bienes" type="number" inputmode="decimal" placeholder="Ej. 900000" min="0" step="any">
+                  <span class="help">No se incluyen el lecho, la ropa ordinaria ni los objetos de uso personal (art. 203 CCF).</span>
+                </div>
+                <div class="field">
+                  <label for="deudas">Créditos contra el fondo social (MXN)</label>
+                  <input id="deudas" type="number" inputmode="decimal" placeholder="Ej. 160000" min="0" step="any">
+                </div>
+                <div class="field">
+                  <label for="aporte_a">Lo que el cónyuge A llevó al matrimonio (MXN)</label>
+                  <input id="aporte_a" type="number" inputmode="decimal" placeholder="Ej. 0" min="0" step="any">
+                  <span class="help">Se le devuelve antes de repartir el sobrante (art. 204 CCF).</span>
+                </div>
+                <div class="field">
+                  <label for="aporte_b">Lo que el cónyuge B llevó al matrimonio (MXN)</label>
+                  <input id="aporte_b" type="number" inputmode="decimal" placeholder="Ej. 0" min="0" step="any">
+                </div>
+                <div class="field">
+                  <label for="pct">Porcentaje del sobrante para el cónyuge A según lo convenido (%)</label>
+                  <input id="pct" type="number" inputmode="decimal" placeholder="50" min="0" step="any" value="50" max="100">
+                  <span class="help">Si las capitulaciones no establecen una proporción distinta, captura 50.</span>
+                </div>
+                <button class="calc-button" type="button" id="calcButton">Calcular</button>
               </form>
             </div>
           </div>
           <div class="panel">
             <div class="panel-head">
-              <div class="kicker">Resultado orientativo</div>
+              <div class="kicker">Resultado</div>
               <h3>Reparto estimado</h3>
-              <p>Útil como referencia inicial para negociación.</p>
+              <p>Pago de créditos, devolución de aportaciones y reparto del sobrante (art. 204 CCF).</p>
             </div>
             <div class="panel-body">
               <div class="result">
@@ -523,15 +524,16 @@
                   <div class="result-kicker">Reparto conyugal</div>
                   <div class="result-amount" id="resultAmount">$0 MXN</div>
                   <div class="breakdown" id="resultBreakdown"></div>
-                  <p class="result-note">La liquidación real depende de la naturaleza del bien y de pruebas de propiedad.</p>
+                  <p class="result-note" id="resultNote"></p>
                   
       <div class="legal-basis">
-        <div class="legal-basis-kicker">Sustento legal 2026</div>
+        <div class="legal-basis-kicker">Fundamento legal vigente (revisado 11-11-2026)</div>
         <ul>
-          <li>Art. 183-193 CCF: inventario y avalúo de bienes comunes; liquidación 50/50.</li>
-          <li>Art. 188 CCF: deudas sociales se deducen del haber antes de repartir.</li>
-          <li>Reparto negociado puede variar; reparto judicial aplica 50/50 por defecto.</li>
-          <li>Honorarios notariales orientativos: ~2.5% del valor de bienes (mín. $10,000).</li>
+          <li>Art. 183 CCF: la sociedad conyugal se rige por las capitulaciones matrimoniales y, en lo no estipulado, por las reglas del contrato de sociedad.</li>
+          <li>Art. 197 CCF: la sociedad termina por la disolución del matrimonio, por voluntad de los cónyuges, por la declaración de presunción de muerte del ausente y en los casos del art. 188.</li>
+          <li>Art. 203 CCF: disuelta la sociedad se forma inventario, sin incluir el lecho, los vestidos ordinarios ni los objetos de uso personal.</li>
+          <li>Art. 204 CCF: se pagan los créditos contra el fondo social, se devuelve a cada cónyuge lo que llevó al matrimonio y el sobrante se divide en la forma convenida; las pérdidas se deducen en proporción a las utilidades que correspondían a cada uno.</li>
+          <li>Los códigos civiles y familiares estatales reproducen estas reglas con su propia numeración.</li>
         </ul>
       </div>
     
@@ -562,7 +564,7 @@
       
         <details class="faq-item">
           <summary>¿La calculadora me dice la parte exacta?</summary>
-          <p>No. Solo orienta sobre el escenario general.</p>
+          <p>Calcula la parte de cada cónyuge con los datos del inventario y el porcentaje convenido; el resultado final depende de que los bienes y deudas estén acreditados.</p>
         </details>
       
         </div>
@@ -582,43 +584,64 @@
     <div class="footer-space"></div>
   </main>
   <footer></footer>
+  <script src="/shared/parametros-locales.js?v=20261111e"></script>
   <script>
-    /* ── LIQUIDACIÓN SOCIEDAD CONYUGAL ── Art. 183-193 CCF ── */
-    const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
-
-    function runCalc() {
-      const bienes  = parseFloat(document.getElementById('bienes').value) || 0;
-      const deudas  = parseFloat(document.getElementById('deudas').value) || 0;
-      const reparto = document.getElementById('reparto').value;
-
-      // Art. 183-193 CCF: inventario → activo − pasivo = haber social
-      const masaActiva  = bienes;
-      const masaPasiva  = deudas;
-      const haberSocial = Math.max(masaActiva - masaPasiva, 0);
-
-      // Porcentaje por cónyuge según tipo de reparto
-      const pctMap = { igualitario: 0.50, negociado: 0.45, litigioso: 0.50 };
-      const pct = pctMap[reparto] || 0.50;
-      const partePorConyuge = haberSocial * pct;
-
-      // Costo notarial/judicial orientativo (~2.5% del activo, mín $10,000)
-      const costoLiquidacion = Math.max(bienes * 0.025, 10000);
-
-      document.getElementById('resultAmount').textContent = money.format(Math.round(partePorConyuge));
-      const rows = [
-        ['Activo social (bienes comunes)', money.format(Math.round(masaActiva))],
-        ['Pasivo social (deudas comunes, Art. 188)', money.format(Math.round(masaPasiva))],
-        ['Haber social neto', money.format(Math.round(haberSocial))],
-        ['Parte por cónyuge (' + Math.round(pct * 100) + '%)', money.format(Math.round(partePorConyuge))],
-        ['Costo notarial/judicial estimado', money.format(Math.round(costoLiquidacion))],
-      ];
-      document.getElementById('resultBreakdown').innerHTML = rows
-        .map(([l, v]) => '<div class="breakdown-row"><span>' + l + '</span><strong>' + v + '</strong></div>')
-        .join('');
+    const L = window.__SIGLEP_LOCAL__;
+    const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const $ = id => document.getElementById(id);
+    const num = id => { const el = $(id); const v = el ? parseFloat(el.value) : NaN; return isFinite(v) ? v : 0; };
+    const val = id => { const el = $(id); return el ? el.value : ''; };
+    function lugarActual() {
+      const l = window.__SIGLEP_ESTADO_ACTIVO__;
+      return l ? { clave: l.clave, sm: l.salario_minimo, nombre: l.nombre } : { clave: 'FED', sm: L.SM_GENERAL, nombre: null };
+    }
+    function pintar(monto, rows, nota) {
+      $('resultAmount').textContent = typeof monto === 'number' ? money.format(monto) : monto;
+      $('resultBreakdown').innerHTML = rows.map(([l, v]) => '<div class="breakdown-row"><span>' + l + '</span><strong>' + v + '</strong></div>').join('');
+      if (nota !== undefined && $('resultNote')) $('resultNote').textContent = nota;
     }
 
-    document.getElementById('calcButton').addEventListener('click', runCalc);
+    // Sociedad conyugal: el haber social (activo − pasivo) se reparte conforme a las capitulaciones (arts. 183 y 189 CCF).
+    function liquidarSociedad(activo, pasivo, pct) {
+      const haber = Math.max(activo - pasivo, 0);
+      const p = Math.min(Math.max(pct, 0), 100) / 100;
+      return { haber, a: haber * p, b: haber * (1 - p), deficit: Math.max(pasivo - activo, 0) };
+    }
+    // Separación de bienes: compensación al cónyuge dedicado al hogar, con el tope que fije el código local.
+    function compensacion(clave, bienesOtro, pctSolicitado) {
+      const c = L.COMPENSACION[clave];
+      if (!c) return { aplica: false };
+      const tope = bienesOtro * c.max;
+      const pedido = bienesOtro * Math.max(pctSolicitado, 0) / 100;
+      return { aplica: true, tope, monto: Math.min(pedido, tope), art: c.art, max: c.max };
+    }
+
+    function liquidar(activo, pasivo, aporteA, aporteB, pct) {
+      const neto = activo - pasivo;
+      const aportes = aporteA + aporteB;
+      const sobrante = neto - aportes;
+      const p = Math.min(Math.max(pct, 0), 100) / 100;
+      if (sobrante >= 0) return { neto, sobrante, a: aporteA + sobrante * p, b: aporteB + sobrante * (1 - p), perdida: 0 };
+      const perdida = -sobrante; // pérdidas: se deducen del haber de cada cónyuge en la proporción convenida (art. 204)
+      let a = aporteA - perdida * p, b = aporteB - perdida * (1 - p);
+      if (b < 0) { a += b; b = 0; }  // si un haber no alcanza a cubrir su parte, el faltante reduce el del otro
+      if (a < 0) { b += a; a = 0; }
+      return { neto, sobrante, a: Math.max(a, 0), b: Math.max(b, 0), perdida };
+    }
+    function runCalc() {
+      const r = liquidar(num('bienes'), num('deudas'), num('aporte_a'), num('aporte_b'), $('pct').value === '' ? 50 : num('pct'));
+      const rows = [
+        ['Activo − créditos', money.format(r.neto)],
+        ['Devoluciones de aportaciones', money.format(num('aporte_a') + num('aporte_b'))],
+        [r.perdida ? 'Pérdida a repartir' : 'Sobrante a repartir', money.format(r.perdida || r.sobrante)],
+        ['Cónyuge A recibe', money.format(r.a)],
+        ['Cónyuge B recibe', money.format(r.b)],
+      ];
+      pintar(r.a, rows, 'Los gastos notariales o judiciales dependen del arancel de tu entidad y de la cotización del notario; no se estiman aquí.');
+    }
+    $('calcButton').addEventListener('click', runCalc);
     document.querySelectorAll('#calc-form input, #calc-form select').forEach(el => el.addEventListener('input', runCalc));
+    document.addEventListener('siglep:estado-change', runCalc);
     runCalc();
   </script>
 </body>

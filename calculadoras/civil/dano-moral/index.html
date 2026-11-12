@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculadora de Daño Moral | SIGLEP</title>
-  <meta name="description" content="Calculadora orientativa de daño moral en México con enfoque en gravedad y exposición.">
+  <meta name="description" content="Calculadora de daño moral: separa el daño material comprobable, identifica la presunción legal y los topes que fija el código civil de cada estado.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://siglep.lat/calculadoras/civil/dano-moral/">
   <meta property="og:title" content="Calculadora de Daño Moral | SIGLEP">
-  <meta property="og:description" content="Calculadora orientativa de daño moral en México con enfoque en gravedad y exposición.">
+  <meta property="og:description" content="Calculadora de daño moral: separa el daño material comprobable, identifica la presunción legal y los topes que fija el código civil de cada estado.">
   <meta property="og:url" content="https://siglep.lat/calculadoras/civil/dano-moral/">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_MX">
@@ -140,7 +140,7 @@
     .footer-space{height:1px;}
     @media (max-width: 900px){.calc-grid{grid-template-columns:1fr}.hero{padding-top:7.6rem}}
   </style>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Calculadora de Daño Moral | SIGLEP","url":"https://siglep.lat/calculadoras/civil/dano-moral/","description":"Calculadora orientativa de daño moral en México con enfoque en gravedad y exposición.","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://siglep.lat/"},{"@type":"ListItem","position":2,"name":"Calculadoras","item":"https://siglep.lat/calculadoras/"},{"@type":"ListItem","position":3,"name":"Civil","item":"https://siglep.lat/calculadoras/civil/"},{"@type":"ListItem","position":4,"name":"Daño moral","item":"https://siglep.lat/calculadoras/civil/dano-moral/"}]}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Calculadora de Daño Moral | SIGLEP","url":"https://siglep.lat/calculadoras/civil/dano-moral/","description":"Calculadora de daño moral: separa el daño material comprobable, identifica la presunción legal y los topes que fija el código civil de cada estado.","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://siglep.lat/"},{"@type":"ListItem","position":2,"name":"Calculadoras","item":"https://siglep.lat/calculadoras/"},{"@type":"ListItem","position":3,"name":"Civil","item":"https://siglep.lat/calculadoras/civil/"},{"@type":"ListItem","position":4,"name":"Daño moral","item":"https://siglep.lat/calculadoras/civil/dano-moral/"}]}}</script>
   
   <style>
     nav.siglep-shell-nav {
@@ -393,7 +393,7 @@
     }
   </style>
 
-  <script defer src="/shared/site-shell.js?v=20261111d"></script>
+  <script defer src="/shared/site-shell.js?v=20261111e"></script>
 <link rel="stylesheet" href="/shared/mobile.css?v=20261111d">
 </head>
 <body>
@@ -464,7 +464,7 @@
         </div>
         <div class="eyebrow">Calculadora Civil</div>
         <h1>Daño moral <em>medible con criterio.</em></h1>
-        <p class="lead">Obtén una referencia de daño moral con base en afectación, exposición pública y consecuencia económica.</p>
+        <p class="lead">El daño moral no tiene tarifa legal: lo fija el juez. Aquí separas el daño material comprobable y revisas los topes que fija el código de tu estado.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="/civil/">Ir al Área Civil</a>
           <a class="btn btn-secondary" href="https://calendly.com/hola-siglep/30min" target="_blank" rel="noopener noreferrer">Agendar Consulta</a>
@@ -480,55 +480,57 @@
           <div class="panel dark">
             <div class="panel-head">
               <div class="kicker">Afectación</div>
-              <h3>Cálculo orientativo</h3>
+              <h3>Datos del caso</h3>
               <p>Mide la severidad, exposición y posible impacto económico.</p>
             </div>
             <div class="panel-body">
               <form id="calc-form" onsubmit="return false;">
                 <div class="field">
-                  <label for="gravedad">Gravedad de la afectación (1 = leve · 10 = muy grave)</label>
-                  <input id="gravedad" type="number" inputmode="decimal" placeholder="Ej. 6" min="1" max="10" step="1" oninput="runCalc()">
-                  <span class="help">Escala orientativa: 1-3 afectación leve, 4-6 moderada, 7-8 grave, 9-10 muy grave o irreversible. El juez valora prudencialmente (Art. 1916 CCF).</span>
+                  <label for="material">Daño material comprobado (MXN)</label>
+                  <input id="material" type="number" inputmode="decimal" placeholder="Ej. 20000" min="0" step="any">
+                  <span class="help">Gastos y pérdidas que puedes acreditar con documentos (daño emergente y perjuicios). Se reclaman con independencia del daño moral.</span>
                 </div>
                 <div class="field">
-                  <label for="exposicion">Nivel de exposición o difusión pública</label>
-                  <select id="exposicion" onchange="runCalc()">
-                    <option value="baja">Baja — daño en círculo privado/laboral reducido</option>
-                    <option value="media">Media — difusión regional o redes sociales</option>
-                    <option value="alta">Alta — medios masivos, viralización o afectación nacional</option>
-                  </select>
+                  <label for="rc_total">Monto de la responsabilidad civil determinada (MXN, opcional)</label>
+                  <input id="rc_total" type="number" inputmode="decimal" placeholder="Ej. 300000" min="0" step="any">
+                  <span class="help">Sólo se usa en las entidades que limitan la reparación moral a una proporción de la responsabilidad civil (Chiapas y Zacatecas: una tercera parte).</span>
                 </div>
                 <div class="field">
-                  <label for="perdida">Gastos comprobables derivados del daño (MXN)</label>
-                  <input id="perdida" type="number" inputmode="decimal" placeholder="Ej. 20000" min="0" step="any" oninput="runCalc()">
-                  <span class="help">Terapia psicológica, tratamiento médico u otros gastos directamente causados. Documentar con facturas (daño emergente, Art. 2108 CCF).</span>
+                  <label for="afectacion">Derecho afectado</label>
+                  <select id="afectacion"><option value="honor">Honor, decoro o reputación</option><option value="integridad">Integridad física o psíquica, o libertad</option><option value="sentimientos">Sentimientos, afectos o creencias</option><option value="privada">Vida privada o propia imagen</option><option value="aspecto">Configuración y aspecto físicos</option></select>
+                  <span class="help">Art. 1916 CCF: si se vulnera ilegítimamente la libertad o la integridad física o psíquica, el daño moral se presume.</span>
                 </div>
-                <button class="calc-button" type="button" id="calcButton">Calcular estimación</button>
+                <div class="field">
+                  <label for="difusion">¿El hecho se difundió en medios?</label>
+                  <select id="difusion"><option value="no">No</option><option value="si">Sí</option></select>
+                  <span class="help">Si afectó honor o reputación, el juez puede ordenar publicar un extracto de la sentencia en los mismos medios.</span>
+                </div>
+                <button class="calc-button" type="button" id="calcButton">Calcular</button>
               </form>
             </div>
           </div>
           <div class="panel">
             <div class="panel-head">
-              <div class="kicker">Resultado orientativo</div>
-              <h3>Monto de referencia</h3>
+              <div class="kicker">Resultado</div>
+              <h3>Qué se puede cuantificar</h3>
               <p>La cifra es solo una guía de trabajo.</p>
             </div>
             <div class="panel-body">
               <div class="result">
                 <div class="result-box">
-                  <div class="result-kicker">Daño moral orientativo</div>
+                  <div class="result-kicker">Daño material comprobado</div>
                   <div class="result-amount" id="resultAmount">$0 MXN</div>
                   <div class="breakdown" id="resultBreakdown"></div>
-                  <p class="result-note">El monto real depende de pruebas, contexto y valoración judicial.</p>
+                  <p class="result-note" id="resultNote"></p>
                   
       <div class="legal-basis">
-        <div class="legal-basis-kicker">Sustento legal 2026</div>
+        <div class="legal-basis-kicker">Fundamento legal vigente (revisado 11-11-2026)</div>
         <ul>
-          <li>CCF Art. 1916: daño moral = alteración de sentimientos, honor, reputación o vida privada por hecho ilícito.</li>
-          <li>Cuantificación judicial: tipo de derecho afectado + gravedad + gastos devengados (Tesis SCJN 2025).</li>
-          <li>Referencia orientativa: 10–500 veces UMA mensual ($3,566.22) según gravedad y exposición.</li>
-          <li>CCF Art. 2108: gastos comprobables se suman como daño emergente.</li>
-          <li>La cifra final es jurisdiccional — este cálculo es solo una referencia de trabajo.</li>
+          <li>Art. 1916 CCF: el daño moral se repara con una indemnización en dinero, con independencia del daño material, en responsabilidad contractual y extracontractual.</li>
+          <li>Art. 1916, cuarto párrafo, CCF: el monto lo determina el juez según los derechos lesionados, el grado de responsabilidad, la situación económica del responsable y de la víctima, y las demás circunstancias del caso. No existe tarifa legal.</li>
+          <li>Art. 1916 Bis CCF y equivalentes locales: reglas sobre libertad de expresión y derecho a la información.</li>
+          <li>Topes locales: Baja California limita el daño moral a la indemnización por incapacidad permanente total; Chiapas (art. 1892) y Zacatecas (art. 1201) lo limitan a la tercera parte de la responsabilidad civil; Quintana Roo (art. 132) toma los parámetros de la LFT con incremento de hasta 80% cuando hay daño a la persona.</li>
+          <li>La acción no es transmisible por acto entre vivos y sólo pasa a los herederos si la víctima la intentó en vida.</li>
         </ul>
       </div>
     
@@ -554,12 +556,12 @@
       
         <details class="faq-item">
           <summary>¿Siempre hay cantidad fija?</summary>
-          <p>No. La valoración depende del caso concreto.</p>
+          <p>No. El art. 1916 CCF ordena que el juez fije el monto según los derechos lesionados, el grado de responsabilidad y la situación económica de las partes; algunos estados fijan topes.</p>
         </details>
       
         <details class="faq-item">
           <summary>¿Sirve para negociar?</summary>
-          <p>Sí. Una cifra orientativa ayuda a preparar la reclamación.</p>
+          <p>Sí, para separar lo que puedes comprobar (daño material) de lo que decide el juez (daño moral) y conocer los topes de tu entidad.</p>
         </details>
       
         </div>
@@ -579,43 +581,48 @@
     <div class="footer-space"></div>
   </main>
   <footer></footer>
+  <script src="/shared/parametros-locales.js?v=20261111e"></script>
   <script>
-    /* ── DAÑO MORAL ── CCF Art. 1916 · Tesis SCJN 2025 · UMA 2026 ── */
-    const UMA_MENSUAL = 3566.22; // vigente desde 1-feb-2026
-    const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
-
-    function runCalc() {
-      const gravedad  = Math.max(1, Math.min(10, parseInt(document.getElementById('gravedad').value) || 0));
-      const exposicion = document.getElementById('exposicion').value;
-      const gastos    = parseFloat(document.getElementById('perdida').value) || 0;
-
-      // Escala de UMAs por gravedad (referencia jurisprudencial orientativa SCJN 2025)
-      // g=1-2→10 UMAs, g=3-4→25, g=5-6→60, g=7-8→120, g=9-10→250
-      const umasPorGravedad = [0, 10, 10, 25, 25, 60, 60, 120, 120, 250, 250];
-      const umasBase = umasPorGravedad[gravedad] || 10;
-
-      // Factor exposición pública (amplifica el daño difundido)
-      const factorExp = { baja: 1.0, media: 1.6, alta: 2.8 }[exposicion] || 1.0;
-
-      const montoMoral  = umasBase * factorExp * UMA_MENSUAL;
-      const totalReclamar = montoMoral + gastos;
-
-      document.getElementById('resultAmount').textContent = money.format(Math.round(totalReclamar));
-      const rows = [
-        ['Gravedad declarada (escala 1-10)', gravedad + '/10'],
-        ['UMAs orientativas base', umasBase + ' UMAs × ' + money.format(Math.round(UMA_MENSUAL))],
-        ['Factor exposición pública (' + exposicion + ')', 'x' + factorExp.toFixed(1)],
-        ['Cuantía daño moral orientativa (Art. 1916 CCF)', money.format(Math.round(montoMoral))],
-        ['Gastos comprobables (daño emergente, Art. 2108)', money.format(Math.round(gastos))],
-        ['Total de referencia a reclamar', money.format(Math.round(totalReclamar))],
-      ];
-      document.getElementById('resultBreakdown').innerHTML = rows
-        .map(([l, v]) => '<div class="breakdown-row"><span>' + l + '</span><strong>' + v + '</strong></div>')
-        .join('');
+    const L = window.__SIGLEP_LOCAL__;
+    const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const $ = id => document.getElementById(id);
+    const num = id => { const el = $(id); const v = el ? parseFloat(el.value) : NaN; return isFinite(v) ? v : 0; };
+    const val = id => { const el = $(id); return el ? el.value : ''; };
+    function lugarActual() {
+      const l = window.__SIGLEP_ESTADO_ACTIVO__;
+      return l ? { clave: l.clave, sm: l.salario_minimo, nombre: l.nombre } : { clave: 'FED', sm: L.SM_GENERAL, nombre: null };
+    }
+    function pintar(monto, rows, nota) {
+      $('resultAmount').textContent = typeof monto === 'number' ? money.format(monto) : monto;
+      $('resultBreakdown').innerHTML = rows.map(([l, v]) => '<div class="breakdown-row"><span>' + l + '</span><strong>' + v + '</strong></div>').join('');
+      if (nota !== undefined && $('resultNote')) $('resultNote').textContent = nota;
     }
 
-    document.getElementById('calcButton').addEventListener('click', runCalc);
+    const PRESUNCION = { integridad: true };
+    function topeMoral(clave, rcTotal) {
+      const r = L.REPARACION[clave] || L.REPARACION.FED;
+      if (r.moralTope === 'itp') { const itp = L.reparacion(clave, { dano: 'itp', sm: L.SM_GENERAL }); return { monto: itp.monto, regla: 'no puede exceder la indemnización por incapacidad permanente total (' + money.format(itp.monto) + ')' }; }
+      if (r.moralTope === 'tercio') return { monto: rcTotal > 0 ? rcTotal / 3 : null, regla: 'no puede exceder la tercera parte de la responsabilidad civil' };
+      return null;
+    }
+    function runCalc() {
+      const lugar = lugarActual();
+      const material = num('material');
+      const tope = topeMoral(lugar.clave, num('rc_total'));
+      const rows = [
+        ['Daño material comprobado', money.format(material)],
+        ['Daño moral', 'Lo fija el juez: no hay tarifa legal (art. 1916 CCF y su equivalente local).'],
+        ['Presunción de daño moral', PRESUNCION[val('afectacion')] ? 'Sí: se vulneró la libertad o la integridad física o psíquica.' : 'No: debe acreditarse la afectación.'],
+      ];
+      if (tope) rows.push(['Tope legal del daño moral en ' + lugar.nombre, tope.monto !== null ? money.format(tope.monto) + ' — ' + tope.regla : 'Captura la responsabilidad civil determinada: ' + tope.regla]);
+      else rows.push(['Tope legal', lugar.nombre ? 'El código de ' + lugar.nombre + ' consultado no fija tope.' : 'Elige tu entidad para revisar si su código fija un tope.']);
+      if (val('difusion') === 'si' && val('afectacion') === 'honor') rows.push(['Medida adicional', 'Puedes pedir la publicación de un extracto de la sentencia en los medios que difundieron el hecho.']);
+      rows.push(['Fuente', L.cita(lugar.clave, (L.REPARACION[lugar.clave] || {}).moralTope ? (L.REPARACION[lugar.clave].art) : null)]);
+      pintar(material, rows, 'El resultado es sólo el daño material comprobable. La cuantía del daño moral no se puede calcular de antemano: la decide el juez con los criterios del art. 1916.');
+    }
+    $('calcButton').addEventListener('click', runCalc);
     document.querySelectorAll('#calc-form input, #calc-form select').forEach(el => el.addEventListener('input', runCalc));
+    document.addEventListener('siglep:estado-change', runCalc);
     runCalc();
   </script>
 </body>

@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculadora de Pensión por Invalidez | SIGLEP</title>
-  <meta name="description" content="Calculadora orientativa de pensión por invalidez en México para revisar semanas, salario y grado de incapacidad.">
+  <meta name="description" content="Calculadora de pensión por invalidez del IMSS, Ley 73 y Ley 97, con las tablas y asignaciones familiares de la Ley del Seguro Social.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://siglep.lat/calculadoras/seguridad-social/pension-invalidez/">
   <meta property="og:title" content="Calculadora de Pensión por Invalidez | SIGLEP">
-  <meta property="og:description" content="Calculadora orientativa de pensión por invalidez en México para revisar semanas, salario y grado de incapacidad.">
+  <meta property="og:description" content="Calculadora de pensión por invalidez del IMSS, Ley 73 y Ley 97, con las tablas y asignaciones familiares de la Ley del Seguro Social.">
   <meta property="og:url" content="https://siglep.lat/calculadoras/seguridad-social/pension-invalidez/">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_MX">
@@ -140,7 +140,7 @@
     .footer-space{height:1px;}
     @media (max-width: 900px){.calc-grid{grid-template-columns:1fr}.hero{padding-top:7.6rem}}
   </style>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Calculadora de Pensión por Invalidez | SIGLEP","url":"https://siglep.lat/calculadoras/seguridad-social/pension-invalidez/","description":"Calculadora orientativa de pensión por invalidez en México para revisar semanas, salario y grado de incapacidad.","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://siglep.lat/"},{"@type":"ListItem","position":2,"name":"Calculadoras","item":"https://siglep.lat/calculadoras/"},{"@type":"ListItem","position":3,"name":"Seguridad social","item":"https://siglep.lat/calculadoras/seguridad-social/"},{"@type":"ListItem","position":4,"name":"Pensión por invalidez","item":"https://siglep.lat/calculadoras/seguridad-social/pension-invalidez/"}]}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Calculadora de Pensión por Invalidez | SIGLEP","url":"https://siglep.lat/calculadoras/seguridad-social/pension-invalidez/","description":"Calculadora de pensión por invalidez del IMSS, Ley 73 y Ley 97, con las tablas y asignaciones familiares de la Ley del Seguro Social.","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://siglep.lat/"},{"@type":"ListItem","position":2,"name":"Calculadoras","item":"https://siglep.lat/calculadoras/"},{"@type":"ListItem","position":3,"name":"Seguridad social","item":"https://siglep.lat/calculadoras/seguridad-social/"},{"@type":"ListItem","position":4,"name":"Pensión por invalidez","item":"https://siglep.lat/calculadoras/seguridad-social/pension-invalidez/"}]}}</script>
   
   <style>
     nav.siglep-shell-nav {
@@ -393,7 +393,7 @@
     }
   </style>
 
-  <script defer src="/shared/site-shell.js?v=20261111d"></script>
+  <script defer src="/shared/site-shell.js?v=20261111e"></script>
 <link rel="stylesheet" href="/shared/mobile.css?v=20261111d">
 </head>
 <body>
@@ -480,36 +480,60 @@
           <div class="panel dark">
             <div class="panel-head">
               <div class="kicker">Salud y cotización</div>
-              <h3>Cálculo orientativo</h3>
+              <h3>Datos del asegurado</h3>
               <p>Revisa salario, semanas y grado de afectación.</p>
             </div>
             <div class="panel-body">
               <form id="calc-form" onsubmit="return false;">
                 <div class="field">
-                  <label for="salario">Salario mensual promedio (MXN)</label>
-                  <input id="salario" type="number" inputmode="decimal" placeholder="Ej. 12000" min="0" step="any" oninput="runCalc()">
-                  <span class="help">Promedio de tu SBC de las últimas 500 semanas cotizadas o el tiempo cotizado si es menor. Consulta tus CESI del IMSS.</span>
+                  <label for="regimen">Régimen del asegurado</label>
+                  <select id="regimen"><option value="73">Ley 73 — cotizó antes del 1 de julio de 1997</option><option value="97">Ley 97 — empezó a cotizar desde el 1 de julio de 1997</option></select>
+                  <span class="help">Quien cotizó antes de julio de 1997 puede elegir el régimen de 1973.</span>
+                </div>
+                <div class="field">
+                  <label for="salario">Salario diario promedio (MXN)</label>
+                  <input id="salario" type="number" inputmode="decimal" placeholder="Ej. 600" min="0" step="any">
+                  <span class="help">Ley 73: promedio de las últimas 250 semanas (art. 167 LSS 1973). Ley 97: promedio de las últimas 500 semanas actualizado con el INPC (art. 141 LSS).</span>
                 </div>
                 <div class="field">
                   <label for="semanas">Semanas cotizadas</label>
-                  <input id="semanas" type="number" inputmode="decimal" placeholder="Ej. 900" min="0" step="1" oninput="runCalc()">
-                  <span class="help">Mín. 250 semanas (Art. 119 LSS). Excepción: 150 semanas si el grado de invalidez es ≥75%. Verifica en mi.imss.digital.gob.mx.</span>
+                  <input id="semanas" type="number" inputmode="decimal" placeholder="Ej. 900" min="0" step="any">
                 </div>
                 <div class="field">
-                  <label for="grado">Grado de invalidez (dictamen médico)</label>
-                  <select id="grado" onchange="runCalc()">
-                    <option value="parcial">Parcial (25–74%) — dictamen médico requerido</option>
-                    <option value="total">Total (≥75%) — mín. 150 semanas</option>
-                    <option value="temporal">Temporal — mientras dure la incapacidad</option>
-                  </select>
+                  <label for="pct_inv">Porcentaje de invalidez del dictamen del IMSS (%)</label>
+                  <input id="pct_inv" type="number" inputmode="decimal" placeholder="Ej. 60" min="0" step="any">
+                  <span class="help">En Ley 97 bastan 150 semanas si el dictamen es de 75% o más (art. 122).</span>
                 </div>
-                <button class="calc-button" type="button" id="calcButton">Calcular estimación</button>
+                <div class="field">
+                  <label for="edad">Edad del asegurado</label>
+                  <input id="edad" type="number" inputmode="decimal" placeholder="Ej. 52" min="0" step="any">
+                  <span class="help">En Ley 73 el factor de 1.11 del transitorio Décimo Cuarto aplica a pensionados de 60 años o más.</span>
+                </div>
+                <div class="field">
+                  <label for="conyuge">¿Cónyuge, concubina(o) o unión civil?</label>
+                  <select id="conyuge"><option value="no">No</option><option value="si">Sí</option></select>
+                </div>
+                <div class="field">
+                  <label for="hijos">Hijos menores de 16 años (o hasta 25 si estudian)</label>
+                  <input id="hijos" type="number" inputmode="decimal" placeholder="Ej. 2" min="0" step="any">
+                </div>
+                <div class="field">
+                  <label for="padres">Padres que dependen económicamente (0, 1 o 2)</label>
+                  <input id="padres" type="number" inputmode="decimal" placeholder="Ej. 0" min="0" step="any">
+                  <span class="help">Sólo cuentan si no hay cónyuge ni hijos.</span>
+                </div>
+                <div class="field">
+                  <label for="asistencia">¿Requiere que otra persona lo asista de forma permanente?</label>
+                  <select id="asistencia"><option value="no">No</option><option value="si">Sí — dictamen médico</option></select>
+                  <span class="help">Ayuda asistencial de hasta 20% (art. 140 LSS; art. 166 LSS 1973), salvo quien ya recibe la ayuda por falta de familiares.</span>
+                </div>
+                <button class="calc-button" type="button" id="calcButton">Calcular</button>
               </form>
             </div>
           </div>
           <div class="panel">
             <div class="panel-head">
-              <div class="kicker">Resultado orientativo</div>
+              <div class="kicker">Resultado</div>
               <h3>Pensión estimada</h3>
               <p>Usa la referencia para ordenar el expediente.</p>
             </div>
@@ -519,16 +543,17 @@
                   <div class="result-kicker">Pensión por invalidez</div>
                   <div class="result-amount" id="resultAmount">$0 MXN</div>
                   <div class="breakdown" id="resultBreakdown"></div>
-                  <p class="result-note">La evaluación real depende de dictámenes médicos y requisitos del instituto.</p>
+                  <p class="result-note" id="resultNote"></p>
                   
       <div class="legal-basis">
-        <div class="legal-basis-kicker">Sustento legal 2026</div>
+        <div class="legal-basis-kicker">Fundamento legal vigente (revisado 11-11-2026)</div>
         <ul>
-          <li>LSS Art. 119: mín. 250 semanas cotizadas; o 150 si grado ≥75% de invalidez.</li>
-          <li>LSS Art. 141: cuantía básica = 35% del promedio de los salarios de las últimas 500 semanas cotizadas (o las que tenga, si son menos).</li>
-          <li>LSS Art. 165-168: asignaciones familiares — cónyuge +15%, cada hijo +10%.</li>
-          <li>Grado parcial (25–74%): pensión proporcional al grado certificado por el IMSS.</li>
-          <li>UMA mensual 2026: $3,566.22 — pensión mínima garantizada orientativa.</li>
+          <li>Ley 73 (LSS DOF 12-03-1973): invalidez definida en el art. 128; requiere 150 semanas (art. 131); la cuantía se calcula con la tabla del art. 167 (reforma DOF 27-12-1990), más asignaciones familiares (art. 164) y ayuda asistencial (art. 166), con el límite del art. 169.</li>
+          <li>Transitorio Décimo Cuarto del decreto DOF 20-12-2001 (reformado DOF 05-01-2004): las pensiones de Ley 73 menores a un salario mínimo se elevan a ese monto, y las de pensionados de 60 años o más se multiplican por 1.11.</li>
+          <li>Ley 97 (LSS vigente, última reforma DOF 15-01-2026): requiere 250 semanas, o 150 si la invalidez es de 75% o más (art. 122); cuantía básica del 35% del salario promedio de las últimas 500 semanas actualizado con el INPC (art. 141).</li>
+          <li>Art. 138 LSS: asignaciones de 15% por cónyuge, 10% por cada hijo, 10% por cada padre dependiente si no hay cónyuge ni hijos, y ayuda asistencial de 15% (10% si sólo hay un ascendiente).</li>
+          <li>Art. 141 LSS (reforma DOF 16-12-2020): la pensión de invalidez, con asignaciones, no puede ser inferior al promedio de las pensiones garantizadas para un salario mínimo y 60 años de la tabla del art. 170, actualizado con el INPC (dic-2025 143.042 / dic-2019 105.934, INEGI).</li>
+          <li>Salario mínimo 2026: $315.04 (CONASAMI, DOF 09-12-2025). UMA 2026: $117.31 (INEGI).</li>
         </ul>
       </div>
 
@@ -554,7 +579,7 @@
       
         <details class="faq-item">
           <summary>¿Sirve si aún no tengo resolución?</summary>
-          <p>Sí, como referencia previa para preparar el expediente.</p>
+          <p>Sí: con tu salario promedio y semanas reconocidas obtienes la cuantía según la Ley 73 o la Ley 97; el IMSS la confirma con tu historial.</p>
         </details>
       
         <details class="faq-item">
@@ -580,53 +605,95 @@
   </main>
   <footer></footer>
   <script>
-    /* ── PENSIÓN POR INVALIDEZ ── LSS Art. 119/141/165-168 · UMA 2026 ── */
-    const UMA_MENSUAL = 3566.22;
-    const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
-
-    function runCalc() {
-      const salario = parseFloat(document.getElementById('salario').value) || 0;
-      const semanas = parseInt(document.getElementById('semanas').value) || 0;
-      const grado   = document.getElementById('grado').value;
-
-      // Requisito mínimo semanas (Art. 119 LSS)
-      const minSem = grado === 'total' ? 150 : 250;
-      if (semanas < minSem) {
-        document.getElementById('resultAmount').textContent = '— insuficiente';
-        document.getElementById('resultBreakdown').innerHTML =
-          '<div class="breakdown-row"><span>Mínimo requerido</span><strong>' + minSem + ' semanas (Art. 119 LSS)</strong></div>';
-        return;
-      }
-
-      // Cuantía básica Art. 141 LSS: 35% del salario promedio (sin incrementos por semanas)
-      const pctBase  = 0.35;
-      const pensionBase = salario * pctBase;
-
-      // Factor grado invalidez
-      const factorGrado = { parcial: 0.60, total: 1.0, temporal: 0.50 }[grado] || 1.0;
-      const pensionGrado = pensionBase * factorGrado;
-
-      // Asignación familiar cónyuge: +15% (Art. 165 LSS) — orientativo
-      const asigConyugue = pensionGrado * 0.15;
-      const pensionTotal = pensionGrado + asigConyugue;
-
-      const pension = Math.max(pensionTotal, UMA_MENSUAL);
-
-      document.getElementById('resultAmount').textContent = money.format(Math.round(pension));
-      const rows = [
-        ['Salario mensual base', money.format(Math.round(salario))],
-        ['Cuantía básica (' + Math.round(pctBase * 100) + '% — Art. 141)', money.format(Math.round(pensionBase))],
-        ['Factor grado ' + grado + ' (' + Math.round(factorGrado * 100) + '%)', money.format(Math.round(pensionGrado))],
-        ['Asignación cónyuge (+15% — Art. 165)', money.format(Math.round(asigConyugue))],
-        ['Mínimo garantizado (1 UMA mensual)', money.format(Math.round(UMA_MENSUAL))],
-      ];
-      document.getElementById('resultBreakdown').innerHTML = rows
-        .map(([l, v]) => '<div class="breakdown-row"><span>' + l + '</span><strong>' + v + '</strong></div>')
-        .join('');
+    const L = window.__SIGLEP_LOCAL__;
+    const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const $ = id => document.getElementById(id);
+    const num = id => { const el = $(id); const v = el ? parseFloat(el.value) : NaN; return isFinite(v) ? v : 0; };
+    const val = id => { const el = $(id); return el ? el.value : ''; };
+    function lugarActual() {
+      const l = window.__SIGLEP_ESTADO_ACTIVO__;
+      return l ? { clave: l.clave, sm: l.salario_minimo, nombre: l.nombre } : { clave: 'FED', sm: L.SM_GENERAL, nombre: null };
+    }
+    function pintar(monto, rows, nota) {
+      $('resultAmount').textContent = typeof monto === 'number' ? money.format(monto) : monto;
+      $('resultBreakdown').innerHTML = rows.map(([l, v]) => '<div class="breakdown-row"><span>' + l + '</span><strong>' + v + '</strong></div>').join('');
+      if (nota !== undefined && $('resultNote')) $('resultNote').textContent = nota;
     }
 
-    document.getElementById('calcButton').addEventListener('click', runCalc);
+    const SM = 315.04, UMA = 117.31, TOPE = UMA * 25, M = 365 / 12;
+    // LSS 1973 art. 167 (DOF 27-12-1990): [hasta veces SM, % cuantía básica, % incremento anual]
+    const TABLA_167 = [[1.00,80.00,0.563],[1.25,77.11,0.814],[1.50,58.18,1.178],[1.75,49.23,1.430],[2.00,42.67,1.615],[2.25,37.65,1.756],[2.50,33.68,1.868],[2.75,30.48,1.958],[3.00,27.83,2.033],[3.25,25.60,2.096],[3.50,23.70,2.149],[3.75,22.07,2.195],[4.00,20.65,2.235],[4.25,19.39,2.271],[4.50,18.29,2.302],[4.75,17.30,2.330],[5.00,16.41,2.355],[5.25,15.61,2.377],[5.50,14.88,2.398],[5.75,14.22,2.416],[6.00,13.62,2.433],[Infinity,13.00,2.450]];
+    // Art. 170 LSS: fila "1 salario mínimo", 60 años, 11 escalones de semanas (pesos de la tabla legal)
+    const PG_FILA_SM_60 = [2622,2716,2809,2903,2997,3090,3184,3278,3371,3465,3559];
+    const FACTOR_INPC_2026 = 143.042 / 105.934;
+    const PG_INVALIDEZ = PG_FILA_SM_60.reduce((a, b) => a + b, 0) / PG_FILA_SM_60.length * FACTOR_INPC_2026;
+    function grupo167(veces) { const v = Math.round(veces * 100) / 100; return TABLA_167.find(([hasta]) => v <= hasta); }
+    function incrementos(semanas) { const extra = Math.max(0, semanas - 500); const r = extra % 52; return Math.floor(extra / 52) + (r > 26 ? 1 : r >= 13 ? 0.5 : 0); }
+    // Asignaciones familiares y ayuda asistencial (art. 164 LSS 1973 y art. 138 LSS vigente tienen la misma estructura)
+    function asignaciones(conyuge, hijos, padres, asistencia) {
+      let asig = 0, ayuda = 0;
+      if (conyuge) asig += 0.15;
+      asig += 0.10 * hijos;
+      if (!conyuge && hijos === 0) {
+        if (padres >= 2) asig += 0.20;
+        else if (padres === 1) { asig += 0.10; ayuda = 0.10; }
+        else ayuda = 0.15;
+      }
+      const ayudaAsistencia = asistencia && ayuda === 0 ? 0.20 : 0;
+      return { asig, ayuda: ayuda + ayudaAsistencia, ayudaAsistencia };
+    }
+    function invalidez73(salDia, semanas, edad, conyuge, hijos, padres, asistencia) {
+      if (semanas < 150) return { requisito: false, minSem: 150 };
+      const sal = Math.min(salDia, TOPE);
+      const [, pb, pi] = grupo167(sal / SM);
+      const nInc = incrementos(semanas);
+      const cuantia = sal * pb / 100 + sal * pi / 100 * nInc;
+      const a = asignaciones(conyuge, hijos, padres, asistencia);
+      const conAsig = cuantia * (1 + a.asig + a.ayuda);
+      const diaria = Math.min(conAsig, Math.max(sal, cuantia)); // art. 169
+      const mensual = diaria * M;
+      const piso = SM * M;
+      const elevada = Math.max(mensual, piso);                    // Décimo Cuarto a)
+      const final = edad >= 60 ? elevada * 1.11 : elevada;        // Décimo Cuarto b)
+      return { requisito: true, sal, pb, pi, nInc, cuantia, a, mensual, piso, final, factor111: edad >= 60 };
+    }
+    function invalidez97(salDia, semanas, pct, conyuge, hijos, padres, asistencia) {
+      const minSem = pct >= 75 ? 150 : 250;
+      if (semanas < minSem) return { requisito: false, minSem };
+      const basica = 0.35 * salDia * M;
+      const a = asignaciones(conyuge, hijos, padres, asistencia);
+      const total = basica * (1 + a.asig + a.ayuda);
+      return { requisito: true, basica, a, total, minimo: PG_INVALIDEZ, final: Math.max(total, PG_INVALIDEZ), minSem };
+    }
+    function runCalc() {
+      const reg = val('regimen'), sal = num('salario'), sem = num('semanas');
+      const c = val('conyuge') === 'si', h = Math.floor(num('hijos')), p = Math.min(Math.floor(num('padres')), 2), as = val('asistencia') === 'si';
+      const pct = (x) => (x * 100).toFixed(0) + '%';
+      if (reg === '73') {
+        const r = invalidez73(sal, sem, num('edad'), c, h, p, as);
+        if (!r.requisito) { pintar('No cumple requisito', [['Semanas requeridas', '150 (art. 131 LSS 1973)'], ['Semanas capturadas', String(sem)]], ''); return; }
+        pintar(r.final, [
+          ['Salario diario considerado', money.format(r.sal) + ' (' + (r.sal / SM).toFixed(2) + ' salarios mínimos)'],
+          ['Cuantía básica + incrementos (art. 167)', r.pb + '% + ' + r.pi + '% × ' + r.nInc + ' = ' + money.format(r.cuantia) + ' diarios'],
+          ['Asignaciones y ayudas (arts. 164 y 166)', pct(r.a.asig) + ' + ' + pct(r.a.ayuda)],
+          ['Pensión mensual calculada', money.format(r.mensual)],
+          ['Mínimo: un salario mínimo mensual', money.format(r.piso)],
+          ['Factor 1.11 (60 años o más)', r.factor111 ? 'Aplica' : 'No aplica: menor de 60 años'],
+        ], 'Estimación con las reglas de la Ley 73. El IMSS fija la cuantía definitiva con tu historial de salarios.');
+        return;
+      }
+      const r = invalidez97(sal, sem, num('pct_inv'), c, h, p, as);
+      if (!r.requisito) { pintar('No cumple requisito', [['Semanas requeridas', r.minSem + ' (art. 122 LSS)'], ['Semanas capturadas', String(sem)], ['Alternativa', 'Si la invalidez es permanente, puedes retirar en una sola exhibición el saldo de la subcuenta de retiro, cesantía y vejez (art. 122).']], ''); return; }
+      pintar(r.final, [
+        ['Cuantía básica: 35% del salario promedio (art. 141)', money.format(r.basica)],
+        ['Asignaciones y ayudas (arts. 138 y 140)', pct(r.a.asig) + ' + ' + pct(r.a.ayuda)],
+        ['Pensión con asignaciones', money.format(r.total)],
+        ['Mínimo legal (art. 141): promedio de pensión garantizada, 1 salario mínimo y 60 años', money.format(r.minimo)],
+      ], 'La pensión definitiva se paga mediante renta vitalicia contratada con la aseguradora que elijas (art. 120). El IMSS fija la cuantía con tu historial actualizado por INPC.');
+    }
+    $('calcButton').addEventListener('click', runCalc);
     document.querySelectorAll('#calc-form input, #calc-form select').forEach(el => el.addEventListener('input', runCalc));
+    document.addEventListener('siglep:estado-change', runCalc);
     runCalc();
   </script>
 </body>

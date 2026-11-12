@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculadora de Negociación de Deuda Bancaria | SIGLEP</title>
-  <meta name="description" content="Estima cuánto podrías pagar en una negociación de deuda bancaria: quitas, reestructuras y planes de pago según tu situación.">
+  <meta name="description" content="Calculadora de deuda bancaria: plazo de prescripción del pagaré y del crédito mercantil, intereses moratorios legales o pactados y protección del salario.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://siglep.lat/calculadoras/patrimonial/deuda-bancaria/">
   <meta property="og:title" content="Calculadora de Negociación de Deuda Bancaria | SIGLEP">
-  <meta property="og:description" content="Estima cuánto podrías pagar en una negociación de deuda bancaria: quitas, reestructuras y planes de pago según tu situación.">
+  <meta property="og:description" content="Calculadora de deuda bancaria: plazo de prescripción del pagaré y del crédito mercantil, intereses moratorios legales o pactados y protección del salario.">
   <meta property="og:url" content="https://siglep.lat/calculadoras/patrimonial/deuda-bancaria/">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://siglep.lat/img/og-siglep.png">
@@ -93,8 +93,12 @@
     .cta-band p{margin:0 auto 1.8rem;color:rgba(255,255,255,0.62);max-width:760px;}
     .note{font-size:0.8rem;line-height:1.7;color:#718096;margin-top:1rem;}
     .footer-space{height:1px;}
-    #result-panel{display:none;}
-    #result-panel.visible{display:block;}
+    .breakdown{display:grid;gap:0.55rem;margin-top:1rem;}
+    .breakdown-row{display:flex;justify-content:space-between;gap:1rem;font-size:0.84rem;color:#334155;border-top:1px solid rgba(197,160,89,0.12);padding-top:0.55rem;}
+    .breakdown-row strong{text-align:right;}
+    .legal-basis{margin-top:1rem;border-top:1px solid rgba(197,160,89,0.16);padding-top:0.9rem;}
+    .legal-basis-kicker{font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;font-weight:700;color:var(--gold);margin-bottom:0.55rem;}
+    .legal-basis ul{display:grid;gap:0.55rem;padding-left:0.9rem;font-size:0.76rem;line-height:1.6;color:#4A5568;}
     .error-msg{font-size:0.8rem;color:#C0392B;margin-top:0.5rem;display:none;}
     .error-msg.visible{display:block;}
     .btn-wa{display:inline-flex;align-items:center;gap:0.6rem;background:#25D366;color:#fff;padding:0.9rem 1.35rem;border-radius:2px;font-size:0.78rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:background .2s ease,transform .2s ease;}
@@ -102,7 +106,7 @@
     @media (max-width: 900px){.calc-grid{grid-template-columns:1fr}.calc-actions{grid-template-columns:1fr}.hero{padding-top:7.6rem}}
   </style>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Calculadora de Negociación de Deuda Bancaria | SIGLEP","url":"https://siglep.lat/calculadoras/patrimonial/deuda-bancaria/","description":"Estima cuánto podrías pagar en una negociación de deuda bancaria.","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://siglep.lat/"},{"@type":"ListItem","position":2,"name":"Calculadoras","item":"https://siglep.lat/calculadoras/"},{"@type":"ListItem","position":3,"name":"Patrimonial","item":"https://siglep.lat/calculadoras/patrimonial/"},{"@type":"ListItem","position":4,"name":"Negociación de Deuda","item":"https://siglep.lat/calculadoras/patrimonial/deuda-bancaria/"}]}}</script>
-  <script defer src="/shared/site-shell.js?v=20261111d"></script>
+  <script defer src="/shared/site-shell.js?v=20261111e"></script>
 <link rel="stylesheet" href="/shared/mobile.css?v=20261111d">
 </head>
 <body>
@@ -120,7 +124,7 @@
         </div>
         <div class="eyebrow">Calculadora Patrimonial</div>
         <h1>NEGOCIACIÓN DE <em>DEUDA BANCARIA</em></h1>
-        <p class="lead">Los bancos prefieren recuperar algo a no recuperar nada. Estima cuánto podrías pagar en una negociación — antes de hablar con tu acreedor.</p>
+        <p class="lead">Antes de negociar con tu banco, conoce el plazo legal para que te demanden, los intereses que realmente proceden y qué bienes no pueden embargarte.</p>
         <div class="hero-actions">
           <a href="https://wa.me/525661755112" class="btn btn-primary">Consulta Gratuita por WhatsApp</a>
           <a href="/calculadoras/patrimonial/" class="btn btn-secondary">Ver más calculadoras</a>
@@ -130,90 +134,72 @@
 
     <section class="section">
       <div class="section-inner">
-        <h2>Simulador de <em>Negociación</em></h2>
-        <p class="lead">Ingresa los datos de tu deuda para obtener una estimación orientativa del monto negociable y el ahorro potencial.</p>
+        <h2>Prescripción e <em>intereses</em></h2>
+        <p class="lead">Captura los datos de tu deuda. El cálculo usa el Código de Comercio, la Ley General de Títulos y Operaciones de Crédito y la Ley Federal del Trabajo.</p>
 
         <div class="calc-grid">
-          <!-- Formulario -->
           <div class="panel dark">
             <div class="panel-head">
-              <div class="kicker">Simulador</div>
-              <h3>Negociación de Deuda</h3>
-              <p>¿Cuánto podrías pagar realmente?</p>
+              <div class="kicker">Datos de la deuda</div>
+              <h3>Prescripción e intereses</h3>
+              <p>Calcula hasta cuándo puede cobrarse judicialmente y los intereses moratorios a la fecha.</p>
             </div>
             <div class="panel-body">
-              <div class="field">
-                <label>Deuda Total Actual (MXN)</label>
-                <input type="number" id="deuda-total" placeholder="Ej: 50,000" min="0">
-              </div>
-              <div class="field">
-                <label>Tiempo sin pagar (meses)</label>
-                <input type="number" id="meses-mora" placeholder="Ej: 6" min="0" max="120">
-                <span class="help">Meses desde el último pago realizado.</span>
-              </div>
-              <div class="field">
-                <label>Tipo de Deuda</label>
-                <select id="tipo-deuda">
-                  <option value="tarjeta">Tarjeta de Crédito</option>
-                  <option value="personal">Crédito Personal</option>
-                  <option value="hipotecario">Crédito Hipotecario</option>
-                  <option value="automotriz">Crédito Automotriz</option>
-                </select>
-              </div>
-              <div class="field">
-                <label>¿Tienes capacidad de pago?</label>
-                <select id="capacidad-pago">
-                  <option value="si">Sí, pero reducida</option>
-                  <option value="nula">En este momento no</option>
-                  <option value="liquidar">Puedo liquidar en una sola exhibición</option>
-                </select>
-              </div>
-              <div class="calc-actions">
-                <button class="calc-button" onclick="calcularDeuda()">→ Simular Negociación</button>
-                <button class="calc-button calc-button-secondary" onclick="resetCalc()">Limpiar</button>
-              </div>
-              <div class="error-msg" id="error-msg">Por favor, ingresa la deuda total y los meses sin pagar.</div>
+              <form id="calc-form" onsubmit="return false;">
+                <div class="field">
+                  <label for="saldo">Saldo vencido (MXN)</label>
+                  <input id="saldo" type="number" inputmode="decimal" placeholder="Ej. 50000" min="0" step="any">
+                </div>
+                <div class="field">
+                  <label for="documento">Documento en que consta la deuda</label>
+                  <select id="documento">
+                    <option value="contrato">Contrato de crédito o tarjeta de crédito</option>
+                    <option value="pagare">Pagaré</option>
+                  </select>
+                  <span class="help">El plazo para demandar depende de la acción: la cambiaria del pagaré o la derivada del contrato mercantil.</span>
+                </div>
+                <div class="field">
+                  <label for="fecha">Fecha de vencimiento o del último pago o reconocimiento de la deuda</label>
+                  <input id="fecha" type="date">
+                  <span class="help">La prescripción se interrumpe con la demanda, con el reconocimiento de la deuda o con la renovación del documento (art. 1041 del Código de Comercio); en ese caso usa la fecha del último de esos actos.</span>
+                </div>
+                <div class="field">
+                  <label for="tasa">Tasa moratoria anual pactada (%)</label>
+                  <input id="tasa" type="number" inputmode="decimal" placeholder="Según tu contrato o pagaré" min="0" step="any">
+                  <span class="help">Si no se pactó, se aplica el 6% anual del art. 362 del Código de Comercio. Una tasa usuraria puede reducirse judicialmente.</span>
+                </div>
+                <button class="calc-button" type="button" id="calcButton">Calcular</button>
+              </form>
             </div>
           </div>
-
-          <!-- Panel de resultado -->
-          <div>
-            <!-- Estado inicial -->
-            <div class="panel" id="initial-panel">
-              <div class="panel-head">
-                <div class="kicker">¿Cómo funciona?</div>
-                <h3>Las deudas bancarias tienen solución legal.</h3>
-              </div>
-              <div class="panel-body">
-                <ul class="info-list" style="margin-top:0;">
-                  <li style="color:#4A5568;">Negociación directa con el área de cobranza bancaria</li>
-                  <li style="color:#4A5568;">Quitas o reestructuras según tu situación y la política del acreedor</li>
-                  <li style="color:#4A5568;">Planes de pago que sí puedes cumplir</li>
-                  <li style="color:#4A5568;">Sin arruinar tu historial de forma definitiva</li>
-                  <li style="color:#4A5568;">Asesoría antes de hablar con el banco</li>
-                </ul>
-                <p class="note">La simulación es referencial. Los resultados reales dependen del banco, el tipo de deuda y tu situación particular.</p>
-              </div>
+          <div class="panel">
+            <div class="panel-head">
+              <div class="kicker">Resultado</div>
+              <h3>Situación legal de la deuda</h3>
+              <p>Plazos e intereses con fundamento en leyes federales.</p>
             </div>
-
-            <!-- Resultado -->
-            <div id="result-panel">
+            <div class="panel-body">
               <div class="result">
                 <div class="result-box">
-                  <div class="result-kicker">Estimación de Negociación</div>
-                  <div class="breakdown" id="result-breakdown"></div>
-                  <div class="savings-highlight">
-                    <div class="savings-label">Ahorro Potencial Estimado</div>
-                    <div class="savings-amount" id="savings-amount">$0.00</div>
+                  <div class="result-kicker">Saldo más intereses moratorios</div>
+                  <div class="result-amount" id="resultAmount">$0.00</div>
+                  <div class="breakdown" id="resultBreakdown"></div>
+                  <p class="result-note" id="resultNote">Las deudas bancarias se rigen por leyes federales; aplican igual en todo el país.</p>
+                  <div class="legal-basis">
+                    <div class="legal-basis-kicker">Fundamento legal vigente (revisado 11-11-2026)</div>
+                    <ul>
+                      <li>Art. 165 fr. I LGTOC (aplicable al pagaré por el art. 174): la acción cambiaria prescribe en tres años desde el vencimiento.</li>
+                      <li>Art. 1047 del Código de Comercio: si el Código no fija un plazo más corto, la prescripción mercantil ordinaria es de diez años.</li>
+                      <li>Art. 1041 del Código de Comercio: la prescripción se interrumpe con la demanda o interpelación judicial, con el reconocimiento de la obligación o con la renovación del documento.</li>
+                      <li>Art. 362 del Código de Comercio: a falta de pacto, el interés moratorio es del 6% anual. Art. 174 LGTOC: en el pagaré, la tasa moratoria estipulada.</li>
+                      <li>Art. 112 LFT: el salario no puede embargarse salvo por pensiones alimenticias. Art. 110 LFT: sólo proceden los descuentos que ahí se enumeran.</li>
+                      <li>Arts. 17 Bis 1 a 17 Bis 4 de la Ley para la Transparencia y Ordenamiento de los Servicios Financieros (última reforma DOF 14-11-2025): los bancos deben identificar y supervisar a sus despachos de cobranza, y la CONDUSEF regula su actuación.</li>
+                      <li>Las quitas y reestructuras no tienen porcentaje legal: dependen de la negociación con el acreedor.</li>
+                    </ul>
                   </div>
-                  <p class="result-note" id="estrategia-text"></p>
                 </div>
                 <div style="margin-top:0.5rem;">
-                  <a href="#" class="btn-wa" id="wa-btn" target="_blank" rel="noopener noreferrer">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2.001c-5.514 0-9.998 4.484-9.998 9.998 0 1.761.462 3.413 1.27 4.847L2.005 22l5.273-1.381c1.378.748 2.954 1.179 4.721 1.179h.004c5.513 0 9.997-4.484 9.997-9.998 0-5.515-4.484-9.999-9.997-9.999H11.999zm0 1.8h.003c4.52 0 8.198 3.678 8.198 8.198 0 4.521-3.678 8.199-8.198 8.199h-.003c-1.584 0-3.072-.443-4.341-1.211l-.311-.185-3.129.82.834-3.047-.204-.323c-.839-1.313-1.316-2.85-1.316-4.455 0-4.52 3.678-8.197 8.197-8.197z"/></svg>
-                    Negociar mi deuda con asesoría
-                  </a>
-                  <p class="note">⚠ Estimación referencial. Los resultados reales varían según el banco, el historial y la estrategia de negociación. Consulta sin costo ni compromiso.</p>
+                  <a href="https://wa.me/525661755112" class="btn-wa" id="wa-btn" target="_blank" rel="noopener noreferrer">Revisar mi deuda con un abogado</a>
                 </div>
               </div>
             </div>
@@ -240,7 +226,7 @@
           </details>
           <details class="faq-item">
             <summary>¿La calculadora aplica a deudas con cualquier banco?</summary>
-            <p>La simulación es orientativa y aplica a deudas bancarias en general. Los porcentajes reales dependen del banco, el tipo de producto, el tiempo de mora y las políticas internas de cobranza de cada institución.</p>
+            <p>Sí. Los créditos bancarios son mercantiles y se rigen por leyes federales (Código de Comercio y Ley General de Títulos y Operaciones de Crédito), iguales en todo el país. Lo que varía por banco es la tasa pactada en tu contrato y su disposición a negociar.</p>
           </details>
         </div>
       </div>
@@ -258,68 +244,43 @@
   <footer></footer>
 
   <script>
-  function fmt(n) {
-    return new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(n);
-  }
-
-  function calcularDeuda() {
-    const deuda = parseFloat(document.getElementById('deuda-total').value);
-    const meses = parseFloat(document.getElementById('meses-mora').value);
-    const tipo  = document.getElementById('tipo-deuda').value;
-    const cap   = document.getElementById('capacidad-pago').value;
-    const errEl = document.getElementById('error-msg');
-
-    if (!deuda || deuda <= 0 || !meses || meses < 0) {
-      errEl.classList.add('visible');
-      return;
+    const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const $ = id => document.getElementById(id);
+    const PLAZO = { pagare: { anios: 3, fuente: 'art. 165 fr. I LGTOC (acción cambiaria)' }, contrato: { anios: 10, fuente: 'art. 1047 del Código de Comercio (prescripción ordinaria mercantil)' } };
+    function sumarAnios(fecha, n) { const d = new Date(fecha.getTime()); d.setUTCFullYear(d.getUTCFullYear() + n); return d; }
+    function analizar(saldo, documento, fechaISO, tasaPactada, hoyISO) {
+      const plazo = PLAZO[documento] || PLAZO.contrato;
+      const tasa = tasaPactada > 0 ? tasaPactada : 6;
+      const out = { plazo, tasa, tasaFuente: tasaPactada > 0 ? (documento === 'pagare' ? 'tasa estipulada (art. 174 LGTOC)' : 'tasa pactada') : '6% anual (art. 362 del Código de Comercio)' };
+      if (!fechaISO) return Object.assign(out, { dias: 0, intereses: 0, total: saldo });
+      const f = new Date(fechaISO + 'T00:00:00Z'), hoy = new Date(hoyISO + 'T00:00:00Z');
+      const dias = Math.max(0, Math.round((hoy - f) / 86400000));
+      const prescribe = sumarAnios(f, plazo.anios);
+      const intereses = saldo * (tasa / 100) * dias / 365;
+      return Object.assign(out, { dias, intereses, total: saldo + intereses, prescribe, prescrita: hoy >= prescribe, restante: Math.ceil((prescribe - hoy) / 86400000) });
     }
-    errEl.classList.remove('visible');
-
-    let pct = 0;
-    let estrategia = '';
-    if (meses >= 12) {
-      pct = 0.55; estrategia = 'Alta posibilidad de quita significativa';
-    } else if (meses >= 6) {
-      pct = 0.40; estrategia = 'Buena posición para negociar quita';
-    } else if (meses >= 3) {
-      pct = 0.25; estrategia = 'Posible reestructura o quita parcial';
-    } else {
-      pct = 0.15; estrategia = 'Reestructura o plan de pagos más probable';
+    function runCalc() {
+      const saldo = parseFloat($('saldo').value) || 0;
+      const hoy = new Date().toISOString().slice(0, 10);
+      const r = analizar(saldo, $('documento').value, $('fecha').value, parseFloat($('tasa').value) || 0, hoy);
+      const fmt = d => d.toLocaleDateString('es-MX', { timeZone: 'UTC', day: '2-digit', month: 'long', year: 'numeric' });
+      const rows = [
+        ['Plazo para demandar', r.plazo.anios + ' años — ' + r.plazo.fuente],
+        ['Tasa moratoria aplicada', r.tasa.toFixed(2) + '% — ' + r.tasaFuente],
+      ];
+      if (r.prescribe) {
+        rows.push(['Fecha en que prescribiría', fmt(r.prescribe)]);
+        rows.push(['Situación', r.prescrita ? 'El plazo ya transcurrió: la prescripción puede oponerse como excepción si no hubo interrupción.' : 'Faltan ' + r.restante + ' días para que prescriba, salvo que se interrumpa.']);
+        rows.push(['Días de mora', String(r.dias)]);
+        rows.push(['Intereses moratorios', money.format(r.intereses)]);
+      } else rows.push(['Fecha', 'Captura la fecha de vencimiento o del último pago para calcular plazo e intereses.']);
+      rows.push(['Salario', 'Inembargable por deudas bancarias (art. 112 LFT); sólo se embarga por pensión alimenticia.']);
+      $('resultAmount').textContent = money.format(r.total);
+      $('resultBreakdown').innerHTML = rows.map(([l, v]) => '<div class="breakdown-row"><span>' + l + '</span><strong>' + v + '</strong></div>').join('');
     }
-
-    if (tipo === 'tarjeta')   pct = Math.min(pct + 0.10, 0.65);
-    if (tipo === 'personal')  pct = Math.min(pct + 0.05, 0.60);
-    if (cap  === 'liquidar')  pct = Math.min(pct + 0.10, 0.65);
-
-    const ahorro   = deuda * pct;
-    const apagarr  = deuda - ahorro;
-
-    const breakdown = document.getElementById('result-breakdown');
-    breakdown.innerHTML = `
-      <div class="breakdown-row"><span>Deuda original</span><strong>${fmt(deuda)}</strong></div>
-      <div class="breakdown-row"><span>Quita estimada (${Math.round(pct * 100)}%)</span><strong style="color:var(--gold);">- ${fmt(ahorro)}</strong></div>
-      <div class="breakdown-row"><span>Pago estimado negociado</span><strong style="color:var(--navy-deep);">${fmt(apagarr)}</strong></div>
-    `;
-
-    document.getElementById('savings-amount').textContent = fmt(ahorro);
-    document.getElementById('estrategia-text').textContent = estrategia + '. Esta es una referencia orientativa — el monto real depende del banco, el tipo de deuda y tu historial.';
-
-    const msg = encodeURIComponent(`Hola SIGLEP, quiero negociar una deuda de ${fmt(deuda)} (${meses} meses sin pagar). La simulación estima un pago de ${fmt(apagarr)}. ¿Me pueden asesorar?`);
-    document.getElementById('wa-btn').href = `https://wa.me/525661755112?text=${msg}`;
-
-    document.getElementById('initial-panel').style.display = 'none';
-    document.getElementById('result-panel').classList.add('visible');
-  }
-
-  function resetCalc() {
-    document.getElementById('deuda-total').value = '';
-    document.getElementById('meses-mora').value = '';
-    document.getElementById('tipo-deuda').value = 'tarjeta';
-    document.getElementById('capacidad-pago').value = 'si';
-    document.getElementById('error-msg').classList.remove('visible');
-    document.getElementById('initial-panel').style.display = '';
-    document.getElementById('result-panel').classList.remove('visible');
-  }
+    $('calcButton').addEventListener('click', runCalc);
+    document.querySelectorAll('#calc-form input, #calc-form select').forEach(el => el.addEventListener('input', runCalc));
+    runCalc();
   </script>
 </body>
 </html>

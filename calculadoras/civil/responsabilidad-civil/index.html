@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculadora de Responsabilidad Civil | SIGLEP</title>
-  <meta name="description" content="Calculadora orientativa de responsabilidad civil en México para dimensionar daño y cobertura.">
+  <meta name="description" content="Calculadora de responsabilidad civil por daños a personas con la regla de cada código civil estatal y la Ley Federal del Trabajo.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://siglep.lat/calculadoras/civil/responsabilidad-civil/">
   <meta property="og:title" content="Calculadora de Responsabilidad Civil | SIGLEP">
-  <meta property="og:description" content="Calculadora orientativa de responsabilidad civil en México para dimensionar daño y cobertura.">
+  <meta property="og:description" content="Calculadora de responsabilidad civil por daños a personas con la regla de cada código civil estatal y la Ley Federal del Trabajo.">
   <meta property="og:url" content="https://siglep.lat/calculadoras/civil/responsabilidad-civil/">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_MX">
@@ -140,7 +140,7 @@
     .footer-space{height:1px;}
     @media (max-width: 900px){.calc-grid{grid-template-columns:1fr}.hero{padding-top:7.6rem}}
   </style>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Calculadora de Responsabilidad Civil | SIGLEP","url":"https://siglep.lat/calculadoras/civil/responsabilidad-civil/","description":"Calculadora orientativa de responsabilidad civil en México para dimensionar daño y cobertura.","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://siglep.lat/"},{"@type":"ListItem","position":2,"name":"Calculadoras","item":"https://siglep.lat/calculadoras/"},{"@type":"ListItem","position":3,"name":"Civil","item":"https://siglep.lat/calculadoras/civil/"},{"@type":"ListItem","position":4,"name":"Responsabilidad civil","item":"https://siglep.lat/calculadoras/civil/responsabilidad-civil/"}]}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Calculadora de Responsabilidad Civil | SIGLEP","url":"https://siglep.lat/calculadoras/civil/responsabilidad-civil/","description":"Calculadora de responsabilidad civil por daños a personas con la regla de cada código civil estatal y la Ley Federal del Trabajo.","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://siglep.lat/"},{"@type":"ListItem","position":2,"name":"Calculadoras","item":"https://siglep.lat/calculadoras/"},{"@type":"ListItem","position":3,"name":"Civil","item":"https://siglep.lat/calculadoras/civil/"},{"@type":"ListItem","position":4,"name":"Responsabilidad civil","item":"https://siglep.lat/calculadoras/civil/responsabilidad-civil/"}]}}</script>
   
   <style>
     nav.siglep-shell-nav {
@@ -393,7 +393,7 @@
     }
   </style>
 
-  <script defer src="/shared/site-shell.js?v=20261111d"></script>
+  <script defer src="/shared/site-shell.js?v=20261111e"></script>
 <link rel="stylesheet" href="/shared/mobile.css?v=20261111d">
 </head>
 <body>
@@ -475,50 +475,54 @@
     <section class="section">
       <div class="section-inner">
         <h2>Escenario de responsabilidad</h2>
-        <p class="lead">La referencia se enfoca en el daño y la cobertura potencial.</p>
+        <p class="lead">Cada estado fija su propia regla para cuantificar la indemnización por muerte o incapacidad.</p>
         <div class="calc-grid">
           <div class="panel dark">
             <div class="panel-head">
               <div class="kicker">Cobertura</div>
-              <h3>Cálculo orientativo</h3>
-              <p>Mide daño, número de afectados y cobertura de seguro.</p>
+              <h3>Datos del daño</h3>
+              <p>Calcula la indemnización legal por muerte o incapacidad según el código civil de tu entidad.</p>
             </div>
             <div class="panel-body">
               <form id="calc-form" onsubmit="return false;">
                 <div class="field">
-                  <label for="tipo_rc">Tipo de responsabilidad</label>
-                  <select id="tipo_rc" onchange="runCalc()">
-                    <option value="subjetiva">Subjetiva — acto ilícito con culpa o negligencia (Art. 1910 CCF)</option>
-                    <option value="objetiva">Objetiva — uso de cosa peligrosa sin importar culpa (Art. 1913 CCF)</option>
-                  </select>
+                  <label for="dano">Consecuencia del daño a la persona</label>
+                  <select id="dano"><option value="muerte">Muerte</option><option value="itp">Incapacidad permanente total</option><option value="ipp">Incapacidad permanente parcial</option><option value="temporal">Incapacidad temporal</option></select>
                 </div>
                 <div class="field">
-                  <label for="danio">Daño total estimado por afectado (MXN)</label>
-                  <input id="danio" type="number" inputmode="decimal" placeholder="Ej. 60000" min="0" step="any" oninput="runCalc()">
-                  <span class="help">Valor real del daño patrimonial acreditado con facturas, peritajes o avalúos. Incluye daño emergente y lucro cesante comprobable.</span>
+                  <label for="pct">Porcentaje de incapacidad permanente parcial (%)</label>
+                  <input id="pct" type="number" inputmode="decimal" placeholder="Ej. 25" min="0" step="any">
+                  <span class="help">El que fije el dictamen médico conforme a la tabla de valuación de incapacidades de la Ley Federal del Trabajo (arts. 492 y 514).</span>
                 </div>
                 <div class="field">
-                  <label for="victimas">Número de personas afectadas</label>
-                  <input id="victimas" type="number" inputmode="decimal" placeholder="Ej. 2" min="1" max="100" step="1" oninput="runCalc()">
+                  <label for="dias">Días de incapacidad temporal</label>
+                  <input id="dias" type="number" inputmode="decimal" placeholder="Ej. 45" min="0" step="any">
+                  <span class="help">Días en que la víctima no pudo trabajar (art. 491 LFT).</span>
                 </div>
                 <div class="field">
-                  <label for="seguro">Cobertura de seguro disponible</label>
-                  <select id="seguro" onchange="runCalc()">
-                    <option value="ninguna">Sin seguro — responsable cubre el 100%</option>
-                    <option value="parcial">Cobertura parcial — seguro cubre 50%</option>
-                    <option value="completa">Cobertura completa — seguro cubre 90%</option>
-                  </select>
-                  <span class="help">Verifica suma asegurada y exclusiones de la póliza antes de calcular el saldo a cargo del responsable.</span>
+                  <label for="salario">Ingreso diario de la víctima (MXN, opcional)</label>
+                  <input id="salario" type="number" inputmode="decimal" placeholder="Ej. 450" min="0" step="any">
+                  <span class="help">Varios códigos estatales calculan sobre el salario o utilidad de la víctima, con mínimos y topes en salarios mínimos. Déjalo vacío si no tenía ingresos o no se puede acreditar.</span>
                 </div>
-                <button class="calc-button" type="button" id="calcButton">Calcular estimación</button>
+                <div class="field">
+                  <label for="menor">¿La víctima era menor de 18 años o incapaz?</label>
+                  <select id="menor"><option value="no">No</option><option value="si">Sí</option></select>
+                  <span class="help">Sólo cambia el mínimo por muerte en Oaxaca (art. 1786).</span>
+                </div>
+                <div class="field">
+                  <label for="gastos">Gastos médicos, hospitalarios y funerarios comprobados (MXN)</label>
+                  <input id="gastos" type="number" inputmode="decimal" placeholder="Ej. 38000" min="0" step="any">
+                  <span class="help">Se suman a la indemnización: la reparación comprende los gastos de curación (art. 487 LFT y códigos locales).</span>
+                </div>
+                <button class="calc-button" type="button" id="calcButton">Calcular</button>
               </form>
             </div>
           </div>
           <div class="panel">
             <div class="panel-head">
-              <div class="kicker">Resultado orientativo</div>
+              <div class="kicker">Resultado</div>
               <h3>Cobertura y reclamo</h3>
-              <p>Una guía para negociar o demandar.</p>
+              <p>Monto legal mínimo de referencia, con su fundamento.</p>
             </div>
             <div class="panel-body">
               <div class="result">
@@ -526,15 +530,17 @@
                   <div class="result-kicker">Responsabilidad civil</div>
                   <div class="result-amount" id="resultAmount">$0 MXN</div>
                   <div class="breakdown" id="resultBreakdown"></div>
-                  <p class="result-note">La cobertura real depende de pólizas, contratos y peritajes.</p>
+                  <p class="result-note" id="resultNote"></p>
                   
       <div class="legal-basis">
-        <div class="legal-basis-kicker">Sustento legal 2026</div>
+        <div class="legal-basis-kicker">Fundamento legal vigente (revisado 11-11-2026)</div>
         <ul>
-          <li>CCF Art. 1910: responsabilidad subjetiva — acto ilícito + culpa/negligencia + daño + nexo causal.</li>
-          <li>CCF Art. 1913: responsabilidad objetiva — uso de mecanismos peligrosos, sin necesidad de acreditar culpa.</li>
-          <li>CCF Art. 1915: reparación = restituir al estado anterior; si no es posible, indemnización en dinero.</li>
-          <li>Saldo a cargo del responsable = daño total − cobertura de seguro.</li>
+          <li>Arts. 1910 y 1913 CCF (y sus equivalentes locales): responsabilidad por hecho ilícito y responsabilidad objetiva.</li>
+          <li>Art. 1915 CCF (reforma DOF 19-01-2018): la indemnización por muerte o incapacidad toma como base la UMA y se extiende a las unidades que fija la Ley Federal del Trabajo.</li>
+          <li>Ley Federal del Trabajo (última reforma DOF 14-05-2026): incapacidad temporal, salario íntegro por los días de incapacidad (art. 491); permanente parcial, porcentaje de la tabla sobre 1,095 días (art. 492); permanente total, 1,095 días (art. 495); muerte, 5,000 días (art. 502) más dos meses de gastos funerarios (art. 500).</li>
+          <li>Cada entidad tiene su propia regla de cuantificación; la calculadora aplica la del código civil de la entidad seleccionada y cita su artículo.</li>
+          <li>UMA 2026: $117.31 diarios (INEGI, DOF 09-01-2026). Salario mínimo 2026: $315.04, y $440.87 en la Zona Libre de la Frontera Norte (CONASAMI, DOF 09-12-2025).</li>
+          <li>SCJN, Pleno, ADR 7469/2024 (2026): la base en UMA del art. 1915 CCF es constitucional y no constituye un tope rígido; el juez puede individualizar la reparación integral.</li>
         </ul>
       </div>
     
@@ -565,7 +571,7 @@
       
         <details class="faq-item">
           <summary>¿Sirve para acordar una cifra?</summary>
-          <p>Sí, como base inicial para la negociación.</p>
+          <p>Sí: el monto legal es un mínimo de referencia; la SCJN ha señalado que no es un tope rígido y que la reparación debe ser integral.</p>
         </details>
       
         </div>
@@ -585,48 +591,66 @@
     <div class="footer-space"></div>
   </main>
   <footer></footer>
+  <script src="/shared/parametros-locales.js?v=20261111e"></script>
   <script>
-    /* ── RESPONSABILIDAD CIVIL ── CCF Art. 1910/1913/1915 ── */
-    const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
-
-    function runCalc() {
-      const tipoRC  = document.getElementById('tipo_rc').value;
-      const danio   = parseFloat(document.getElementById('danio').value) || 0;
-      const victimas = Math.max(1, parseInt(document.getElementById('victimas').value) || 1);
-      const seguro  = document.getElementById('seguro').value;
-
-      // Daño total = daño por persona × número de afectados
-      const danoTotal = danio * victimas;
-
-      // Cobertura de seguro (Art. 1915 CCF: reparación del daño, compensada por seguro)
-      const pctSeguro = { ninguna: 0, parcial: 0.50, completa: 0.90 }[seguro] || 0;
-      const coberturaSeguro = danoTotal * pctSeguro;
-      const saldoResponsable = Math.max(danoTotal - coberturaSeguro, 0);
-
-      // Responsabilidad objetiva (Art. 1913): incluye factor de riesgo agravado
-      const factorRC = tipoRC === 'objetiva' ? 1.20 : 1.0;
-      const totalReclamar = saldoResponsable * factorRC;
-
-      // Intereses legales orientativos sobre el saldo (Art. 2395 CCF: 9% anual)
-      const interesesAnuales = saldoResponsable * 0.09;
-
-      document.getElementById('resultAmount').textContent = money.format(Math.round(totalReclamar));
-      const rows = [
-        ['Tipo de RC', tipoRC === 'objetiva' ? 'Objetiva (Art. 1913 CCF) +20% riesgo' : 'Subjetiva (Art. 1910 CCF)'],
-        ['Daño por afectado', money.format(Math.round(danio))],
-        ['Total daño (' + victimas + ' afectado/s)', money.format(Math.round(danoTotal))],
-        ['Cobertura de seguro (' + Math.round(pctSeguro * 100) + '%)', money.format(Math.round(coberturaSeguro))],
-        ['Saldo a cargo del responsable', money.format(Math.round(saldoResponsable))],
-        ['Intereses legales ref. 9%/año (Art. 2395)', money.format(Math.round(interesesAnuales))],
-        ['Total a reclamar', money.format(Math.round(totalReclamar))],
-      ];
-      document.getElementById('resultBreakdown').innerHTML = rows
-        .map(([l, v]) => '<div class="breakdown-row"><span>' + l + '</span><strong>' + v + '</strong></div>')
-        .join('');
+    const L = window.__SIGLEP_LOCAL__;
+    const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const $ = id => document.getElementById(id);
+    const num = id => { const el = $(id); const v = el ? parseFloat(el.value) : NaN; return isFinite(v) ? v : 0; };
+    const val = id => { const el = $(id); return el ? el.value : ''; };
+    function lugarActual() {
+      const l = window.__SIGLEP_ESTADO_ACTIVO__;
+      return l ? { clave: l.clave, sm: l.salario_minimo, nombre: l.nombre } : { clave: 'FED', sm: L.SM_GENERAL, nombre: null };
+    }
+    function pintar(monto, rows, nota) {
+      $('resultAmount').textContent = typeof monto === 'number' ? money.format(monto) : monto;
+      $('resultBreakdown').innerHTML = rows.map(([l, v]) => '<div class="breakdown-row"><span>' + l + '</span><strong>' + v + '</strong></div>').join('');
+      if (nota !== undefined && $('resultNote')) $('resultNote').textContent = nota;
     }
 
-    document.getElementById('calcButton').addEventListener('click', runCalc);
+    const NOMBRE = { muerte: 'muerte', itp: 'incapacidad permanente total', ipp: 'incapacidad permanente parcial', temporal: 'incapacidad temporal' };
+    function calcular(clave, sm, d) {
+      const r = L.reparacion(clave, Object.assign({ sm }, d));
+      const total = r.calculable ? r.monto + (d.gastos || 0) : null;
+      return Object.assign(r, { total });
+    }
+    function runCalc() {
+      const lugar = lugarActual();
+      const d = { dano: val('dano'), pct: num('pct'), dias: num('dias'), salario: num('salario'), menor: val('menor') === 'si', gastos: num('gastos') };
+      const r = calcular(lugar.clave, lugar.sm, d);
+      const regla = r.regla;
+      const fuente = L.cita(lugar.clave, regla.art);
+      const rows = [['Regla aplicada', fuente]];
+      if (!lugar.nombre) rows.push(['Entidad', 'Sin seleccionar: se aplica el Código Civil Federal. Elige tu estado, porque la reparación civil la regula el código local.']);
+      if (!r.calculable) {
+        rows.push(['Cuantificación', 'La ley de esta entidad no fija una tarifa: la indemnización la determina el juez.']);
+        if (regla.nota) rows.push(['Detalle', regla.nota]);
+        if (d.gastos) rows.push(['Gastos comprobados reclamables', money.format(d.gastos)]);
+        pintar('Lo fija el juez', rows, 'No hay fórmula legal que permita anticipar el monto en esta entidad. Los gastos comprobados sí son reclamables.');
+        return;
+      }
+      if (regla.tipo === 'pension') {
+        rows.push(['Ingreso diario considerado', money.format(r.base) + (d.salario > 0 ? '' : ' (salario mínimo: la víctima no tenía ingreso acreditado)')]);
+        rows.push(['Pensión mensual', money.format(r.pensionMensual)]);
+        rows.push(['Duración', r.detalle]);
+        if (d.gastos) rows.push(['Gastos comprobados (pago único)', money.format(d.gastos)]);
+        pintar(r.pensionMensual, rows, 'Esta entidad indemniza con una pensión mensual, no con una suma única. La duración la fija el juez según la edad de la víctima.');
+        return;
+      }
+      rows.push(['Consecuencia', NOMBRE[d.dano]]);
+      rows.push(['Base diaria', money.format(r.base)]);
+      rows.push(['Días o unidades', r.dias.toLocaleString('es-MX', { maximumFractionDigits: 2 })]);
+      if (r.funeral) rows.push(['Gastos funerarios legales', money.format(r.funeral)]);
+      rows.push(['Indemnización legal', money.format(r.monto)]);
+      if (d.gastos) rows.push(['Gastos comprobados', money.format(d.gastos)]);
+      if (r.equivalenteUMA !== null) rows.push(['Si el juez aplica la UMA en lugar del salario mínimo (desindexación, DOF 27-01-2016)', money.format(r.equivalenteUMA + (d.gastos || 0))]);
+      if (r.detalle) rows.push(['Observación', r.detalle]);
+      if (regla.nota) rows.push(['Nota del código', regla.nota]);
+      pintar(r.total, rows, 'Monto mínimo legal de referencia. La reparación debe ser integral: el juez puede ajustarla y el daño moral se reclama por separado.');
+    }
+    $('calcButton').addEventListener('click', runCalc);
     document.querySelectorAll('#calc-form input, #calc-form select').forEach(el => el.addEventListener('input', runCalc));
+    document.addEventListener('siglep:estado-change', runCalc);
     runCalc();
   </script>
 </body>

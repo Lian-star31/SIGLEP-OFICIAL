@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculadora de Pensión ISSSTE | SIGLEP</title>
-  <meta name="description" content="Calculadora orientativa de pensión ISSSTE en México para revisar años de servicio y salario base.">
+  <meta name="description" content="Calculadora de pensión ISSSTE del régimen del transitorio Décimo: jubilación, retiro por edad y tiempo de servicios, cesantía, invalidez y pensión a familiares.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://siglep.lat/calculadoras/seguridad-social/pension-issste/">
   <meta property="og:title" content="Calculadora de Pensión ISSSTE | SIGLEP">
-  <meta property="og:description" content="Calculadora orientativa de pensión ISSSTE en México para revisar años de servicio y salario base.">
+  <meta property="og:description" content="Calculadora de pensión ISSSTE del régimen del transitorio Décimo: jubilación, retiro por edad y tiempo de servicios, cesantía, invalidez y pensión a familiares.">
   <meta property="og:url" content="https://siglep.lat/calculadoras/seguridad-social/pension-issste/">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_MX">
@@ -140,7 +140,7 @@
     .footer-space{height:1px;}
     @media (max-width: 900px){.calc-grid{grid-template-columns:1fr}.hero{padding-top:7.6rem}}
   </style>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Calculadora de Pensión ISSSTE | SIGLEP","url":"https://siglep.lat/calculadoras/seguridad-social/pension-issste/","description":"Calculadora orientativa de pensión ISSSTE en México para revisar años de servicio y salario base.","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://siglep.lat/"},{"@type":"ListItem","position":2,"name":"Calculadoras","item":"https://siglep.lat/calculadoras/"},{"@type":"ListItem","position":3,"name":"Seguridad social","item":"https://siglep.lat/calculadoras/seguridad-social/"},{"@type":"ListItem","position":4,"name":"Pensión ISSSTE","item":"https://siglep.lat/calculadoras/seguridad-social/pension-issste/"}]}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Calculadora de Pensión ISSSTE | SIGLEP","url":"https://siglep.lat/calculadoras/seguridad-social/pension-issste/","description":"Calculadora de pensión ISSSTE del régimen del transitorio Décimo: jubilación, retiro por edad y tiempo de servicios, cesantía, invalidez y pensión a familiares.","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://siglep.lat/"},{"@type":"ListItem","position":2,"name":"Calculadoras","item":"https://siglep.lat/calculadoras/"},{"@type":"ListItem","position":3,"name":"Seguridad social","item":"https://siglep.lat/calculadoras/seguridad-social/"},{"@type":"ListItem","position":4,"name":"Pensión ISSSTE","item":"https://siglep.lat/calculadoras/seguridad-social/pension-issste/"}]}}</script>
   
   <style>
     nav.siglep-shell-nav {
@@ -393,7 +393,7 @@
     }
   </style>
 
-  <script defer src="/shared/site-shell.js?v=20261111d"></script>
+  <script defer src="/shared/site-shell.js?v=20261111e"></script>
 <link rel="stylesheet" href="/shared/mobile.css?v=20261111d">
 </head>
 <body>
@@ -474,46 +474,52 @@
 
     <section class="section">
       <div class="section-inner">
-        <h2>Referencia ISSSTE</h2>
+        <h2>Pensión ISSSTE</h2>
         <p class="lead">Una previsión inicial ayuda a evitar trámites prematuros o mal calculados.</p>
         <div class="calc-grid">
           <div class="panel dark">
             <div class="panel-head">
               <div class="kicker">Servicio público</div>
-              <h3>Cálculo orientativo</h3>
+              <h3>Datos del trabajador</h3>
               <p>Introduce edad, años de servicio y salario base.</p>
             </div>
             <div class="panel-body">
               <form id="calc-form" onsubmit="return false;">
                 <div class="field">
-                  <label for="sexo">Sexo (para requisito de años)</label>
-                  <select id="sexo" onchange="runCalc()">
-                    <option value="m">Hombre — 30 años requeridos</option>
-                    <option value="f">Mujer — 28 años requeridos</option>
-                  </select>
+                  <label for="evento">Tipo de pensión</label>
+                  <select id="evento"><option value="retiro">Jubilación, retiro por edad y tiempo de servicios o cesantía</option><option value="invalidez">Invalidez</option><option value="muerte">Fallecimiento del trabajador (familiares)</option></select>
                 </div>
                 <div class="field">
-                  <label for="edad">Edad actual</label>
-                  <input id="edad" type="number" inputmode="decimal" placeholder="Ej. 55" min="0" max="100" step="1" oninput="runCalc()">
-                  <span class="help">Retiro por edad y servicio: mín. 55 años H / 53 años M con ≥15 años (Art. 67 LISSSTE).</span>
+                  <label for="sexo">Sexo</label>
+                  <select id="sexo"><option value="h">Hombre</option><option value="m">Mujer</option></select>
+                  <span class="help">La jubilación exige 30 años de cotización a los hombres y 28 a las mujeres.</span>
                 </div>
                 <div class="field">
-                  <label for="anios">Años de servicio</label>
-                  <input id="anios" type="number" inputmode="decimal" placeholder="Ej. 25" min="0" max="50" step="1" oninput="runCalc()">
-                  <span class="help">Verifica en tu expediente laboral y constancia de semanas del ISSSTE (SINAVID). Mín. 15 años para pensión por edad y servicio.</span>
+                  <label for="edad">Edad</label>
+                  <input id="edad" type="number" inputmode="decimal" placeholder="Ej. 60" min="0" step="any">
                 </div>
                 <div class="field">
-                  <label for="salario">Sueldo básico mensual (MXN)</label>
-                  <input id="salario" type="number" inputmode="decimal" placeholder="Ej. 14000" min="0" step="any" oninput="runCalc()">
-                  <span class="help">Sueldo tabular del último año anterior a la baja, comprobable en nómina oficial o talón de pago.</span>
+                  <label for="anios">Años de cotización al ISSSTE</label>
+                  <input id="anios" type="number" inputmode="decimal" placeholder="Ej. 27" min="0" step="any">
+                  <span class="help">Años completos cotizados.</span>
                 </div>
-                <button class="calc-button" type="button" id="calcButton">Calcular estimación</button>
+                <div class="field">
+                  <label for="sueldo">Sueldo básico mensual promedio del último año (MXN)</label>
+                  <input id="sueldo" type="number" inputmode="decimal" placeholder="Ej. 18000" min="0" step="any">
+                  <span class="help">Fracción IV del transitorio Décimo: promedio del último año, si tienes al menos tres años en el mismo puesto y nivel; si no, el sueldo del puesto anterior.</span>
+                </div>
+                <div class="field">
+                  <label for="anio">Año en que te pensionas</label>
+                  <input id="anio" type="number" inputmode="decimal" placeholder="2026" min="0" step="any" value="2026" min="2026">
+                  <span class="help">La edad mínima de jubilación aumenta cada dos años.</span>
+                </div>
+                <button class="calc-button" type="button" id="calcButton">Calcular</button>
               </form>
             </div>
           </div>
           <div class="panel">
             <div class="panel-head">
-              <div class="kicker">Resultado orientativo</div>
+              <div class="kicker">Resultado</div>
               <h3>Pensión estimada</h3>
               <p>Sirve para dimensionar el escenario antes de iniciar el trámite.</p>
             </div>
@@ -523,15 +529,17 @@
                   <div class="result-kicker">Pensión ISSSTE</div>
                   <div class="result-amount" id="resultAmount">$0 MXN</div>
                   <div class="breakdown" id="resultBreakdown"></div>
-                  <p class="result-note">La pensión real depende de la modalidad de retiro y de las reglas aplicables al expediente.</p>
+                  <p class="result-note" id="resultNote"></p>
                   
       <div class="legal-basis">
-        <div class="legal-basis-kicker">Sustento legal 2026</div>
+        <div class="legal-basis-kicker">Fundamento legal vigente (revisado 11-11-2026)</div>
         <ul>
-          <li>Art. 67 LISSSTE: Pensión por jubilación — 30 años H / 28 años M → 100% sueldo básico.</li>
-          <li>Art. 67 LISSSTE: Retiro por edad y servicio — 55/53 años + ≥15 años → 50% base + progresivo.</li>
-          <li>Art. Décimo Transitorio LISSSTE 2007: cálculo bajo régimen anterior para trabajadores activos antes de 2007.</li>
-          <li>UMA mensual 2026: $3,566.22 — referencia para pensión mínima garantizada.</li>
+          <li>Ley del ISSSTE (última reforma DOF 15-01-2026), transitorio Décimo: régimen de quienes no optaron por bonos de pensión (cuentas individuales).</li>
+          <li>Fracción II, inciso a): jubilación con 30 años de cotización (hombres) o 28 (mujeres) y edad mínima de 59 y 57 años en 2026-2027 (60 y 58 desde 2028): 100% del sueldo.</li>
+          <li>Fracción II, inciso b): retiro por edad y tiempo de servicios con 60 años de edad y 15 o más de cotización: de 50% (15 años) a 95% (29 años) según la tabla legal.</li>
+          <li>Fracción II, inciso c): cesantía en edad avanzada desde los 65 años con 10 o más de cotización: inicia en 40% y aumenta 2% por año de edad hasta 50%.</li>
+          <li>Fracción VI: invalidez con 15 años de cotización mínimo, con la misma tabla de porcentajes; los familiares del trabajador fallecido reciben el 100% de lo que le habría correspondido.</li>
+          <li>Art. 17 LISSSTE y contradicción de tesis 200/2020 de la SCJN: el sueldo básico para la pensión tiene como tope 10 veces la UMA (UMA mensual 2026: $3,566.22, INEGI).</li>
         </ul>
       </div>
 
@@ -557,7 +565,7 @@
       
         <details class="faq-item">
           <summary>¿Sirve para revisar si ya me toca?</summary>
-          <p>Sí, como orientación inicial.</p>
+          <p>Sí: verifica los requisitos de edad y años de cotización del transitorio Décimo para el año en que te pensionas.</p>
         </details>
       
         <details class="faq-item">
@@ -583,57 +591,59 @@
   </main>
   <footer></footer>
   <script>
-    /* ── PENSIÓN ISSSTE ── Art. 67 LISSSTE · Décimo Transitorio · UMA 2026 ── */
-    const UMA_MENSUAL = 3566.22;
-    const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
-
-    function runCalc() {
-      const sexo   = document.getElementById('sexo').value;
-      const edad   = parseInt(document.getElementById('edad').value) || 0;
-      const anios  = parseInt(document.getElementById('anios').value) || 0;
-      const salario = parseFloat(document.getElementById('salario').value) || 0;
-
-      // Requisitos Art. 67 LISSSTE (Décimo Transitorio)
-      const aniosJubilacion = sexo === 'f' ? 28 : 30; // jubilación plena
-      const edadRetiro      = sexo === 'f' ? 53 : 55;  // retiro por edad y servicio
-      const rows = [];
-      let pension = 0;
-
-      if (anios >= aniosJubilacion) {
-        // Pensión por jubilación: 100% sueldo básico (Art. 67 fr. I LISSSTE)
-        pension = salario;
-        rows.push(['Tipo', 'Jubilación (' + anios + ' años → 100%)']);
-        rows.push(['Sueldo básico mensual', money.format(Math.round(salario))]);
-        rows.push(['Pensión ordinaria', money.format(Math.round(pension))]);
-
-      } else if (anios >= 15 && edad >= edadRetiro) {
-        // Retiro por edad y servicio: 50% base + 1.25% por año adicional sobre 15
-        const pct = 0.50 + Math.max(0, anios - 15) * 0.0125;
-        pension = salario * Math.min(pct, 1.0);
-        rows.push(['Tipo', 'Retiro por edad y servicio (' + anios + ' años)']);
-        rows.push(['Porcentaje aplicado', (Math.min(pct, 1.0) * 100).toFixed(2) + '%']);
-        rows.push(['Sueldo básico mensual', money.format(Math.round(salario))]);
-        rows.push(['Pensión estimada', money.format(Math.round(pension))]);
-
-      } else {
-        document.getElementById('resultAmount').textContent = '— no cumple requisitos';
-        document.getElementById('resultBreakdown').innerHTML =
-          '<div class="breakdown-row"><span>Jubilación</span><strong>' + aniosJubilacion + ' años requeridos</strong></div>' +
-          '<div class="breakdown-row"><span>Retiro por edad</span><strong>' + edadRetiro + ' años + 15 años servicio</strong></div>';
-        return;
-      }
-
-      pension = Math.max(pension, UMA_MENSUAL);
-      rows.push(['Mínimo garantizado (1 UMA mensual)', money.format(Math.round(UMA_MENSUAL))]);
-
-      document.getElementById('resultAmount').textContent = money.format(Math.round(pension));
-      document.getElementById('resultBreakdown').innerHTML = rows
-        .map(([l, v]) => '<div class="breakdown-row"><span>' + l + '</span><strong>' + v + '</strong></div>')
-        .join('');
+    const L = window.__SIGLEP_LOCAL__;
+    const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const $ = id => document.getElementById(id);
+    const num = id => { const el = $(id); const v = el ? parseFloat(el.value) : NaN; return isFinite(v) ? v : 0; };
+    const val = id => { const el = $(id); return el ? el.value : ''; };
+    function lugarActual() {
+      const l = window.__SIGLEP_ESTADO_ACTIVO__;
+      return l ? { clave: l.clave, sm: l.salario_minimo, nombre: l.nombre } : { clave: 'FED', sm: L.SM_GENERAL, nombre: null };
+    }
+    function pintar(monto, rows, nota) {
+      $('resultAmount').textContent = typeof monto === 'number' ? money.format(monto) : monto;
+      $('resultBreakdown').innerHTML = rows.map(([l, v]) => '<div class="breakdown-row"><span>' + l + '</span><strong>' + v + '</strong></div>').join('');
+      if (nota !== undefined && $('resultNote')) $('resultNote').textContent = nota;
     }
 
-    document.getElementById('calcButton').addEventListener('click', runCalc);
+    const UMA_MENSUAL = 3566.22, TOPE = 10 * UMA_MENSUAL;
+    const TABLA_SERVICIO = { 15: 50, 16: 52.5, 17: 55, 18: 57.5, 19: 60, 20: 62.5, 21: 65, 22: 67.5, 23: 70, 24: 72.5, 25: 75, 26: 80, 27: 85, 28: 90, 29: 95 };
+    function edadJubilacion(sexo, anio) {
+      const t = [[2010, 51, 49], [2012, 52, 50], [2014, 53, 51], [2016, 54, 52], [2018, 55, 53], [2020, 56, 54], [2022, 57, 55], [2024, 58, 56], [2026, 59, 57], [2028, 60, 58]];
+      let fila = t[0];
+      t.forEach(f => { if (anio >= f[0]) fila = f; });
+      return sexo === 'm' ? fila[2] : fila[1];
+    }
+    function pctServicio(anios) { return anios >= 30 ? 100 : (TABLA_SERVICIO[Math.min(Math.floor(anios), 29)] || 0); }
+    function pensionIssste(evento, sexo, edad, anios, sueldo, anio) {
+      const base = Math.min(sueldo, TOPE);
+      const reqJub = sexo === 'm' ? 28 : 30;
+      if (evento === 'invalidez' || evento === 'muerte') {
+        if (anios < 15) return { cumple: false, motivo: 'Se requieren 15 años de cotización (fracción VI).' };
+        const pct = TABLA_SERVICIO[Math.min(Math.floor(anios), 29)]; // fracción VI: tabla de 15 a 29 años (máximo 95%)
+        return { cumple: true, tipo: evento === 'invalidez' ? 'Invalidez' : 'Pensión a familiares (100% de la que correspondería al trabajador)', pct, base, monto: base * pct / 100 };
+      }
+      const edadMin = edadJubilacion(sexo, anio);
+      if (anios >= reqJub && edad >= edadMin) return { cumple: true, tipo: 'Jubilación', pct: 100, base, monto: base, edadMin };
+      if (edad >= 60 && anios >= 15) { const pct = pctServicio(anios); return { cumple: true, tipo: 'Retiro por edad y tiempo de servicios', pct, base, monto: base * pct / 100, edadMin }; }
+      if (edad >= 65 && anios >= 10) { const pct = Math.min(40 + 2 * (Math.floor(edad) - 65), 50); return { cumple: true, tipo: 'Cesantía en edad avanzada', pct, base, monto: base * pct / 100, edadMin }; }
+      return { cumple: false, edadMin, motivo: anios >= reqJub ? 'Tienes los años para jubilarte, pero la edad mínima en ' + anio + ' es ' + edadMin + ' años.' : 'Requisitos: jubilación con ' + reqJub + ' años de cotización y ' + edadMin + ' de edad; retiro con 60 de edad y 15 de cotización; cesantía con 65 de edad y 10 de cotización.' };
+    }
+    function runCalc() {
+      const r = pensionIssste(val('evento'), val('sexo'), num('edad'), num('anios'), num('sueldo'), num('anio') || 2026);
+      if (!r.cumple) { pintar('No cumple requisitos', [['Motivo', r.motivo]], 'Revisa tu hoja única de servicios del ISSSTE.'); return; }
+      const rows = [
+        ['Tipo de pensión', r.tipo],
+        ['Sueldo básico considerado', money.format(r.base) + (num('sueldo') > TOPE ? ' (tope de 10 UMA)' : '')],
+        ['Porcentaje legal', r.pct + '%'],
+        ['Pensión mensual', money.format(r.monto)],
+      ];
+      if (r.edadMin) rows.push(['Edad mínima de jubilación en ' + (num('anio') || 2026), r.edadMin + ' años']);
+      pintar(r.monto, rows, 'Aplica a quienes permanecieron en el régimen del transitorio Décimo. Si elegiste bonos de pensión (cuenta individual), tu pensión depende del saldo en PENSIONISSSTE o tu AFORE.');
+    }
+    $('calcButton').addEventListener('click', runCalc);
     document.querySelectorAll('#calc-form input, #calc-form select').forEach(el => el.addEventListener('input', runCalc));
+    document.addEventListener('siglep:estado-change', runCalc);
     runCalc();
   </script>
 </body>

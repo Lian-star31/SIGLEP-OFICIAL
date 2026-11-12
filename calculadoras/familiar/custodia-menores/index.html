@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculadora de Custodia de Menores | SIGLEP</title>
-  <meta name="description" content="Calculadora orientativa de custodia de menores en México para revisar complejidad y urgencia.">
+  <meta name="description" content="Herramienta de custodia de menores: ordena el plan de convivencia y reparte los gastos del menor en proporción a los ingresos de ambos progenitores.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://siglep.lat/calculadoras/familiar/custodia-menores/">
   <meta property="og:title" content="Calculadora de Custodia de Menores | SIGLEP">
-  <meta property="og:description" content="Calculadora orientativa de custodia de menores en México para revisar complejidad y urgencia.">
+  <meta property="og:description" content="Herramienta de custodia de menores: ordena el plan de convivencia y reparte los gastos del menor en proporción a los ingresos de ambos progenitores.">
   <meta property="og:url" content="https://siglep.lat/calculadoras/familiar/custodia-menores/">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_MX">
@@ -140,7 +140,7 @@
     .footer-space{height:1px;}
     @media (max-width: 900px){.calc-grid{grid-template-columns:1fr}.hero{padding-top:7.6rem}}
   </style>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Calculadora de Custodia de Menores | SIGLEP","url":"https://siglep.lat/calculadoras/familiar/custodia-menores/","description":"Calculadora orientativa de custodia de menores en México para revisar complejidad y urgencia.","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://siglep.lat/"},{"@type":"ListItem","position":2,"name":"Calculadoras","item":"https://siglep.lat/calculadoras/"},{"@type":"ListItem","position":3,"name":"Familiar","item":"https://siglep.lat/calculadoras/familiar/"},{"@type":"ListItem","position":4,"name":"Custodia de menores","item":"https://siglep.lat/calculadoras/familiar/custodia-menores/"}]}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Calculadora de Custodia de Menores | SIGLEP","url":"https://siglep.lat/calculadoras/familiar/custodia-menores/","description":"Herramienta de custodia de menores: ordena el plan de convivencia y reparte los gastos del menor en proporción a los ingresos de ambos progenitores.","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://siglep.lat/"},{"@type":"ListItem","position":2,"name":"Calculadoras","item":"https://siglep.lat/calculadoras/"},{"@type":"ListItem","position":3,"name":"Familiar","item":"https://siglep.lat/calculadoras/familiar/"},{"@type":"ListItem","position":4,"name":"Custodia de menores","item":"https://siglep.lat/calculadoras/familiar/custodia-menores/"}]}}</script>
   
   <style>
     nav.siglep-shell-nav {
@@ -393,7 +393,7 @@
     }
   </style>
 
-  <script defer src="/shared/site-shell.js?v=20261111d"></script>
+  <script defer src="/shared/site-shell.js?v=20261111e"></script>
 <link rel="stylesheet" href="/shared/mobile.css?v=20261111d">
 </head>
 <body>
@@ -480,40 +480,59 @@
           <div class="panel dark">
             <div class="panel-head">
               <div class="kicker">Contexto</div>
-              <h3>Cálculo orientativo</h3>
+              <h3>Plan de custodia y gastos</h3>
               <p>Evaluamos urgencia, dependientes y recursos familiares.</p>
             </div>
             <div class="panel-body">
               <form id="calc-form" onsubmit="return false;">
-                
-    <div class="field">
-      <label for="menores">Número de menores bajo custodia</label>
-      <input id="menores" type="number" inputmode="decimal" placeholder="Ej. 1" min="0" step="any" oninput="runCalc()">
-      <span class="help">Cuenta únicamente los menores de 18 años sujetos al procedimiento.</span>
-    </div>
-
-    <div class="field">
-      <label for="ingreso">Ingreso mensual del progenitor obligado (MXN)</label>
-      <input id="ingreso" type="number" inputmode="decimal" placeholder="Ej. 18000" min="0" step="any" oninput="runCalc()">
-      <span class="help">Ingreso bruto real comprobable en nómina o CFDI. No uses estimaciones. Se aplica factor neto 82%.</span>
-    </div>
-
-      <div class="field">
-        <label for="riesgo">Nivel de urgencia del caso</label>
-        <select id="riesgo" onchange="runCalc()">
-          <option value="bajo">Bajo — sin riesgo inmediato</option><option value="medio">Medio — conflicto activo</option><option value="alto">Alto — riesgo o violencia</option>
-        </select>
-        <span class="help">A mayor urgencia, el juez puede decretar medidas cautelares más estrictas (Art. 282 CCF).</span>
-        
-      </div>
-    
-                <button class="calc-button" type="button" id="calcButton">Calcular estimación</button>
+                <div class="field">
+                  <label for="tipo_custodia">Tipo de custodia</label>
+                  <select id="tipo_custodia"><option value="exclusiva">Exclusiva de un progenitor</option><option value="compartida">Compartida</option></select>
+                </div>
+                <div class="field">
+                  <label for="dias_a">Días al mes con el progenitor A</label>
+                  <input id="dias_a" type="number" inputmode="decimal" placeholder="Ej. 22" min="0" step="any">
+                  <span class="help">Según el plan de convivencia propuesto o resuelto.</span>
+                </div>
+                <div class="field">
+                  <label for="dias_b">Días al mes con el progenitor B</label>
+                  <input id="dias_b" type="number" inputmode="decimal" placeholder="Ej. 8" min="0" step="any">
+                </div>
+                <div class="field">
+                  <label for="ingreso">Ingreso mensual neto del progenitor A (MXN)</label>
+                  <input id="ingreso" type="number" inputmode="decimal" placeholder="Ej. 18000" min="0" step="any">
+                </div>
+                <div class="field">
+                  <label for="ingreso_otro">Ingreso mensual neto del progenitor B (MXN)</label>
+                  <input id="ingreso_otro" type="number" inputmode="decimal" placeholder="Ej. 25000" min="0" step="any">
+                </div>
+                <div class="field">
+                  <label for="n_comida">Comida — gasto mensual (MXN)</label>
+                  <input id="n_comida" type="number" inputmode="decimal" placeholder="Ej. 2000" min="0" step="any">
+                </div>
+                <div class="field">
+                  <label for="n_vestido">Vestido — gasto mensual (MXN)</label>
+                  <input id="n_vestido" type="number" inputmode="decimal" placeholder="Ej. 2000" min="0" step="any">
+                </div>
+                <div class="field">
+                  <label for="n_habitacion">Habitación (renta, servicios) — gasto mensual (MXN)</label>
+                  <input id="n_habitacion" type="number" inputmode="decimal" placeholder="Ej. 2000" min="0" step="any">
+                </div>
+                <div class="field">
+                  <label for="n_salud">Atención médica y medicamentos — gasto mensual (MXN)</label>
+                  <input id="n_salud" type="number" inputmode="decimal" placeholder="Ej. 2000" min="0" step="any">
+                </div>
+                <div class="field">
+                  <label for="n_educacion">Educación (colegiatura, útiles, transporte escolar) — gasto mensual (MXN)</label>
+                  <input id="n_educacion" type="number" inputmode="decimal" placeholder="Ej. 2000" min="0" step="any">
+                </div>
+                <button class="calc-button" type="button" id="calcButton">Calcular</button>
               </form>
             </div>
           </div>
           <div class="panel">
             <div class="panel-head">
-              <div class="kicker">Resultado orientativo</div>
+              <div class="kicker">Resultado</div>
               <h3>Urgencia y escenario</h3>
               <p>Útil para preparar medidas y documentos.</p>
             </div>
@@ -523,16 +542,15 @@
                   <div class="result-kicker">Escenario de custodia</div>
                   <div class="result-amount" id="resultAmount">$0 MXN</div>
                   <div class="breakdown" id="resultBreakdown"></div>
-                  <p class="result-note">La calificación es orientativa y no sustituye medidas de protección o pruebas.</p>
+                  <p class="result-note" id="resultNote"></p>
                   
       <div class="legal-basis">
-        <div class="legal-basis-kicker">Sustento legal 2026</div>
+        <div class="legal-basis-kicker">Fundamento legal vigente (revisado 11-11-2026)</div>
         <ul>
-          <li>Art. 414-416 CCF: la custodia se determina conforme al interés superior del menor.</li>
-          <li>Art. 415 CCF: el progenitor no custodio tiene obligación alimentaria plena.</li>
-          <li>Art. 282 CCF: el juez puede decretar medidas cautelares de urgencia.</li>
-          <li>Porcentajes: 1 hijo 20%, 2 hijos 30%, 3+ hasta 50% del ingreso neto.</li>
-          <li>UMA mensual 2026: $3,566.22 (vigente desde 1-feb-2026) — mínimo orientativo por menor.</li>
+          <li>Art. 4o. constitucional y arts. 2 y 18 de la Ley General de los Derechos de Niñas, Niños y Adolescentes: el interés superior de la niñez rige toda decisión sobre guarda y custodia.</li>
+          <li>Art. 12 de la Convención sobre los Derechos del Niño: niñas, niños y adolescentes tienen derecho a ser escuchados en los procedimientos que les afectan.</li>
+          <li>La custodia no extingue la obligación alimentaria: ambos progenitores aportan en proporción a sus posibilidades (arts. 303 y 311 CCF y equivalentes locales).</li>
+          <li>No existe una fórmula legal para decidir la custodia; el juez valora las pruebas del caso. Esta herramienta sólo ordena el plan de convivencia y el reparto proporcional de gastos.</li>
         </ul>
       </div>
     
@@ -583,53 +601,56 @@
     <div class="footer-space"></div>
   </main>
   <footer></footer>
+  <script src="/shared/parametros-locales.js?v=20261111e"></script>
   <script>
-    /* ── CUSTODIA DE MENORES ── Art. 414-416 CCF ── UMA 2026 ── */
-    const UMA_MENSUAL = 3566.22;  // UMA 2026 vigente desde 1-feb-2026: $117.31/día (DOF 09-01-2026)
-    const FACTOR_NETO = 0.82;
-    const GASTO_MENOR_BASE = 3800; // alimentación + básicos por menor 2026
-    const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
+    const L = window.__SIGLEP_LOCAL__;
+    const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const $ = id => document.getElementById(id);
+    const num = id => { const el = $(id); const v = el ? parseFloat(el.value) : NaN; return isFinite(v) ? v : 0; };
+    const val = id => { const el = $(id); return el ? el.value : ''; };
+    function lugarActual() {
+      const l = window.__SIGLEP_ESTADO_ACTIVO__;
+      return l ? { clave: l.clave, sm: l.salario_minimo, nombre: l.nombre } : { clave: 'FED', sm: L.SM_GENERAL, nombre: null };
+    }
+    function pintar(monto, rows, nota) {
+      $('resultAmount').textContent = typeof monto === 'number' ? money.format(monto) : monto;
+      $('resultBreakdown').innerHTML = rows.map(([l, v]) => '<div class="breakdown-row"><span>' + l + '</span><strong>' + v + '</strong></div>').join('');
+      if (nota !== undefined && $('resultNote')) $('resultNote').textContent = nota;
+    }
 
-    function pctPorHijos(n) {
-      if (n <= 0) return 0;
-      if (n === 1) return 0.20;
-      if (n === 2) return 0.30;
-      if (n === 3) return 0.40;
-      return 0.50;
+    const NEC = ['n_comida', 'n_vestido', 'n_habitacion', 'n_salud', 'n_educacion'];
+    // Proporcionalidad (art. 311 CCF y equivalentes): ambos progenitores aportan según sus posibilidades (art. 303 CCF).
+    function reparto(necesidades, ingObligado, ingOtro) {
+      const suma = ingObligado + ingOtro;
+      const prop = suma > 0 ? ingObligado / suma : 0;
+      return { prop, obligado: necesidades * prop, otro: necesidades - necesidades * prop };
+    }
+    // Reglas numéricas locales (sólo Tamaulipas fija un rango porcentual sobre el salario del deudor).
+    function ajusteLocal(clave, monto, ingObligado) {
+      const a = L.ALIMENTOS[clave];
+      if (!a || a.minPct === undefined) return { monto, regla: a ? a.regla : null, art: a ? a.art : null, ajustado: false };
+      const min = ingObligado * a.minPct, max = ingObligado * a.maxPct;
+      const m = Math.min(Math.max(monto, min), max);
+      return { monto: m, regla: a.regla, art: a.art, ajustado: m !== monto, min, max };
     }
 
     function runCalc() {
-      const menores = Math.max(0, parseInt(document.getElementById('menores').value) || 0);
-      const ingreso = parseFloat(document.getElementById('ingreso').value) || 0;
-      const riesgo  = document.getElementById('riesgo').value;
-
-      const ingresoNeto = ingreso * FACTOR_NETO;
-      const pct = pctPorHijos(menores);
-      const pensionBase = ingresoNeto * pct;
-
-      // Art. 282 CCF: urgencia alta → medidas cautelares más estrictas
-      const factorRiesgo = { bajo: 1.0, medio: 1.15, alto: 1.30 }[riesgo] || 1.0;
-      const pensionProvisional = pensionBase * factorRiesgo;
-
-      const gastosBase = GASTO_MENOR_BASE * Math.max(menores, 1);
-      const minimo = UMA_MENSUAL * 0.5 * Math.max(menores, 1);
-      const pensionFinal = Math.max(pensionProvisional, minimo);
-
-      document.getElementById('resultAmount').textContent = money.format(Math.round(pensionFinal));
+      const da = num('dias_a'), db = num('dias_b'), total = da + db;
+      const necesidades = NEC.reduce((s, id) => s + num(id), 0);
+      const r = reparto(necesidades, num('ingreso'), num('ingreso_otro'));
       const rows = [
-        ['Ingreso neto (82% del bruto)', money.format(Math.round(ingresoNeto))],
-        ['Pensión base (' + Math.round(pct * 100) + '% ingreso neto)', money.format(Math.round(pensionBase))],
-        ['Ajuste urgencia ' + riesgo + ' (' + Math.round(factorRiesgo * 100) + '%)', money.format(Math.round(pensionProvisional))],
-        ['Gastos básicos orientativos/mes', money.format(Math.round(gastosBase))],
-        ['Mínimo UMA (' + Math.max(menores, 1) + ' menor/es)', money.format(Math.round(minimo))],
+        ['Tiempo con progenitor A', total > 0 ? (da / total * 100).toFixed(1) + '% (' + da + ' días)' : '—'],
+        ['Tiempo con progenitor B', total > 0 ? (db / total * 100).toFixed(1) + '% (' + db + ' días)' : '—'],
+        ['Gastos mensuales del menor (art. 308)', money.format(necesidades)],
+        ['Aportación proporcional de A', money.format(r.obligado) + ' (' + (r.prop * 100).toFixed(1) + '%)'],
+        ['Aportación proporcional de B', money.format(r.otro) + ' (' + ((1 - r.prop) * 100).toFixed(1) + '%)'],
       ];
-      document.getElementById('resultBreakdown').innerHTML = rows
-        .map(([l, v]) => '<div class="breakdown-row"><span>' + l + '</span><strong>' + v + '</strong></div>')
-        .join('');
+      if (total > 31) rows.push(['Revisión', 'Los días suman más de un mes; corrige el plan.']);
+      pintar(necesidades, rows, 'La custodia la decide el juez según el interés superior de la niñez. Las aportaciones se reparten en proporción a los ingresos; quien convive con el menor también aporta con los gastos que cubre directamente.');
     }
-
-    document.getElementById('calcButton').addEventListener('click', runCalc);
+    $('calcButton').addEventListener('click', runCalc);
     document.querySelectorAll('#calc-form input, #calc-form select').forEach(el => el.addEventListener('input', runCalc));
+    document.addEventListener('siglep:estado-change', runCalc);
     runCalc();
   </script>
 </body>

@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculadora de Régimen Matrimonial | SIGLEP</title>
-  <meta name="description" content="Calculadora orientativa de régimen matrimonial en México para estimar complejidad patrimonial.">
+  <meta name="description" content="Calculadora de régimen matrimonial: compara sociedad conyugal y separación de bienes, con la compensación que prevé el código de cada estado.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://siglep.lat/calculadoras/familiar/regimen-matrimonial/">
   <meta property="og:title" content="Calculadora de Régimen Matrimonial | SIGLEP">
-  <meta property="og:description" content="Calculadora orientativa de régimen matrimonial en México para estimar complejidad patrimonial.">
+  <meta property="og:description" content="Calculadora de régimen matrimonial: compara sociedad conyugal y separación de bienes, con la compensación que prevé el código de cada estado.">
   <meta property="og:url" content="https://siglep.lat/calculadoras/familiar/regimen-matrimonial/">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_MX">
@@ -140,7 +140,7 @@
     .footer-space{height:1px;}
     @media (max-width: 900px){.calc-grid{grid-template-columns:1fr}.hero{padding-top:7.6rem}}
   </style>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Calculadora de Régimen Matrimonial | SIGLEP","url":"https://siglep.lat/calculadoras/familiar/regimen-matrimonial/","description":"Calculadora orientativa de régimen matrimonial en México para estimar complejidad patrimonial.","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://siglep.lat/"},{"@type":"ListItem","position":2,"name":"Calculadoras","item":"https://siglep.lat/calculadoras/"},{"@type":"ListItem","position":3,"name":"Familiar","item":"https://siglep.lat/calculadoras/familiar/"},{"@type":"ListItem","position":4,"name":"Régimen matrimonial","item":"https://siglep.lat/calculadoras/familiar/regimen-matrimonial/"}]}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Calculadora de Régimen Matrimonial | SIGLEP","url":"https://siglep.lat/calculadoras/familiar/regimen-matrimonial/","description":"Calculadora de régimen matrimonial: compara sociedad conyugal y separación de bienes, con la compensación que prevé el código de cada estado.","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://siglep.lat/"},{"@type":"ListItem","position":2,"name":"Calculadoras","item":"https://siglep.lat/calculadoras/"},{"@type":"ListItem","position":3,"name":"Familiar","item":"https://siglep.lat/calculadoras/familiar/"},{"@type":"ListItem","position":4,"name":"Régimen matrimonial","item":"https://siglep.lat/calculadoras/familiar/regimen-matrimonial/"}]}}</script>
   
   <style>
     nav.siglep-shell-nav {
@@ -393,7 +393,7 @@
     }
   </style>
 
-  <script defer src="/shared/site-shell.js?v=20261111d"></script>
+  <script defer src="/shared/site-shell.js?v=20261111e"></script>
 <link rel="stylesheet" href="/shared/mobile.css?v=20261111d">
 </head>
 <body>
@@ -480,40 +480,35 @@
           <div class="panel dark">
             <div class="panel-head">
               <div class="kicker">Patrimonio</div>
-              <h3>Cálculo orientativo</h3>
+              <h3>Bienes del matrimonio</h3>
               <p>Mide valor patrimonial, deudas y convivencia económica.</p>
             </div>
             <div class="panel-body">
               <form id="calc-form" onsubmit="return false;">
-                
-    <div class="field">
-      <label for="patrimonio">Valor total del patrimonio común (MXN)</label>
-      <input id="patrimonio" type="number" inputmode="decimal" placeholder="Ej. 700000" min="0" step="any" oninput="runCalc()">
-      <span class="help">Usa avalúo comercial vigente de todos los bienes comunes (inmuebles, vehículos, cuentas). No uses valor catastral ni precio de adquisición original.</span>
-    </div>
-
-    <div class="field">
-      <label for="deudas">Deudas conjuntas (MXN)</label>
-      <input id="deudas" type="number" inputmode="decimal" placeholder="Ej. 120000" min="0" step="any" oninput="runCalc()">
-      <span class="help">Saldo vigente comprobable de créditos e hipotecas contraídos en conjunto durante el matrimonio.</span>
-    </div>
-
-      <div class="field">
-        <label for="capitulaciones">Capitulaciones matrimoniales</label>
-        <select id="capitulaciones" onchange="runCalc()">
-          <option value="no">No existen — sociedad conyugal</option><option value="si">Sí existen — separación de bienes</option><option value="parcial">Parciales — régimen mixto</option>
-        </select>
-        <span class="help">Revisa tu acta de matrimonio o escritura de capitulaciones para confirmar el régimen pactado.</span>
-        
-      </div>
-    
-                <button class="calc-button" type="button" id="calcButton">Calcular estimación</button>
+                <div class="field">
+                  <label for="bienes_a">Bienes adquiridos durante el matrimonio a nombre del cónyuge A (MXN)</label>
+                  <input id="bienes_a" type="number" inputmode="decimal" placeholder="Ej. 300000" min="0" step="any">
+                </div>
+                <div class="field">
+                  <label for="bienes_b">Bienes adquiridos durante el matrimonio a nombre del cónyuge B (MXN)</label>
+                  <input id="bienes_b" type="number" inputmode="decimal" placeholder="Ej. 900000" min="0" step="any">
+                </div>
+                <div class="field">
+                  <label for="deudas">Deudas comunes (MXN)</label>
+                  <input id="deudas" type="number" inputmode="decimal" placeholder="Ej. 120000" min="0" step="any">
+                </div>
+                <div class="field">
+                  <label for="pct">Sociedad conyugal: porcentaje del cónyuge A según capitulaciones (%)</label>
+                  <input id="pct" type="number" inputmode="decimal" placeholder="50" min="0" step="any" value="50" max="100">
+                  <span class="help">Si las capitulaciones no establecen una proporción distinta, captura 50.</span>
+                </div>
+                <button class="calc-button" type="button" id="calcButton">Calcular</button>
               </form>
             </div>
           </div>
           <div class="panel">
             <div class="panel-head">
-              <div class="kicker">Resultado orientativo</div>
+              <div class="kicker">Resultado</div>
               <h3>Complejidad estimada</h3>
               <p>Una lectura inicial del tipo de régimen y su impacto.</p>
             </div>
@@ -523,15 +518,15 @@
                   <div class="result-kicker">Complejidad patrimonial</div>
                   <div class="result-amount" id="resultAmount">$0 MXN</div>
                   <div class="breakdown" id="resultBreakdown"></div>
-                  <p class="result-note">No sustituye la revisión de capitulaciones o acuerdos matrimoniales.</p>
+                  <p class="result-note" id="resultNote"></p>
                   
       <div class="legal-basis">
-        <div class="legal-basis-kicker">Sustento legal 2026</div>
+        <div class="legal-basis-kicker">Fundamento legal vigente (revisado 11-11-2026)</div>
         <ul>
-          <li>Art. 194 CCF: sociedad conyugal → bienes comunes 50/50.</li>
-          <li>Art. 207 CCF: separación de bienes → cada cónyuge conserva su patrimonio.</li>
-          <li>Art. 178-183 CCF: régimen se establece en capitulaciones matrimoniales.</li>
-          <li>Honorarios notariales orientativos: ~1.5% del valor del patrimonio.</li>
+          <li>Art. 178 CCF: el matrimonio se celebra bajo sociedad conyugal o separación de bienes; el régimen consta en el acta y en las capitulaciones (arts. 179 y 180).</li>
+          <li>Arts. 183 y 189 CCF: en sociedad conyugal, los bienes comprendidos se reparten según las capitulaciones.</li>
+          <li>Art. 208 CCF: la separación de bienes puede ser absoluta o parcial; los bienes no comprendidos en ella forman sociedad conyugal.</li>
+          <li>Compensación en separación de bienes: hasta el 50% de lo adquirido por el otro cónyuge durante el matrimonio en las entidades cuyo código la prevé (la calculadora indica si tu estado la tiene).</li>
         </ul>
       </div>
     
@@ -562,7 +557,7 @@
       
         <details class="faq-item">
           <summary>¿Sirve para revisar capitulaciones?</summary>
-          <p>Sí, como guía inicial para detectar el nivel de complejidad.</p>
+          <p>Sí: compara lo que corresponde a cada cónyuge en sociedad conyugal y en separación de bienes, con la compensación de tu estado.</p>
         </details>
       
         </div>
@@ -582,50 +577,59 @@
     <div class="footer-space"></div>
   </main>
   <footer></footer>
+  <script src="/shared/parametros-locales.js?v=20261111e"></script>
   <script>
-    /* ── RÉGIMEN MATRIMONIAL ── Art. 178-207 CCF ── */
-    const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
-
-    function runCalc() {
-      const patrimonio     = parseFloat(document.getElementById('patrimonio').value) || 0;
-      const deudas         = parseFloat(document.getElementById('deudas').value) || 0;
-      const capitulaciones = document.getElementById('capitulaciones').value;
-
-      const patrimonioNeto = Math.max(patrimonio - deudas, 0);
-
-      let partePorConyuge, label;
-      if (capitulaciones === 'no') {
-        // Art. 194 CCF: sociedad conyugal, 50/50
-        partePorConyuge = patrimonioNeto * 0.50;
-        label = 'Sociedad conyugal (50% c/u)';
-      } else if (capitulaciones === 'si') {
-        // Art. 207 CCF: separación de bienes, cada quien lo suyo
-        partePorConyuge = patrimonio;
-        label = 'Separación de bienes (patrimonio propio)';
-      } else {
-        // Capitulaciones parciales: reparto mixto orientativo
-        partePorConyuge = patrimonioNeto * 0.50;
-        label = 'Régimen mixto (50% bienes comunes)';
-      }
-
-      // Honorarios notariales (arancel orientativo ~1.5%, mín $5,000)
-      const costoNotarial = Math.max(patrimonio * 0.015, 5000);
-
-      document.getElementById('resultAmount').textContent = money.format(Math.round(partePorConyuge));
-      const rows = [
-        ['Patrimonio bruto declarado', money.format(Math.round(patrimonio))],
-        ['Pasivos deducibles', money.format(Math.round(deudas))],
-        ['Patrimonio neto', money.format(Math.round(patrimonioNeto))],
-        [label, money.format(Math.round(partePorConyuge))],
-        ['Honorarios notariales (~1.5%)', money.format(Math.round(costoNotarial))],
-      ];
-      document.getElementById('resultBreakdown').innerHTML = rows
-        .map(([l, v]) => '<div class="breakdown-row"><span>' + l + '</span><strong>' + v + '</strong></div>')
-        .join('');
+    const L = window.__SIGLEP_LOCAL__;
+    const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const $ = id => document.getElementById(id);
+    const num = id => { const el = $(id); const v = el ? parseFloat(el.value) : NaN; return isFinite(v) ? v : 0; };
+    const val = id => { const el = $(id); return el ? el.value : ''; };
+    function lugarActual() {
+      const l = window.__SIGLEP_ESTADO_ACTIVO__;
+      return l ? { clave: l.clave, sm: l.salario_minimo, nombre: l.nombre } : { clave: 'FED', sm: L.SM_GENERAL, nombre: null };
+    }
+    function pintar(monto, rows, nota) {
+      $('resultAmount').textContent = typeof monto === 'number' ? money.format(monto) : monto;
+      $('resultBreakdown').innerHTML = rows.map(([l, v]) => '<div class="breakdown-row"><span>' + l + '</span><strong>' + v + '</strong></div>').join('');
+      if (nota !== undefined && $('resultNote')) $('resultNote').textContent = nota;
     }
 
-    document.getElementById('calcButton').addEventListener('click', runCalc);
+    // Sociedad conyugal: el haber social (activo − pasivo) se reparte conforme a las capitulaciones (arts. 183 y 189 CCF).
+    function liquidarSociedad(activo, pasivo, pct) {
+      const haber = Math.max(activo - pasivo, 0);
+      const p = Math.min(Math.max(pct, 0), 100) / 100;
+      return { haber, a: haber * p, b: haber * (1 - p), deficit: Math.max(pasivo - activo, 0) };
+    }
+    // Separación de bienes: compensación al cónyuge dedicado al hogar, con el tope que fije el código local.
+    function compensacion(clave, bienesOtro, pctSolicitado) {
+      const c = L.COMPENSACION[clave];
+      if (!c) return { aplica: false };
+      const tope = bienesOtro * c.max;
+      const pedido = bienesOtro * Math.max(pctSolicitado, 0) / 100;
+      return { aplica: true, tope, monto: Math.min(pedido, tope), art: c.art, max: c.max };
+    }
+
+    function runCalc() {
+      const lugar = lugarActual();
+      const a = num('bienes_a'), b = num('bienes_b');
+      const s = liquidarSociedad(a + b, num('deudas'), $('pct').value === '' ? 50 : num('pct'));
+      const compB = compensacion(lugar.clave, b, 100);
+      const compA = compensacion(lugar.clave, a, 100);
+      const rows = [
+        ['Sociedad conyugal — cónyuge A', money.format(s.a)],
+        ['Sociedad conyugal — cónyuge B', money.format(s.b)],
+        ['Separación de bienes — cónyuge A conserva', money.format(a)],
+        ['Separación de bienes — cónyuge B conserva', money.format(b)],
+      ];
+      if (compB.aplica) {
+        rows.push(['Compensación máxima para A si se dedicó al hogar (art. ' + compB.art + ')', money.format(compB.tope)]);
+        rows.push(['Compensación máxima para B si se dedicó al hogar', money.format(compA.tope)]);
+      } else rows.push(['Compensación', lugar.nombre ? 'No se localizó tope porcentual en el código consultado de ' + lugar.nombre + '.' : 'Elige tu entidad para revisar la compensación.']);
+      pintar(s.a, rows, 'Comparación de lo que corresponde a cada cónyuge en uno y otro régimen. Las deudas comunes se descuentan en la sociedad conyugal.');
+    }
+    $('calcButton').addEventListener('click', runCalc);
     document.querySelectorAll('#calc-form input, #calc-form select').forEach(el => el.addEventListener('input', runCalc));
+    document.addEventListener('siglep:estado-change', runCalc);
     runCalc();
   </script>
 </body>

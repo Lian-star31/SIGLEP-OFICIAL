@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculadora de Intereses Moratorios | SIGLEP</title>
-  <meta name="description" content="Calculadora orientativa de intereses moratorios en México para revisar capital, plazo y tasa.">
+  <meta name="description" content="Calculadora de intereses moratorios con la tasa legal de cada estado, el Código de Comercio y la Ley General de Títulos y Operaciones de Crédito.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://siglep.lat/calculadoras/civil/intereses-moratorios/">
   <meta property="og:title" content="Calculadora de Intereses Moratorios | SIGLEP">
-  <meta property="og:description" content="Calculadora orientativa de intereses moratorios en México para revisar capital, plazo y tasa.">
+  <meta property="og:description" content="Calculadora de intereses moratorios con la tasa legal de cada estado, el Código de Comercio y la Ley General de Títulos y Operaciones de Crédito.">
   <meta property="og:url" content="https://siglep.lat/calculadoras/civil/intereses-moratorios/">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_MX">
@@ -140,7 +140,7 @@
     .footer-space{height:1px;}
     @media (max-width: 900px){.calc-grid{grid-template-columns:1fr}.hero{padding-top:7.6rem}}
   </style>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Calculadora de Intereses Moratorios | SIGLEP","url":"https://siglep.lat/calculadoras/civil/intereses-moratorios/","description":"Calculadora orientativa de intereses moratorios en México para revisar capital, plazo y tasa.","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://siglep.lat/"},{"@type":"ListItem","position":2,"name":"Calculadoras","item":"https://siglep.lat/calculadoras/"},{"@type":"ListItem","position":3,"name":"Civil","item":"https://siglep.lat/calculadoras/civil/"},{"@type":"ListItem","position":4,"name":"Intereses moratorios","item":"https://siglep.lat/calculadoras/civil/intereses-moratorios/"}]}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Calculadora de Intereses Moratorios | SIGLEP","url":"https://siglep.lat/calculadoras/civil/intereses-moratorios/","description":"Calculadora de intereses moratorios con la tasa legal de cada estado, el Código de Comercio y la Ley General de Títulos y Operaciones de Crédito.","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://siglep.lat/"},{"@type":"ListItem","position":2,"name":"Calculadoras","item":"https://siglep.lat/calculadoras/"},{"@type":"ListItem","position":3,"name":"Civil","item":"https://siglep.lat/calculadoras/civil/"},{"@type":"ListItem","position":4,"name":"Intereses moratorios","item":"https://siglep.lat/calculadoras/civil/intereses-moratorios/"}]}}</script>
   
   <style>
     nav.siglep-shell-nav {
@@ -393,7 +393,7 @@
     }
   </style>
 
-  <script defer src="/shared/site-shell.js?v=20261111d"></script>
+  <script defer src="/shared/site-shell.js?v=20261111e"></script>
 <link rel="stylesheet" href="/shared/mobile.css?v=20261111d">
 </head>
 <body>
@@ -464,7 +464,7 @@
         </div>
         <div class="eyebrow">Calculadora Civil</div>
         <h1>Intereses moratorios <em>sin perder el control.</em></h1>
-        <p class="lead">Calcula una referencia de intereses por pago tardío, capital y plazo de mora.</p>
+        <p class="lead">Calcula los intereses por pago tardío con la tasa legal de tu estado, la mercantil o la pactada.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="/civil/">Ir al Área Civil</a>
           <a class="btn btn-secondary" href="https://calendly.com/hola-siglep/30min" target="_blank" rel="noopener noreferrer">Agendar Consulta</a>
@@ -480,41 +480,42 @@
           <div class="panel dark">
             <div class="panel-head">
               <div class="kicker">Mora</div>
-              <h3>Cálculo orientativo</h3>
-              <p>Introduce monto, tiempo y tasa para obtener la referencia.</p>
+              <h3>Datos de la deuda</h3>
+              <p>Elige tu entidad y el tipo de obligación: la tasa legal cambia por estado.</p>
             </div>
             <div class="panel-body">
               <form id="calc-form" onsubmit="return false;">
                 <div class="field">
                   <label for="capital">Capital adeudado (MXN)</label>
-                  <input id="capital" type="number" inputmode="decimal" placeholder="Ej. 45000" min="0" step="any" oninput="runCalc()">
-                  <span class="help">Monto principal vencido sin incluir intereses previos. Debe ser comprobable con contrato, pagaré o factura.</span>
+                  <input id="capital" type="number" inputmode="decimal" placeholder="Ej. 45000" min="0" step="any">
                 </div>
                 <div class="field">
-                  <label for="tipo_tasa">Tipo de tasa aplicable</label>
-                  <select id="tipo_tasa" onchange="runCalc()">
-                    <option value="legal">Legal — 9% anual (Art. 2395 CCF)</option>
-                    <option value="convencional">Convencional — tasa pactada en contrato</option>
-                    <option value="bancaria">Bancaria — TIIE + margen (Banxico)</option>
-                  </select>
+                  <label for="materia">Tipo de obligación</label>
+                  <select id="materia"><option value="civil">Civil sin tasa pactada — interés legal de la entidad</option><option value="mercantil">Mercantil sin tasa pactada — Código de Comercio</option><option value="pagare">Pagaré o título de crédito</option><option value="convencional">Tasa pactada en contrato civil</option></select>
+                  <span class="help">La materia determina la ley: las deudas civiles se rigen por el código civil de tu estado; las mercantiles y los pagarés, por leyes federales.</span>
                 </div>
                 <div class="field">
-                  <label for="tasa">Tasa anual (%)</label>
-                  <input id="tasa" type="number" inputmode="decimal" placeholder="9" min="0" step="0.01" oninput="runCalc()">
-                  <span class="help">Si elegiste tasa legal, déjala en 9 (Art. 2395 CCF vigente 2026). Para convencional, usa la pactada en el contrato. Para bancaria, TIIE 28d + margen acordado.</span>
+                  <label for="tasa">Tasa anual pactada (%)</label>
+                  <input id="tasa" type="number" inputmode="decimal" placeholder="Ej. 24" min="0" step="any">
+                  <span class="help">Sólo para pagaré con tasa estipulada o contrato con tasa pactada.</span>
+                </div>
+                <div class="field">
+                  <label for="tasa_publicada">Tasa anual publicada por el Banco de México (%)</label>
+                  <input id="tasa_publicada" type="number" inputmode="decimal" placeholder="Ej. 6.85" min="0" step="any">
+                  <span class="help">Sólo si tu estado remite a un indicador variable del Banco de México (Baja California, Estado de México, Tabasco, Tamaulipas). Usa el dato oficial del periodo de mora.</span>
                 </div>
                 <div class="field">
                   <label for="dias">Días de mora</label>
-                  <input id="dias" type="number" inputmode="decimal" placeholder="Ej. 90" min="0" step="1" oninput="runCalc()">
-                  <span class="help">Cuenta desde el día siguiente al vencimiento pactado hasta hoy. Usa la fecha del documento como referencia.</span>
+                  <input id="dias" type="number" inputmode="decimal" placeholder="Ej. 90" min="0" step="any">
+                  <span class="help">Desde el día siguiente al vencimiento hasta la fecha de cálculo.</span>
                 </div>
-                <button class="calc-button" type="button" id="calcButton">Calcular estimación</button>
+                <button class="calc-button" type="button" id="calcButton">Calcular</button>
               </form>
             </div>
           </div>
           <div class="panel">
             <div class="panel-head">
-              <div class="kicker">Resultado orientativo</div>
+              <div class="kicker">Resultado</div>
               <h3>Intereses estimados</h3>
               <p>Ideal para revisar contratos y pagos pendientes.</p>
             </div>
@@ -524,15 +525,16 @@
                   <div class="result-kicker">Intereses moratorios</div>
                   <div class="result-amount" id="resultAmount">$0 MXN</div>
                   <div class="breakdown" id="resultBreakdown"></div>
-                  <p class="result-note">La tasa real depende del contrato, el documento base y el criterio aplicable.</p>
+                  <p class="result-note" id="resultNote"></p>
                   
       <div class="legal-basis">
-        <div class="legal-basis-kicker">Sustento legal 2026</div>
+        <div class="legal-basis-kicker">Fundamento legal vigente (revisado 11-11-2026)</div>
         <ul>
-          <li>CCF Art. 2395: tasa legal = 9% anual cuando no se pacta otra.</li>
-          <li>CCF Art. 2396: interés convencional — el pactado por las partes en contrato.</li>
-          <li>CCF Art. 2397: el juez puede reducir el interés cuando sea desproporcionado.</li>
-          <li>Fórmula exacta: Capital × (Tasa/100 ÷ 365) × Días de mora.</li>
+          <li>Interés legal civil por entidad: cada código civil fija su tasa. Por ejemplo, 9% anual en el CCF (art. 2395) y en la mayoría de los estados; 12% en Coahuila, Guerrero y Quintana Roo; 20% en Querétaro; 6% por falta de pago puntual en Guanajuato; y una tasa variable del Banco de México en Baja California, Estado de México, Tabasco y Tamaulipas.</li>
+          <li>Art. 362 del Código de Comercio: en deudas mercantiles, el interés pactado o, en su defecto, 6% anual desde el día siguiente al vencimiento.</li>
+          <li>Arts. 152 y 174 LGTOC: en el pagaré, los intereses moratorios se calculan a la tasa estipulada; a falta de ella, a la ordinaria del documento y, en su defecto, al tipo legal.</li>
+          <li>Art. 2395 CCF y equivalentes locales: si el interés pactado es desproporcionado, el juez puede reducirlo. La SCJN ha sostenido que los intereses pactados no pueden ser usurarios (jurisprudencia 1a./J. 46/2014 sobre el art. 174 LGTOC).</li>
+          <li>Fórmula: capital × tasa anual × días ÷ 365 (interés simple; la capitalización de intereses sólo procede si se pacta conforme a la ley).</li>
         </ul>
       </div>
 
@@ -563,7 +565,7 @@
       
         <details class="faq-item">
           <summary>¿La calculadora toma en cuenta tasa compuesta?</summary>
-          <p>No, solo una referencia simple.</p>
+          <p>No. Calcula interés simple; la capitalización de intereses sólo procede cuando se pacta conforme a la ley.</p>
         </details>
       
         </div>
@@ -583,47 +585,53 @@
     <div class="footer-space"></div>
   </main>
   <footer></footer>
+  <script src="/shared/parametros-locales.js?v=20261111e"></script>
   <script>
-    /* ── INTERESES MORATORIOS ── CCF Art. 2393-2397 ── Tasa legal 9% anual ── */
-    const TASA_LEGAL = 9; // Art. 2395 CCF: 9% anual cuando no se pacta otra
-    const money2d = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
-
-    function runCalc() {
-      const capital   = parseFloat(document.getElementById('capital').value) || 0;
-      const tipo      = document.getElementById('tipo_tasa').value;
-      const tasaInput = parseFloat(document.getElementById('tasa').value);
-      const dias      = parseInt(document.getElementById('dias').value) || 0;
-
-      // Tasa efectiva: si es legal y no ingresaron valor, usamos 9%
-      const tasaAnual = (isNaN(tasaInput) || tasaInput === 0) ? TASA_LEGAL : tasaInput;
-      const tasaDiaria = tasaAnual / 100 / 365;
-
-      // Fórmula exacta: Capital × (tasa_anual / 365) × días
-      const intereses  = capital * tasaDiaria * dias;
-      const totalDeuda = capital + intereses;
-
-      // Verificación aritmética interna:
-      // capital=45000, tasa=9%, días=90 → 45000×(0.09/365)×90 = $997.26
-      // capital=45000, tasa=24%, días=90 → 45000×(0.24/365)×90 = $2659.73 ✓
-
-      document.getElementById('resultAmount').textContent = money2d.format(intereses);
-      const rows = [
-        ['Capital adeudado', money2d.format(capital)],
-        ['Tipo de tasa', tipo === 'legal' ? 'Legal (Art. 2395 CCF)' : tipo === 'convencional' ? 'Convencional pactada' : 'Bancaria (TIIE + margen)'],
-        ['Tasa anual aplicada', tasaAnual.toFixed(2) + '%'],
-        ['Tasa diaria exacta', (tasaDiaria * 100).toFixed(6) + '%'],
-        ['Días de mora', dias + ' días'],
-        ['Intereses moratorios', money2d.format(intereses)],
-        ['Total reclamable (capital + intereses)', money2d.format(totalDeuda)],
-      ];
-      document.getElementById('resultBreakdown').innerHTML = rows
-        .map(([l, v]) => '<div class="breakdown-row"><span>' + l + '</span><strong>' + v + '</strong></div>')
-        .join('');
+    const L = window.__SIGLEP_LOCAL__;
+    const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const $ = id => document.getElementById(id);
+    const num = id => { const el = $(id); const v = el ? parseFloat(el.value) : NaN; return isFinite(v) ? v : 0; };
+    const val = id => { const el = $(id); return el ? el.value : ''; };
+    function lugarActual() {
+      const l = window.__SIGLEP_ESTADO_ACTIVO__;
+      return l ? { clave: l.clave, sm: l.salario_minimo, nombre: l.nombre } : { clave: 'FED', sm: L.SM_GENERAL, nombre: null };
+    }
+    function pintar(monto, rows, nota) {
+      $('resultAmount').textContent = typeof monto === 'number' ? money.format(monto) : monto;
+      $('resultBreakdown').innerHTML = rows.map(([l, v]) => '<div class="breakdown-row"><span>' + l + '</span><strong>' + v + '</strong></div>').join('');
+      if (nota !== undefined && $('resultNote')) $('resultNote').textContent = nota;
     }
 
-    document.getElementById('calcButton').addEventListener('click', runCalc);
+    // Tasa anual aplicable según materia y entidad. Devuelve { tasa, fuente, falta }.
+    function tasaAplicable(materia, clave, pactada, publicada) {
+      if (materia === 'convencional') return pactada > 0 ? { tasa: pactada, fuente: 'Tasa pactada en el contrato (art. 2395 CCF y equivalentes; reducible por el juez si es usuraria)' } : { tasa: null, falta: 'Captura la tasa pactada.' };
+      if (materia === 'mercantil') return { tasa: 6, fuente: 'Art. 362 del Código de Comercio: 6% anual si no se pactó otro interés moratorio' };
+      if (materia === 'pagare') return pactada > 0 ? { tasa: pactada, fuente: 'Art. 174 LGTOC: interés moratorio estipulado en el pagaré (o, en su defecto, el ordinario)' } : { tasa: 6, fuente: 'Arts. 174 y 152 LGTOC y 362 del Código de Comercio: sin tasa estipulada, tipo legal del 6% anual' };
+      const i = L.INTERES[clave] || L.INTERES.FED;
+      if (i.tasa === null) return publicada > 0 ? { tasa: publicada, fuente: L.cita(clave, i.art) + ': ' + i.regla } : { tasa: null, falta: 'En esta entidad el interés legal es variable (' + i.regla + '). Captura la tasa anual publicada para el periodo.' };
+      return { tasa: i.tasa, fuente: L.cita(clave, i.art) + (i.regla ? ': ' + i.regla : '') };
+    }
+    function interesSimple(capital, tasaAnual, dias) { return capital * (tasaAnual / 100) * dias / 365; }
+
+    function runCalc() {
+      const lugar = lugarActual();
+      const capital = num('capital'), dias = num('dias'), materia = val('materia');
+      const t = tasaAplicable(materia, lugar.clave, num('tasa'), num('tasa_publicada'));
+      if (t.tasa === null) { pintar('Falta un dato', [['Tasa', t.falta]], ''); return; }
+      const intereses = interesSimple(capital, t.tasa, dias);
+      const rows = [
+        ['Fundamento de la tasa', t.fuente],
+        ['Tasa anual aplicada', t.tasa.toFixed(2) + '%'],
+        ['Días de mora', String(dias)],
+        ['Intereses moratorios', money.format(intereses)],
+        ['Capital más intereses', money.format(capital + intereses)],
+      ];
+      if (materia === 'civil' && !lugar.nombre) rows.unshift(['Entidad', 'Sin seleccionar: se aplica el Código Civil Federal.']);
+      pintar(intereses, rows, 'Interés simple calculado con la tasa legal o pactada que corresponde a la materia y a la entidad.');
+    }
+    $('calcButton').addEventListener('click', runCalc);
     document.querySelectorAll('#calc-form input, #calc-form select').forEach(el => el.addEventListener('input', runCalc));
+    document.addEventListener('siglep:estado-change', runCalc);
     runCalc();
   </script>
 </body>

@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculadora de Herencia y Sucesión | SIGLEP</title>
-  <meta name="description" content="Calculadora orientativa de herencia y sucesión en México para revisar tamaño del patrimonio y herederos.">
+  <meta name="description" content="Calculadora de herencia: orden de pago de deudas y porciones de la sucesión legítima conforme al Código Civil Federal y al código de cada estado.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://siglep.lat/calculadoras/patrimonial/herencia-sucesion/">
   <meta property="og:title" content="Calculadora de Herencia y Sucesión | SIGLEP">
-  <meta property="og:description" content="Calculadora orientativa de herencia y sucesión en México para revisar tamaño del patrimonio y herederos.">
+  <meta property="og:description" content="Calculadora de herencia: orden de pago de deudas y porciones de la sucesión legítima conforme al Código Civil Federal y al código de cada estado.">
   <meta property="og:url" content="https://siglep.lat/calculadoras/patrimonial/herencia-sucesion/">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_MX">
@@ -140,8 +140,8 @@
     .footer-space{height:1px;}
     @media (max-width: 900px){.calc-grid{grid-template-columns:1fr}.hero{padding-top:7.6rem}}
   </style>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Calculadora de Herencia y Sucesión | SIGLEP","url":"https://siglep.lat/calculadoras/patrimonial/herencia-sucesion/","description":"Calculadora orientativa de herencia y sucesión en México para revisar tamaño del patrimonio y herederos.","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://siglep.lat/"},{"@type":"ListItem","position":2,"name":"Calculadoras","item":"https://siglep.lat/calculadoras/"},{"@type":"ListItem","position":3,"name":"Patrimonial","item":"https://siglep.lat/calculadoras/patrimonial/"},{"@type":"ListItem","position":4,"name":"Herencia y sucesión","item":"https://siglep.lat/calculadoras/patrimonial/herencia-sucesion/"}]}}</script>
-  <script defer src="/shared/site-shell.js?v=20261111d"></script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Calculadora de Herencia y Sucesión | SIGLEP","url":"https://siglep.lat/calculadoras/patrimonial/herencia-sucesion/","description":"Calculadora de herencia: orden de pago de deudas y porciones de la sucesión legítima conforme al Código Civil Federal y al código de cada estado.","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://siglep.lat/"},{"@type":"ListItem","position":2,"name":"Calculadoras","item":"https://siglep.lat/calculadoras/"},{"@type":"ListItem","position":3,"name":"Patrimonial","item":"https://siglep.lat/calculadoras/patrimonial/"},{"@type":"ListItem","position":4,"name":"Herencia y sucesión","item":"https://siglep.lat/calculadoras/patrimonial/herencia-sucesion/"}]}}</script>
+  <script defer src="/shared/site-shell.js?v=20261111e"></script>
 <link rel="stylesheet" href="/shared/mobile.css?v=20261111d">
 </head>
 <body>
@@ -155,7 +155,7 @@
         </div>
         <div class="eyebrow">Calculadora Patrimonial</div>
         <h1>Herencia y sucesión <em>con visión ordenada.</em></h1>
-        <p class="lead">Obtén una referencia para dimensionar el tamaño de la sucesión y los factores que la hacen más compleja.</p>
+        <p class="lead">Calcula el orden de pago de las deudas y las porciones que fija la ley en la sucesión sin testamento.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="/patrimonial/">Ir al Área Patrimonial</a>
           <a class="btn btn-secondary" href="https://calendly.com/hola-siglep/30min" target="_blank" rel="noopener noreferrer">Agendar Consulta</a>
@@ -165,80 +165,91 @@
 
     <section class="section">
       <div class="section-inner">
-        <h2>Estimación de sucesión</h2>
+        <h2>Porciones de la herencia</h2>
         <p class="lead">El tamaño del patrimonio y el número de herederos influye en la estrategia.</p>
         <div class="calc-grid">
           <div class="panel dark">
             <div class="panel-head">
               <div class="kicker">Patrimonio</div>
-              <h3>Cálculo orientativo</h3>
-              <p>Introduce valor patrimonial, número de herederos y si existe testamento.</p>
+              <h3>Herencia y herederos</h3>
+              <p>Captura bienes, deudas y herederos para calcular las porciones de ley.</p>
             </div>
             <div class="panel-body">
               <form id="calc-form" onsubmit="return false;">
-
-    <div class="field">
-      <label for="patrimonio">Valor bruto de la masa hereditaria (MXN)</label>
-      <input id="patrimonio" type="number" inputmode="decimal" placeholder="Ej. 1500000" min="0" step="any" oninput="runCalc()">
-      <span class="help">Suma el avalúo comercial vigente de todos los bienes del autor de la herencia: inmuebles, cuentas, vehículos, inversiones. No uses valor catastral ni precio de adquisición.</span>
-    </div>
-
-    <div class="field">
-      <label for="herederos">Número de herederos reconocidos</label>
-      <input id="herederos" type="number" inputmode="decimal" placeholder="Ej. 3" min="0" step="any" oninput="runCalc()">
-      <span class="help">Cuenta los herederos legítimos o designados en testamento. En intestado, el orden es: descendientes, cónyuge, ascendientes (Art. 1602 CCF).</span>
-    </div>
-
-      <div class="field">
-        <label for="mortuorias">Deudas mortuorias (opcional, MXN)</label>
-        <input id="mortuorias" type="number" inputmode="decimal" placeholder="Ej. 35000" min="0" step="any" oninput="runCalc()">
-        <span class="help">Gastos del funeral y relacionados con el fallecimiento. Se pagan en primer lugar (art. 1754 CCF). Si lo dejas vacío se usa una estimación orientativa.</span>
-      </div>
-
-      <div class="field">
-        <label for="notariales">Gastos notariales o judiciales (opcional, MXN)</label>
-        <input id="notariales" type="number" inputmode="decimal" placeholder="Según cotización del notario" min="0" step="any" oninput="runCalc()">
-        <span class="help">Los honorarios dependen del arancel de cada estado y del valor de los bienes. Si tienes cotización, captúrala; si no, se usa una estimación orientativa.</span>
-      </div>
-
-      <div class="field">
-        <label for="testamento">¿Existe testamento notarial?</label>
-        <select id="testamento" onchange="runCalc()">
-          <option value="si">Sí — testamento ante notario</option><option value="no">No — sucesión intestada</option><option value="duda">No lo sé</option>
-        </select>
-        <span class="help">Sin testamento el proceso es más largo y costoso. Verifica en el Registro Nacional de Testamentos (RENATE).</span>
-
-      </div>
-
-                <button class="calc-button" type="button" id="calcButton">Calcular estimación</button>
+                <div class="field">
+                  <label for="patrimonio">Valor de los bienes y derechos de la herencia (MXN)</label>
+                  <input id="patrimonio" type="number" inputmode="decimal" placeholder="Ej. 1500000" min="0" step="any">
+                  <span class="help">Avalúo vigente de inmuebles, cuentas, vehículos e inversiones del autor de la herencia.</span>
+                </div>
+                <div class="field">
+                  <label for="mortuorias">Deudas mortuorias (MXN)</label>
+                  <input id="mortuorias" type="number" inputmode="decimal" placeholder="Ej. 35000" min="0" step="any">
+                  <span class="help">Gastos del funeral y de la última enfermedad. Se pagan en primer lugar (arts. 1754 y 1755 CCF).</span>
+                </div>
+                <div class="field">
+                  <label for="administracion">Gastos de conservación y administración, y créditos alimenticios (MXN)</label>
+                  <input id="administracion" type="number" inputmode="decimal" placeholder="Ej. 40000" min="0" step="any">
+                  <span class="help">Se pagan en segundo lugar (art. 1757 CCF). Incluye honorarios notariales o judiciales según la cotización que tengas.</span>
+                </div>
+                <div class="field">
+                  <label for="deudas">Deudas hereditarias exigibles (MXN)</label>
+                  <input id="deudas" type="number" inputmode="decimal" placeholder="Ej. 0" min="0" step="any">
+                  <span class="help">Se pagan después (art. 1759 CCF).</span>
+                </div>
+                <div class="field">
+                  <label for="testamento">¿Existe testamento?</label>
+                  <select id="testamento"><option value="no">No — sucesión legítima (intestada)</option><option value="si">Sí — se reparte según el testamento</option></select>
+                  <span class="help">Consulta el Registro Nacional de Avisos de Testamento (RENAT).</span>
+                </div>
+                <div class="field">
+                  <label for="hijos">Número de hijos (descendientes de primer grado)</label>
+                  <input id="hijos" type="number" inputmode="decimal" placeholder="Ej. 3" min="0" step="any">
+                </div>
+                <div class="field">
+                  <label for="conyuge">¿Sobrevive cónyuge, concubina o concubinario?</label>
+                  <select id="conyuge"><option value="no">No</option><option value="si">Sí</option></select>
+                  <span class="help">La concubina o el concubinario heredan como cónyuge si cumplen los requisitos del art. 1635 CCF.</span>
+                </div>
+                <div class="field">
+                  <label for="bienes_conyuge">Bienes propios del cónyuge sobreviviente (MXN)</label>
+                  <input id="bienes_conyuge" type="number" inputmode="decimal" placeholder="Ej. 0" min="0" step="any">
+                  <span class="help">Si concurre con hijos, sólo recibe lo que falte para igualar la porción de un hijo (arts. 1624 y 1625 CCF).</span>
+                </div>
+                <div class="field">
+                  <label for="padres">Padres vivos (0, 1 o 2)</label>
+                  <input id="padres" type="number" inputmode="decimal" placeholder="Ej. 0" min="0" step="any">
+                </div>
+                <div class="field">
+                  <label for="hermanos">Número de hermanos</label>
+                  <input id="hermanos" type="number" inputmode="decimal" placeholder="Ej. 0" min="0" step="any">
+                </div>
+                <button class="calc-button" type="button" id="calcButton">Calcular</button>
               </form>
             </div>
           </div>
           <div class="panel">
             <div class="panel-head">
-              <div class="kicker">Resultado orientativo</div>
+              <div class="kicker">Resultado</div>
               <h3>Complejidad sucesoria</h3>
               <p>La base para preparar la sucesión o el juicio correspondiente.</p>
             </div>
             <div class="panel-body">
               <div class="result">
                 <div class="result-box">
-                  <div class="result-kicker">Herencia orientativa</div>
+                  <div class="result-kicker">Porción por heredero</div>
                   <div class="result-amount" id="resultAmount">$0 MXN</div>
                   <div class="breakdown" id="resultBreakdown"></div>
-                  <p class="result-note">La sucesión depende de testamento, parentesco y documentos de propiedad.</p>
+                  <p class="result-note" id="resultNote"></p>
 
       <div class="legal-basis">
-        <div class="legal-basis-kicker">Sustento legal 2026</div>
+        <div class="legal-basis-kicker">Fundamento legal vigente (revisado 11-11-2026)</div>
         <ul>
-          <li>Art. 1281 CCF: la herencia comprende bienes, derechos y obligaciones no extinguibles.</li>
-          <li>Art. 1602 CCF: intestado → heredan en orden: descendientes, cónyuge, ascendientes, colaterales.</li>
-          <li>Art. 1368 CCF: el testador debe dejar alimentos a cónyuge, descendientes y ascendientes en necesidad.</li>
-          <li>Art. 1754 CCF: al liquidar la herencia se pagan en primer lugar las deudas mortuorias, que pueden pagarse incluso antes de formar el inventario.</li>
-          <li>Art. 93 fr. XXII LISR: los ingresos por herencia o legado están exentos de ISR.</li>
-          <li>Art. 150 LISR, tercer párrafo (y su reglamento): si la suma de tus ingresos del año, incluidos los exentos, supera $500,000, debes informar la herencia en tu declaración anual. Según el último párrafo del art. 93, si estás obligado y no la informas, la exención no se aplica.</li>
-          <li>Inmuebles: la adjudicación puede causar impuestos y derechos locales (por ejemplo, ISAI) según el estado; algunos prevén tasas reducidas o exenciones para herencias.</li>
-          <li>Honorarios notariales: los fija el arancel de cada entidad; la cifra automática de esta calculadora es solo una estimación de SIGLEP.</li>
+          <li>Arts. 1754 a 1759 CCF: primero se pagan las deudas mortuorias; después los gastos de conservación y administración y los créditos alimenticios; luego las deudas hereditarias exigibles.</li>
+          <li>Art. 1602 CCF: heredan por sucesión legítima los descendientes, el cónyuge, los ascendientes, los parientes colaterales hasta el cuarto grado y la concubina o el concubinario (art. 1635); a falta de todos, la Beneficencia Pública (art. 1636).</li>
+          <li>Art. 1607 CCF: si sólo hay hijos, heredan por partes iguales. Arts. 1608, 1624 y 1625: el cónyuge que concurre con descendientes recibe la porción de un hijo, o lo que le falte para igualarla si tiene bienes propios.</li>
+          <li>Art. 1626 CCF: cónyuge con ascendientes, mitad y mitad. Art. 1627: cónyuge con hermanos, dos tercios para el cónyuge. Arts. 1615 y 1616: a falta de descendientes y cónyuge, heredan los padres. Art. 1629: a falta de descendientes, ascendientes y hermanos, el cónyuge hereda todo. Art. 1630: sólo hermanos, partes iguales.</li>
+          <li>Art. 93 fr. XXII LISR: los ingresos por herencia o legado están exentos de ISR; deben informarse en la declaración anual si los ingresos del año, incluidos los exentos, superan $500,000 (art. 150 LISR).</li>
+          <li>La adjudicación de inmuebles puede causar impuestos y derechos locales (impuesto sobre adquisición de inmuebles) según la ley de hacienda de tu estado o municipio.</li>
         </ul>
       </div>
 
@@ -269,7 +280,7 @@
 
         <details class="faq-item">
           <summary>¿La calculadora divide porcentajes exactos?</summary>
-          <p>No. Solo ayuda a dimensionar la carga del caso.</p>
+          <p>Sí, en la sucesión sin testamento: aplica las porciones del Código Civil Federal e indica si el código de tu estado reproduce la regla.</p>
         </details>
 
         </div>
@@ -289,50 +300,67 @@
     <div class="footer-space"></div>
   </main>
   <footer></footer>
+  <script src="/shared/parametros-locales.js?v=20261111e"></script>
   <script>
-    /* ── HERENCIA Y SUCESIÓN ── Art. 1281-1368 CCF ── Art. 93 LISR ── */
-    const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
-
-    function runCalc() {
-      const patrimonio = parseFloat(document.getElementById('patrimonio').value) || 0;
-      const herederos  = Math.max(1, parseInt(document.getElementById('herederos').value) || 1);
-      const testamento = document.getElementById('testamento').value;
-
-      // Art. 1754 CCF: las deudas mortuorias se pagan en primer lugar.
-      const mortIn = parseFloat(document.getElementById('mortuorias').value);
-      const notIn  = parseFloat(document.getElementById('notariales').value);
-      const mortEstimada = !(mortIn >= 0);
-      const notEstimada  = !(notIn >= 0);
-      // Estimaciones orientativas SIGLEP (no son arancel ni tarifa oficial) cuando no se capturan
-      const gastosFunerarios = mortEstimada ? (patrimonio > 0 ? Math.min(patrimonio * 0.005, 20000) : 0) : mortIn;
-      const gastosNotariales = notEstimada ? (patrimonio > 0 ? Math.max(patrimonio * 0.025, 15000) : 0) : notIn;
-
-      const masaNeta = Math.max(patrimonio - gastosFunerarios - gastosNotariales, 0);
-
-      // Distribución: intestado → partes iguales (Art. 1602 CCF)
-      // Con testamento: porción libre, pero 50% mínimo legítima si hay descendientes
-      const partePorHeredero = masaNeta / herederos;
-
-      // Costo extra si intestado (trámite sucesorio más largo y costoso)
-      const costoAdicional = (testamento === 'no' && patrimonio > 0) ? Math.max(patrimonio * 0.01, 8000) : 0;
-
-      document.getElementById('resultAmount').textContent = money.format(Math.round(partePorHeredero));
-      const rows = [
-        ['Masa hereditaria bruta', money.format(Math.round(patrimonio))],
-        ['Deudas mortuorias (art. 1754 CCF)' + (mortEstimada ? ' — estimación' : ''), money.format(Math.round(gastosFunerarios))],
-        ['Gastos notariales o judiciales' + (notEstimada ? ' — estimación' : ''), money.format(Math.round(gastosNotariales))],
-        ['Masa neta a distribuir', money.format(Math.round(masaNeta))],
-        ['Porción por heredero (' + herederos + ')', money.format(Math.round(partePorHeredero))],
-        ['ISR (art. 93 fr. XXII LISR)', 'Exento; informar si tus ingresos del año superan $500,000 (art. 150)'],
-        ...(costoAdicional > 0 ? [['Costo adicional estimado por intestado (no descontado)', money.format(Math.round(costoAdicional))]] : []),
-      ];
-      document.getElementById('resultBreakdown').innerHTML = rows
-        .map(([l, v]) => '<div class="breakdown-row"><span>' + l + '</span><strong>' + v + '</strong></div>')
-        .join('');
+    const L = window.__SIGLEP_LOCAL__;
+    const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const $ = id => document.getElementById(id);
+    const num = id => { const el = $(id); const v = el ? parseFloat(el.value) : NaN; return isFinite(v) ? v : 0; };
+    const val = id => { const el = $(id); return el ? el.value : ''; };
+    function lugarActual() {
+      const l = window.__SIGLEP_ESTADO_ACTIVO__;
+      return l ? { clave: l.clave, sm: l.salario_minimo, nombre: l.nombre } : { clave: 'FED', sm: L.SM_GENERAL, nombre: null };
+    }
+    function pintar(monto, rows, nota) {
+      $('resultAmount').textContent = typeof monto === 'number' ? money.format(monto) : monto;
+      $('resultBreakdown').innerHTML = rows.map(([l, v]) => '<div class="breakdown-row"><span>' + l + '</span><strong>' + v + '</strong></div>').join('');
+      if (nota !== undefined && $('resultNote')) $('resultNote').textContent = nota;
     }
 
-    document.getElementById('calcButton').addEventListener('click', runCalc);
+    // Porciones de la sucesión legítima conforme al CCF. Devuelve [[heredero, monto]] y la regla aplicada.
+    function porciones(M, h, conyuge, bc, padres, hermanos) {
+      if (M <= 0) return { filas: [], regla: '—' };
+      if (h > 0 && conyuge) {
+        const x = Math.min(Math.max((M - h * bc) / (h + 1), 0), M / (h + 1)); // arts. 1624-1625
+        return { filas: [['Cónyuge', x], ['Cada hijo (' + h + ')', (M - x) / h]], regla: 'arts. 1608, 1624 y 1625 CCF', clave: 0 };
+      }
+      if (h > 0) return { filas: [['Cada hijo (' + h + ')', M / h]], regla: 'art. 1607 CCF', clave: 3 };
+      if (conyuge && padres > 0) return { filas: [['Cónyuge', M / 2], [padres === 1 ? 'Padre o madre' : 'Cada padre', M / 2 / padres]], regla: 'art. 1626 CCF', clave: 2 };
+      if (conyuge && hermanos > 0) return { filas: [['Cónyuge', M * 2 / 3], ['Cada hermano (' + hermanos + ')', M / 3 / hermanos]], regla: 'art. 1627 CCF', clave: 1 };
+      if (conyuge) return { filas: [['Cónyuge', M]], regla: 'art. 1629 CCF' };
+      if (padres > 0) return { filas: [[padres === 1 ? 'Padre o madre' : 'Cada padre', M / padres]], regla: 'arts. 1615 y 1616 CCF' };
+      if (hermanos > 0) return { filas: [['Cada hermano (' + hermanos + ')', M / hermanos]], regla: 'art. 1630 CCF (hermanos por ambas líneas)' };
+      return { filas: [], regla: 'arts. 1634 y 1636 CCF: parientes dentro del cuarto grado o, a falta de ellos, la Beneficencia Pública' };
+    }
+    function masaNeta(p, mort, adm, deu) { return Math.max(p - mort - adm - deu, 0); }
+    function runCalc() {
+      const lugar = lugarActual();
+      const M = masaNeta(num('patrimonio'), num('mortuorias'), num('administracion'), num('deudas'));
+      const rows = [
+        ['Bienes de la herencia', money.format(num('patrimonio'))],
+        ['1.º Deudas mortuorias (art. 1754)', money.format(num('mortuorias'))],
+        ['2.º Conservación, administración y alimentos (art. 1757)', money.format(num('administracion'))],
+        ['3.º Deudas hereditarias (art. 1759)', money.format(num('deudas'))],
+        ['Masa a repartir', money.format(M)],
+      ];
+      if (val('testamento') === 'si') {
+        rows.push(['Reparto', 'Según el testamento. Si el testador no dejó alimentos a quienes debía (arts. 1368 y 1374 CCF), el testamento es inoficioso en esa parte.']);
+        pintar(M, rows, 'Con testamento, las porciones las fija el testador.');
+        return;
+      }
+      const r = porciones(M, Math.floor(num('hijos')), val('conyuge') === 'si', num('bienes_conyuge'), Math.min(Math.floor(num('padres')), 2), Math.floor(num('hermanos')));
+      r.filas.forEach(([q, m]) => rows.push([q, money.format(m)]));
+      rows.push(['Regla aplicada', r.regla]);
+      if (lugar.nombre && r.clave !== undefined) {
+        const ok = (L.SUCESION[lugar.clave] || [])[r.clave] === 1;
+        rows.push(['Código de ' + lugar.nombre, ok ? 'Reproduce esta regla del CCF.' : 'No se localizó el texto equivalente en el código consultado: confirma la regla local antes de usar la cifra.']);
+      } else if (!lugar.nombre) rows.push(['Entidad', 'Sin seleccionar: se aplica el Código Civil Federal. La sucesión se rige por el código del último domicilio del autor de la herencia.']);
+      rows.push(['ISR', 'Exento (art. 93 fr. XXII LISR); informar si tus ingresos del año superan $500,000 (art. 150)']);
+      pintar(r.filas.length ? r.filas[r.filas.length - 1][1] : M, rows, 'Porciones de la sucesión legítima después de pagar las deudas en el orden legal.');
+    }
+    $('calcButton').addEventListener('click', runCalc);
     document.querySelectorAll('#calc-form input, #calc-form select').forEach(el => el.addEventListener('input', runCalc));
+    document.addEventListener('siglep:estado-change', runCalc);
     runCalc();
   </script>
 </body>

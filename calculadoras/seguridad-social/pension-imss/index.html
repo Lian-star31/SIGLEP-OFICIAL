@@ -393,8 +393,8 @@
     }
   </style>
 
-  <script defer src="/shared/site-shell.js?v=20261111b"></script>
-<link rel="stylesheet" href="/shared/mobile.css?v=20261111b">
+  <script defer src="/shared/site-shell.js?v=20261111c"></script>
+<link rel="stylesheet" href="/shared/mobile.css?v=20261111c">
 </head>
 <body>
   
@@ -527,7 +527,27 @@
                 <div class="field" data-ley73>
                   <label for="hijos">Hijos dependientes</label>
                   <input id="hijos" type="number" inputmode="numeric" placeholder="Ej. 0" min="0" max="10" step="1" oninput="runCalc()">
-                  <span class="help">Menores de 16 años, o hasta 25 si estudian (arts. 164 y 156). 10% por cada uno.</span>
+                  <span class="help">Cuentan los menores de 16 años, los de 16 a 25 que estudian en el sistema educativo nacional y no cotizan al IMSS, y los mayores de 16 que no pueden mantenerse por enfermedad o discapacidad (arts. 156 y 164). 10% por cada uno.</span>
+                </div>
+                <div class="field" data-ley73>
+                  <label for="asistencia">¿Requieres asistencia permanente de otra persona?</label>
+                  <select id="asistencia" onchange="runCalc()">
+                    <option value="no">No</option>
+                    <option value="si">Sí, con dictamen médico del IMSS</option>
+                  </select>
+                  <span class="help">Art. 166: aumento de hasta 20% (no aplica si ya recibes la ayuda asistencial por no tener beneficiarios).</span>
+                </div>
+                <div class="field" data-ley97>
+                  <label for="saldo_afore">Saldo de tu cuenta individual AFORE (MXN, opcional)</label>
+                  <input id="saldo_afore" type="number" inputmode="decimal" placeholder="Ej. 850000" min="0" step="any" oninput="runCalc()">
+                  <span class="help">Saldo de retiro, cesantía y vejez que reporta tu estado de cuenta. Con este dato se calcula el retiro programado.</span>
+                </div>
+                <div class="field" data-ley97>
+                  <label for="sexo">Sexo (tablas de mortalidad de CONSAR)</label>
+                  <select id="sexo" onchange="runCalc()">
+                    <option value="H">Hombre</option>
+                    <option value="M">Mujer</option>
+                  </select>
                 </div>
                 <div class="field" data-ley73>
                   <label for="padres">Padres que dependen económicamente de ti</label>
@@ -559,6 +579,7 @@
           <li>Art. 164 (DOF 12-03-1973): asignaciones familiares de 15% por esposa(o) o concubina(o) y 10% por hijo; 10% por padre dependiente si no hay esposa ni hijos; ayuda asistencial de 15% sin beneficiarios o de 10% si solo hay un ascendiente.</li>
           <li>Art. 169: la pensión con asignaciones no excede del 100% del salario promedio (salvo derechos por semanas y pensión mínima). Art. 171: cesantía = 75% a los 60 años, 80% a los 61, 85% a los 62, 90% a los 63 y 95% a los 64.</li>
           <li>Transitorio Décimo Cuarto del decreto DOF 20-12-2001 (reformado DOF 05-01-2004): la pensión menor a un salario mínimo se eleva a ese monto y la de pensionados de 60 años o más se multiplica por 1.11. Con salario mínimo 2026 de $315.04, el mínimo resulta en $10,636.54 mensuales.</li>
+          <li>Retiro programado Ley 97 (Disposiciones de CONSAR, reglas Quincuagésima Sexta a Septuagésima): pensión anual = saldo de la cuenta individual ÷ factor de unidad de renta vitalicia (URV) por edad y sexo; la mensual es la doceava parte. Factores URV para activos de CONSAR vigentes desde el 09 de noviembre de 2026 (tasa 5.24%, tablas EMSSAH-15 y EMSSAM-15). Si resulta menor que la pensión garantizada, se paga la garantizada (arts. 171 y 172 LSS). La renta vitalicia la cotizan las aseguradoras y no se estima aquí.</li>
           <li>LSS vigente (DOF 15-01-2026), art. 170 y transitorio Cuarto del decreto DOF 16-12-2020: pensión garantizada Ley 97 por rango de salario, edad y semanas (875 semanas en 2026), en pesos de la tabla legal actualizados por INPC cada febrero (factor 143.042 / 105.934 con INPC de INEGI de dic-2025 y dic-2019).</li>
           <li>UMA 2026: $117.31/día · $3,566.22/mes (vigente desde 1-feb-2026, DOF 09-01-2026).</li>
         </ul>
@@ -640,6 +661,8 @@
       r4: [[4982,5160,5338,5516,5694,5872,6050,6228,6405,6583,6761],[5053,5231,5409,5587,5765,5943,6121,6299,6477,6655,6832],[5124,5302,5480,5658,5836,6014,6192,6370,6548,6726,6904],[5196,5373,5551,5729,5907,6085,6263,6441,6619,6797,6975],[5267,5445,5623,5801,5978,6156,6334,6512,6690,6868,7046],[5338,5516,5694,5872,6050,6228,6405,6583,6761,6939,7117]],
       r5: [[5769,5975,6181,6387,6593,6799,7005,7211,7417,7623,7829],[5851,6057,6263,6469,6675,6881,7087,7293,7499,7705,7911],[5933,6140,6346,6552,6758,6964,7170,7376,7582,7788,7994],[6016,6222,6428,6634,6840,7046,7252,7458,7664,7870,8076],[6098,6304,6510,6716,6922,7128,7334,7540,7746,7953,8159],[6181,6387,6593,6799,7005,7211,7417,7623,7829,8035,8241]]
     };
+    // CONSAR — factores de Unidad de Renta Vitalicia para activos, por edad desde 60 años (Desde el 09 de noviembre de 2026)
+    const URV = { edadIni: 60, H: [12.756519, 12.548856, 12.337214, 12.121627, 11.902227, 11.6791, 11.452403, 11.222253, 10.988834, 10.752272, 10.512854, 10.270708, 10.025992, 9.779005, 9.530065, 9.279419, 9.027331, 8.774046, 8.519889, 8.265161, 8.010246, 7.755411, 7.50103, 7.24753, 6.99517, 6.744393, 6.495556, 6.249053, 6.005208, 5.764432, 5.527041, 5.293385, 5.063752, 4.83844, 4.617675, 4.401699, 4.190524, 3.984252, 3.782729, 3.585663, 3.392529, 3.202446, 3.013943, 2.824695, 2.631002, 2.426901, 2.202617, 1.941897, 1.616961, 1.179247, 0.541667], M: [14.021049, 13.800233, 13.572247, 13.337007, 13.094527, 12.844772, 12.587662, 12.323316, 12.051913, 11.773447, 11.488081, 11.196004, 10.89744, 10.592715, 10.282053, 9.965857, 9.644585, 9.318742, 8.988744, 8.655279, 8.319065, 7.980728, 7.641038, 7.300835, 6.960991, 6.622434, 6.286087, 5.952972, 5.624105, 5.300565, 4.983357, 4.673484, 4.371997, 4.07983, 3.797899, 3.527029, 3.267968, 3.021387, 2.787814, 2.567672, 2.361199, 2.168536, 1.989573, 1.823967, 1.671023, 1.529381, 1.396297, 1.265634, 1.122102, 0.923423, 0.541667] };
     const SEMANAS_BASE_2026 = 875;              // transitorio Cuarto: 750 en 2021 + 25 por año
     const FACTOR_INPC_2026 = 143.042 / 105.934; // INPC dic-2025 / dic-2019 (INEGI)
 
@@ -656,7 +679,7 @@
     }
     function edadEfectiva(edad, meses) { return edad + (meses >= 6 ? 1 : 0); } // art. 171
 
-    function pensionLey73(salDia, semanas, edad, conyuge, hijos, padres) {
+    function pensionLey73(salDia, semanas, edad, conyuge, hijos, padres, asistencia) {
       const sal = Math.min(salDia, TOPE_DIARIO);
       const [, pctBase, pctInc] = grupo167(sal / SM_DIARIO);
       const nInc = incrementos(semanas);
@@ -669,6 +692,9 @@
         else if (padres === 1) { asig += 0.10; ayuda = 0.10; }
         else ayuda = 0.15;
       }
+      // Art. 166: hasta 20% por asistencia permanente, salvo quien recibe la ayuda de las fr. IV y V del art. 164
+      const ayuda166 = asistencia && ayuda === 0 ? 0.20 : 0;
+      ayuda += ayuda166;
       const conAsig = cuantia * (1 + asig + ayuda);
       const tope = Math.max(sal, cuantia);            // art. 169
       const vejez = Math.min(conAsig, tope);
@@ -676,7 +702,7 @@
       const mensualCalc = vejez * factor * DIAS_MES_PENSION;
       const piso = SM_DIARIO * DIAS_MES_PENSION;
       const conPiso = Math.max(mensualCalc, piso);    // transitorio Décimo Cuarto, inciso a)
-      return { sal, pctBase, pctInc, nInc, cuantia, asig, ayuda, factor, topado: conAsig > tope, mensualCalc, piso, final: conPiso * 1.11 };
+      return { sal, pctBase, pctInc, nInc, cuantia, asig, ayuda, ayuda166, factor, topado: conAsig > tope, mensualCalc, piso, final: conPiso * 1.11 };
     }
 
     function pensionGarantizada97(salDia, semanas, edad) {
@@ -688,6 +714,13 @@
       return { fila, col, base, monto: base * FACTOR_INPC_2026, veces: v };
     }
 
+    function retiroProgramado(saldo, edad, sexo) {
+      const tabla = URV[sexo === 'M' ? 'M' : 'H'];
+      const i = Math.min(Math.max(edad, URV.edadIni), URV.edadIni + tabla.length - 1) - URV.edadIni;
+      const factor = tabla[i];
+      return { factor, anual: saldo / factor, mensual: saldo / factor / 12 };
+    }
+
     function runCalc() {
       const ley     = document.getElementById('ley').value;
       const edadIn  = parseInt(document.getElementById('edad').value) || 0;
@@ -697,6 +730,10 @@
       const conyuge = document.getElementById('conyuge').value === 'si';
       const hijos   = Math.max(0, parseInt(document.getElementById('hijos').value) || 0);
       const padres  = Math.min(2, Math.max(0, parseInt(document.getElementById('padres').value) || 0));
+      const asistencia = document.getElementById('asistencia').value === 'si';
+      const saldo   = Math.max(0, parseFloat(document.getElementById('saldo_afore').value) || 0);
+      const sexo    = document.getElementById('sexo').value;
+      document.querySelectorAll('[data-ley97]').forEach(el => { el.style.display = ley === '97' ? '' : 'none'; });
       document.querySelectorAll('[data-ley73]').forEach(el => { el.style.display = ley === '73' ? '' : 'none'; });
 
       const edad = ley === '73' ? edadEfectiva(edadIn, meses) : edadIn;
@@ -716,25 +753,32 @@
       if (salDia <= 0) { out.textContent = 'Captura tu salario promedio'; document.getElementById('resultBreakdown').innerHTML = ''; return; }
 
       if (ley === '73') {
-        const a = pensionLey73(salDia, semanas, edad, conyuge, hijos, padres);
+        const a = pensionLey73(salDia, semanas, edad, conyuge, hijos, padres, asistencia);
         out.textContent = money.format(Math.round(a.final)) + '/mes';
         rows.push(['Salario promedio', money.format(a.sal) + '/día (' + (a.sal / SM_DIARIO).toFixed(2) + ' veces el salario mínimo)']);
         rows.push(['Cuantía básica (art. 167)', a.pctBase.toFixed(2) + '% + ' + a.pctInc.toFixed(3) + '% × ' + a.nInc + ' incrementos']);
         rows.push(['Cuantía diaria', money.format(a.cuantia)]);
-        rows.push([a.ayuda && !a.asig ? 'Ayuda asistencial (art. 164)' : 'Asignaciones y ayudas (art. 164)', Math.round((a.asig + a.ayuda) * 100) + '%' + (a.topado ? ' (topado al 100% del salario, art. 169)' : '')]);
+        rows.push(['Asignaciones y ayudas (arts. 164 y 166)', Math.round((a.asig + a.ayuda) * 100) + '%' + (a.ayuda166 ? ' (incluye hasta 20% por asistencia, sujeto a dictamen)' : '') + (a.topado ? ' · topado al 100% del salario (art. 169)' : '')]);
         rows.push(['Edad considerada / factor (art. 171)', edad + ' años · ' + Math.round(a.factor * 100) + '%']);
         rows.push(['Pensión según tabla', money.format(Math.round(a.mensualCalc)) + '/mes']);
         if (a.mensualCalc < a.piso) rows.push(['Elevada al salario mínimo', money.format(Math.round(a.piso)) + '/mes']);
         rows.push(['Factor 1.11 (60 años o más)', money.format(Math.round(a.final)) + '/mes']);
       } else {
         const g = pensionGarantizada97(salDia, semanas, edad);
-        out.textContent = money.format(Math.round(g.monto)) + '/mes';
         rows.push(['Salario promedio', g.veces.toFixed(2) + ' UMA']);
         rows.push(['Semanas (escalón 2026)', semanas + ' → columna ' + (SEMANAS_BASE_2026 + g.col * 25) + (g.col === 10 ? ' o más' : '')]);
-        rows.push(['Edad', Math.min(65, edad) + (edad >= 65 ? ' o más' : '') + ' años']);
-        rows.push(['Tabla legal (pesos base)', money.format(g.base)]);
-        rows.push(['Pensión garantizada 2026 (INPC)', money.format(Math.round(g.monto)) + '/mes']);
-        rows.push(['Si tu AFORE alcanza más', 'Recibes renta vitalicia o retiro programado mayor']);
+        rows.push(['Pensión garantizada 2026 (art. 170, INPC)', money.format(Math.round(g.monto)) + '/mes']);
+        if (saldo > 0) {
+          const rp = retiroProgramado(saldo, edad, sexo);
+          rows.push(['Factor URV CONSAR (' + Math.min(edad, URV.edadIni + URV.H.length - 1) + ' años, ' + (sexo === 'M' ? 'mujer' : 'hombre') + ')', rp.factor.toFixed(4)]);
+          rows.push(['Retiro programado (saldo ÷ URV ÷ 12)', money.format(Math.round(rp.mensual)) + '/mes']);
+          const final = Math.max(rp.mensual, g.monto);
+          out.textContent = money.format(Math.round(final)) + '/mes';
+          rows.push(['Resultado', rp.mensual >= g.monto ? 'Retiro programado (supera la garantizada)' : 'Pensión garantizada (el retiro programado es menor)']);
+        } else {
+          out.textContent = money.format(Math.round(g.monto)) + '/mes';
+          rows.push(['Para estimar con tu AFORE', 'Captura tu saldo para calcular el retiro programado']);
+        }
       }
       pinta();
     }

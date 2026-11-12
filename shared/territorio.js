@@ -24,31 +24,34 @@
     fuente_uma: 'INEGI, DOF 09-01-2026',
   };
 
+  // Entidades con su clave INEGI (Catálogo Único de Claves Geoestadísticas).
   var ENTIDADES = [
-    ['AGS', 'Aguascalientes'], ['BC', 'Baja California'], ['BCS', 'Baja California Sur'],
-    ['CAM', 'Campeche'], ['CHIS', 'Chiapas'], ['CHIH', 'Chihuahua'], ['CDMX', 'Ciudad de México'],
-    ['COAH', 'Coahuila de Zaragoza'], ['COL', 'Colima'], ['DGO', 'Durango'], ['GTO', 'Guanajuato'],
-    ['GRO', 'Guerrero'], ['HGO', 'Hidalgo'], ['JAL', 'Jalisco'], ['MEX', 'Estado de México'],
-    ['MICH', 'Michoacán de Ocampo'], ['MOR', 'Morelos'], ['NAY', 'Nayarit'], ['NL', 'Nuevo León'],
-    ['OAX', 'Oaxaca'], ['PUE', 'Puebla'], ['QRO', 'Querétaro'], ['QROO', 'Quintana Roo'],
-    ['SLP', 'San Luis Potosí'], ['SIN', 'Sinaloa'], ['SON', 'Sonora'], ['TAB', 'Tabasco'],
-    ['TAMS', 'Tamaulipas'], ['TLAX', 'Tlaxcala'], ['VER', 'Veracruz de Ignacio de la Llave'],
-    ['YUC', 'Yucatán'], ['ZAC', 'Zacatecas'],
+    ['AGS', 'Aguascalientes', '01'], ['BC', 'Baja California', '02'], ['BCS', 'Baja California Sur', '03'],
+    ['CAM', 'Campeche', '04'], ['COAH', 'Coahuila de Zaragoza', '05'], ['COL', 'Colima', '06'],
+    ['CHIS', 'Chiapas', '07'], ['CHIH', 'Chihuahua', '08'], ['CDMX', 'Ciudad de México', '09'],
+    ['DGO', 'Durango', '10'], ['GTO', 'Guanajuato', '11'], ['GRO', 'Guerrero', '12'], ['HGO', 'Hidalgo', '13'],
+    ['JAL', 'Jalisco', '14'], ['MEX', 'Estado de México', '15'], ['MICH', 'Michoacán de Ocampo', '16'],
+    ['MOR', 'Morelos', '17'], ['NAY', 'Nayarit', '18'], ['NL', 'Nuevo León', '19'], ['OAX', 'Oaxaca', '20'],
+    ['PUE', 'Puebla', '21'], ['QRO', 'Querétaro', '22'], ['QROO', 'Quintana Roo', '23'],
+    ['SLP', 'San Luis Potosí', '24'], ['SIN', 'Sinaloa', '25'], ['SON', 'Sonora', '26'], ['TAB', 'Tabasco', '27'],
+    ['TAMS', 'Tamaulipas', '28'], ['TLAX', 'Tlaxcala', '29'], ['VER', 'Veracruz de Ignacio de la Llave', '30'],
+    ['YUC', 'Yucatán', '31'], ['ZAC', 'Zacatecas', '32'],
   ];
+  // Municipios por entidad: /shared/municipios/{clave INEGI}.json (2,478 municipios y demarcaciones, INEGI).
+  // El tercer elemento (1) marca los 45 municipios de la Zona Libre de la Frontera Norte (CONASAMI, DOF 09-12-2025).
+  var MUNICIPIOS_URL = '/shared/municipios/';
+  var MUNICIPIOS_VERSION = '20261111c';
+  var cacheMunicipios = {};
+  function cargarMunicipios(cveEnt) {
+    if (!cacheMunicipios[cveEnt]) {
+      cacheMunicipios[cveEnt] = fetch(MUNICIPIOS_URL + cveEnt + '.json?v=' + MUNICIPIOS_VERSION)
+        .then(function (r) { if (!r.ok) throw new Error('municipios'); return r.json(); })
+        .then(function (d) { return d.municipios; });
+    }
+    return cacheMunicipios[cveEnt];
+  }
 
-  // Municipios de la Zona Libre de la Frontera Norte (CONASAMI, DOF 09-12-2025).
-  var ZLFN = {
-    BC: ['Ensenada', 'Playas de Rosarito', 'Mexicali', 'Tecate', 'Tijuana', 'San Quintín', 'San Felipe'],
-    SON: ['San Luis Río Colorado', 'Puerto Peñasco', 'General Plutarco Elías Calles', 'Caborca', 'Altar',
-      'Sáric', 'Nogales', 'Santa Cruz', 'Cananea', 'Naco', 'Agua Prieta'],
-    CHIH: ['Janos', 'Ascensión', 'Juárez', 'Práxedis G. Guerrero', 'Guadalupe', 'Coyame del Sotol',
-      'Ojinaga', 'Manuel Benavides'],
-    COAH: ['Ocampo', 'Acuña', 'Zaragoza', 'Jiménez', 'Piedras Negras', 'Nava', 'Guerrero', 'Hidalgo'],
-    NL: ['Anáhuac'],
-    TAMS: ['Nuevo Laredo', 'Guerrero', 'Mier', 'Miguel Alemán', 'Camargo', 'Gustavo Díaz Ordaz',
-      'Reynosa', 'Río Bravo', 'Valle Hermoso', 'Matamoros'],
-  };
-  var OTRO_MUNICIPIO = '__otro__';
+  var ESTADOS_FRONTERA = ['BC', 'SON', 'CHIH', 'COAH', 'NL', 'TAMS'];
 
   // Legislación aplicable por área de calculadora.
   var JURISDICCION = {
@@ -105,17 +108,18 @@
 
   var money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2 });
 
-  function resolver(clave, municipio) {
+  function resolver(clave, mun) {
     var ent = ENTIDADES.find(function (e) { return e[0] === clave; });
     if (!ent) return null;
-    var zlfn = !!(ZLFN[clave] && municipio && municipio !== OTRO_MUNICIPIO && ZLFN[clave].indexOf(municipio) >= 0);
+    var zlfn = !!(mun && mun[2] === 1);
     return {
       clave: ent[0],
       nombre: ent[1],
-      municipio: municipio && municipio !== OTRO_MUNICIPIO ? municipio : null,
+      cve_inegi: ent[2],
+      municipio: mun ? mun[1] : null,
+      cve_mun: mun ? ent[2] + mun[0] : null,
       zona: zlfn ? 'frontera' : 'general',
       salario_minimo: zlfn ? FEDERAL.salario_minimo_zlfn : FEDERAL.salario_minimo_general,
-      requiere_municipio: !!ZLFN[clave],
     };
   }
 
@@ -130,6 +134,7 @@
     if (lugar) {
       html += '<p class="siglep-terr-lugar">Lugar: ' + esc(lugar.municipio ? lugar.municipio + ', ' : '') + esc(lugar.nombre);
       if (area === 'laboral' && document.getElementById('zona_salario_minimo')) {
+        if (!lugar.municipio && ESTADOS_FRONTERA.indexOf(lugar.clave) >= 0) html += ' · Selecciona tu municipio: en la franja fronteriza el salario mínimo es distinto';
         html += ' · Salario mínimo 2026: ' + money.format(lugar.salario_minimo) + ' diarios (' +
           (lugar.zona === 'frontera' ? 'Zona Libre de la Frontera Norte' : 'resto del país') + ', ' + esc(FEDERAL.fuente_salario) + ')';
       }
@@ -185,7 +190,7 @@
       '<div class="field" id="siglep-municipio-field" hidden>' +
         '<label for="municipio">Municipio</label>' +
         '<select id="municipio" name="municipio"></select>' +
-        '<span class="help">Solo cambia el cálculo en los municipios de la Zona Libre de la Frontera Norte.</span>' +
+        '<span class="help">Catálogo oficial del INEGI. Solo cambia el cálculo cuando la ley fija un parámetro municipal oficial (por ejemplo, el salario mínimo de la Zona Libre de la Frontera Norte en las calculadoras laborales).</span>' +
       '</div>' +
       '<div class="siglep-terr" id="siglep-terr-info" role="status"></div>';
     form.insertBefore(wrap, form.firstChild);
@@ -197,22 +202,34 @@
     var lugar = null;
     var zonaManual = document.getElementById('zona_salario_minimo');
 
+    var municipiosActuales = [];
+
     function actualizar() {
       var clave = selEstado.value;
-      var usaMunicipio = JURISDICCION[area].municipal && zonaManual && ZLFN[clave];
-      campoMun.hidden = !usaMunicipio;
-      lugar = clave ? resolver(clave, usaMunicipio ? selMun.value : null) : null;
+      campoMun.hidden = !clave;
+      var mun = municipiosActuales.find(function (m) { return m[0] === selMun.value; }) || null;
+      lugar = clave ? resolver(clave, mun) : null;
       pintarJurisdiccion(info, area, lugar);
       aplicarParametros(area, lugar);
     }
 
     selEstado.addEventListener('change', function () {
       var clave = selEstado.value;
-      if (JURISDICCION[area].municipal && zonaManual && ZLFN[clave]) {
-        selMun.innerHTML = ZLFN[clave].map(function (m) { return '<option value="' + esc(m) + '">' + esc(m) + ' (frontera norte)</option>'; }).join('') +
-          '<option value="' + OTRO_MUNICIPIO + '" selected>Otro municipio de ' + esc(selEstado.options[selEstado.selectedIndex].text) + '</option>';
-      }
+      municipiosActuales = [];
+      selMun.innerHTML = '<option value="">Cargando municipios…</option>';
       actualizar();
+      var ent = ENTIDADES.find(function (e) { return e[0] === clave; });
+      if (!ent) return;
+      cargarMunicipios(ent[2]).then(function (lista) {
+        if (selEstado.value !== clave) return;
+        municipiosActuales = lista;
+        selMun.innerHTML = '<option value="">Selecciona tu municipio</option>' + lista.map(function (m) {
+          return '<option value="' + m[0] + '">' + esc(m[1]) + (m[2] === 1 ? ' · frontera norte' : '') + '</option>';
+        }).join('');
+        actualizar();
+      }).catch(function () {
+        selMun.innerHTML = '<option value="">No se pudo cargar el catálogo de municipios</option>';
+      });
     });
     selMun.addEventListener('change', actualizar);
     // En laborales el área salarial la determina el lugar: se oculta el selector manual para evitar contradicciones.
@@ -224,7 +241,7 @@
     actualizar();
   }
 
-  window.__SIGLEP_TERRITORIO__ = { federal: FEDERAL, entidades: ENTIDADES, zlfn: ZLFN, jurisdiccion: JURISDICCION, resolver: resolver };
+  window.__SIGLEP_TERRITORIO__ = { federal: FEDERAL, entidades: ENTIDADES, jurisdiccion: JURISDICCION, resolver: resolver, cargarMunicipios: cargarMunicipios };
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init, { once: true });

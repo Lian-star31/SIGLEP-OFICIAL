@@ -5,7 +5,7 @@
 import { readFileSync } from 'node:fs';
 const html = readFileSync(new URL('../calculadoras/seguridad-social/pension-imss/index.html', import.meta.url), 'utf8');
 const code = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].pop()[1].split('function runCalc()')[0];
-const f = new Function(code + '; return { pensionLey73, pensionGarantizada97, incrementos, edadEfectiva };')();
+const f = new Function(code + '; return { pensionLey73, pensionGarantizada97, incrementos, edadEfectiva, retiroProgramado };')();
 const M = 365 / 12;
 const near = (a, b, tol = 0.02) => Math.abs(a - b) <= tol;
 let fail = 0;
@@ -45,6 +45,16 @@ check('Ley 97 caso E', f.pensionGarantizada97(400, 1000, 62).monto, 5064 * 143.0
 // En 2026 el salario mínimo ($315.04) equivale a 2.69 UMA: quien gana el mínimo cae en el rango 2.0–2.99 UMA
 check('Ley 97 salario mínimo (2.0–2.99 UMA, 875 sem, 60)', f.pensionGarantizada97(315.04, 875, 60).monto, 3409 * 143.042 / 105.934);
 check('Ley 97 máximo (5+ UMA, 1,125+ sem, 65+)', f.pensionGarantizada97(1000, 1300, 70).monto, 8241 * 143.042 / 105.934);
+
+// G) Art. 166: asistencia permanente (hasta 20%) con cónyuge (15%): 600/día, 1,200 sem, 65 años → 35%
+const G = (600 * 0.4267 + 600 * 0.01615 * 13.5) * 1.35 * M * 1.11;
+check('Ley 73 caso G (art. 166 con cónyuge)', f.pensionLey73(600, 1200, 65, true, 0, 0, true).final, G);
+// H) Art. 166 no aplica a quien ya recibe la ayuda asistencial de la fr. IV del art. 164 (sin beneficiarios: 15%)
+check('Ley 73 caso H (art. 166 excluido)', f.pensionLey73(600, 1200, 65, false, 0, 0, true).final, A);
+
+// I) Retiro programado (CONSAR): factor URV activos vigente desde 09-nov-2026 — hombre 65 años 11.679100, mujer 60 años 14.021049
+check('Ley 97 retiro programado hombre 65', f.retiroProgramado(1000000, 65, 'H').mensual, 1000000 / 11.6791 / 12);
+check('Ley 97 retiro programado mujer 60', f.retiroProgramado(500000, 60, 'M').mensual, 500000 / 14.021049 / 12);
 
 console.log(fail ? `\n${fail} prueba(s) fallaron` : '\nTodas las pruebas pasaron');
 process.exit(fail ? 1 : 0);

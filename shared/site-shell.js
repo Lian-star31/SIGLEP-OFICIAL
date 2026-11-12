@@ -896,7 +896,7 @@
 
   function loadCalcModules() {
     if (!pageIs('/calculadoras/')) return;
-    ['/shared/territorio.js?v=20261111b', '/shared/pdf-report.js?v=20261111b'].forEach(function(src) {
+    ['/shared/territorio.js?v=20261111c', '/shared/pdf-report.js?v=20261111c'].forEach(function(src) {
       var s = document.createElement('script');
       s.src = src;
       document.head.appendChild(s);

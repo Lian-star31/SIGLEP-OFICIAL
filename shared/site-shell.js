@@ -510,7 +510,7 @@
       .siglep-calc-disclaimer {
         font-size: 0.69rem;
         line-height: 1.65;
-        color: #718096;
+        color: #4A5568;
         font-style: italic;
         margin: 0;
       }
@@ -896,7 +896,7 @@
 
   function loadCalcModules() {
     if (!pageIs('/calculadoras/')) return;
-    ['/shared/territorio.js?v=20261111f', '/shared/pdf-report.js?v=20261111e'].forEach(function(src) {
+    ['/shared/territorio.js?v=20261112a', '/shared/pdf-report.js?v=20261111e'].forEach(function(src) {
       var s = document.createElement('script');
       s.src = src;
       document.head.appendChild(s);

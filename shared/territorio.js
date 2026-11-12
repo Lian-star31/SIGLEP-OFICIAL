@@ -211,7 +211,10 @@
       '.siglep-terr p{margin:0.25rem 0 0}' +
       '.siglep-terr-kicker{font-size:0.6rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#C5A059}' +
       '.siglep-terr-lugar{font-weight:600}' +
-      '.siglep-terr-param{font-size:0.74rem}.siglep-terr-exacto{color:#2f855a}.siglep-terr-externo{color:#2b6cb0}.siglep-terr-mixto{color:#6b46c1}.siglep-terr-judicial{color:#b7791f}';
+      '.siglep-terr-param{font-size:0.74rem}.siglep-terr-exacto{color:#276749}.siglep-terr-externo{color:#2c5282}.siglep-terr-mixto{color:#553c9a}.siglep-terr-judicial{color:#8a4b0f}' +
+      '.panel.dark .siglep-terr{color:#FAFAF8}.panel.dark .siglep-terr-kicker{color:#C5A059}' +
+      '.panel.dark .siglep-terr-exacto,.panel.dark .siglep-terr-exacto strong{color:#9AE6B4}.panel.dark .siglep-terr-externo,.panel.dark .siglep-terr-externo strong{color:#90CDF4}' +
+      '.panel.dark .siglep-terr-mixto,.panel.dark .siglep-terr-mixto strong{color:#D6BCFA}.panel.dark .siglep-terr-judicial,.panel.dark .siglep-terr-judicial strong{color:#FBD38D}';
     document.head.appendChild(st);
   }
 

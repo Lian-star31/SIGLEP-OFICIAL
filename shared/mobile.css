@@ -302,3 +302,25 @@
   .btn-primary, .btn-secondary, .btn-wa { font-size: 0.78rem; }
   section { padding: 2rem 0.9rem; }
 }
+
+/* ── Contraste de texto en calculadoras (WCAG AA) ──────────────────────────
+   Sólo ajusta colores de texto; fondos, tipografía y paleta de marca se mantienen. */
+/* El panel oscuro no fijaba color de texto y heredaba #2D3748 del body: ilegible sobre azul marino. */
+.calc-grid .panel.dark { color: #FAFAF8; }
+/* Dorado de marca en tamaño pequeño sobre fondo claro: tono oscuro de la misma familia (4.9:1). */
+.calc-grid .panel:not(.dark) .kicker,
+.calc-grid .panel:not(.dark) .result-kicker,
+.calc-grid .panel:not(.dark) .legal-basis-kicker,
+.calc-grid .result-box .result-kicker,
+.calc-grid .result-box .legal-basis-kicker { color: #8A6A2E; }
+.section h2 em { color: #8A6A2E; }
+/* Gris de notas sobre fondo claro (#718096 = 3.8:1) → #4A5568. */
+.calc-grid .panel:not(.dark) .note,
+.calc-grid .note,
+.siglep-calc-disclaimer { color: #4A5568; }
+.calc-grid .panel.dark .note { color: #E2E8F0; }
+/* Migas de pan del encabezado oscuro. */
+.hero .breadcrumbs { color: rgba(255, 255, 255, 0.68); }
+.hero .breadcrumbs span.sep { color: rgba(255, 255, 255, 0.5); }
+/* Botón de WhatsApp: texto oscuro sobre el verde de marca (blanco = 2:1). */
+.calc-grid .btn-wa { color: #062B16; }

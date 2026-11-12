@@ -56,5 +56,8 @@ check('Ley 73 caso H (art. 166 excluido)', f.pensionLey73(600, 1200, 65, false, 
 check('Ley 97 retiro programado hombre 65', f.retiroProgramado(1000000, 65, 'H').mensual, 1000000 / 11.6791 / 12);
 check('Ley 97 retiro programado mujer 60', f.retiroProgramado(500000, 60, 'M').mensual, 500000 / 14.021049 / 12);
 
+// J) Con beneficiarios (Anexo C CONSAR): se descuenta el monto constitutivo del seguro de sobrevivencia antes de dividir
+check('Ley 97 retiro programado con beneficiarios', f.retiroProgramado(1000000, 65, 'H', 180000).mensual, (1000000 - 180000) / 11.6791 / 12);
+
 console.log(fail ? `\n${fail} prueba(s) fallaron` : '\nTodas las pruebas pasaron');
 process.exit(fail ? 1 : 0);

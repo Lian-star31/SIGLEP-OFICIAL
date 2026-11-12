@@ -393,8 +393,8 @@
     }
   </style>
 
-  <script defer src="/shared/site-shell.js?v=20261111c"></script>
-<link rel="stylesheet" href="/shared/mobile.css?v=20261111c">
+  <script defer src="/shared/site-shell.js?v=20261111d"></script>
+<link rel="stylesheet" href="/shared/mobile.css?v=20261111d">
 </head>
 <body>
   
@@ -527,7 +527,7 @@
                 <div class="field" data-ley73>
                   <label for="hijos">Hijos dependientes</label>
                   <input id="hijos" type="number" inputmode="numeric" placeholder="Ej. 0" min="0" max="10" step="1" oninput="runCalc()">
-                  <span class="help">Cuentan los menores de 16 años, los de 16 a 25 que estudian en el sistema educativo nacional y no cotizan al IMSS, y los mayores de 16 que no pueden mantenerse por enfermedad o discapacidad (arts. 156 y 164). 10% por cada uno.</span>
+                  <span class="help">10% por cada uno. Cuentan los menores de 16 años. El propio art. 164 prevé que la asignación de los hijos termina a los 16 o a los 25 años "aplicándose en lo conducente" el art. 156: por eso cuentan los de 16 a 25 que estudian en el sistema educativo nacional y no cotizan al IMSS (prórroga que el IMSS puede conceder), y los que no pueden mantenerse por enfermedad o discapacidad mientras dure la inhabilitación.</span>
                 </div>
                 <div class="field" data-ley73>
                   <label for="asistencia">¿Requieres asistencia permanente de otra persona?</label>
@@ -541,6 +541,19 @@
                   <label for="saldo_afore">Saldo de tu cuenta individual AFORE (MXN, opcional)</label>
                   <input id="saldo_afore" type="number" inputmode="decimal" placeholder="Ej. 850000" min="0" step="any" oninput="runCalc()">
                   <span class="help">Saldo de retiro, cesantía y vejez que reporta tu estado de cuenta. Con este dato se calcula el retiro programado.</span>
+                </div>
+                <div class="field" data-ley97>
+                  <label for="beneficiarios">¿Tienes beneficiarios con derecho a pensión?</label>
+                  <select id="beneficiarios" onchange="runCalc()">
+                    <option value="no">No (sin cónyuge, concubino, hijos ni ascendientes con derecho)</option>
+                    <option value="si">Sí</option>
+                  </select>
+                  <span class="help">Con beneficiarios, al saldo se le descuenta el monto constitutivo del seguro de sobrevivencia antes de dividir entre la URV.</span>
+                </div>
+                <div class="field" data-ley97 data-benef>
+                  <label for="mcss">Monto constitutivo del seguro de sobrevivencia (MXN)</label>
+                  <input id="mcss" type="number" inputmode="decimal" placeholder="Según la cotización de la aseguradora" min="0" step="any" oninput="runCalc()">
+                  <span class="help">Lo calcula la aseguradora que elijas con base en tus beneficiarios (Anexo C de las disposiciones de CONSAR). Sin este dato no se puede calcular el retiro programado.</span>
                 </div>
                 <div class="field" data-ley97>
                   <label for="sexo">Sexo (tablas de mortalidad de CONSAR)</label>
@@ -576,10 +589,10 @@
         <div class="legal-basis-kicker">Sustento legal 2026</div>
         <ul>
           <li>LSS 1973, art. 167 (DOF 27-12-1990): cuantía básica e incremento anual según el grupo del salario promedio de las últimas 250 semanas, expresado en veces el salario mínimo general vigente al pensionarse; remanente de 13 a 26 semanas = 50% del incremento y más de 26 = 100%.</li>
-          <li>Art. 164 (DOF 12-03-1973): asignaciones familiares de 15% por esposa(o) o concubina(o) y 10% por hijo; 10% por padre dependiente si no hay esposa ni hijos; ayuda asistencial de 15% sin beneficiarios o de 10% si solo hay un ascendiente.</li>
+          <li>Art. 164 (DOF 12-03-1973): asignaciones familiares de 15% por esposa(o) o concubina(o) y 10% por hijo; la de los hijos termina a los 16 años "o bien los veinticinco años, aplicándose en lo conducente lo dispuesto por el artículo 156" (estudiantes del sistema educativo nacional que no cotizan) y continúa para hijos inhabilitados para trabajar; 10% por padre dependiente si no hay esposa ni hijos; ayuda asistencial de 15% sin beneficiarios o de 10% si solo hay un ascendiente.</li>
           <li>Art. 169: la pensión con asignaciones no excede del 100% del salario promedio (salvo derechos por semanas y pensión mínima). Art. 171: cesantía = 75% a los 60 años, 80% a los 61, 85% a los 62, 90% a los 63 y 95% a los 64.</li>
           <li>Transitorio Décimo Cuarto del decreto DOF 20-12-2001 (reformado DOF 05-01-2004): la pensión menor a un salario mínimo se eleva a ese monto y la de pensionados de 60 años o más se multiplica por 1.11. Con salario mínimo 2026 de $315.04, el mínimo resulta en $10,636.54 mensuales.</li>
-          <li>Retiro programado Ley 97 (Disposiciones de CONSAR, reglas Quincuagésima Sexta a Septuagésima): pensión anual = saldo de la cuenta individual ÷ factor de unidad de renta vitalicia (URV) por edad y sexo; la mensual es la doceava parte. Factores URV para activos de CONSAR vigentes desde el 09 de noviembre de 2026 (tasa 5.24%, tablas EMSSAH-15 y EMSSAM-15). Si resulta menor que la pensión garantizada, se paga la garantizada (arts. 171 y 172 LSS). La renta vitalicia la cotizan las aseguradoras y no se estima aquí.</li>
+          <li>Retiro programado Ley 97: art. 194 LSS (anualidad = saldo ÷ capital para una unidad de renta vitalicia del asegurado y sus beneficiarios, y al menos la pensión garantizada) y Anexo C de las Disposiciones de CONSAR aplicables a los retiros programados (DOF 2021): pago mensual = (saldo − monto constitutivo del seguro de sobrevivencia, cuando haya beneficiarios) ÷ (URV por edad y sexo × 12). El monto definitivo lo fija la AFORE con el factor vigente en la fecha de inicio de pensión. Factores URV para activos de CONSAR vigentes desde el 09 de noviembre de 2026 (tasa 5.24%, tablas EMSSAH-15 y EMSSAM-15). Si resulta menor que la pensión garantizada, se paga la garantizada (arts. 171 y 172 LSS). La renta vitalicia la cotizan las aseguradoras y no se estima aquí.</li>
           <li>LSS vigente (DOF 15-01-2026), art. 170 y transitorio Cuarto del decreto DOF 16-12-2020: pensión garantizada Ley 97 por rango de salario, edad y semanas (875 semanas en 2026), en pesos de la tabla legal actualizados por INPC cada febrero (factor 143.042 / 105.934 con INPC de INEGI de dic-2025 y dic-2019).</li>
           <li>UMA 2026: $117.31/día · $3,566.22/mes (vigente desde 1-feb-2026, DOF 09-01-2026).</li>
         </ul>
@@ -714,11 +727,13 @@
       return { fila, col, base, monto: base * FACTOR_INPC_2026, veces: v };
     }
 
-    function retiroProgramado(saldo, edad, sexo) {
+    // Art. 194 LSS y Anexo C CONSAR: (saldo − monto constitutivo del seguro de sobrevivencia) ÷ (URV × 12)
+    function retiroProgramado(saldo, edad, sexo, mcss) {
       const tabla = URV[sexo === 'M' ? 'M' : 'H'];
       const i = Math.min(Math.max(edad, URV.edadIni), URV.edadIni + tabla.length - 1) - URV.edadIni;
       const factor = tabla[i];
-      return { factor, anual: saldo / factor, mensual: saldo / factor / 12 };
+      const neto = Math.max(0, saldo - (mcss || 0));
+      return { factor, neto, anual: neto / factor, mensual: neto / factor / 12 };
     }
 
     function runCalc() {
@@ -733,6 +748,9 @@
       const asistencia = document.getElementById('asistencia').value === 'si';
       const saldo   = Math.max(0, parseFloat(document.getElementById('saldo_afore').value) || 0);
       const sexo    = document.getElementById('sexo').value;
+      const conBenef = document.getElementById('beneficiarios').value === 'si';
+      const mcssIn  = parseFloat(document.getElementById('mcss').value);
+      document.querySelectorAll('[data-benef]').forEach(el => { el.style.display = ley === '97' && conBenef ? '' : 'none'; });
       document.querySelectorAll('[data-ley97]').forEach(el => { el.style.display = ley === '97' ? '' : 'none'; });
       document.querySelectorAll('[data-ley73]').forEach(el => { el.style.display = ley === '73' ? '' : 'none'; });
 
@@ -768,16 +786,19 @@
         rows.push(['Salario promedio', g.veces.toFixed(2) + ' UMA']);
         rows.push(['Semanas (escalón 2026)', semanas + ' → columna ' + (SEMANAS_BASE_2026 + g.col * 25) + (g.col === 10 ? ' o más' : '')]);
         rows.push(['Pensión garantizada 2026 (art. 170, INPC)', money.format(Math.round(g.monto)) + '/mes']);
-        if (saldo > 0) {
-          const rp = retiroProgramado(saldo, edad, sexo);
-          rows.push(['Factor URV CONSAR (' + Math.min(edad, URV.edadIni + URV.H.length - 1) + ' años, ' + (sexo === 'M' ? 'mujer' : 'hombre') + ')', rp.factor.toFixed(4)]);
-          rows.push(['Retiro programado (saldo ÷ URV ÷ 12)', money.format(Math.round(rp.mensual)) + '/mes']);
+        const faltaMcss = conBenef && !(mcssIn >= 0);
+        if (saldo > 0 && !faltaMcss) {
+          const rp = retiroProgramado(saldo, edad, sexo, conBenef ? mcssIn : 0);
+          if (conBenef) rows.push(['Saldo menos seguro de sobrevivencia', money.format(Math.round(rp.neto))]);
+          rows.push(['Factor URV CONSAR (' + Math.min(edad, URV.edadIni + URV.H.length - 1) + ' años, ' + (sexo === 'M' ? 'mujer' : 'hombre') + ', vigente desde 09-nov-2026)', rp.factor.toFixed(4)]);
+          rows.push(['Retiro programado estimado', money.format(Math.round(rp.mensual)) + '/mes']);
           const final = Math.max(rp.mensual, g.monto);
-          out.textContent = money.format(Math.round(final)) + '/mes';
-          rows.push(['Resultado', rp.mensual >= g.monto ? 'Retiro programado (supera la garantizada)' : 'Pensión garantizada (el retiro programado es menor)']);
+          out.textContent = 'Estimación: ' + money.format(Math.round(final)) + '/mes';
+          rows.push(['Resultado (art. 194)', rp.mensual >= g.monto ? 'Retiro programado estimado (supera la garantizada)' : 'Pensión garantizada (el retiro programado estimado es menor)']);
+          rows.push(['No es la pensión definitiva', 'La AFORE la calcula con el factor de la fecha de inicio de pensión' + (conBenef ? ' y la cotización final del seguro de sobrevivencia' : '')]);
         } else {
-          out.textContent = money.format(Math.round(g.monto)) + '/mes';
-          rows.push(['Para estimar con tu AFORE', 'Captura tu saldo para calcular el retiro programado']);
+          out.textContent = 'Pensión garantizada: ' + money.format(Math.round(g.monto)) + '/mes';
+          rows.push(['Para estimar el retiro programado', faltaMcss && saldo > 0 ? 'Con beneficiarios se requiere el monto constitutivo del seguro de sobrevivencia que cotice tu aseguradora' : 'Captura el saldo de tu cuenta individual']);
         }
       }
       pinta();

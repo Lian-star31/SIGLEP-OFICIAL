@@ -93,6 +93,31 @@
     },
   };
 
+  // Estado de verificación de los parámetros que usa cada calculadora.
+  var OFICIAL_LABORAL = 'Oficiales verificados: Ley Federal del Trabajo (última reforma DOF 14-05-2026) y salarios mínimos 2026 de CONASAMI (DOF 09-12-2025).';
+  var ORIENTATIVO = 'Orientativos: los porcentajes, costos o factores de esta calculadora no provienen de una tabla oficial ni varían por entidad; sirven para dimensionar el caso, no para fijar un monto.';
+  var PARAMETROS = {
+    'laboral/aguinaldo-prima-vacacional': ['oficial', OFICIAL_LABORAL],
+    'laboral/despido-injustificado': ['oficial', OFICIAL_LABORAL],
+    'laboral/finiquito': ['oficial', OFICIAL_LABORAL],
+    'laboral/horas-extras': ['oficial', 'Oficiales verificados: arts. 66 y 68 de la Ley Federal del Trabajo y transitorio Cuarto del decreto DOF 01-05-2026 (9 horas extra dobles por semana en 2026).'],
+    'laboral/liquidacion-laboral': ['oficial', OFICIAL_LABORAL],
+    'seguridad-social/pension-imss': ['oficial', 'Oficiales verificados: LSS 1973 (DOF 12-03-1973 y 27-12-1990), LSS vigente (DOF 15-01-2026), INPC de INEGI y factores URV de CONSAR.'],
+    'seguridad-social/modalidad-40': ['oficial', 'Oficiales verificados: arts. 25, 147, 168 y 218 LSS, transitorio Segundo del decreto DOF 16-12-2020 y acuerdo ACDO.AS2.HCT.101026/302.P.DG (DOF 21-10-2026).'],
+    'seguridad-social/pension-invalidez': ['orientativo', 'Sin verificar contra el texto oficial vigente en esta versión; úsala como referencia.'],
+    'seguridad-social/pension-issste': ['orientativo', 'Sin verificar contra el texto oficial vigente en esta versión; úsala como referencia.'],
+    'seguridad-social/pension-viudez': ['orientativo', 'Sin verificar contra el texto oficial vigente en esta versión; úsala como referencia.'],
+    'patrimonial/herencia-sucesion': ['orientativo', 'Mixtos: arts. 1754 CCF y 93 y 150 LISR verificados; gastos notariales y funerarios son estimaciones si no capturas tus montos.'],
+    'patrimonial/deuda-bancaria': ['orientativo', ORIENTATIVO],
+    'civil/intereses-moratorios': ['orientativo', 'Mixtos: el 9% anual es el interés legal del Código Civil Federal (art. 2395); el de tu estado puede ser distinto.'],
+  };
+
+  function estadoParametros(area) {
+    var partes = location.pathname.split('/').filter(Boolean);
+    var clave = partes[1] + '/' + (partes[2] || '');
+    return PARAMETROS[clave] || ['orientativo', ORIENTATIVO];
+  }
+
   function areaActual() {
     var partes = location.pathname.split('/').filter(Boolean); // ['calculadoras', area, herramienta]
     if (partes[0] !== 'calculadoras' || !partes[1]) return null;
@@ -131,6 +156,8 @@
         area === 'laboral' && !document.getElementById('zona_salario_minimo')
           ? 'La Ley Federal del Trabajo aplica igual en todo el país; este cálculo no depende del lugar.'
           : j.local) + '</p>';
+    var est = estadoParametros(area);
+    html += '<p class="siglep-terr-param siglep-terr-' + est[0] + '">Parámetros · ' + esc(est[1]) + '</p>';
     if (lugar) {
       html += '<p class="siglep-terr-lugar">Lugar: ' + esc(lugar.municipio ? lugar.municipio + ', ' : '') + esc(lugar.nombre);
       if (area === 'laboral' && document.getElementById('zona_salario_minimo')) {
@@ -164,7 +191,8 @@
       '.siglep-terr{margin:0 0 1rem;padding:0.85rem 0.95rem;border-radius:10px;border:1px solid rgba(197,160,89,0.28);background:rgba(197,160,89,0.08);font-size:0.78rem;line-height:1.6;color:inherit}' +
       '.siglep-terr p{margin:0.25rem 0 0}' +
       '.siglep-terr-kicker{font-size:0.6rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#C5A059}' +
-      '.siglep-terr-lugar{font-weight:600}';
+      '.siglep-terr-lugar{font-weight:600}' +
+      '.siglep-terr-param{font-size:0.74rem}.siglep-terr-oficial{color:#2f855a}.siglep-terr-orientativo{color:#b7791f}';
     document.head.appendChild(st);
   }
 
@@ -241,7 +269,7 @@
     actualizar();
   }
 
-  window.__SIGLEP_TERRITORIO__ = { federal: FEDERAL, entidades: ENTIDADES, jurisdiccion: JURISDICCION, resolver: resolver, cargarMunicipios: cargarMunicipios };
+  window.__SIGLEP_TERRITORIO__ = { parametros: PARAMETROS, federal: FEDERAL, entidades: ENTIDADES, jurisdiccion: JURISDICCION, resolver: resolver, cargarMunicipios: cargarMunicipios };
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init, { once: true });

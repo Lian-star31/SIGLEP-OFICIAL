@@ -70,13 +70,13 @@
     familiar: {
       nivel: 'Estatal',
       ley: 'Legislación civil y familiar de la entidad seleccionada',
-      local: 'Pensión alimenticia, divorcio, custodia y régimen matrimonial se resuelven con el código de tu estado y ante el juez familiar local; los porcentajes de la calculadora son orientativos.',
+      local: 'Pensión alimenticia, divorcio, custodia y régimen matrimonial se resuelven con el código civil o familiar de tu estado y ante el juez familiar local; la calculadora aplica las reglas de tu entidad que tienen cifra legal.',
       municipal: false,
     },
     civil: {
       nivel: 'Estatal',
       ley: 'Código Civil de la entidad seleccionada (Código Civil Federal en asuntos federales)',
-      local: 'Daño moral, responsabilidad civil e intereses legales se rigen por el código civil de tu estado; la tasa de interés legal de la calculadora es la del Código Civil Federal (9% anual) salvo que captures otra.',
+      local: 'Daño moral, responsabilidad civil e intereses legales se rigen por el código civil de tu estado; la calculadora aplica la tasa y la regla de reparación de la entidad seleccionada (sin entidad, el Código Civil Federal).',
       municipal: false,
     },
     patrimonial: {
@@ -87,43 +87,49 @@
     },
     'patrimonial/deuda-bancaria': {
       nivel: 'Federal',
-      ley: 'Código de Comercio, Ley General de Títulos y Operaciones de Crédito y Ley de Protección y Defensa al Usuario de Servicios Financieros',
+      ley: 'Código de Comercio, Ley General de Títulos y Operaciones de Crédito y Ley para la Transparencia y Ordenamiento de los Servicios Financieros',
       local: 'Los créditos bancarios se rigen por leyes federales en todo el país; el lugar solo define el juzgado competente.',
       municipal: false,
     },
   };
 
   // Estado de verificación de los parámetros que usa cada calculadora.
-  var OFICIAL_LABORAL = 'Oficiales verificados: Ley Federal del Trabajo (última reforma DOF 14-05-2026) y salarios mínimos 2026 de CONASAMI (DOF 09-12-2025).';
-  var ORIENTATIVO = 'Orientativos: los porcentajes, costos o factores de esta calculadora no provienen de una tabla oficial ni varían por entidad; sirven para dimensionar el caso, no para fijar un monto.';
+  // Tipo de cálculo de cada herramienta:
+  //  exacto   → la ley fija la fórmula y los parámetros; el resultado depende sólo de los datos capturados.
+  //  externo  → fórmula legal exacta, pero requiere datos que emite un tercero (IMSS, Banco de México, aseguradora).
+  //  judicial → la ley deja la cuantía o una parte de ella a la valoración del juez; el resultado no es un monto definitivo.
+  //  mixto    → combina partes exactas con partes que requieren datos externos o valoración judicial (se indica cuáles).
+  var LFT_TXT = 'Ley Federal del Trabajo (última reforma DOF 14-05-2026) y salarios mínimos 2026 de CONASAMI (DOF 09-12-2025).';
   var PARAMETROS = {
-    'laboral/aguinaldo-prima-vacacional': ['oficial', OFICIAL_LABORAL],
-    'laboral/despido-injustificado': ['oficial', OFICIAL_LABORAL],
-    'laboral/finiquito': ['oficial', OFICIAL_LABORAL],
-    'laboral/horas-extras': ['oficial', 'Oficiales verificados: arts. 66 y 68 de la Ley Federal del Trabajo y transitorio Cuarto del decreto DOF 01-05-2026 (9 horas extra dobles por semana en 2026).'],
-    'laboral/liquidacion-laboral': ['oficial', OFICIAL_LABORAL],
-    'seguridad-social/pension-imss': ['oficial', 'Oficiales verificados: LSS 1973 (DOF 12-03-1973 y 27-12-1990), LSS vigente (DOF 15-01-2026), INPC de INEGI y factores URV de CONSAR.'],
-    'seguridad-social/modalidad-40': ['oficial', 'Oficiales verificados: arts. 25, 147, 168 y 218 LSS, transitorio Segundo del decreto DOF 16-12-2020 y acuerdo ACDO.AS2.HCT.101026/302.P.DG (DOF 21-10-2026).'],
-    'seguridad-social/pension-invalidez': ['oficial', 'Oficiales verificados: LSS 1973 arts. 128, 131, 164, 166, 167 y 169; LSS vigente arts. 122, 138, 140, 141 y 170 (DOF 15-01-2026); transitorio Décimo Cuarto; INPC de INEGI.'],
-    'seguridad-social/pension-issste': ['oficial', 'Oficiales verificados: transitorio Décimo de la Ley del ISSSTE (última reforma DOF 15-01-2026), tope de 10 UMA (SCJN, CT 200/2020) y UMA 2026 de INEGI.'],
-    'seguridad-social/pension-viudez': ['oficial', 'Oficiales verificados: LSS 1973 arts. 150, 153, 157, 165, 166 y 170; LSS vigente arts. 128, 131, 135, 140 y 144; transitorio Décimo Cuarto.'],
-    'patrimonial/herencia-sucesion': ['oficial', 'Oficiales verificados: arts. 1602 a 1636 y 1754 a 1759 CCF y arts. 93 y 150 LISR. Indica si el código de tu entidad reproduce la regla aplicada. Los gastos los capturas tú.'],
-    'patrimonial/deuda-bancaria': ['oficial', 'Oficiales verificados: arts. 362, 1041 y 1047 del Código de Comercio, arts. 165 y 174 LGTOC y art. 112 LFT. Las quitas no tienen porcentaje legal y no se estiman.'],
-    'civil/intereses-moratorios': ['oficial', 'Oficiales verificados: interés legal del código civil de cada una de las 32 entidades (con fecha de la compilación consultada), art. 362 del Código de Comercio y art. 174 LGTOC.'],
-    'civil/danos-perjuicios': ['oficial', 'Oficiales verificados: arts. 2104 a 2117 CCF e interés legal de cada entidad. Los montos de daño los capturas tú con tus pruebas.'],
-    'civil/responsabilidad-civil': ['oficial', 'Oficiales verificados: regla de reparación del daño del código civil de cada entidad, art. 1915 CCF y días de la LFT. En seis entidades la ley no fija tarifa y el monto lo decide el juez.'],
-    'civil/dano-moral': ['oficial', 'Oficiales verificados: art. 1916 CCF y topes locales (Baja California, Chiapas, Zacatecas y Quintana Roo). La cuantía del daño moral no tiene tarifa legal: la fija el juez.'],
-    'familiar/pension-alimenticia': ['oficial', 'Oficiales verificados: arts. 303, 308 y 311 CCF y equivalentes; rango legal de Tamaulipas (30% a 50%) y mínimo de Guerrero. La ley no fija porcentajes en las demás entidades.'],
-    'familiar/custodia-menores': ['oficial', 'Sin parámetros numéricos legales: la custodia la decide el juez por el interés superior de la niñez. La herramienta sólo reparte gastos en proporción a los ingresos (arts. 303 y 311 CCF).'],
-    'familiar/divorcio': ['oficial', 'Oficiales verificados: arts. 178, 183 y 189 CCF y tope de compensación del 50% en los códigos de 15 entidades.'],
-    'familiar/liquidacion-sociedad-conyugal': ['oficial', 'Oficiales verificados: arts. 183, 197, 203 y 204 CCF. El porcentaje de reparto es el de tus capitulaciones.'],
-    'familiar/regimen-matrimonial': ['oficial', 'Oficiales verificados: arts. 178 a 208 CCF y compensación de hasta 50% en las entidades que la prevén.'],
+    'laboral/aguinaldo-prima-vacacional': ['exacto', LFT_TXT],
+    'laboral/despido-injustificado': ['exacto', LFT_TXT],
+    'laboral/finiquito': ['exacto', LFT_TXT],
+    'laboral/horas-extras': ['exacto', 'Arts. 66 y 68 LFT y transitorio Cuarto del decreto DOF 01-05-2026 (9 horas extra dobles por semana en 2026).'],
+    'laboral/liquidacion-laboral': ['exacto', LFT_TXT],
+    'seguridad-social/modalidad-40': ['exacto', 'Arts. 25, 147, 168 y 218 LSS, transitorio Segundo del decreto DOF 16-12-2020 y acuerdo ACDO.AS2.HCT.101026/302.P.DG (DOF 21-10-2026).'],
+    'seguridad-social/pension-imss': ['mixto', 'Ley 73: exacta con las tablas de la LSS 1973. Ley 97: requiere datos externos (saldo de la AFORE, monto del seguro de sobrevivencia que cotiza la aseguradora y factor URV semanal de CONSAR).'],
+    'seguridad-social/pension-invalidez': ['externo', 'Fórmula legal exacta (LSS 1973 arts. 131, 164, 166, 167 y 169; LSS arts. 122, 138, 140 y 141). Requiere el salario promedio y las semanas que certifica el IMSS, y el porcentaje de invalidez de su dictamen.'],
+    'seguridad-social/pension-viudez': ['externo', 'Porcentajes y topes de la LSS (arts. 131, 135 y 144; LSS 1973 arts. 153, 157 y 170) y transitorio Décimo Cuarto. Requiere la pensión del fallecido que determina el IMSS.'],
+    'seguridad-social/pension-issste': ['exacto', 'Transitorio Décimo de la Ley del ISSSTE (DOF 15-01-2026) y tope de 10 UMA (SCJN, Segunda Sala, contradicción de tesis 200/2020, 17-02-2021).'],
+    'patrimonial/herencia-sucesion': ['exacto', 'Arts. 1602 a 1636 y 1754 a 1759 CCF y arts. 93 y 150 LISR. Indica si el código de tu entidad reproduce la regla aplicada y la fecha del texto consultado.'],
+    'patrimonial/deuda-bancaria': ['exacto', 'Arts. 362, 1041 y 1047 del Código de Comercio, arts. 165 y 174 LGTOC y art. 112 LFT. La interrupción de la prescripción depende de hechos que debes acreditar.'],
+    'civil/intereses-moratorios': ['exacto', 'Interés legal del código civil de tu entidad, art. 362 del Código de Comercio y art. 174 LGTOC. En cuatro entidades la tasa es un indicador del Banco de México que debes capturar.'],
+    'civil/danos-perjuicios': ['exacto', 'Arts. 2104 a 2117 CCF e interés legal de cada entidad. Suma montos acreditados; la procedencia de cada concepto la decide el juez.'],
+    'civil/responsabilidad-civil': ['judicial', 'Base legal exacta en las entidades con tarifa (art. 1915 CCF, códigos locales y días de la LFT). La unidad aplicable (salario mínimo o UMA) donde el código local dice salario mínimo, y la cuantía en las seis entidades sin tarifa, requieren valoración judicial.'],
+    'civil/dano-moral': ['judicial', 'Art. 1916 CCF y topes locales. La cuantía del daño moral no tiene tarifa legal: la fija el juez.'],
+    'familiar/pension-alimenticia': ['judicial', 'Arts. 303, 308 y 311 CCF. La proporcionalidad la aprecia el juez; sólo son exactos el rango de Tamaulipas (30% a 50%) y el mínimo de Guerrero.'],
+    'familiar/custodia-menores': ['judicial', 'La custodia la decide el juez por el interés superior de la niñez; la herramienta sólo reparte gastos en proporción a los ingresos (arts. 303 y 311 CCF).'],
+    'familiar/divorcio': ['mixto', 'Liquidación de sociedad conyugal: exacta (arts. 183 y 189 CCF). Compensación en separación de bienes: el tope legal es exacto, el monto lo fija el juez.'],
+    'familiar/liquidacion-sociedad-conyugal': ['exacto', 'Arts. 183, 197, 203 y 204 CCF con el porcentaje de tus capitulaciones.'],
+    'familiar/regimen-matrimonial': ['mixto', 'Reparto por régimen: exacto (arts. 178 a 208 CCF). Compensación: tope legal exacto; monto a criterio del juez.'],
   };
+  var ETIQUETA = { exacto: 'Cálculo legal exacto', externo: 'Requiere datos externos', judicial: 'Requiere valoración judicial', mixto: 'Mixto' };
+
 
   function estadoParametros(area) {
     var partes = location.pathname.split('/').filter(Boolean);
     var clave = partes[1] + '/' + (partes[2] || '');
-    return PARAMETROS[clave] || ['orientativo', ORIENTATIVO];
+    return PARAMETROS[clave] || ['judicial', 'Sin parámetros legales verificados para esta herramienta.'];
   }
 
   function areaActual() {
@@ -165,7 +171,12 @@
           ? 'La Ley Federal del Trabajo aplica igual en todo el país; este cálculo no depende del lugar.'
           : j.local) + '</p>';
     var est = estadoParametros(area);
-    html += '<p class="siglep-terr-param siglep-terr-' + est[0] + '">Parámetros · ' + esc(est[1]) + '</p>';
+    html += '<p class="siglep-terr-param siglep-terr-' + est[0] + '"><strong>' + esc(ETIQUETA[est[0]] || est[0]) + '</strong> · ' + esc(est[1]) + '</p>';
+    var LOC = window.__SIGLEP_LOCAL__;
+    if (lugar && LOC && LOC.vigencia && (area === 'civil' || area === 'familiar' || area === 'patrimonial')) {
+      var v = LOC.vigencia(lugar.clave);
+      html += '<p class="siglep-terr-param siglep-terr-' + (v.confirmada ? 'exacto' : 'judicial') + '">Código de ' + esc(lugar.nombre) + ' · ' + esc(v.texto) + '</p>';
+    }
     if (lugar) {
       html += '<p class="siglep-terr-lugar">Lugar: ' + esc(lugar.municipio ? lugar.municipio + ', ' : '') + esc(lugar.nombre);
       if (area === 'laboral' && document.getElementById('zona_salario_minimo')) {
@@ -200,7 +211,7 @@
       '.siglep-terr p{margin:0.25rem 0 0}' +
       '.siglep-terr-kicker{font-size:0.6rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#C5A059}' +
       '.siglep-terr-lugar{font-weight:600}' +
-      '.siglep-terr-param{font-size:0.74rem}.siglep-terr-oficial{color:#2f855a}.siglep-terr-orientativo{color:#b7791f}';
+      '.siglep-terr-param{font-size:0.74rem}.siglep-terr-exacto{color:#2f855a}.siglep-terr-externo{color:#2b6cb0}.siglep-terr-mixto{color:#6b46c1}.siglep-terr-judicial{color:#b7791f}';
     document.head.appendChild(st);
   }
 

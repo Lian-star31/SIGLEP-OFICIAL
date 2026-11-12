@@ -21,14 +21,14 @@
     BC:   ['Código Civil para el Estado de Baja California', OJN, '28-06-2024'],
     BCS:  ['Código Civil para el Estado Libre y Soberano de Baja California Sur', OJN, '20-07-2022'],
     CAM:  ['Código Civil del Estado de Campeche', OJN, '28-04-2022'],
-    COAH: ['Código Civil para el Estado de Coahuila de Zaragoza', OJN, '27-06-2023'],
+    COAH: ['Código Civil para el Estado de Coahuila de Zaragoza', 'H. Congreso de Coahuila (congresocoahuila.gob.mx)', '27-06-2023'],
     COL:  ['Código Civil para el Estado de Colima', OJN, '21-09-2023'],
     CHIS: ['Código Civil del Estado de Chiapas', OJN, '23-01-2019'],
     CHIH: ['Código Civil del Estado de Chihuahua', OJN, '16-01-2021'],
     CDMX: ['Código Civil para el Distrito Federal (Ciudad de México)', OJN, '28-08-2024'],
     DGO:  ['Código Civil del Estado de Durango', OJN, '10-03-2024'],
     GTO:  ['Código Civil para el Estado de Guanajuato', OJN, '26-05-2017'],
-    GRO:  ['Código Civil del Estado Libre y Soberano de Guerrero Número 358', OJN, '26-09-2019'],
+    GRO:  ['Código Civil del Estado Libre y Soberano de Guerrero Número 358', OJN + ' y decretos publicados hasta 2026', '26-09-2019 (cotejado con decretos 2024-2026)'],
     HGO:  ['Código Civil para el Estado de Hidalgo', OJN, '17-09-2024'],
     JAL:  ['Código Civil del Estado de Jalisco', OJN, '25-06-2024'],
     MEX:  ['Código Civil del Estado de México', 'Legislación del Estado de México (legislacion.edomex.gob.mx)', '09-11-2026'],
@@ -36,18 +36,18 @@
     MOR:  ['Código Civil para el Estado Libre y Soberano de Morelos', 'Consejería Jurídica de Morelos (marcojuridico.morelos.gob.mx)', 'versión publicada en 2026'],
     NAY:  ['Código Civil para el Estado de Nayarit', OJN, '11-06-2024'],
     NL:   ['Código Civil para el Estado de Nuevo León', 'H. Congreso de Nuevo León (hcnl.gob.mx)', '26-06-2026'],
-    OAX:  ['Código Civil para el Estado de Oaxaca', OJN, '29-10-2022'],
+    OAX:  ['Código Civil para el Estado de Oaxaca', OJN + ' (fecha confirmada por el prontuario normativo del Gobierno de Oaxaca)', '29-10-2022'],
     PUE:  ['Código Civil para el Estado Libre y Soberano de Puebla', OJN, '27-07-2023'],
-    QRO:  ['Código Civil del Estado de Querétaro', 'Poder Judicial de Querétaro (compilación 2020)', '2020'],
+    QRO:  ['Código Civil del Estado de Querétaro', 'Legislatura de Querétaro, Biblioteca Manuel Septién (publicada por el Poder Judicial)', '18-08-2023'],
     QROO: ['Código Civil para el Estado de Quintana Roo', OJN, '10-07-2024'],
     SLP:  ['Código Civil para el Estado de San Luis Potosí', OJN, '16-05-2024'],
-    SIN:  ['Código Civil para el Estado de Sinaloa', OJN, '11-03-2022'],
-    SON:  ['Código Civil para el Estado de Sonora', 'Supremo Tribunal de Justicia de Sonora (stjsonora.gob.mx)', 'sin fecha en la compilación'],
+    SIN:  ['Código Civil para el Estado de Sinaloa', 'Gobierno de Sinaloa, texto vigente (retys.sinaloa.gob.mx)', '11-03-2022'],
+    SON:  ['Código Civil para el Estado de Sonora', 'H. Congreso de Sonora (congresoson.gob.mx) y Supremo Tribunal de Justicia', 'sin fecha en la compilación'],
     TAB:  ['Código Civil para el Estado de Tabasco', OJN, '31-12-2014'],
     TAMS: ['Código Civil para el Estado de Tamaulipas', 'H. Congreso de Tamaulipas (congresotamaulipas.gob.mx)', '30-03-2026'],
-    TLAX: ['Código Civil para el Estado Libre y Soberano de Tlaxcala', OJN, '11-03-2010'],
-    VER:  ['Código Civil para el Estado de Veracruz de Ignacio de la Llave', OJN, '13-06-2022'],
-    YUC:  ['Código Civil del Estado de Yucatán', OJN, '07-06-2022'],
+    TLAX: ['Código Civil para el Estado Libre y Soberano de Tlaxcala', 'Gobierno de Tlaxcala (transparencia SEPE)', '12-03-2024'],
+    VER:  ['Código Civil para el Estado de Veracruz de Ignacio de la Llave', 'H. Congreso de Veracruz, Coordinación de Investigaciones Legislativas', '07-03-2025'],
+    YUC:  ['Código Civil del Estado de Yucatán', OJN + ' (fecha confirmada por la ficha regulatoria de Mérida)', '07-06-2022'],
     ZAC:  ['Código Civil del Estado de Zacatecas', OJN, '08-07-2023'],
   };
 
@@ -142,15 +142,16 @@
     AGS: { max: 0.5, art: '289 fr. VI' }, BC: { max: 0.5, art: '279 Bis' }, COL: { max: 0.5, art: '268 fr. VI' },
     CHIS: { max: 0.5, art: '269 fr. VII' }, CDMX: { max: 0.5, art: '267 fr. VI' }, DGO: { max: 0.5, art: '202' },
     GTO: { max: 0.5, art: '342-A' }, NAY: { max: 0.5, art: '281 A' }, NL: { max: 0.5, art: '288' },
-    PUE: { max: 0.5, art: '443 fr. VIII' }, QROO: { max: 0.5, art: '822' }, VER: { max: 0.5, art: 'capítulo III A del divorcio' },
+    PUE: { max: 0.5, art: '443 fr. VIII' }, QROO: { max: 0.5, art: '822' }, VER: { max: 0.5, art: '142' },
     MICH: { max: 0.5, art: '258 del Código Familiar' }, SLP: { max: 0.5, art: '86 Bis fr. VI del Código Familiar' }, SIN: { max: 0.5, art: '182 fr. VI del Código Familiar' },
+    YUC: { max: 0.5, art: '192 del Código de Familia (reforma 31-07-2024)' },
   };
 
 
   /* Reglas numéricas de pensión alimenticia que fija la ley local (las demás entidades sólo prevén proporcionalidad). */
   var ALIMENTOS = {
     TAMS: { minPct: 0.30, maxPct: 0.50, art: '288', regla: 'no menos del 30% ni más del 50% del sueldo o salario del deudor, incluidas sus prestaciones' },
-    GRO:  { art: '397', regla: 'nunca inferior al 40% del salario mínimo vigente o del salario percibido y sus prestaciones' },
+    GRO:  { art: '397 (adicionado el 14-10-2025 con el pago retroactivo; el mínimo no cambió)', regla: 'nunca inferior al 40% del salario mínimo vigente o del salario percibido y sus prestaciones' },
     MEX:  { art: '4.129', regla: 'entre concubinos: no menos del 40% del sueldo para quien se dedicó preponderantemente al hogar (20% si está imposibilitado para trabajar)' },
   };
 
@@ -166,6 +167,18 @@
     YUC: [0,0,0,0], ZAC: [1,0,0,1],
   };
 
+
+  /* Cotejo de vigencia (11-11-2026): 'confirmada' cuando se localizó un texto oficial vigente (congreso, poder ejecutivo
+   * o judicial local) o se revisaron los decretos posteriores y no tocan los artículos usados; 'pendiente' cuando la
+   * compilación oficial consultada es la más reciente localizada pero existen o pueden existir reformas posteriores. */
+  var VIGENCIA = {
+    MEX: 1, TAMS: 1, NL: 1, VER: 1, COAH: 1, QRO: 1, SIN: 1, SON: 1, MOR: 1, OAX: 1,
+  };
+  function vigencia(clave) {
+    var c = codigo(clave);
+    if (clave === 'FED' || VIGENCIA[clave]) return { confirmada: true, texto: 'texto vigente cotejado (' + c.fuente + ', última reforma ' + c.reforma + ').' };
+    return { confirmada: false, texto: 'compilación oficial con última reforma ' + c.reforma + ' (' + c.fuente + '); no se localizó en línea un texto consolidado oficial posterior: confirma que el artículo citado no haya cambiado.' };
+  }
 
   function codigo(clave) { var c = CODIGOS[clave] || CODIGOS.FED; return { nombre: c[0], fuente: c[1], reforma: c[2] }; }
   /* Días que fija la Ley Federal del Trabajo por tipo de daño (arts. 491, 492, 495, 500 y 502). */
@@ -200,7 +213,6 @@
       var unidad = r.unidad === 'UMA' ? UMA_DIARIA : sm;
       var mult = (d.dano === 'muerte' && r.multMuerte) ? r.multMuerte : r.mult;
       base = unidad * mult;
-      if (r.unidad === 'SM') out.equivalenteUMA = UMA_DIARIA * mult * (dias + (d.dano === 'muerte' ? DIAS_LFT.funeral : 0));
     } else if (r.tipo === 'salario') {
       base = sal > 0 ? sal : r.sinIngreso * sm;
       if (r.min && !(r.minSoloIncap && d.dano === 'muerte')) base = Math.max(base, r.min * sm);
@@ -227,6 +239,14 @@
       var minimo = r.muerteMin.dias * (d.menor ? 2 : r.muerteMin.mult) * sm;
       if (out.monto < minimo) { out.monto = minimo; out.detalle = 'se aplica el mínimo legal por muerte'; }
     }
+    // Si la regla local usa el salario mínimo como base, tope o mínimo, se calcula también con la UMA:
+    // art. 123, apartado A, fr. VI constitucional y transitorio Tercero del decreto DOF 27-01-2016 (desindexación).
+    out.usaSM = r.unidad === 'SM' || ((r.tipo === 'salario' || r.tipo === 'dias') && !d._uma);
+    if (out.usaSM && !d._uma) {
+      var alt = reparacion(clave, Object.assign({}, d, { sm: UMA_DIARIA, _uma: true }));
+      out.equivalenteUMA = alt.monto;
+      if (Math.abs(alt.monto - out.monto) < 0.005) out.usaSM = false;
+    }
     return out;
   }
 
@@ -238,6 +258,6 @@
   root.__SIGLEP_LOCAL__ = {
     UMA_DIARIA: UMA_DIARIA, UMA_MENSUAL: UMA_MENSUAL, SM_GENERAL: SM_GENERAL, SM_ZLFN: SM_ZLFN,
     CODIGOS: CODIGOS, INTERES: INTERES, REPARACION: REPARACION, COMPENSACION: COMPENSACION,
-    ALIMENTOS: ALIMENTOS, SUCESION: SUCESION, DIAS_LFT: DIAS_LFT, codigo: codigo, cita: cita, reparacion: reparacion,
+    ALIMENTOS: ALIMENTOS, SUCESION: SUCESION, DIAS_LFT: DIAS_LFT, codigo: codigo, cita: cita, reparacion: reparacion, vigencia: vigencia, VIGENCIA: VIGENCIA,
   };
 })(typeof window !== 'undefined' ? window : globalThis);

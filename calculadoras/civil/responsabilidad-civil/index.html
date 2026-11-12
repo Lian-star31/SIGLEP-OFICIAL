@@ -393,7 +393,7 @@
     }
   </style>
 
-  <script defer src="/shared/site-shell.js?v=20261111e"></script>
+  <script defer src="/shared/site-shell.js?v=20261111f"></script>
 <link rel="stylesheet" href="/shared/mobile.css?v=20261111d">
 </head>
 <body>
@@ -540,7 +540,8 @@
           <li>Ley Federal del Trabajo (última reforma DOF 14-05-2026): incapacidad temporal, salario íntegro por los días de incapacidad (art. 491); permanente parcial, porcentaje de la tabla sobre 1,095 días (art. 492); permanente total, 1,095 días (art. 495); muerte, 5,000 días (art. 502) más dos meses de gastos funerarios (art. 500).</li>
           <li>Cada entidad tiene su propia regla de cuantificación; la calculadora aplica la del código civil de la entidad seleccionada y cita su artículo.</li>
           <li>UMA 2026: $117.31 diarios (INEGI, DOF 09-01-2026). Salario mínimo 2026: $315.04, y $440.87 en la Zona Libre de la Frontera Norte (CONASAMI, DOF 09-12-2025).</li>
-          <li>SCJN, Pleno, ADR 7469/2024 (2026): la base en UMA del art. 1915 CCF es constitucional y no constituye un tope rígido; el juez puede individualizar la reparación integral.</li>
+          <li>SCJN, Pleno, proyecto de sentencia del ADR 7469/2024 (publicado en noviembre de 2025): el art. 1915, segundo párrafo, CCF, que calcula con la UMA y los días de la LFT, no viola el derecho a la reparación integral; recuerda que el art. 123, apartado A, fr. VI constitucional prohíbe usar el salario mínimo como referencia para obligaciones civiles.</li>
+          <li>Donde el código local sigue diciendo “salario mínimo”, la calculadora muestra el monto literal y el monto con UMA (transitorio Tercero del decreto de desindexación, DOF 27-01-2016); cuál aplica lo resuelve el juez.</li>
         </ul>
       </div>
     
@@ -571,7 +572,7 @@
       
         <details class="faq-item">
           <summary>¿Sirve para acordar una cifra?</summary>
-          <p>Sí: el monto legal es un mínimo de referencia; la SCJN ha señalado que no es un tope rígido y que la reparación debe ser integral.</p>
+          <p>Sí: es el monto que resulta de la regla legal de tu entidad. Donde el código dice salario mínimo, verás también el monto con UMA, porque la unidad aplicable la decide el juez.</p>
         </details>
       
         </div>
@@ -591,7 +592,7 @@
     <div class="footer-space"></div>
   </main>
   <footer></footer>
-  <script src="/shared/parametros-locales.js?v=20261111e"></script>
+  <script src="/shared/parametros-locales.js?v=20261111f"></script>
   <script>
     const L = window.__SIGLEP_LOCAL__;
     const money = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -643,10 +644,12 @@
       if (r.funeral) rows.push(['Gastos funerarios legales', money.format(r.funeral)]);
       rows.push(['Indemnización legal', money.format(r.monto)]);
       if (d.gastos) rows.push(['Gastos comprobados', money.format(d.gastos)]);
-      if (r.equivalenteUMA !== null) rows.push(['Si el juez aplica la UMA en lugar del salario mínimo (desindexación, DOF 27-01-2016)', money.format(r.equivalenteUMA + (d.gastos || 0))]);
+      if (r.usaSM) rows.push(['Con UMA en lugar de salario mínimo (art. 123-A fr. VI constitucional y desindexación DOF 27-01-2016)', money.format(r.equivalenteUMA + (d.gastos || 0))]);
+      const vig = L.vigencia(lugar.clave);
+      rows.push(['Vigencia del texto local', vig.texto]);
       if (r.detalle) rows.push(['Observación', r.detalle]);
       if (regla.nota) rows.push(['Nota del código', regla.nota]);
-      pintar(r.total, rows, 'Monto mínimo legal de referencia. La reparación debe ser integral: el juez puede ajustarla y el daño moral se reclama por separado.');
+      pintar(r.total, rows, r.usaSM ? 'Monto con la literalidad del código local (salario mínimo). Si el juez aplica la UMA, el monto es el que se indica abajo. El daño moral se reclama por separado.' : 'Monto que resulta de la regla legal de la entidad. El daño moral se reclama por separado.');
     }
     $('calcButton').addEventListener('click', runCalc);
     document.querySelectorAll('#calc-form input, #calc-form select').forEach(el => el.addEventListener('input', runCalc));
